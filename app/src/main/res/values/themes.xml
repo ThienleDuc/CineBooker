@@ -6,4 +6,11 @@
     </style>
 
     <style name="Theme.CineBooker" parent="Base.Theme.CineBooker" />
+
+    <style name="BoldTextAppearance">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+
 </resources>
