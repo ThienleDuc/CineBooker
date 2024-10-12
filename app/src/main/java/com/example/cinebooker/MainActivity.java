@@ -3,8 +3,11 @@ package com.example.cinebooker;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.FrameLayout;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -25,9 +28,28 @@ public class MainActivity extends AppCompatActivity {
     private void loadFragment(Fragment fragment) {
         // Thay thế Fragment hiện tại bằng Fragment đã chọn
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction(); // Chuển trang
-        transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left); // Tạo hiê ứng chuển trang
+        // transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left);
         transaction.replace(R.id.fragment_container, fragment);
         transaction.commit();
+    }
+
+    public void showOverlayFragment(Fragment fragment) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.overlay_fragment_container, fragment);
+        transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left);
+        transaction.addToBackStack(null);
+        transaction.commit();
+
+        // Hiển thị FrameLayout đè lên
+        FrameLayout overlayContainer = findViewById(R.id.overlay_fragment_container);
+        overlayContainer.setVisibility(View.VISIBLE);
+    }
+
+    public void hideOverlayFragment() {
+        // Ẩn Fragment và FrameLayout khi không cần hiển thị nữa
+        getSupportFragmentManager().popBackStack();
+        FrameLayout overlayContainer = findViewById(R.id.overlay_fragment_container);
+        overlayContainer.setVisibility(View.GONE);
     }
 
     @Override
@@ -69,5 +91,23 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+        // Thêm callback cho sự kiện quay lại
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                FrameLayout overlayContainer = findViewById(R.id.overlay_fragment_container);
+
+                // Nếu overlay đang hiển thị, ẩn nó
+                if (overlayContainer.getVisibility() == View.VISIBLE) {
+                    hideOverlayFragment();
+                } else {
+                    // Nếu không, thực hiện hành động mặc định (quay lại trang trước)
+                    MainActivity.super.onBackPressed();
+                }
+            }
+        };
+        getOnBackPressedDispatcher().addCallback(this, callback);
     }
+
 }

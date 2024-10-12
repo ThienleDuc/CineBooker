@@ -7,6 +7,12 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+
+import com.example.cinebooker.profile.cap_bac;
+import com.example.cinebooker.profile.ngan_hang;
+import com.example.cinebooker.profile.taikhoan_baomat;
+import com.example.cinebooker.profile.voucher;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -58,7 +64,29 @@ public class Profile extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_profile, container, false);
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+        LinearLayout action_level = view.findViewById(R.id.action_level);
+        LinearLayout action_voucher = view.findViewById(R.id.action_voucher);
+        LinearLayout action_bank= view.findViewById(R.id.action_bank_bulding);
+        LinearLayout action_account = view.findViewById(R.id.action_account);
+
+        setLinearLayoutClickListener(action_level, new cap_bac());
+        setLinearLayoutClickListener(action_bank, new ngan_hang());
+        setLinearLayoutClickListener(action_account, new taikhoan_baomat());
+        setLinearLayoutClickListener(action_voucher, new voucher());
+
+        return view;
+    }
+
+    private void setLinearLayoutClickListener(LinearLayout linearLayout, Fragment overlayFragment) {
+        linearLayout.setOnClickListener(v -> showOverlayFragment(overlayFragment));
+    }
+
+    private void showOverlayFragment(Fragment fragment) {
+        // Gọi đến phương thức trong MainActivity
+        if (getActivity() instanceof MainActivity) {
+            ((MainActivity) getActivity()).showOverlayFragment(fragment);
+        }
     }
 }

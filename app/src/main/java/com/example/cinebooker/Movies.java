@@ -112,6 +112,7 @@ public class Movies extends Fragment {
                 ContextCompat.getColorStateList(getContext(), R.color.tab_icon_color)
         );
 
+
         return view;
     }
 }
