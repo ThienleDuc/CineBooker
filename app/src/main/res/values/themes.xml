@@ -7,10 +7,13 @@
 
     <style name="Theme.CineBooker" parent="Base.Theme.CineBooker" />
 
-    <style name="BoldTextAppearance">
+    <style name="BottomNavigationBoldTextAppearance">
         <item name="android:textStyle">bold</item>
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">12sp</item>
     </style>
 
-
+    <style name="TabLayoutBoldTextAppearance">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">14sp</item>
+    </style>
 </resources>

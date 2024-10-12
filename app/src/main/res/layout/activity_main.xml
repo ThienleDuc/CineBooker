@@ -20,12 +20,12 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
         android:background="@color/black"
-        app:itemIconSize="30dp"
+        app:itemIconSize="20dp"
         app:itemIconTint="@color/nav_item_icon_color"
-        app:itemTextAppearanceActive="@style/BoldTextAppearance"
-        app:itemTextAppearanceInactive="@style/BoldTextAppearance"
+        app:itemTextAppearanceActive="@style/BottomNavigationBoldTextAppearance"
+        app:itemTextAppearanceInactive="@style/BottomNavigationBoldTextAppearance"
         app:itemTextColor="@color/nav_item_title_color"
         app:labelVisibilityMode="labeled"
         app:menu="@menu/menu_bottom_navigation" />

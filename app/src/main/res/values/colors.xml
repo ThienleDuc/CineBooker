@@ -2,7 +2,9 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="primary_color">#D42A87</color>
     <color name="colorSelected">#D42A87</color>
     <color name="colorUnSelected">#FFFFFFFF</color>
     <color name="colorIconNavigation">#B1B1B1</color>
+    <color name="colorFrameTicketsBackground">#D42A87</color>
 </resources>

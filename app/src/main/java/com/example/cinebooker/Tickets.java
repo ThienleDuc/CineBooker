@@ -2,11 +2,18 @@ package com.example.cinebooker;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.cinebooker.tickets.TicketsViewPagerAdapter;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,6 +30,10 @@ public class Tickets extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private TabLayout tabLayout;
+    private ViewPager2 viewPager;
+    private TicketsViewPagerAdapter adapter;
 
     public Tickets() {
         // Required empty public constructor
@@ -58,7 +69,59 @@ public class Tickets extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_tickets, container, false);
+        View view = inflater.inflate(R.layout.fragment_tickets, container, false);
+
+        tabLayout = view.findViewById(R.id.tickets_tab_layout);
+        viewPager = view.findViewById(R.id.tickets_view_pager);
+
+        adapter = new TicketsViewPagerAdapter(requireActivity());
+        viewPager.setAdapter(adapter);
+
+        String[] tabTitles = new String[] {
+                "Chưa sử dụng",
+                "Đã sử dụng"
+        };
+
+        new TabLayoutMediator(tabLayout, viewPager, new TabLayoutMediator.TabConfigurationStrategy() {
+            @Override
+            public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
+                tab.setText(tabTitles[position]);
+            }
+        }).attach();
+
+        tabLayout.setTabTextColors(
+                ContextCompat.getColor(getContext(), R.color.colorSelected),
+                ContextCompat.getColor(getContext(), R.color.colorUnSelected)
+        );
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                // Đổi màu nền của tab được chọn
+                View selectedTabView = tab.view;
+                selectedTabView.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorSelected));
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                // Đổi màu nền của tab khi bỏ chọn
+                View unselectedTabView = tab.view;
+                unselectedTabView.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorUnSelected));
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+        TabLayout.Tab firstTab = tabLayout.getTabAt(0);
+        if (firstTab != null) {
+            firstTab.select();  // Chọn tab đầu tiên
+            View selectedTabView = firstTab.view;
+            selectedTabView.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorSelected));
+        }
+
+        return view;
     }
 }

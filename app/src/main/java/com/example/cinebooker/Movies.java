@@ -1,12 +1,21 @@
 package com.example.cinebooker;
 
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
+
+import com.example.cinebooker.movies.MoviesViewPagerAdapter;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,6 +32,10 @@ public class Movies extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private TabLayout tabLayout;
+    private ViewPager2 viewPager;
+    private MoviesViewPagerAdapter adapter;
 
     public Movies() {
         // Required empty public constructor
@@ -58,7 +71,47 @@ public class Movies extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_movies, container, false);
+        View view = inflater.inflate(R.layout.fragment_movies, container, false);
+
+        tabLayout = view.findViewById(R.id.movies_tab_layout);
+        viewPager = view.findViewById(R.id.movies_view_pager);
+
+        adapter = new MoviesViewPagerAdapter(requireActivity());
+        viewPager.setAdapter(adapter);
+
+        String[] tabTitles = new String[] {
+                "Khám Phá",
+                "Lịch Chiếu",
+                "Đang Chiếu",
+                "Sắp Chiếu",
+                "Rạp Chiếu",
+                "Xếp Hạng"
+        };
+
+        int[] tabIcons = new int[] {
+                R.drawable.compass,
+                R.drawable.calendar_plus,
+                R.drawable.film_reel,
+                R.drawable.future,
+                R.drawable.colosseum,
+                R.drawable.signal
+        };
+        new TabLayoutMediator(tabLayout, viewPager, new TabLayoutMediator.TabConfigurationStrategy() {
+            @Override
+            public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
+                tab.setText(tabTitles[position]);
+            }
+        }).attach();
+
+        tabLayout.setTabTextColors(
+                ContextCompat.getColor(getContext(), R.color.colorUnSelected),
+                ContextCompat.getColor(getContext(), R.color.colorSelected)
+        );
+
+        tabLayout.setTabIconTint(
+                ContextCompat.getColorStateList(getContext(), R.color.tab_icon_color)
+        );
+
+        return view;
     }
 }
