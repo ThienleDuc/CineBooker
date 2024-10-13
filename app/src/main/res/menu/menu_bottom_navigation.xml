@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Item Phim -->
+    <item
+        android:id="@+id/action_movies"
+        android:title="@string/action_films"
+        android:icon="@drawable/cinema" />
+
+    <!-- Item Tìm kiếm -->
+    <item
+        android:id="@+id/action_search"
+        android:title="@string/action_search"
+        android:icon="@drawable/search" />
+
+    <!-- Item Vé phim -->
+    <item
+        android:id="@+id/action_tickets"
+        android:title="@string/action_move_ticket"
+        android:icon="@drawable/movie_ticket" />
+
+    <!-- Item Tôi -->
+    <item
+        android:id="@+id/action_profile"
+        android:title="@string/action_profile"
+        android:icon="@drawable/profile" />
+
+</menu>
