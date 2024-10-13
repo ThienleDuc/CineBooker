@@ -141,6 +141,10 @@
                     />
             </LinearLayout>
 
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="10dp"/>
+
             <LinearLayout
                 android:id="@+id/action_voucher"
                 android:layout_width="match_parent"
@@ -176,6 +180,10 @@
                     />
             </LinearLayout>
 
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="10dp"/>
+
             <LinearLayout
                 android:id="@+id/action_bank_bulding"
                 android:layout_width="match_parent"
@@ -210,6 +218,10 @@
                     android:src="@drawable/more"
                     />
             </LinearLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="10dp"/>
 
             <LinearLayout
                 android:id="@+id/action_account"
@@ -293,6 +305,10 @@
                     />
             </LinearLayout>
 
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="10dp"/>
+
             <LinearLayout
                 android:id="@+id/action_phanhoi"
                 android:layout_width="match_parent"
@@ -327,6 +343,10 @@
                     android:src="@drawable/more"
                     />
             </LinearLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="10dp"/>
 
             <LinearLayout
                 android:id="@+id/action_chungtoi"
@@ -410,6 +430,10 @@
                     android:src="@drawable/more"
                     />
             </LinearLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="10dp"/>
 
             <LinearLayout
                 android:id="@+id/action_dieukhoan"
