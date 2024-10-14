@@ -33,7 +33,7 @@
 
         <EditText
             android:id="@+id/username_input"
-            android:layout_width="327dp"
+            android:layout_width="334dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:background="@drawable/khung_editview"
@@ -46,7 +46,7 @@
 
         <EditText
             android:id="@+id/password_input"
-            android:layout_width="331dp"
+            android:layout_width="334dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:background="@drawable/khung_editview"
@@ -60,7 +60,7 @@
 
         <Button
             android:id="@+id/login_btn"
-            android:layout_width="330dp"
+            android:layout_width="334dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:background="@drawable/khung_editview"
@@ -84,6 +84,7 @@
                 android:textColor="@color/white" />
 
             <TextView
+                android:id="@+id/register_lg"
                 android:layout_width="82dp"
                 android:layout_height="wrap_content"
                 android:text="Đăng kí"
@@ -101,7 +102,7 @@
 
         <Button
             android:id="@+id/login_btn_1"
-            android:layout_width="330dp"
+            android:layout_width="334dp"
             android:layout_height="58dp"
             android:layout_marginTop="30dp"
             android:background="@drawable/khung_fragment"

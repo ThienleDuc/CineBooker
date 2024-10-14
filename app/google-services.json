@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "379032190634",
+    "project_id": "testapp-bceed",
+    "storage_bucket": "testapp-bceed.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:379032190634:android:73344fbb4fbf4536bedad3",
+        "android_client_info": {
+          "package_name": "com.example.cinebooker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "379032190634-t6lh3d9fo2kppp1b0e41oaeuk32m411r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWLMR9XpzSovim2uWf7e89Ghcdb2xCyH0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "379032190634-t6lh3d9fo2kppp1b0e41oaeuk32m411r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
