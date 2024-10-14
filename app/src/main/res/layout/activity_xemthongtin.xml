@@ -98,7 +98,7 @@
                     <ImageView
                         android:layout_width="84dp"
                         android:layout_height="100dp"
-                        android:src="@drawable/phim1" />
+                        android:src="@drawable/phimcam" />
 
                     <LinearLayout
                         android:layout_width="225dp"
@@ -174,9 +174,9 @@
 
                     <TextView
 
-                        android:layout_width="58dp"
+                        android:layout_width="120dp"
                         android:layout_height="wrap_content"
-                        android:text="Thời gian"
+                        android:text="                        Thời gian"
                         android:textColor="@color/black"
                         android:textSize="8dp" />
 
@@ -191,9 +191,9 @@
 
                     <TextView
 
-                        android:layout_width="131dp"
+                        android:layout_width="165dp"
                         android:layout_height="wrap_content"
-                        android:text="                                 Thứ 4, 02/10/2024"
+                        android:text="                       Thứ 4,02/10/2024"
                         android:textColor="@color/black"
                         android:textSize="8dp"
                         android:textStyle="bold" />

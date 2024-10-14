@@ -21,8 +21,9 @@
 
             <LinearLayout
                 android:layout_width="290dp"
-                android:layout_height="150dp"
+                android:layout_height="160dp"
                 android:orientation="vertical">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -40,27 +41,29 @@
                         android:text="   02/09/2024 18:30"
                         android:textColor="@color/black"
                         android:textSize="8dp" />
+
                     <TextView
-                        android:layout_marginLeft="10dp"
                         android:layout_width="184dp"
                         android:layout_height="20dp"
+                        android:layout_marginLeft="10dp"
                         android:gravity="start|center"
                         android:text="   02/09/2024 18:30"
                         android:textColor="@color/black"
                         android:textSize="8dp"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
+                    android:layout_marginLeft="7dp"
                     android:orientation="horizontal">
 
                     <ImageView
                         android:layout_width="84dp"
                         android:layout_height="100dp"
-                        android:src="@drawable/phim1" />
+                        android:src="@drawable/phimcam" />
 
                     <LinearLayout
                         android:layout_width="225dp"
@@ -128,8 +131,8 @@
                 <Button
                     android:id="@+id/button_2"
                     android:layout_width="110dp"
-                    android:layout_height="20dp"
-                    android:layout_marginLeft="180dp"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="170dp"
                     android:background="@drawable/khung_button3"
                     android:text="XEM THÔNG TIN"
                     android:textColor="@color/white"
@@ -148,7 +151,7 @@
 
             <LinearLayout
                 android:layout_width="290dp"
-                android:layout_height="150dp"
+                android:layout_height="160dp"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -168,15 +171,16 @@
                         android:text="   02/09/2024 18:30"
                         android:textColor="@color/black"
                         android:textSize="8dp" />
+
                     <TextView
-                        android:layout_marginLeft="10dp"
                         android:layout_width="184dp"
                         android:layout_height="20dp"
+                        android:layout_marginLeft="10dp"
                         android:gravity="start|center"
                         android:text="   02/09/2024 18:30"
                         android:textColor="@color/black"
                         android:textSize="8dp"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold" />
                 </LinearLayout>
 
 
@@ -184,12 +188,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
+                    android:layout_marginLeft="7dp"
                     android:orientation="horizontal">
 
                     <ImageView
                         android:layout_width="84dp"
                         android:layout_height="100dp"
-                        android:src="@drawable/phim1" />
+                        android:src="@drawable/phimcam" />
 
                     <LinearLayout
                         android:layout_width="225dp"
@@ -257,8 +262,8 @@
                 <Button
                     android:id="@+id/button_1"
                     android:layout_width="110dp"
-                    android:layout_height="20dp"
-                    android:layout_marginLeft="180dp"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="170dp"
                     android:background="@drawable/khung_button3"
                     android:text="XEM THÔNG TIN"
                     android:textColor="@color/white"
