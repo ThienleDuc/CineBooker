@@ -18,10 +18,11 @@ public class SpaceItemDecoration extends RecyclerView.ItemDecoration {
 
         // Thêm khoảng cách dưới mỗi item
         outRect.bottom = spaceHeight;
+        outRect.top = spaceHeight;
 
         // Thêm khoảng cách cho item đầu tiên (nếu cần)
         if (parent.getChildAdapterPosition(view) == 0) {
-            outRect.top = spaceHeight;
+            outRect.top = 0;
         }
     }
 }
