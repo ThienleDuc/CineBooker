@@ -17,10 +17,12 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.cinebooker.R;
+import com.example.cinebooker.fragment.LoginDemo;
 import com.example.cinebooker.fragment.Movies;
 import com.example.cinebooker.fragment.Profile;
 import com.example.cinebooker.fragment.Search;
 import com.example.cinebooker.fragment.Tickets;
+import com.example.cinebooker.fragment.startapp;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.HashMap;
@@ -30,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Map<Integer, Fragment> fragmentMap;
 
-    private void loadFragment(Fragment fragment) {
+    public void loadFragment(Fragment fragment) {
         // Thay thế Fragment hiện tại bằng Fragment đã chọn
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction(); // Chuển trang
         // transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -52,7 +54,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void hideOverlayFragment() {
         // Ẩn Fragment và FrameLayout khi không cần hiển thị nữa
-        getSupportFragmentManager().popBackStack();
+        Fragment overlayFragment = getSupportFragmentManager().findFragmentById(R.id.overlay_fragment_container);
+        if (overlayFragment != null) {
+            getSupportFragmentManager().beginTransaction().remove(overlayFragment).commit();
+        }
+
         FrameLayout overlayContainer = findViewById(R.id.overlay_fragment_container);
         overlayContainer.setVisibility(View.GONE);
     }
@@ -69,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
+
         // Khởi tạo fragment map
         fragmentMap = new HashMap<>();
         fragmentMap.put(R.id.action_movies, new Movies());
@@ -78,9 +85,9 @@ public class MainActivity extends AppCompatActivity {
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
-        // Load Fragment mặc định khi ứng dụng khởi chạy
+        // Khởi chạy fragment startapp mặc định khi ứng dụng mở lên
         if (savedInstanceState == null) {
-            loadFragment(new Movies());
+            showOverlayFragment(new startapp());
         }
 
         bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
