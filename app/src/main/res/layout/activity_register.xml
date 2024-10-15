@@ -28,7 +28,7 @@
                 android:layout_marginTop="10dp"
                 android:text="Quay lại"
                 android:textColor="@color/white"
-                android:textSize="10dp" />
+                android:textSize="12dp" />
 
             <ImageView
                 android:layout_width="141dp"

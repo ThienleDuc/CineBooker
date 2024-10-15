@@ -109,13 +109,15 @@
                         android:layout_width="225dp"
                         android:layout_height="match_parent"
                         android:gravity="start"
+                        android:layout_marginLeft="5dp"
                         android:orientation="vertical">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-
+                            android:textSize="10dp"
                             android:text="18+"
+                            android:layout_marginTop="7dp"
                             android:textColor="@color/red"
                             android:textStyle="bold" /> <!-- Đặt kiểu chữ đậm -->
 
@@ -127,7 +129,7 @@
                             android:layout_marginTop="5dp"
                             android:text="Cám"
                             android:textColor="@color/pink"
-                            android:textSize="20dp"
+                            android:textSize="15dp"
                             android:textStyle="bold" /> <!-- Đặt kiểu chữ đậm -->
                         <TextView
                             android:layout_width="wrap_content"
@@ -136,7 +138,7 @@
                             android:layout_marginTop="2dp"
                             android:text="Kinh dị"
                             android:textColor="@android:color/black"
-                            android:textSize="11dp"
+                            android:textSize="10dp"
                             tools:ignore="TextSizeCheck" />
 
                         <LinearLayout
@@ -155,12 +157,13 @@
                                 android:textColor="@color/black" />
 
                             <TextView
+                                android:textStyle="bold"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:drawableStart="@drawable/icon_cgv"
                                 android:gravity="start|center"
                                 android:paddingHorizontal="20dp"
-                                android:text="    CGV Vincom Plaza Đà Nẵng"
+                                android:text=" CGV Vincom Plaza Đà Nẵng"
                                 android:textColor="@color/black"
                                 android:textSize="10dp"
                                 tools:ignore="TextSizeCheck" />
@@ -181,7 +184,7 @@
 
                         android:layout_width="58dp"
                         android:layout_height="wrap_content"
-                        android:text="Thời gian"
+                        android:text="       Thời gian"
                         android:textColor="@color/black"
                         android:textSize="8dp" />
 
