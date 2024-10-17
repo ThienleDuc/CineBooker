@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LeDucThien.adapter.fragment.xephangngay"
+    tools:context=".PhanCongQuoc.adapter.fragment.xephangngay"
     android:orientation="vertical"
     android:background="@android:color/black">
 

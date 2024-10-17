@@ -16,10 +16,10 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.cinebooker.LeDucThien.fragment.Movies;
-import com.example.cinebooker.LeDucThien.fragment.Profile;
-import com.example.cinebooker.LeDucThien.fragment.Search;
-import com.example.cinebooker.LeDucThien.fragment.Tickets;
+import com.example.cinebooker.PhanCongQuoc.fragment.Movies;
+import com.example.cinebooker.PhanCongQuoc.fragment.Profile;
+import com.example.cinebooker.PhanCongQuoc.fragment.Search;
+import com.example.cinebooker.PhanCongQuoc.fragment.Tickets;
 import com.example.cinebooker.R;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;

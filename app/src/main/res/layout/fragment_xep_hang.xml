@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".LeDucThien.adapter.fragment.xep_hang"
+    tools:context=".PhanCongQuoc.adapter.fragment.xep_hang"
     android:background="@android:color/black">
 
     <LinearLayout
