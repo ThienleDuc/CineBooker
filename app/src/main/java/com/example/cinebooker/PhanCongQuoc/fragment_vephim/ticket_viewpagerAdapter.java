@@ -1,4 +1,4 @@
-package fragment_vephim;
+package com.example.cinebooker.PhanCongQuoc.fragment_vephim;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;

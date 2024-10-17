@@ -1,6 +1,5 @@
-package fragment_vephim;
+package com.example.cinebooker.PhanCongQuoc.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -8,16 +7,16 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageView;
 
 import com.example.cinebooker.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link Ticket_chuadungFragment#newInstance} factory method to
+ * Use the {@link cap_bac#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Ticket_chuadungFragment extends Fragment {
+public class cap_bac extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -27,8 +26,9 @@ public class Ticket_chuadungFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private ImageView level_back;
 
-    public Ticket_chuadungFragment() {
+    public cap_bac() {
         // Required empty public constructor
     }
 
@@ -38,11 +38,11 @@ public class Ticket_chuadungFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment Ticket_chuadungFragment.
+     * @return A new instance of fragment cap_bac.
      */
     // TODO: Rename and change types and number of parameters
-    public static Ticket_chuadungFragment newInstance(String param1, String param2) {
-        Ticket_chuadungFragment fragment = new Ticket_chuadungFragment();
+    public static cap_bac newInstance(String param1, String param2) {
+        cap_bac fragment = new cap_bac();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -62,26 +62,16 @@ public class Ticket_chuadungFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_ticket_chuadung, container, false);
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_cap_bac, container, false);
 
-        Button button1 = view.findViewById(R.id.button_1); // Ensure these IDs match your layout
-        Button button2 = view.findViewById(R.id.button_2); // Ensure these IDs match your layout
-
-        button1.setOnClickListener(new View.OnClickListener() {
+        level_back = view.findViewById(R.id.level_back);
+        level_back.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), xuatveFragment.class);
-                startActivity(intent);
+            public void onClick(View view) {
+                requireActivity().onBackPressed();
             }
         });
-
-        button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), xuatveFragment.class);
-                startActivity(intent);
-            }
-        });
-
-        return view;  }
+        return view;
+    }
 }

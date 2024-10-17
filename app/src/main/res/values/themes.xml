@@ -14,6 +14,14 @@
 
     <style name="TabLayoutBoldTextAppearance">
         <item name="android:textStyle">bold</item>
+<<<<<<< HEAD
         <item name="android:textSize">14sp</item>
     </style>
+=======
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <dimen name="recycler_view_spacing_5">5dp</dimen>
+    <dimen name="recycler_view_spacing_7_5">7.5dp</dimen>
+>>>>>>> CauTruc
 </resources>

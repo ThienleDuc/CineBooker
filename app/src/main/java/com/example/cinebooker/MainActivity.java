@@ -3,7 +3,7 @@ package com.example.cinebooker;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
-import fragment_vephim.loginFragment;
+import com.example.cinebooker.PhanCongQuoc.fragment_vephim.loginFragment;
 
 public class MainActivity extends AppCompatActivity {
 

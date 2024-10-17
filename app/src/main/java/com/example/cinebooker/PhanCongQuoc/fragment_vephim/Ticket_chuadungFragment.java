@@ -1,4 +1,4 @@
-package fragment_vephim;
+package com.example.cinebooker.PhanCongQuoc.fragment_vephim;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,10 +14,10 @@ import com.example.cinebooker.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link ticket_dadungFragment#newInstance} factory method to
+ * Use the {@link Ticket_chuadungFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ticket_dadungFragment extends Fragment {
+public class Ticket_chuadungFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -28,7 +28,7 @@ public class ticket_dadungFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public ticket_dadungFragment() {
+    public Ticket_chuadungFragment() {
         // Required empty public constructor
     }
 
@@ -38,11 +38,11 @@ public class ticket_dadungFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment ticket_dadungFragment.
+     * @return A new instance of fragment Ticket_chuadungFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ticket_dadungFragment newInstance(String param1, String param2) {
-        ticket_dadungFragment fragment = new ticket_dadungFragment();
+    public static Ticket_chuadungFragment newInstance(String param1, String param2) {
+        Ticket_chuadungFragment fragment = new Ticket_chuadungFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -62,7 +62,7 @@ public class ticket_dadungFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_ticket_dadung, container, false);
+        View view = inflater.inflate(R.layout.fragment_ticket_chuadung, container, false);
 
         Button button1 = view.findViewById(R.id.button_1); // Ensure these IDs match your layout
         Button button2 = view.findViewById(R.id.button_2); // Ensure these IDs match your layout
@@ -70,7 +70,7 @@ public class ticket_dadungFragment extends Fragment {
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), xemthongtinFragment.class);
+                Intent intent = new Intent(getActivity(), xuatveFragment.class);
                 startActivity(intent);
             }
         });
@@ -78,10 +78,10 @@ public class ticket_dadungFragment extends Fragment {
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), xemthongtinFragment.class);
+                Intent intent = new Intent(getActivity(), xuatveFragment.class);
                 startActivity(intent);
             }
         });
 
-        return view; }
+        return view;  }
 }

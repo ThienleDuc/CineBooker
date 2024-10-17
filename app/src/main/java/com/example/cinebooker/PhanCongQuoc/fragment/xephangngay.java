@@ -1,4 +1,4 @@
-package fragment_vephim;
+package com.example.cinebooker.PhanCongQuoc.fragment;
 
 import android.os.Bundle;
 
@@ -12,10 +12,10 @@ import com.example.cinebooker.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link xemthongtinFragment#newInstance} factory method to
+ * Use the {@link xephangngay#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class xemthongtinFragment extends Fragment {
+public class xephangngay extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,7 +26,7 @@ public class xemthongtinFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public xemthongtinFragment() {
+    public xephangngay() {
         // Required empty public constructor
     }
 
@@ -36,11 +36,11 @@ public class xemthongtinFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment xemthonhtinFragment.
+     * @return A new instance of fragment xephangngay.
      */
     // TODO: Rename and change types and number of parameters
-    public static xemthongtinFragment newInstance(String param1, String param2) {
-        xemthongtinFragment fragment = new xemthongtinFragment();
+    public static xephangngay newInstance(String param1, String param2) {
+        xephangngay fragment = new xephangngay();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -61,6 +61,6 @@ public class xemthongtinFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_xemthongtin, container, false);
+        return inflater.inflate(R.layout.fragment_xephangngay, container, false);
     }
 }

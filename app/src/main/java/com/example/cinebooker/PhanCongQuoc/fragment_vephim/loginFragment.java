@@ -1,4 +1,4 @@
-package fragment_vephim;
+package com.example.cinebooker.PhanCongQuoc.fragment_vephim;
 
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
