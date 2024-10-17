@@ -16,10 +16,6 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.cinebooker.LeDucThien.fragment.Movies;
-import com.example.cinebooker.LeDucThien.fragment.Profile;
-import com.example.cinebooker.LeDucThien.fragment.Search;
-import com.example.cinebooker.LeDucThien.fragment.Tickets;
 import com.example.cinebooker.R;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -77,16 +73,16 @@ public class MainActivity extends AppCompatActivity {
 
         // Khởi tạo fragment map
         fragmentMap = new HashMap<>();
-        fragmentMap.put(R.id.action_movies, new Movies());
-        fragmentMap.put(R.id.action_search, new Search());
-        fragmentMap.put(R.id.action_tickets, new Tickets());
-        fragmentMap.put(R.id.action_profile, new Profile());
+//        fragmentMap.put(R.id.action_movies, new Movies());
+//        fragmentMap.put(R.id.action_search, new Search());
+//        fragmentMap.put(R.id.action_tickets, new Tickets());
+//        fragmentMap.put(R.id.action_profile, new Profile());
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
-        // Khởi chạy fragment startapp mặc định khi ứng dụng mở lên
+        // Khởi chạy fragment mặc định khi ứng dụng mở lên
         if (savedInstanceState == null) {
-            showOverlayFragment(new Movies());
+//            showOverlayFragment(new Movies());
         }
 
         bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
