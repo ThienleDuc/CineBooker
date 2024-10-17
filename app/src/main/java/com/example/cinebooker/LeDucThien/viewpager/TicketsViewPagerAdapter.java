@@ -5,6 +5,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
+import com.example.cinebooker.LeDucThien.fragment.kham_pha;
+import com.example.cinebooker.LeDucThien.fragment.taikhoan_baomat;
+import com.example.cinebooker.LeDucThien.fragment.voucher;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,8 +19,8 @@ public class TicketsViewPagerAdapter extends FragmentStateAdapter {
     public TicketsViewPagerAdapter(@NonNull FragmentActivity fragmentActivity) {
         super(fragmentActivity);
         // Thay đổi ở đây
-//        fragmentList.add(new Ticket_chuadungFragment());
-//        fragmentList.add(new ticket_dadungFragment());
+        fragmentList.add(new voucher());
+        fragmentList.add(new taikhoan_baomat());
     }
 
     @NonNull

@@ -2,8 +2,6 @@ package com.example.cinebooker.mainproject;
 import com.example.cinebooker.LeDucThien.generalMethod.FragmentUtils;
 import android.os.Bundle;
 
-import android.view.View;
-import android.widget.FrameLayout;
 
 import androidx.activity.EdgeToEdge;
 import androidx.activity.OnBackPressedCallback;

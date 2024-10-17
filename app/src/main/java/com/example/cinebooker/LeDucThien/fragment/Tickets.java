@@ -1,19 +1,15 @@
 package com.example.cinebooker.LeDucThien.fragment;
 
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.example.cinebooker.LeDucThien.viewpager.TicketsViewPagerAdapter;
 import com.example.cinebooker.R;
-
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
@@ -24,12 +20,9 @@ import com.google.android.material.tabs.TabLayoutMediator;
  */
 public class Tickets extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
@@ -41,15 +34,6 @@ public class Tickets extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Tickets.
-     */
-    // TODO: Rename and change types and number of parameters
     public static Tickets newInstance(String param1, String param2) {
         Tickets fragment = new Tickets();
         Bundle args = new Bundle();
@@ -88,9 +72,15 @@ public class Tickets extends Fragment {
             @Override
             public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
                 tab.setText(tabTitles[position]);
+                // Đặt màu nền cho tab
+                View tabView = ((ViewGroup) tabLayout.getChildAt(0)).getChildAt(position);
+                if (tabView != null) {
+                    tabView.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorUnSelected)); // Màu nền mặc định
+                }
             }
         }).attach();
 
+        // Đặt màu cho tab text
         tabLayout.setTabTextColors(
                 ContextCompat.getColor(getContext(), R.color.colorSelected),
                 ContextCompat.getColor(getContext(), R.color.colorUnSelected)
@@ -100,20 +90,24 @@ public class Tickets extends Fragment {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 // Đổi màu nền của tab được chọn
-                View selectedTabView = tab.view;
-                selectedTabView.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorSelected));
+                View selectedTabView = ((ViewGroup) tabLayout.getChildAt(0)).getChildAt(tab.getPosition());
+                if (selectedTabView != null) {
+                    selectedTabView.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorSelected));
+                }
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
                 // Đổi màu nền của tab khi bỏ chọn
-                View unselectedTabView = tab.view;
-                unselectedTabView.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorUnSelected));
+                View unselectedTabView = ((ViewGroup) tabLayout.getChildAt(0)).getChildAt(tab.getPosition());
+                if (unselectedTabView != null) {
+                    unselectedTabView.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorUnSelected));
+                }
             }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-
+                // Có thể xử lý khi tab được chọn lại nếu cần
             }
         });
 
@@ -121,23 +115,12 @@ public class Tickets extends Fragment {
         TabLayout.Tab firstTab = tabLayout.getTabAt(0);
         if (firstTab != null) {
             firstTab.select();  // Chọn tab đầu tiên
-            View selectedTabView = tabLayout.getTabAt(0).view;
+            View selectedTabView = ((ViewGroup) tabLayout.getChildAt(0)).getChildAt(0);
             if (selectedTabView != null) {
                 selectedTabView.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorSelected));
             }
         }
 
-        // Thêm việc reset màu nền cho các tab không được chọn
-        for (int i = 0; i < tabLayout.getTabCount(); i++) {
-            TabLayout.Tab tab = tabLayout.getTabAt(i);
-            if (tab != null && tab.getPosition() != 0) { // Nếu không phải tab đầu tiên
-                View tabView = tab.view;
-                if (tabView != null) {
-                    tabView.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorUnSelected));
-                }
-            }
-        }
-        
         return view;
     }
 }
