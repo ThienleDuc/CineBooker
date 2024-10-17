@@ -11,8 +11,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.cinebooker.R;
-import com.example.cinebooker.xemthongtin;
-import com.example.cinebooker.xuatve;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -72,7 +70,7 @@ public class ticket_dadungFragment extends Fragment {
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), xemthongtin.class);
+                Intent intent = new Intent(getActivity(), xemthongtinFragment.class);
                 startActivity(intent);
             }
         });
@@ -80,7 +78,7 @@ public class ticket_dadungFragment extends Fragment {
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), xemthongtin.class);
+                Intent intent = new Intent(getActivity(), xemthongtinFragment.class);
                 startActivity(intent);
             }
         });

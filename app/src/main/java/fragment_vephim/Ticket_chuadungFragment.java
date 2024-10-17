@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.cinebooker.R;
-import com.example.cinebooker.xuatve;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -71,7 +70,7 @@ public class Ticket_chuadungFragment extends Fragment {
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), xuatve.class);
+                Intent intent = new Intent(getActivity(), xuatveFragment.class);
                 startActivity(intent);
             }
         });
@@ -79,7 +78,7 @@ public class Ticket_chuadungFragment extends Fragment {
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), xuatve.class);
+                Intent intent = new Intent(getActivity(), xuatveFragment.class);
                 startActivity(intent);
             }
         });
