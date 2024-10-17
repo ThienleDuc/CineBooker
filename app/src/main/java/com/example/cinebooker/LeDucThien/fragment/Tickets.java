@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.example.cinebooker.LeDucThien.viewpager.TicketsViewPagerAdapter;
 import com.example.cinebooker.R;
+
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
@@ -116,13 +117,27 @@ public class Tickets extends Fragment {
             }
         });
 
+        // Đảm bảo rằng tab đầu tiên được chọn và màu nền được cập nhật
         TabLayout.Tab firstTab = tabLayout.getTabAt(0);
         if (firstTab != null) {
             firstTab.select();  // Chọn tab đầu tiên
-            View selectedTabView = firstTab.view;
-            selectedTabView.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorSelected));
+            View selectedTabView = tabLayout.getTabAt(0).view;
+            if (selectedTabView != null) {
+                selectedTabView.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorSelected));
+            }
         }
 
+        // Thêm việc reset màu nền cho các tab không được chọn
+        for (int i = 0; i < tabLayout.getTabCount(); i++) {
+            TabLayout.Tab tab = tabLayout.getTabAt(i);
+            if (tab != null && tab.getPosition() != 0) { // Nếu không phải tab đầu tiên
+                View tabView = tab.view;
+                if (tabView != null) {
+                    tabView.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorUnSelected));
+                }
+            }
+        }
+        
         return view;
     }
 }

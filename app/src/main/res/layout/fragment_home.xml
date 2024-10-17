@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".LeDucThien.fragment.home"
+    android:orientation="vertical">
+
+    <!-- FrameLayout để chứa các Fragment -->
+    <FrameLayout
+        android:id="@+id/home_fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <!-- Fragment đè lên -->
+    <FrameLayout
+        android:id="@+id/home_overlay_fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+    <!-- BottomNavigationView -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/home_bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/strock_2_pink_bg_black"
+        app:itemIconSize="20dp"
+        app:itemIconTint="@color/nav_item_icon_color"
+        app:itemTextAppearanceActive="@style/BottomNavigationBoldTextAppearance"
+        app:itemTextAppearanceInactive="@style/BottomNavigationBoldTextAppearance"
+        app:itemTextColor="@color/nav_item_title_color"
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/menu_bottom_navigation" />
+
+</LinearLayout>

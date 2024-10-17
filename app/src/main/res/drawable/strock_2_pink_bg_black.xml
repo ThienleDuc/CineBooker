@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Viền trên -->
+    <item>
+        <shape>
+            <solid android:color="@android:color/black" />
+            <stroke android:width="2dp" android:color="@color/primary_color" />
+        </shape>
+    </item>
+
+    <!-- Nền cho BottomNavigationView -->
+    <item android:top="2dp"> <!-- Đẩy viền xuống 2dp để không bị chồng lên -->
+        <shape>
+            <solid android:color="@android:color/black" />
+        </shape>
+    </item>
+</layer-list>

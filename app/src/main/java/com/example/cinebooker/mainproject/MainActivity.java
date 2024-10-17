@@ -1,67 +1,22 @@
 package com.example.cinebooker.mainproject;
-
-import android.annotation.SuppressLint;
+import com.example.cinebooker.LeDucThien.generalMethod.FragmentUtils;
 import android.os.Bundle;
-import android.view.MenuItem;
+
 import android.view.View;
 import android.widget.FrameLayout;
 
 import androidx.activity.EdgeToEdge;
 import androidx.activity.OnBackPressedCallback;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
-import com.example.cinebooker.LeDucThien.fragment.Movies;
-import com.example.cinebooker.LeDucThien.fragment.Profile;
-import com.example.cinebooker.LeDucThien.fragment.Search;
-import com.example.cinebooker.LeDucThien.fragment.Tickets;
+import com.example.cinebooker.LeDucThien.fragment.home;
 import com.example.cinebooker.R;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
-
-    private Map<Integer, Fragment> fragmentMap;
-
-    public void loadFragment(Fragment fragment) {
-        // Thay thế Fragment hiện tại bằng Fragment đã chọn
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction(); // Chuển trang
-        // transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left);
-        transaction.replace(R.id.fragment_container, fragment);
-        transaction.commit();
-    }
-
-    public void showOverlayFragment(Fragment fragment) {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.overlay_fragment_container, fragment);
-        transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left);
-        transaction.addToBackStack(null);
-        transaction.commit();
-
-        // Hiển thị FrameLayout đè lên
-        FrameLayout overlayContainer = findViewById(R.id.overlay_fragment_container);
-        overlayContainer.setVisibility(View.VISIBLE);
-    }
-
-    public void hideOverlayFragment() {
-        // Ẩn Fragment và FrameLayout khi không cần hiển thị nữa
-        Fragment overlayFragment = getSupportFragmentManager().findFragmentById(R.id.overlay_fragment_container);
-        if (overlayFragment != null) {
-            getSupportFragmentManager().beginTransaction().remove(overlayFragment).commit();
-        }
-
-        FrameLayout overlayContainer = findViewById(R.id.overlay_fragment_container);
-        overlayContainer.setVisibility(View.GONE);
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,51 +29,23 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-
-        // Khởi tạo fragment map
-        fragmentMap = new HashMap<>();
-        fragmentMap.put(R.id.action_movies, new Movies());
-        fragmentMap.put(R.id.action_search, new Search());
-        fragmentMap.put(R.id.action_tickets, new Tickets());
-        fragmentMap.put(R.id.action_profile, new Profile());
-
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
-
         // Khởi chạy fragment startapp mặc định khi ứng dụng mở lên
         if (savedInstanceState == null) {
-            showOverlayFragment(new Movies());
+            FragmentUtils.loadFragment(this, new home(), R.id.fragment_container);
         }
-
-        bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
-            @SuppressLint("NonConstantResourceId")
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                Fragment selectedFragment = fragmentMap.get(item.getItemId());
-
-                if (selectedFragment != null) {
-                    loadFragment(selectedFragment);
-                }
-
-                return true;
-            }
-        });
-
-        // Thêm callback cho sự kiện quay lại
-        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
-            @Override
-            public void handleOnBackPressed() {
-                FrameLayout overlayContainer = findViewById(R.id.overlay_fragment_container);
-
-                // Nếu overlay đang hiển thị, ẩn nó
-                if (overlayContainer.getVisibility() == View.VISIBLE) {
-                    hideOverlayFragment();
-                } else {
-                    // Nếu không, thực hiện hành động mặc định (quay lại trang trước)
-                    MainActivity.super.onBackPressed();
-                }
-            }
-        };
-        getOnBackPressedDispatcher().addCallback(this, callback);
     }
 
+    @Override
+    public void onBackPressed() {
+        // Kiểm tra xem có fragment nào trong back stack không
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+            // Quay trở lại fragment trước đó
+            getSupportFragmentManager().popBackStack();
+        } else {
+            // Nếu không, thực hiện hành động quay lại mặc định
+            super.onBackPressed();
+        }
+    }
 }
+
+

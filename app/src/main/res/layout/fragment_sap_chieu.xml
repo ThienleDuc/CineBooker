@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LeDucThien.adapter.fragment.sap_chieu"
+    tools:context=".LeDucThien.fragment.sap_chieu"
     android:background="@android:color/black">
 
     <LinearLayout

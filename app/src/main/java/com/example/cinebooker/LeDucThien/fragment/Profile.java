@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.example.cinebooker.LeDucThien.generalMethod.FragmentUtils;
 import com.example.cinebooker.mainproject.MainActivity;
 import com.example.cinebooker.R;
 
@@ -96,9 +97,8 @@ public class Profile extends Fragment {
     }
 
     private void showOverlayFragment(Fragment fragment) {
-        // Gọi đến phương thức trong MainActivity
         if (getActivity() instanceof MainActivity) {
-            ((MainActivity) getActivity()).showOverlayFragment(fragment);
+            FragmentUtils.loadFragment(getActivity(), fragment, R.id.fragment_container);
         }
     }
 
