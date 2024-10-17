@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".fragment.dang_chieu"
+    tools:context=".LeDucThien.adapter.fragment.dang_chieu"
     android:background="@android:color/black">
 
     <LinearLayout

@@ -16,13 +16,12 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.cinebooker.LeDucThien.fragment.Movies;
+import com.example.cinebooker.LeDucThien.fragment.Profile;
+import com.example.cinebooker.LeDucThien.fragment.Search;
+import com.example.cinebooker.LeDucThien.fragment.Tickets;
 import com.example.cinebooker.R;
-import com.example.cinebooker.fragment.LoginDemo;
-import com.example.cinebooker.fragment.Movies;
-import com.example.cinebooker.fragment.Profile;
-import com.example.cinebooker.fragment.Search;
-import com.example.cinebooker.fragment.Tickets;
-import com.example.cinebooker.fragment.startapp;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.HashMap;
@@ -87,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Khởi chạy fragment startapp mặc định khi ứng dụng mở lên
         if (savedInstanceState == null) {
-            showOverlayFragment(new startapp());
+            showOverlayFragment(new Movies());
         }
 
         bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
