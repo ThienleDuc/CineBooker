@@ -10,7 +10,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 
-import com.example.cinebooker.PhanCongQuoc.generalMethod.FragmentUtils;
+import com.example.cinebooker.TranGiaThai.fragment.testContent;
+import com.example.cinebooker.TranGiaThai.generalMethod.FragmentUtils;
 import com.example.cinebooker.R;
 
 
@@ -29,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Khởi chạy fragment mặc định khi ứng dụng mở lên
         if (savedInstanceState == null) {
-            FragmentUtils.loadFragment(this, new quoccat(), R.id.fragment_container);
+            FragmentUtils.loadFragment(this, new testContent(), R.id.fragment_container);
         }
     }
 
