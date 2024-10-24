@@ -7,9 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.cinebooker.LeDucThien.fragment.home;
 import com.example.cinebooker.R;
-import com.example.cinebooker.mainproject.MainActivity;
 
 public class FragmentUtils {
     // Hàm load Fragment vào một container cụ thể
@@ -23,7 +21,7 @@ public class FragmentUtils {
     public static void showOverlayFragment(FragmentActivity activity, Fragment fragment, int containerId) {
         FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
         transaction.replace(containerId, fragment);
-//        transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left);
+        transaction.setCustomAnimations(R.anim.slide_in_up, R.anim.slide_out_up, R.anim.slide_in_down, R.anim.slide_out_up);
         transaction.addToBackStack(null);
         transaction.commit();
 
@@ -36,7 +34,10 @@ public class FragmentUtils {
     public static void hideOverlayFragment(FragmentActivity activity, int containerId) {
         Fragment overlayFragment = activity.getSupportFragmentManager().findFragmentById(containerId);
         if (overlayFragment != null) {
-            activity.getSupportFragmentManager().beginTransaction().remove(overlayFragment).commit();
+            FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
+            transaction.setCustomAnimations(R.anim.slide_in_up, R.anim.slide_out_down, R.anim.slide_in_down, R.anim.slide_out_up);
+            transaction.remove(overlayFragment);
+            transaction.commit();
         }
 
         // Ẩn FrameLayout chứa overlay

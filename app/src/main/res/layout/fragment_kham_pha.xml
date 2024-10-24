@@ -159,6 +159,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="10dp"/>
             <LinearLayout
+                android:id="@+id/danhsachrap_open"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
@@ -180,17 +181,16 @@
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp">
 
+
                     <TextView
                         android:id="@+id/sapChieu_movie_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
-                        android:text="CGV Hùng Vương Plaza"
                         android:maxLines="1"
-                        android:textSize="16dp"
-                        android:textColor="@android:color/white" />
-
-
+                        android:text="CGV Hùng Vương Plaza"
+                        android:textColor="@android:color/white"
+                        android:textSize="16dp" />
 
                     <TextView
                         android:id="@+id/sapChieu_movie_style"
@@ -217,33 +217,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="10dp" />
 
-<!--            <com.google.android.material.tabs.TabLayout-->
-<!--                android:id="@+id/calendar_tabLayout"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:background="@android:color/transparent"-->
-<!--                app:tabIndicatorHeight="0dp"/>-->
-
-            <ImageView
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/calendar_tabLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/calendar_movie"
-                android:scaleType="fitXY"/>
+                android:background="@android:color/transparent"
+                app:tabIndicatorHeight="0dp"/>
 
 
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="10dp"/>
 
-<!--            <androidx.recyclerview.widget.RecyclerView-->
-<!--                android:id="@+id/calendar_movie"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content" />-->
-            <ImageView
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/calendar_recyclerview"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:src="@drawable/item_calendar_movie"
-                android:scaleType="fitXY"/>
+                android:layout_height="wrap_content" />
+
+
         </LinearLayout>
 
         <Space
@@ -298,16 +289,11 @@ có mặt trên khắp cả nước"
                 android:layout_width="match_parent"
                 android:layout_height="10dp"/>
 
-<!--            <androidx.recyclerview.widget.RecyclerView-->
-<!--                android:id="@+id/recycleView_rapChieu"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"/>-->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycleView_heThongRapChieu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/item_rapchieu"
-                    android:scaleType="fitXY"/>
         </LinearLayout>
 
         <Space

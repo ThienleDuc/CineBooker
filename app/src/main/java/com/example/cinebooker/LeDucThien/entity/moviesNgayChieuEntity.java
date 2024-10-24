@@ -1,20 +1,26 @@
 package com.example.cinebooker.LeDucThien.entity;
 
-public class caroselDangChieuEntity {
+import java.util.List;
+
+public class moviesNgayChieuEntity {
     private int moviePoster;
     private String age;
-    private Double vote;
+    private Double vote, shoping, comment;
     private String movieName, styleMovie;
+    private List<thoiGianChieuPhimEntity> thoiGianChieuPhim;
 
-    public caroselDangChieuEntity() {
+    public moviesNgayChieuEntity() {
     }
 
-    public caroselDangChieuEntity(int moviePoster, String age, Double vote, String movieName, String styleMovie) {
+    public moviesNgayChieuEntity(int moviePoster, String age, Double vote, Double shoping, Double comment, String movieName, String styleMovie, List<thoiGianChieuPhimEntity> thoiGianChieuPhim) {
         this.moviePoster = moviePoster;
         this.age = age;
         this.vote = vote;
+        this.shoping = shoping;
+        this.comment = comment;
         this.movieName = movieName;
         this.styleMovie = styleMovie;
+        this.thoiGianChieuPhim = thoiGianChieuPhim;
     }
 
     public int getMoviePoster() {
@@ -55,5 +61,29 @@ public class caroselDangChieuEntity {
 
     public void setStyleMovie(String styleMovie) {
         this.styleMovie = styleMovie;
+    }
+
+    public Double getShoping() {
+        return shoping;
+    }
+
+    public void setShoping(Double shoping) {
+        this.shoping = shoping;
+    }
+
+    public Double getComment() {
+        return comment;
+    }
+
+    public void setComment(Double comment) {
+        this.comment = comment;
+    }
+
+    public List<thoiGianChieuPhimEntity> getThoiGianChieuPhim() {
+        return thoiGianChieuPhim;
+    }
+
+    public void setThoiGianChieuPhim(List<thoiGianChieuPhimEntity> thoiGianChieuPhim) {
+        this.thoiGianChieuPhim = thoiGianChieuPhim;
     }
 }

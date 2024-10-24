@@ -10,10 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.cinebooker.LeDucThien.entity.caroselDangChieuEntity;
 import com.example.cinebooker.LeDucThien.generalMethod.HorizontalSpaceItemDecoration;
 import com.example.cinebooker.R;
 import com.example.cinebooker.LeDucThien.adapter.caroselDangChieuAdapter;
-import com.example.cinebooker.LeDucThien.adapter.entity.caroselDangChieuEntity;
 
 import java.util.ArrayList;
 import java.util.List;
