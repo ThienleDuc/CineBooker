@@ -1,12 +1,26 @@
-package com.example.cinebooker;
+package com.example.cinebooker.PhanCongQuoc.fragment;
 
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.cinebooker.PhanCongQuoc.adapter.Ticket_chuadungAdapter;
+import com.example.cinebooker.PhanCongQuoc.adapter.Ticket_dadungAdapter;
+import com.example.cinebooker.PhanCongQuoc.adapter.Ticket_voucherAdapter;
+import com.example.cinebooker.PhanCongQuoc.entity.ticketchuadungMoviesEntity;
+import com.example.cinebooker.PhanCongQuoc.entity.ticketdadungMoviesEntity;
+import com.example.cinebooker.PhanCongQuoc.entity.ticketvoucherMoviesEntity;
+import com.example.cinebooker.PhanCongQuoc.generalMethod.SpaceItemDecoration;
+import com.example.cinebooker.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,6 +28,9 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class voucherFragment extends Fragment {
+    private RecyclerView list_voucher;
+    private Ticket_voucherAdapter ticketvoucherAdapter;
+    private List<ticketvoucherMoviesEntity> ticketvoucherMoviesList;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -58,7 +75,58 @@ public class voucherFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_voucher, container, false);
-    }
+        View view = inflater.inflate(R.layout.fragment_voucher, container, false);
+
+        list_voucher = view.findViewById(R.id.list_voucher);
+        list_voucher.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.recycler_view_spacing_5);
+        list_voucher.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
+
+        ticketvoucherMoviesList = new ArrayList<>();
+        // Khởi tạo ticketchuadungMoviesEntity theo thứ tự trong TicketViewHolder
+        ticketvoucherMoviesList.add(new ticketvoucherMoviesEntity(
+                "TEAM 17",
+                R.drawable.icon17_itemvoucher,
+                "Giảm 10% giảm tối đa 20%",
+                "Đơn tối thiểu 80k",
+                "05/10/2024",
+                "75%"
+
+        ));
+        ticketvoucherMoviesList.add(new ticketvoucherMoviesEntity(
+                "TEAM 17",
+                R.drawable.icon17_itemvoucher,
+                "Giảm 10% giảm tối đa 20%",
+                "Đơn tối thiểu 80k",
+                "05/10/2024",
+                "75%"
+
+        ));
+        ticketvoucherMoviesList.add(new ticketvoucherMoviesEntity(
+                "TEAM 17",
+                R.drawable.icon17_itemvoucher,
+                "Giảm 10% giảm tối đa 20%",
+                "Đơn tối thiểu 80k",
+                "05/10/2024",
+                "75%"
+
+        ));
+        ticketvoucherMoviesList.add(new ticketvoucherMoviesEntity(
+                "TEAM 17",
+                R.drawable.icon17_itemvoucher,
+                "Giảm 10% giảm tối đa 20%",
+                "Đơn tối thiểu 80k",
+                "05/10/2024",
+                "75%"
+
+        ));
+
+
+
+
+        ticketvoucherAdapter = new Ticket_voucherAdapter(ticketvoucherMoviesList);
+        list_voucher.setAdapter(ticketvoucherAdapter);
+
+        return view;      }
 }

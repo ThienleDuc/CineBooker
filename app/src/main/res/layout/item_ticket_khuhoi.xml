@@ -25,14 +25,14 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/icon17_dadung"
+                    android:id="@+id/icon17_khuhoi"
                     android:layout_marginLeft="8dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/icon17_fragment"/>
 
                 <TextView
-                    android:id="@+id/date_dadung"
+                    android:id="@+id/date_khuhoi"
                     android:layout_width="223dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="13dp"
@@ -44,7 +44,7 @@
                     android:textSize="8sp" />
 
                 <TextView
-                    android:id="@+id/date_1_dadung"
+                    android:id="@+id/date_1_khuhoi"
                     android:layout_width="202dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="13dp"
@@ -66,7 +66,7 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/poster_dadung"
+                    android:id="@+id/poster_khuhoi"
                     android:layout_width="84dp"
                     android:layout_height="match_parent"
                     android:src="@drawable/phimcam" />
@@ -80,7 +80,7 @@
                     >
 
                     <TextView
-                        android:id="@+id/age_dadung"
+                        android:id="@+id/age_khuhoi"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="7dp"
@@ -90,7 +90,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/name_dadung"
+                        android:id="@+id/name_khuhoi"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
@@ -100,7 +100,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/style_dadung"
+                        android:id="@+id/style_khuhoi"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
@@ -115,28 +115,28 @@
                         android:orientation="horizontal">
 
                         <ImageView
-                            android:id="@+id/ticket_dadung"
+                            android:id="@+id/ticket_khuhoi"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="3dp"
                             android:src="@drawable/ticket"/>
 
                         <TextView
-                            android:id="@+id/soluong_dadung"
+                            android:id="@+id/soluong_khuhoi"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text=" 1"
                             android:textColor="@color/black" />
 
                         <ImageView
-                            android:id="@+id/icon_rap_dadung"
+                            android:id="@+id/icon_rap_khuhoi"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="30dp"
                             android:src="@drawable/icon_cgv" />
 
                         <TextView
-                            android:id="@+id/diachi_dadung"
+                            android:id="@+id/diachi_khuhoi"
                             android:layout_width="266dp"
                             android:layout_height="wrap_content"
                             android:paddingHorizontal="3dp"
@@ -149,12 +149,12 @@
             </LinearLayout>
 
             <Button
-                android:id="@+id/btn_dadung"
+                android:id="@+id/btn_khuhoi"
                 android:layout_width="129dp"
                 android:layout_height="29dp"
                 android:layout_gravity="end"
                 android:background="@drawable/khung_button3"
-                android:text="Xem thông tin"
+                android:text="Chi tiết hủy"
                 android:layout_marginRight="15dp"
                 android:textColor="@color/white"
                 android:textSize="10sp" />

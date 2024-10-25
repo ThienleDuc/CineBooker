@@ -10,6 +10,15 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 
+import com.example.cinebooker.PhanCongQuoc.fragment.dac_quyen_cap_bacFragment;
+import com.example.cinebooker.PhanCongQuoc.fragment.loginFragment;
+import com.example.cinebooker.PhanCongQuoc.fragment.phuong_thuc_thanh_toanFragment;
+import com.example.cinebooker.PhanCongQuoc.fragment.ticket_chuadungFragment;
+import com.example.cinebooker.PhanCongQuoc.fragment.ticket_da_dungFragment;
+import com.example.cinebooker.PhanCongQuoc.fragment.ticket_khuhoiFragment;
+import com.example.cinebooker.PhanCongQuoc.fragment.voucherFragment;
+import com.example.cinebooker.PhanCongQuoc.fragment.xemthongtinFragment;
+import com.example.cinebooker.PhanCongQuoc.fragment.xuatveFragment;
 import com.example.cinebooker.PhanCongQuoc.generalMethod.FragmentUtils;
 import com.example.cinebooker.R;
 
@@ -29,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Khởi chạy fragment mặc định khi ứng dụng mở lên
         if (savedInstanceState == null) {
-            FragmentUtils.loadFragment(this, new quoccat(), R.id.fragment_container);
+            FragmentUtils.loadFragment(this, new dac_quyen_cap_bacFragment()  , R.id.fragment_container);
         }
     }
 

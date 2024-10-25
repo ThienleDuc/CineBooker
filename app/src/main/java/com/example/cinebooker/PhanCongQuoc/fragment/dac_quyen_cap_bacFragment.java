@@ -1,12 +1,22 @@
-package com.example.cinebooker;
+package com.example.cinebooker.PhanCongQuoc.fragment;
 
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.cinebooker.PhanCongQuoc.adapter.Ticket_capbacAdapter;
+import com.example.cinebooker.PhanCongQuoc.entity.ticketcapbacMoviesEntity;
+import com.example.cinebooker.PhanCongQuoc.generalMethod.SpaceItemDecoration;
+import com.example.cinebooker.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,6 +24,9 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class dac_quyen_cap_bacFragment extends Fragment {
+    private RecyclerView list_capbac;
+    private Ticket_capbacAdapter ticketcapbacAdapter;
+    private List<ticketcapbacMoviesEntity> ticketcapbacMoviesList;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -58,7 +71,55 @@ public class dac_quyen_cap_bacFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_dac_quyen_cap_bac, container, false);
-    }
-}
+        
+            View view = inflater.inflate(R.layout.fragment_dac_quyen_cap_bac, container, false);
+
+            list_capbac = view.findViewById(R.id.list_capbac);
+            list_capbac.setLayoutManager(new LinearLayoutManager(getContext()));
+
+            int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.recycler_view_spacing_5);
+            list_capbac.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
+
+            ticketcapbacMoviesList = new ArrayList<>();
+            // Khởi tạo ticketchuadungMoviesEntity theo thứ tự trong TicketViewHolder
+            ticketcapbacMoviesList.add(new ticketcapbacMoviesEntity(
+                    "TEAM 17",
+                    R.drawable.icon17_itemvoucher,
+                    "Giảm 10% giảm tối đa 20%",
+                    "Đơn tối thiểu 80k",
+                    "05/10/2024"
+
+
+            ));
+        ticketcapbacMoviesList.add(new ticketcapbacMoviesEntity(
+                "TEAM 17",
+                R.drawable.icon17_itemvoucher,
+                "Giảm 10% giảm tối đa 20%",
+                "Đơn tối thiểu 80k",
+                "05/10/2024"
+
+
+        ));ticketcapbacMoviesList.add(new ticketcapbacMoviesEntity(
+                "TEAM 17",
+                R.drawable.icon17_itemvoucher,
+                "Giảm 10% giảm tối đa 20%",
+                "Đơn tối thiểu 80k",
+                "05/10/2024"
+
+
+        ));ticketcapbacMoviesList.add(new ticketcapbacMoviesEntity(
+                "TEAM 17",
+                R.drawable.icon17_itemvoucher,
+                "Giảm 10% giảm tối đa 20%",
+                "Đơn tối thiểu 80k",
+                "05/10/2024"
+
+
+        ));
+
+
+
+            ticketcapbacAdapter = new Ticket_capbacAdapter(ticketcapbacMoviesList);
+            list_capbac.setAdapter(ticketcapbacAdapter);
+
+            return view;      }   }

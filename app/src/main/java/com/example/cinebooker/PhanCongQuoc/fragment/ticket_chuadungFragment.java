@@ -1,42 +1,32 @@
-package com.example.cinebooker;
+package com.example.cinebooker.PhanCongQuoc.fragment;
 
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
-
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import com.example.cinebooker.PhanCongQuoc.adapter.Ticket_chuadungAdapter;
+import com.example.cinebooker.PhanCongQuoc.entity.ticketchuadungMoviesEntity;
+import com.example.cinebooker.PhanCongQuoc.generalMethod.SpaceItemDecoration;
+import com.example.cinebooker.R;
+import java.util.ArrayList;
+import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ticket_chuadungFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class ticket_chuadungFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final String ARG_PARAM1 = "param1"; // Định nghĩa biến
+    private static final String ARG_PARAM2 = "param2"; // Định nghĩa biến
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private RecyclerView list_chuadung;
+    private Ticket_chuadungAdapter ticketChuadungAdapter;
+    private List<ticketchuadungMoviesEntity> ticketChuadungMoviesList;
 
     public ticket_chuadungFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ticket_chuadungFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static ticket_chuadungFragment newInstance(String param1, String param2) {
         ticket_chuadungFragment fragment = new ticket_chuadungFragment();
         Bundle args = new Bundle();
@@ -50,15 +40,81 @@ public class ticket_chuadungFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            // Xử lý tham số nếu cần
         }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_ticket_chuadung, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_ticket_chuadung, container, false);
+
+        list_chuadung = view.findViewById(R.id.list_chuadung);
+        list_chuadung.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.recycler_view_spacing_5);
+        list_chuadung.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
+
+        ticketChuadungMoviesList = new ArrayList<>();
+        // Khởi tạo ticketchuadungMoviesEntity theo thứ tự trong TicketViewHolder
+        ticketChuadungMoviesList.add(new ticketchuadungMoviesEntity(
+                "02/09/2024  18:30",         // date_chuadung
+                R.drawable.camposter, // poster
+                "18+",                // age_chuadung
+                "Cám",               // name_chuadung
+                "Kinh dị",           // style_chuadung
+                1,                    // soluong_chuadung
+                "CGV Vincom Plaza Đà Nẵng" // diachi_chuadung
+        ));
+        ticketChuadungMoviesList.add(new ticketchuadungMoviesEntity(
+                "02/09/2024  18:30",         // date_chuadung
+                R.drawable.camposter, // poster
+                "18+",                // age_chuadung
+                "Cám",               // name_chuadung
+                "Kinh dị",           // style_chuadung
+                1,                    // soluong_chuadung
+                "CGV Vincom Plaza Đà Nẵng" // diachi_chuadung
+        ));
+        ticketChuadungMoviesList.add(new ticketchuadungMoviesEntity(
+                "02/09/2024  18:30",         // date_chuadung
+                R.drawable.camposter, // poster
+                "18+",                // age_chuadung
+                "Cám",               // name_chuadung
+                "Kinh dị",           // style_chuadung
+                1,                    // soluong_chuadung
+                "CGV Vincom Plaza Đà Nẵng" // diachi_chuadung
+        ));
+        ticketChuadungMoviesList.add(new ticketchuadungMoviesEntity(
+                "02/09/2024  18:30",         // date_chuadung
+                R.drawable.camposter, // poster
+                "18+",                // age_chuadung
+                "Cám",               // name_chuadung
+                "Kinh dị",           // style_chuadung
+                1,                    // soluong_chuadung
+                "CGV Vincom Plaza Đà Nẵng" // diachi_chuadung
+        ));
+        ticketChuadungMoviesList.add(new ticketchuadungMoviesEntity(
+                "02/09/2024  18:30",         // date_chuadung
+                R.drawable.camposter, // poster
+                "18+",                // age_chuadung
+                "Cám",               // name_chuadung
+                "Kinh dị",           // style_chuadung
+                1,                    // soluong_chuadung
+                "CGV Vincom Plaza Đà Nẵng" // diachi_chuadung
+        ));
+        ticketChuadungMoviesList.add(new ticketchuadungMoviesEntity(
+                "02/09/2024  18:30",         // date_chuadung
+                R.drawable.camposter, // poster
+                "18+",                // age_chuadung
+                "Cám",               // name_chuadung
+                "Kinh dị",           // style_chuadung
+                1,                    // soluong_chuadung
+                "CGV Vincom Plaza Đà Nẵng" // diachi_chuadung
+        ));
+
+
+        ticketChuadungAdapter = new Ticket_chuadungAdapter(ticketChuadungMoviesList);
+        list_chuadung.setAdapter(ticketChuadungAdapter);
+
+        return view;
     }
 }
