@@ -16,6 +16,7 @@ import com.example.cinebooker.PhanCongQuoc.fragment.phuong_thuc_thanh_toanFragme
 import com.example.cinebooker.PhanCongQuoc.fragment.ticket_chuadungFragment;
 import com.example.cinebooker.PhanCongQuoc.fragment.ticket_da_dungFragment;
 import com.example.cinebooker.PhanCongQuoc.fragment.ticket_khuhoiFragment;
+import com.example.cinebooker.PhanCongQuoc.fragment.trahanghoantienFragment;
 import com.example.cinebooker.PhanCongQuoc.fragment.voucherFragment;
 import com.example.cinebooker.PhanCongQuoc.fragment.xemthongtinFragment;
 import com.example.cinebooker.PhanCongQuoc.fragment.xuatveFragment;
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Khởi chạy fragment mặc định khi ứng dụng mở lên
         if (savedInstanceState == null) {
-            FragmentUtils.loadFragment(this, new dac_quyen_cap_bacFragment()  , R.id.fragment_container);
+            FragmentUtils.loadFragment(this, new trahanghoantienFragment()  , R.id.fragment_container);
         }
     }
 
