@@ -77,9 +77,9 @@ public class Profile extends Fragment {
         LinearLayout action_chinhsach = view.findViewById(R.id.action_chinnhach);
         LinearLayout action_dieukhoan = view.findViewById(R.id.action_dieukhoan);
 
-        setLinearLayoutClickListener(action_level, cap_bac.class, R.id.action_level);
-        setLinearLayoutClickListener(action_voucher, voucher.class, R.id.action_voucher);
-        setLinearLayoutClickListener(action_bank, ngan_hang.class, R.id.action_bank_bulding);
+        setLinearLayoutClickListener(action_level, taiKhoan_BaoMat.class, R.id.action_level);
+        setLinearLayoutClickListener(action_voucher, taiKhoan_BaoMat.class, R.id.action_voucher);
+        setLinearLayoutClickListener(action_bank, taiKhoan_BaoMat.class, R.id.action_bank_bulding);
         setLinearLayoutClickListener(action_account, taiKhoan_BaoMat.class, R.id.action_account);
 
         setLinearLayoutClickListenerOpenUrl(action_gioithieu, "https://www.figma.com/design/CEbN97NZxjJGNBXZ1FxEZd/nhom_LTTDD?node-id=0-1&node-type=canvas&t=MZ9AjqqUg1wsfYpM-0");
