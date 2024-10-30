@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.cinebooker.LeDucThien.activity.danhSachRap;
 import com.example.cinebooker.LeDucThien.adapter.heThongRapChieuAdapter;
 import com.example.cinebooker.LeDucThien.adapter.moviesNgayChieuAdapter;
 import com.example.cinebooker.LeDucThien.adapter.ngayChieuAdapter;
@@ -23,6 +24,7 @@ import com.example.cinebooker.LeDucThien.entity.caroselSapChieuEntity;
 import com.example.cinebooker.LeDucThien.entity.heThongRapChieuEntity;
 import com.example.cinebooker.LeDucThien.entity.moviesNgayChieuEntity;
 import com.example.cinebooker.LeDucThien.entity.ngayChieuEntity;
+import com.example.cinebooker.LeDucThien.generalMethod.ActivityOpen;
 import com.example.cinebooker.LeDucThien.generalMethod.HorizontalSpaceItemDecoration;
 import com.example.cinebooker.LeDucThien.generalMethod.SpaceItemDecoration;
 import com.example.cinebooker.LeDucThien.viewpager.XepHangViewPagerAdapter;
@@ -111,7 +113,7 @@ public class kham_pha extends Fragment {
         return view;
     }
 
-    private void dangChieu (View view) {
+    public void dangChieu (View view) {
 
         dangChieuRecycleView = view.findViewById(R.id.carosel_recycleView_dangChieu);
         dangChieuRecycleView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
@@ -160,7 +162,7 @@ public class kham_pha extends Fragment {
         });
     }
 
-    private void sapChieu (View view) {
+    public void sapChieu (View view) {
         sapChieuRecycleView = view.findViewById(R.id.carosel_recycleView_sapChieu);
         int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.recycler_view_spacing_7_5);
 
@@ -209,7 +211,7 @@ public class kham_pha extends Fragment {
         });
     }
 
-    private void lichChieu(View view) {
+    public void lichChieu(View view) {
         // Khởi tạo TabLayout cho location
         TabLayout location_tablayout = view.findViewById(R.id.location_tabLayout);
         LinearLayout danhsachrap_open = view.findViewById(R.id.danhsachrap_open);
@@ -217,7 +219,7 @@ public class kham_pha extends Fragment {
         danhsachrap_open.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentUtils.showOverlayFragment(requireActivity(), new DanhSachRap(), R.id.home_overlay_fragment_container);
+                ActivityOpen.openActivityOnClick(requireActivity(), danhSachRap.class, R.id.danhsachrap_open);
             }
         });
 
@@ -312,7 +314,7 @@ public class kham_pha extends Fragment {
     }
 
 
-    private void heThongRapChieu(View view) {
+    public void heThongRapChieu(View view) {
         // Khởi tạo RecyclerView cho hệ thống rạp chiếu
         RecyclerView recyclerView = view.findViewById(R.id.recycleView_heThongRapChieu);
 
@@ -332,6 +334,12 @@ public class kham_pha extends Fragment {
         list.add(new heThongRapChieuEntity(R.drawable.cgvlogo, "CGV", "KKK", 6.2, 81.0, 10500.0));
         list.add(new heThongRapChieuEntity(R.drawable.bhd_logo, "BHD Cinema", "Phim hay mỗi ngày", 8.4, 210.0, 25000.0));
         list.add(new heThongRapChieuEntity(R.drawable.lottelogo, "Lotte Cinema", "Giá ưu đãi", 7.1, 130.0, 17000.0));
+        list.add(new heThongRapChieuEntity(R.drawable.dcine_logo, "DcineCinema", "Giá ưu đãi", 7.1, 130.0, 17000.0));
+        list.add(new heThongRapChieuEntity(R.drawable.mega_logo, "Mega GS", "Giá ưu đãi", 7.1, 130.0, 17000.0));
+        list.add(new heThongRapChieuEntity(R.drawable.galaxy_cinema, "Galaxy Cinema", "Giá ưu đãi", 7.1, 130.0, 17000.0));
+        list.add(new heThongRapChieuEntity(R.drawable.cinerstar, "CinerStar Cinema", "Giá ưu đãi", 7.1, 130.0, 17000.0));
+        list.add(new heThongRapChieuEntity(R.drawable.logo_beta, "Beta Cinema", "Giá ưu đãi", 7.1, 130.0, 17000.0));
+
 
         // Khởi tạo adapter và gán cho RecyclerView
         heThongRapChieuAdapter adapter = new heThongRapChieuAdapter(list);
@@ -339,7 +347,7 @@ public class kham_pha extends Fragment {
     }
 
 
-    private void xepHang(View view) {
+    public void xepHang(View view) {
         TabLayout xepHangtabLayout = view.findViewById(R.id.xepHang_TabLayout);
         ViewPager2 xepHangviewPager = view.findViewById(R.id.xephang_viewPager);
 

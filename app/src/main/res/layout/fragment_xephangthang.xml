@@ -7,15 +7,9 @@
     android:orientation="vertical"
     android:background="@android:color/black">
 
-    <ScrollView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/xephangtheothang"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:src="@drawable/item_xephang"
-            android:scaleType="fitXY"/>
-    </ScrollView>
+        android:layout_height="match_parent"/>
 
 </LinearLayout>

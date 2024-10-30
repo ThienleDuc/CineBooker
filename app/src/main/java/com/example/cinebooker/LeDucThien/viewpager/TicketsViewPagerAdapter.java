@@ -5,9 +5,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.example.cinebooker.LeDucThien.fragment.kham_pha;
-import com.example.cinebooker.LeDucThien.fragment.taikhoan_baomat;
-import com.example.cinebooker.LeDucThien.fragment.voucher;
+import com.example.cinebooker.LeDucThien.fragment.xephangngay;
+import com.example.cinebooker.LeDucThien.fragment.xephangtuan;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,8 +18,8 @@ public class TicketsViewPagerAdapter extends FragmentStateAdapter {
     public TicketsViewPagerAdapter(@NonNull FragmentActivity fragmentActivity) {
         super(fragmentActivity);
         // Thay đổi ở đây
-        fragmentList.add(new voucher());
-        fragmentList.add(new taikhoan_baomat());
+        fragmentList.add(new xephangngay());
+        fragmentList.add(new xephangtuan());
     }
 
     @NonNull

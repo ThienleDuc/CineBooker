@@ -10,15 +10,22 @@
         android:layout_height="wrap_content"
         android:background="@drawable/strock_1_pink_radius_10_white"
         android:orientation="horizontal"
-        android:paddingHorizontal="10dp">
+        android:padding="10dp"
+        android:gravity="center">
 
-        <ImageView
-            android:id="@+id/heThongRapChieu_Logo"
+        <LinearLayout
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/cgvlogo"
-            android:scaleType="fitXY"
-            android:layout_gravity="center"/>
+            android:background="@drawable/strock_1_pink_radius_10_white">
+
+            <ImageView
+                android:id="@+id/heThongRapChieu_Logo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/cgvlogo"
+                android:padding="5dp"
+                android:scaleType="fitXY" />
+        </LinearLayout>
 
         <!-- Layout chứa thông tin rạp -->
         <LinearLayout

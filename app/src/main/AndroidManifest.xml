@@ -13,7 +13,10 @@
         android:theme="@style/Theme.AppCompat.NoActionBar"
         tools:targetApi="31">
         <activity
-            android:name=".mainproject.MainActivity"
+            android:name=".LeDucThien.activity.danhSachRap"
+            android:exported="false" />
+        <activity
+            android:name=".LeDucThien.activity.home"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,17 +25,17 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".appCompatActivity.xemthongtin"
+            android:name=".LeDucThien.activity.ngan_hang"
             android:exported="false" />
         <activity
-            android:name=".appCompatActivity.xuatve"
+            android:name=".LeDucThien.activity.taiKhoan_BaoMat"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
-            android:exported="true" />
+            android:name=".LeDucThien.activity.voucher"
+            android:exported="false" />
         <activity
-            android:name=".appCompatActivity.register"
-            android:exported="true" />
+            android:name=".LeDucThien.activity.cap_bac"
+            android:exported="false" />
     </application>
 
 </manifest>

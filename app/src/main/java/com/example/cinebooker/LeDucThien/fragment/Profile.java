@@ -11,8 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.example.cinebooker.LeDucThien.activity.cap_bac;
+import com.example.cinebooker.LeDucThien.activity.ngan_hang;
+import com.example.cinebooker.LeDucThien.activity.taiKhoan_BaoMat;
+import com.example.cinebooker.LeDucThien.activity.voucher;
+import com.example.cinebooker.LeDucThien.generalMethod.ActivityOpen;
 import com.example.cinebooker.LeDucThien.generalMethod.FragmentUtils;
-import com.example.cinebooker.mainproject.MainActivity;
 import com.example.cinebooker.R;
 
 /**
@@ -77,10 +81,10 @@ public class Profile extends Fragment {
         LinearLayout action_chinhsach = view.findViewById(R.id.action_chinnhach);
         LinearLayout action_dieukhoan = view.findViewById(R.id.action_dieukhoan);
 
-        setLinearLayoutClickListener(action_level, new cap_bac());
-        setLinearLayoutClickListener(action_bank, new ngan_hang());
-        setLinearLayoutClickListener(action_account, new taikhoan_baomat());
-        setLinearLayoutClickListener(action_voucher, new voucher());
+        setLinearLayoutClickListener(action_level, cap_bac.class, R.id.action_level);
+        setLinearLayoutClickListener(action_voucher, voucher.class, R.id.action_voucher);
+        setLinearLayoutClickListener(action_bank, ngan_hang.class, R.id.action_bank_bulding);
+        setLinearLayoutClickListener(action_account, taiKhoan_BaoMat.class, R.id.action_account);
 
         setLinearLayoutClickListenerOpenUrl(action_gioithieu, "https://www.figma.com/design/CEbN97NZxjJGNBXZ1FxEZd/nhom_LTTDD?node-id=0-1&node-type=canvas&t=MZ9AjqqUg1wsfYpM-0");
         setLinearLayoutClickListenerOpenUrl(action_phanhoi, "https://www.figma.com/design/CEbN97NZxjJGNBXZ1FxEZd/nhom_LTTDD?node-id=0-1&node-type=canvas&t=MZ9AjqqUg1wsfYpM-0");
@@ -92,14 +96,10 @@ public class Profile extends Fragment {
         return view;
     }
 
-    private void setLinearLayoutClickListener(LinearLayout linearLayout, Fragment overlayFragment) {
-        linearLayout.setOnClickListener(v -> showOverlayFragment(overlayFragment));
-    }
-
-    private void showOverlayFragment(Fragment fragment) {
-        if (getActivity() instanceof MainActivity) {
-            FragmentUtils.loadFragment(getActivity(), fragment, R.id.fragment_container);
-        }
+    private void setLinearLayoutClickListener(LinearLayout linearLayout, Class<?>  targetActivity,int id) {
+        linearLayout.setOnClickListener(v-> {
+            ActivityOpen.openActivityOnClick(requireActivity(), targetActivity, id);
+        });
     }
 
     // Phương thức để thiết lập sự kiện click cho LinearLayout và mở URL

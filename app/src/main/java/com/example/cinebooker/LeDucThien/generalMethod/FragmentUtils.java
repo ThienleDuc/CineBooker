@@ -44,5 +44,4 @@ public class FragmentUtils {
         FrameLayout overlayContainer = activity.findViewById(containerId);
         overlayContainer.setVisibility(View.GONE);
     }
-
 }

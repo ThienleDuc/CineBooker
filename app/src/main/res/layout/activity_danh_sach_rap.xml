@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/white"
     android:orientation="vertical"
-    tools:context=".LeDucThien.fragment.DanhSachRap">
+    tools:context=".LeDucThien.activity.danhSachRap">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -108,7 +108,26 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/diachirap_recyclerview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="10dp"/>
+        <TextView
+            android:id="@+id/rapchieu_more_than"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Xem thêm"
+            android:textSize="14sp"
+            android:textColor="@color/primary_color"
+            android:textStyle="bold"
+            android:paddingRight="20dp"
+            android:paddingLeft="20dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:layout_gravity="center"
+            android:background="@drawable/more_bg"/>
     </LinearLayout>
 
 </LinearLayout>

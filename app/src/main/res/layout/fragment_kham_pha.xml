@@ -340,7 +340,7 @@ có mặt trên khắp cả nước"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                app:tabIndicatorHeight="0dp" />
+                app:tabIndicatorColor="@color/colorSelected"/>
 
             <Space
                 android:layout_width="match_parent"

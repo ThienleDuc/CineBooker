@@ -52,7 +52,7 @@ public class heThongRapChieuAdapter extends RecyclerView.Adapter<heThongRapChieu
 
     @Override
     public int getItemCount() {
-        return 3;
+        return dangChieulist.size();
     }
 
     public class viewHolder extends RecyclerView.ViewHolder {
