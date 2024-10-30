@@ -1,4 +1,4 @@
-package com.example.cinebooker.PhanCongQuoc.generalMethod;
+package com.example.cinebooker.generalMethod;
 
 import android.view.View;
 import android.widget.FrameLayout;

@@ -10,8 +10,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.cinebooker.PhanCongQuoc.generalMethod.ActivityOpen;
 import com.example.cinebooker.R;
+import com.example.cinebooker.generalMethod.ActivityOpen;
 
 public class login extends AppCompatActivity {
 

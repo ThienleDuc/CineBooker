@@ -1,4 +1,4 @@
-package com.example.cinebooker.PhanCongQuoc.generalMethod;
+package com.example.cinebooker.generalMethod;
 
 import android.content.Intent;
 import android.view.View;

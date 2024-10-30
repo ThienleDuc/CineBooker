@@ -15,8 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.cinebooker.PhanCongQuoc.activity.xem_thong_tin_ve;
 import com.example.cinebooker.PhanCongQuoc.activity.xuat_ve;
 import com.example.cinebooker.PhanCongQuoc.entity.ticketdadungMoviesEntity;
-import com.example.cinebooker.PhanCongQuoc.generalMethod.ActivityOpen;
 import com.example.cinebooker.R;
+import com.example.cinebooker.generalMethod.ActivityOpen;
 
 import java.util.List;
 

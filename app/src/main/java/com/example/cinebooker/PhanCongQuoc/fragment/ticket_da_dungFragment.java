@@ -14,8 +14,8 @@ import com.example.cinebooker.PhanCongQuoc.adapter.Ticket_chuadungAdapter;
 import com.example.cinebooker.PhanCongQuoc.adapter.Ticket_dadungAdapter;
 import com.example.cinebooker.PhanCongQuoc.entity.ticketchuadungMoviesEntity;
 import com.example.cinebooker.PhanCongQuoc.entity.ticketdadungMoviesEntity;
-import com.example.cinebooker.PhanCongQuoc.generalMethod.SpaceItemDecoration;
 import com.example.cinebooker.R;
+import com.example.cinebooker.generalMethod.SpaceItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;

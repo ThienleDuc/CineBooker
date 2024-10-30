@@ -13,8 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cinebooker.PhanCongQuoc.adapter.Ticket_voucherAdapter;
 import com.example.cinebooker.PhanCongQuoc.entity.ticketvoucherMoviesEntity;
-import com.example.cinebooker.PhanCongQuoc.generalMethod.SpaceItemDecoration;
 import com.example.cinebooker.R;
+import com.example.cinebooker.generalMethod.SpaceItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;

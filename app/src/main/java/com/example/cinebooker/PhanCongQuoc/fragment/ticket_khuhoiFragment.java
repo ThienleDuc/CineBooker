@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cinebooker.PhanCongQuoc.adapter.Ticket_khuhoiAdapter;
 import com.example.cinebooker.PhanCongQuoc.entity.ticketkhuhoiMoviesEntity;
-import com.example.cinebooker.PhanCongQuoc.generalMethod.SpaceItemDecoration;
 import com.example.cinebooker.R;
+import com.example.cinebooker.generalMethod.SpaceItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
