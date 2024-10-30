@@ -16,9 +16,10 @@ import com.example.cinebooker.LeDucThien.adapter.rapChieuAdapter;
 import com.example.cinebooker.LeDucThien.entity.timDiaChiRapChieuEntity;
 import com.example.cinebooker.LeDucThien.entity.heThongRapChieuEntity;
 import com.example.cinebooker.LeDucThien.entity.rapChieuEntity;
-import com.example.cinebooker.LeDucThien.generalMethod.HorizontalSpaceItemDecoration;
-import com.example.cinebooker.LeDucThien.generalMethod.SpaceItemDecoration;
+
 import com.example.cinebooker.R;
+import com.example.cinebooker.generalMethod.HorizontalSpaceItemDecoration;
+import com.example.cinebooker.generalMethod.SpaceItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;

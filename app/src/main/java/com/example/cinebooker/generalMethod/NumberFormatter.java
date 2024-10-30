@@ -1,4 +1,4 @@
-package com.example.cinebooker.LeDucThien.generalMethod;
+package com.example.cinebooker.generalMethod;
 
 public class NumberFormatter {
     public static String formatNumber(double number) {

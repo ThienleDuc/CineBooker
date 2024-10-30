@@ -15,8 +15,8 @@ import com.example.cinebooker.LeDucThien.adapter.moviesDangChieuAdapter;
 import com.example.cinebooker.LeDucThien.adapter.binhLuanNoiBatAdapter;
 import com.example.cinebooker.LeDucThien.entity.caroselDangChieuEntity;
 import com.example.cinebooker.LeDucThien.entity.binhLuanNoiBatEntity;
-import com.example.cinebooker.LeDucThien.generalMethod.SpaceItemDecoration;
 import com.example.cinebooker.R;
+import com.example.cinebooker.generalMethod.SpaceItemDecoration;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;

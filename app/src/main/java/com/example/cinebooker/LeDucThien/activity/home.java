@@ -16,8 +16,8 @@ import com.example.cinebooker.LeDucThien.fragment.Movies;
 import com.example.cinebooker.LeDucThien.fragment.Profile;
 import com.example.cinebooker.LeDucThien.fragment.Search;
 import com.example.cinebooker.LeDucThien.fragment.Tickets;
-import com.example.cinebooker.LeDucThien.generalMethod.FragmentUtils;
 import com.example.cinebooker.R;
+import com.example.cinebooker.generalMethod.FragmentUtils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.HashMap;

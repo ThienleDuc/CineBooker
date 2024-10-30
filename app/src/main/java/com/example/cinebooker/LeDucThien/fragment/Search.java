@@ -13,9 +13,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.cinebooker.LeDucThien.entity.searchMoviesEntity;
-import com.example.cinebooker.LeDucThien.generalMethod.SpaceItemDecoration;
 import com.example.cinebooker.R;
 import com.example.cinebooker.LeDucThien.adapter.SearchAdapter;
+import com.example.cinebooker.generalMethod.SpaceItemDecoration;
 
 
 import java.util.ArrayList;

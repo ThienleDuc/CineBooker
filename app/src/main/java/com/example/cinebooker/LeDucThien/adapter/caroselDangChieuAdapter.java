@@ -10,8 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cinebooker.LeDucThien.entity.caroselDangChieuEntity;
-import com.example.cinebooker.LeDucThien.generalMethod.NumberFormatter;
 import com.example.cinebooker.R;
+import com.example.cinebooker.generalMethod.NumberFormatter;
 
 import java.util.List;
 

@@ -19,7 +19,6 @@
             android:name=".LeDucThien.activity.home"
             android:exported="false">
         </activity>
-
-
+        
     </application>
 </manifest>

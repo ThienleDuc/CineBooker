@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cinebooker.LeDucThien.entity.thoiGianChieuPhimEntity;
-import com.example.cinebooker.LeDucThien.generalMethod.NumberFormatter;
 import com.example.cinebooker.R;
 
 import java.util.List;

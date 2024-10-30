@@ -14,8 +14,8 @@ import com.example.cinebooker.LeDucThien.adapter.binhLuanNoiBatAdapter;
 import com.example.cinebooker.LeDucThien.adapter.moviesSapChieuAdapter;
 import com.example.cinebooker.LeDucThien.entity.binhLuanNoiBatEntity;
 import com.example.cinebooker.LeDucThien.entity.caroselSapChieuEntity;
-import com.example.cinebooker.LeDucThien.generalMethod.SpaceItemDecoration;
 import com.example.cinebooker.R;
+import com.example.cinebooker.generalMethod.SpaceItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;

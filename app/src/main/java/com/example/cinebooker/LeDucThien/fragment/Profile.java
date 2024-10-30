@@ -12,8 +12,8 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.example.cinebooker.LeDucThien.activity.taiKhoan_BaoMat;
-import com.example.cinebooker.LeDucThien.generalMethod.ActivityOpen;
 import com.example.cinebooker.R;
+import com.example.cinebooker.generalMethod.ActivityOpen;
 
 /**
  * A simple {@link Fragment} subclass.

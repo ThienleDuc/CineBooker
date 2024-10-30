@@ -1,4 +1,4 @@
-package com.example.cinebooker.LeDucThien.generalMethod;
+package com.example.cinebooker.generalMethod;
 
 import android.graphics.Rect;
 import android.view.View;

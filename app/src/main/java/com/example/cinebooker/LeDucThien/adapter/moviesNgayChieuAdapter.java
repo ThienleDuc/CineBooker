@@ -12,9 +12,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cinebooker.LeDucThien.entity.moviesNgayChieuEntity;
 import com.example.cinebooker.LeDucThien.entity.thoiGianChieuPhimEntity;
-import com.example.cinebooker.LeDucThien.generalMethod.HorizontalSpaceItemDecoration;
-import com.example.cinebooker.LeDucThien.generalMethod.NumberFormatter;
+
 import com.example.cinebooker.R;
+import com.example.cinebooker.generalMethod.HorizontalSpaceItemDecoration;
+import com.example.cinebooker.generalMethod.NumberFormatter;
 
 import java.util.ArrayList;
 import java.util.List;

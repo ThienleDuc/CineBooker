@@ -24,17 +24,17 @@ import com.example.cinebooker.LeDucThien.entity.caroselSapChieuEntity;
 import com.example.cinebooker.LeDucThien.entity.heThongRapChieuEntity;
 import com.example.cinebooker.LeDucThien.entity.moviesNgayChieuEntity;
 import com.example.cinebooker.LeDucThien.entity.ngayChieuEntity;
-import com.example.cinebooker.LeDucThien.generalMethod.ActivityOpen;
-import com.example.cinebooker.LeDucThien.generalMethod.HorizontalSpaceItemDecoration;
-import com.example.cinebooker.LeDucThien.generalMethod.SpaceItemDecoration;
+
 import com.example.cinebooker.LeDucThien.viewpager.XepHangViewPagerAdapter;
 import com.example.cinebooker.R;
 import com.example.cinebooker.LeDucThien.adapter.caroselDangChieuAdapter;
 import com.example.cinebooker.LeDucThien.adapter.caroselSapChieuAdapter;
 import com.example.cinebooker.LeDucThien.entity.thoiGianChieuPhimEntity;
+import com.example.cinebooker.generalMethod.ActivityOpen;
+import com.example.cinebooker.generalMethod.HorizontalSpaceItemDecoration;
+import com.example.cinebooker.generalMethod.SpaceItemDecoration;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
-import com.example.cinebooker.LeDucThien.generalMethod.FragmentUtils;
 
 import java.util.ArrayList;
 import java.util.List;
