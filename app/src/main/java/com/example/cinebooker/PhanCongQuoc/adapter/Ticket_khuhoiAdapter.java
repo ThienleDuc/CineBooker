@@ -1,5 +1,6 @@
 package com.example.cinebooker.PhanCongQuoc.adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,10 +12,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.cinebooker.PhanCongQuoc.activity.chiTietHuy;
+import com.example.cinebooker.PhanCongQuoc.activity.xem_thong_tin_ve;
 import com.example.cinebooker.PhanCongQuoc.entity.ticketkhuhoiMoviesEntity;
-import com.example.cinebooker.PhanCongQuoc.entity.ticketkhuhoiMoviesEntity;
-import com.example.cinebooker.PhanCongQuoc.fragment.chitiethuyFragment;
-import com.example.cinebooker.PhanCongQuoc.fragment.xemthongtinFragment;
+import com.example.cinebooker.PhanCongQuoc.generalMethod.ActivityOpen;
 import com.example.cinebooker.R;
 
 import java.util.List;
@@ -66,20 +67,10 @@ public class Ticket_khuhoiAdapter extends RecyclerView.Adapter<Ticket_khuhoiAdap
         holder.btn_khuhoi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Lấy Activity chứa RecyclerView
-                AppCompatActivity activity = (AppCompatActivity) v.getContext();
-
-                // Tạo instance của fragment mới
-                chitiethuyFragment fragment = new chitiethuyFragment();
-
-
-
-                // Thay thế fragment
-                activity.getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.fragment_container, fragment) // `fragment_container` là ID của ViewGroup chứa fragment
-                        .addToBackStack(null) // Thêm vào back stack nếu cần
-                        .commit();
+                Context context = v.getContext();
+                if (context instanceof AppCompatActivity) {
+                    ActivityOpen.openActivityOnClick((AppCompatActivity) context, chiTietHuy.class, R.id.btn_chitiethuy);
+                }
             }
         });
 

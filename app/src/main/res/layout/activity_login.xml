@@ -5,45 +5,30 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
-    tools:context=".PhanCongQuoc.fragment.registerFragment"
     android:paddingRight="40dp"
-    android:paddingLeft="40dp">
+    android:paddingLeft="40dp"
+    android:background="@color/black"
+    tools:context=".PhanCongQuoc.activity.login">
 
     <LinearLayout
 
-        android:layout_width="401dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="312dp"
-            android:layout_height="wrap_content"
 
-            android:orientation="horizontal">
+        <ImageView
+            android:layout_width="132dp"
+            android:layout_height="101dp"
+            android:layout_marginTop="-60dp"
+            android:src="@drawable/icon17_login" />
 
-            <TextView
-                android:id="@+id/back_register"
-                android:layout_width="83dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="10dp"
-                android:text="Quay lại"
-                android:textColor="@color/white"
-                android:textSize="10dp" />
-
-            <ImageView
-                android:layout_width="141dp"
-                android:layout_height="wrap_content"
-
-                android:src="@drawable/icon17_login" />
-        </LinearLayout>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="ĐĂNG KÝ"
+            android:text="ĐĂNG NHẬP"
             android:textColor="@color/white"
             android:textSize="30dp" />
 
@@ -53,20 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:background="@drawable/khung_editview"
-            android:hint="Họ tên *"
-            android:inputType="text"
-            android:padding="15dp"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white"
-            android:textSize="15sp" />
-
-        <EditText
-            android:id="@+id/email_input"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/khung_editview"
-            android:hint="Email *"
+            android:hint="Email của bạn"
             android:inputType="text"
             android:padding="15dp"
             android:textColor="@color/white"
@@ -79,78 +51,82 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:background="@drawable/khung_editview"
-            android:hint="Mật khẩu *"
-            android:inputType="text"
             android:drawableEnd="@drawable/baseline_remove_red_eye_24"
+            android:hint="Mật khẩu của bạn"
+            android:inputType="text"
             android:padding="15dp"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
             android:textSize="15sp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/date_input"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
-                android:background="@drawable/khung_editview"
-                android:drawableEnd="@drawable/baseline_arrow_drop_down_24"
-                android:hint="Ngày sinh *"
-                android:inputType="none"
-                android:focusable="false"
-                android:focusableInTouchMode="false"
-                android:padding="15dp"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white"
-                android:textSize="15sp" />
-
-
-            <RadioGroup
-                android:layout_width="wrap_content"
-                android:layout_height="55dp"
-                android:layout_marginLeft="10dp"
-                >
-
-                <RadioButton
-                    android:id="@+id/radioButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="  Nam" />
-
-                <RadioButton
-                    android:id="@+id/radioButton2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="  Nữ" />
-            </RadioGroup>
-        </LinearLayout>
-
-
         <Button
-            android:id="@+id/register_btn"
+            android:id="@+id/login_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="32dp"
             android:background="@drawable/khung_editview"
             android:padding="15dp"
-            android:text="Đăng Ký"
+            android:text="Đăng nhập"
             android:textColor="@color/white"
             android:textSize="15dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
+            android:layout_marginTop="10dp"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Bạn chưa có tài khoản?"
+                android:textColor="@color/white"
+                />
+
+            <TextView
+                android:id="@+id/register_lg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Đăng kí"
+                android:textColor="@color/blue"
+                android:clickable="true"
+                android:focusable="true"/>
+        </LinearLayout>
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="-15dp"
+            android:text="Hoặc"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/login_btn_1"
+            android:layout_width="match_parent"
+            android:layout_height="58dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/khung_fragment"
+            android:drawableStart="@drawable/icon_gg"
+            android:paddingHorizontal="15dp"
+            android:text="Đăng nhập với google"
+            android:textColor="@color/black"
+            android:textSize="15dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="-50dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
 
             <TextView
 
@@ -169,6 +145,5 @@
 
 
     </LinearLayout>
-
 
 </RelativeLayout>

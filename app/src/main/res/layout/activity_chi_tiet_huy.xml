@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
-    tools:context=".PhanCongQuoc.fragment_vephim.xemthongtinFragment">
+    tools:context=".PhanCongQuoc.activity.chiTietHuy">
 
     <LinearLayout
 
@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:gravity="start|center"
-                android:text="Xem Thông Tin Vé"
+                android:text="Chi tiết vé hủy"
                 android:paddingLeft="50dp"
                 android:textColor="@color/white"
                 android:textSize="20dp" />
@@ -45,12 +45,13 @@
 
 
         <LinearLayout
-            android:layout_width="300dp"
-            android:layout_height="206dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:padding="5dp"
             android:background="@drawable/khung_fragment"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <LinearLayout
                 android:paddingLeft="5dp"
@@ -155,12 +156,12 @@
                                 android:text=" 1"
                                 android:textColor="@color/black" />
 
-                                <ImageView
-                                    android:id="@+id/icon_CGV"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="match_parent"
-                                    android:layout_marginLeft="30dp"
-                                    android:src="@drawable/icon_cgv" />
+                            <ImageView
+                                android:id="@+id/icon_CGV"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="30dp"
+                                android:src="@drawable/icon_cgv" />
 
                             <TextView
                                 android:id="@+id/diachi_xemthongtin"
@@ -325,11 +326,21 @@
                 </LinearLayout>
 
 
+
             </LinearLayout>
+            <Button
+                android:id="@+id/btn_chitiethuy"
+                android:layout_width="129dp"
+                android:layout_height="29dp"
+                android:layout_gravity="end"
+                android:background="@drawable/khung_button3"
+                android:text="Xác nhận hủy"
+                android:layout_marginRight="15dp"
+                android:textColor="@color/white"
+                android:textSize="10sp" />
+
         </LinearLayout>
 
-
     </LinearLayout>
-
 
 </RelativeLayout>

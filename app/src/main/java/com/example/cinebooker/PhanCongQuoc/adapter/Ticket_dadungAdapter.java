@@ -1,7 +1,6 @@
 package com.example.cinebooker.PhanCongQuoc.adapter;
 
-import android.content.Intent;
-import android.os.Bundle;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +12,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.cinebooker.PhanCongQuoc.activity.xem_thong_tin_ve;
+import com.example.cinebooker.PhanCongQuoc.activity.xuat_ve;
 import com.example.cinebooker.PhanCongQuoc.entity.ticketdadungMoviesEntity;
-import com.example.cinebooker.PhanCongQuoc.fragment.xemthongtinFragment;
+import com.example.cinebooker.PhanCongQuoc.generalMethod.ActivityOpen;
 import com.example.cinebooker.R;
 
 import java.util.List;
@@ -62,20 +63,10 @@ public class Ticket_dadungAdapter extends RecyclerView.Adapter<Ticket_dadungAdap
         holder.btn_dadung.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Lấy Activity chứa RecyclerView
-                AppCompatActivity activity = (AppCompatActivity) v.getContext();
-
-                // Tạo instance của fragment mới
-                xemthongtinFragment fragment = new xemthongtinFragment();
-
-
-
-                // Thay thế fragment
-                activity.getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.fragment_container, fragment) // `fragment_container` là ID của ViewGroup chứa fragment
-                        .addToBackStack(null) // Thêm vào back stack nếu cần
-                        .commit();
+                Context context = v.getContext();
+                if (context instanceof AppCompatActivity) {
+                    ActivityOpen.openActivityOnClick((AppCompatActivity) context, xem_thong_tin_ve.class, R.id.btn_dadung);
+                }
             }
         });
 

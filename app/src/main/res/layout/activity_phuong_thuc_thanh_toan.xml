@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/main"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/black"
-    tools:context=".PhanCongQuoc.fragment.phuong_thuc_thanh_toanFragment">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    android:orientation="vertical"
+    tools:context=".PhanCongQuoc.activity.phuong_thuc_thanh_toan">
 
     <LinearLayout
 
@@ -53,16 +54,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="7dp"
-                android:text="Thẻ tín dụng/Ghi nợ" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="7dp"
-                android:text="số lượng: 0" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="7dp"
+                    android:text="Thẻ tín dụng/Ghi nợ" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="7dp"
+                    android:text="số lượng: 0" />
 
             </LinearLayout>
 
@@ -72,15 +73,15 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="10dp"
                 android:orientation="horizontal">
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-             android:layout_marginRight="10dp"
-                android:src="@drawable/img"/>
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/img"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                   android:textColor="@color/pink"
+                    android:textColor="@color/pink"
                     android:text="+ Thêm thẻ mới" />
             </LinearLayout>
 
@@ -116,13 +117,13 @@
 
             </LinearLayout>
 
-               <ImageView
-                   android:layout_width="280dp"
-                   android:layout_gravity="center"
-                   android:layout_height="60dp"
-                   android:src="@drawable/nganhang"
-                   android:padding="5dp"
-                   android:background="@drawable/khung_phuongthuc"/>
+            <ImageView
+                android:layout_width="280dp"
+                android:layout_gravity="center"
+                android:layout_height="60dp"
+                android:src="@drawable/nganhang"
+                android:padding="5dp"
+                android:background="@drawable/khung_phuongthuc"/>
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_gravity="center"
@@ -137,4 +138,4 @@
     </LinearLayout>
 
 
-    </RelativeLayout>
+</LinearLayout>
