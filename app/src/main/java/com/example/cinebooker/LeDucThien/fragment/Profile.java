@@ -11,12 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import com.example.cinebooker.LeDucThien.activity.cap_bac;
-import com.example.cinebooker.LeDucThien.activity.ngan_hang;
 import com.example.cinebooker.LeDucThien.activity.taiKhoan_BaoMat;
-import com.example.cinebooker.LeDucThien.activity.voucher;
 import com.example.cinebooker.LeDucThien.generalMethod.ActivityOpen;
-import com.example.cinebooker.LeDucThien.generalMethod.FragmentUtils;
 import com.example.cinebooker.R;
 
 /**
