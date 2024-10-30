@@ -1,15 +1,21 @@
 package com.example.cinebooker.PhanCongQuoc.adapter;
 
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cinebooker.PhanCongQuoc.entity.ticketchuadungMoviesEntity;
+import com.example.cinebooker.PhanCongQuoc.fragment.trahanghoantienFragment;
+import com.example.cinebooker.PhanCongQuoc.fragment.xemthongtinFragment;
+import com.example.cinebooker.PhanCongQuoc.fragment.xuatveFragment;
 import com.example.cinebooker.PhanCongQuoc.generalMethod.NumberFormatter;
 import com.example.cinebooker.R;
 
@@ -53,6 +59,42 @@ public class Ticket_chuadungAdapter extends RecyclerView.Adapter<Ticket_chuadung
         holder.age_chuadung.setText(ticket.getAge_chuadung());
         holder.movieName_chuadung.setText(ticket.getName_chuadung());
         holder.styleMovie_chuadung.setText(ticket.getStyle_chuadung());
+        holder.btn_chuadung.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Lấy Activity chứa RecyclerView
+                AppCompatActivity activity = (AppCompatActivity) v.getContext();
+
+                // Tạo instance của fragment mới
+                trahanghoantienFragment fragment = new trahanghoantienFragment();
+
+
+                // Thay thế fragment
+                activity.getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_container, fragment) // `fragment_container` là ID của ViewGroup chứa fragment
+                        .addToBackStack(null) // Thêm vào back stack nếu cần
+                        .commit();
+            }
+        });
+        holder.btn_chuadung1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Lấy Activity chứa RecyclerView
+                AppCompatActivity activity = (AppCompatActivity) v.getContext();
+
+                // Tạo instance của fragment mới
+                xuatveFragment fragment = new xuatveFragment();
+
+
+                // Thay thế fragment
+                activity.getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_container, fragment) // `fragment_container` là ID của ViewGroup chứa fragment
+                        .addToBackStack(null) // Thêm vào back stack nếu cần
+                        .commit();
+            }
+        });
 
     }
 
@@ -64,6 +106,7 @@ public class Ticket_chuadungAdapter extends RecyclerView.Adapter<Ticket_chuadung
     public class TicketViewHolder extends RecyclerView.ViewHolder {
         ImageView posterMovie_chuadung;
         TextView age_chuadung, movieName_chuadung, styleMovie_chuadung, date_chuadung;
+        Button btn_chuadung,btn_chuadung1;
 
         public TicketViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -72,6 +115,8 @@ public class Ticket_chuadungAdapter extends RecyclerView.Adapter<Ticket_chuadung
             movieName_chuadung = itemView.findViewById(R.id.name_chuadung);
             styleMovie_chuadung = itemView.findViewById(R.id.style_chuadung);
             date_chuadung = itemView.findViewById(R.id.date_chuadung);
+            btn_chuadung = itemView.findViewById(R.id.btn_chuadung);
+            btn_chuadung1 = itemView.findViewById(R.id.btn_chuadung1);
         }
     }
 }

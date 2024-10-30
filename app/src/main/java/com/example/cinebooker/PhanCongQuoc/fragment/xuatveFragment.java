@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.example.cinebooker.R;
 
@@ -60,7 +61,21 @@ public class xuatveFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_xuatve, container, false);
-    }
+        View view = inflater.inflate(R.layout.fragment_xuatve, container, false);
+
+        // Thiết lập listener cho nút quay lại
+        ImageView backButton = view.findViewById(R.id.itemback);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Quay về da_dungFragment
+                Fragment chuadungFragment = new ticket_chuadungFragment(); // Tạo instance của da_dungFragment
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, chuadungFragment) // Đảm bảo ID này chính xác
+                        .addToBackStack(null) // Thêm vào back stack nếu muốn quay lại
+                        .commit();
+            }
+        });
+
+        return view;  }
 }

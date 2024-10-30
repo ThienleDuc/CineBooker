@@ -1,15 +1,20 @@
 package com.example.cinebooker.PhanCongQuoc.adapter;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cinebooker.PhanCongQuoc.entity.ticketdadungMoviesEntity;
+import com.example.cinebooker.PhanCongQuoc.fragment.xemthongtinFragment;
 import com.example.cinebooker.R;
 
 import java.util.List;
@@ -53,6 +58,27 @@ public class Ticket_dadungAdapter extends RecyclerView.Adapter<Ticket_dadungAdap
         holder.age_dadung.setText(ticket.getAge_dadung());
         holder.movieName_dadung.setText(ticket.getName_dadung());
         holder.styleMovie_dadung.setText(ticket.getStyle_dadung());
+        // Thiết lập listener cho nút
+        holder.btn_dadung.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Lấy Activity chứa RecyclerView
+                AppCompatActivity activity = (AppCompatActivity) v.getContext();
+
+                // Tạo instance của fragment mới
+                xemthongtinFragment fragment = new xemthongtinFragment();
+
+
+
+                // Thay thế fragment
+                activity.getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_container, fragment) // `fragment_container` là ID của ViewGroup chứa fragment
+                        .addToBackStack(null) // Thêm vào back stack nếu cần
+                        .commit();
+            }
+        });
+
 
     }
 
@@ -64,7 +90,7 @@ public class Ticket_dadungAdapter extends RecyclerView.Adapter<Ticket_dadungAdap
     public class TicketViewHolder extends RecyclerView.ViewHolder {
         ImageView posterMovie_dadung;
         TextView age_dadung, movieName_dadung, styleMovie_dadung, date_dadung,date_1_dadung;
-
+        Button btn_dadung;
         public TicketViewHolder(@NonNull View itemView) {
             super(itemView);
             posterMovie_dadung = itemView.findViewById(R.id.poster_dadung);
@@ -73,7 +99,7 @@ public class Ticket_dadungAdapter extends RecyclerView.Adapter<Ticket_dadungAdap
             styleMovie_dadung = itemView.findViewById(R.id.style_dadung);
             date_dadung = itemView.findViewById(R.id.date_dadung);
             date_1_dadung = itemView.findViewById(R.id.date_1_dadung);
-
+            btn_dadung = itemView.findViewById(R.id.btn_dadung);
         }
     }
 }

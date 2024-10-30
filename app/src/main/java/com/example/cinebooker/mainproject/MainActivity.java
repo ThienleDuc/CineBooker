@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Khởi chạy fragment mặc định khi ứng dụng mở lên
         if (savedInstanceState == null) {
-            FragmentUtils.loadFragment(this, new trahanghoantienFragment()  , R.id.fragment_container);
+            FragmentUtils.loadFragment(this, new ticket_khuhoiFragment()  , R.id.fragment_container);
         }
     }
 

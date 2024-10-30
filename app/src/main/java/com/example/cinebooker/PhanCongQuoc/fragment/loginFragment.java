@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.cinebooker.R;
 
@@ -60,7 +61,21 @@ public class loginFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login, container, false);
-    }
+        View view = inflater.inflate(R.layout.fragment_login, container, false);
+
+        // Thiết lập listener cho nút đăng ký
+        TextView registerTextView = view.findViewById(R.id.register_lg);
+        registerTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Chuyển sang registerFragment
+                Fragment registerFragment = new registerFragment(); // Tạo instance của registerFragment
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, registerFragment) // Đảm bảo ID này chính xác
+                        .addToBackStack(null) // Thêm vào back stack nếu muốn quay lại
+                        .commit();
+            }
+        });
+
+        return view;  }
 }

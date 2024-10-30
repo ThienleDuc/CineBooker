@@ -3,14 +3,18 @@ package com.example.cinebooker.PhanCongQuoc.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cinebooker.PhanCongQuoc.entity.ticketkhuhoiMoviesEntity;
 import com.example.cinebooker.PhanCongQuoc.entity.ticketkhuhoiMoviesEntity;
+import com.example.cinebooker.PhanCongQuoc.fragment.chitiethuyFragment;
+import com.example.cinebooker.PhanCongQuoc.fragment.xemthongtinFragment;
 import com.example.cinebooker.R;
 
 import java.util.List;
@@ -59,6 +63,25 @@ public class Ticket_khuhoiAdapter extends RecyclerView.Adapter<Ticket_khuhoiAdap
         holder.soluong_khuhoi.setText(String.valueOf(ticket.getSoluong_khuhoi()));
         holder.diachi_khuhoi.setText(ticket.getDiachi_khuhoi());
         holder.icon_rap_khuhoi.setImageResource(ticket.getIcon_rap_khuhoi());
+        holder.btn_khuhoi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Lấy Activity chứa RecyclerView
+                AppCompatActivity activity = (AppCompatActivity) v.getContext();
+
+                // Tạo instance của fragment mới
+                chitiethuyFragment fragment = new chitiethuyFragment();
+
+
+
+                // Thay thế fragment
+                activity.getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_container, fragment) // `fragment_container` là ID của ViewGroup chứa fragment
+                        .addToBackStack(null) // Thêm vào back stack nếu cần
+                        .commit();
+            }
+        });
 
     }
 
@@ -78,6 +101,7 @@ public class Ticket_khuhoiAdapter extends RecyclerView.Adapter<Ticket_khuhoiAdap
         TextView diachi_khuhoi;
         ImageView icon_khuhoi; // Icon của đơn vị
         ImageView icon_rap_khuhoi; // Icon của rạp
+        Button btn_khuhoi;
 
         public TicketViewHolder(View itemView) {
             super(itemView);
@@ -91,6 +115,8 @@ public class Ticket_khuhoiAdapter extends RecyclerView.Adapter<Ticket_khuhoiAdap
             diachi_khuhoi = itemView.findViewById(R.id.diachi_khuhoi);
             icon_khuhoi = itemView.findViewById(R.id.icon17_khuhoi);
             icon_rap_khuhoi = itemView.findViewById(R.id.icon_rap_khuhoi);
+            btn_khuhoi = itemView.findViewById(R.id.btn_khuhoi);
+
         }
     }
 
