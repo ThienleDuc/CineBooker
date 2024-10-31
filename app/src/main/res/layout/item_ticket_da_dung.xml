@@ -1,0 +1,163 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_centerInParent="true"
+    android:background="@color/black">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/khung_fragment"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/icon17_dadung"
+                    android:layout_marginLeft="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon17_fragment"/>
+
+                <TextView
+                    android:id="@+id/date_dadung"
+                    android:layout_width="223dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="13dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
+                    android:gravity="start|center"
+                    android:text="02/09/2024 18:30"
+                    android:textColor="@color/black"
+                    android:textSize="8sp" />
+
+                <TextView
+                    android:id="@+id/date_1_dadung"
+                    android:layout_width="202dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="13dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
+                    android:paddingRight="25dp"
+                    android:gravity="end|center"
+                    android:text="02/10/2024 18:30"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:textSize="8sp" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/poster_dadung"
+                    android:layout_width="84dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/phimcam" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="-5dp"
+                    android:orientation="vertical"
+                    >
+
+                    <TextView
+                        android:id="@+id/age_dadung"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="7dp"
+                        android:text="18+"
+                        android:textColor="@color/red"
+                        android:textSize="10sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/name_dadung"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="Cám"
+                        android:textColor="@color/pink"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/style_dadung"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="Kinh dị"
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/ticket_dadung"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:src="@drawable/ticket"/>
+
+                        <TextView
+                            android:id="@+id/soluong_dadung"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=" 1"
+                            android:textColor="@color/black" />
+
+                        <ImageView
+                            android:id="@+id/icon_rap_dadung"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="30dp"
+                            android:src="@drawable/icon_cgv" />
+
+                        <TextView
+                            android:id="@+id/diachi_dadung"
+                            android:layout_width="266dp"
+                            android:layout_height="wrap_content"
+                            android:paddingHorizontal="3dp"
+                            android:text="CGV Vincom Plaza Đà Nẵng"
+                            android:textColor="@color/black"
+                            android:textSize="10sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_dadung"
+                android:layout_width="129dp"
+                android:layout_height="29dp"
+                android:layout_gravity="end"
+                android:background="@drawable/khung_button3"
+                android:text="Xem thông tin"
+                android:layout_marginRight="15dp"
+                android:textColor="@color/white"
+                android:textSize="10sp" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
