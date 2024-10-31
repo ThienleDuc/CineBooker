@@ -10,17 +10,56 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.CineBooker"
+        android:theme="@style/Theme.AppCompat.NoActionBar"
         tools:targetApi="31">
+
         <activity
-            android:name=".MainActivity"
+            android:name=".PhanCongQuoc.activity.xuat_ve"
+            android:exported="false" />
+        <activity
+            android:name=".PhanCongQuoc.activity.voucher"
+            android:exported="false" />
+        <activity
+            android:name=".PhanCongQuoc.activity.xem_thong_tin_ve"
+            android:exported="false" />
+        <activity
+            android:name=".PhanCongQuoc.activity.yeu_cau_hoan_tien"
+            android:exported="false" />
+        <activity
+            android:name=".PhanCongQuoc.activity.phuong_thuc_thanh_toan"
+            android:exported="false" />
+        <activity
+            android:name=".PhanCongQuoc.activity.cap_bac"
+            android:exported="false" />
+        <activity
+            android:name=".PhanCongQuoc.activity.chiTietHuy"
+            android:exported="false" />
+        <activity
+            android:name=".PhanCongQuoc.activity.register"
+            android:exported="false" />
+        <activity
+            android:name=".PhanCongQuoc.activity.login"
             android:exported="true">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-    </application>
 
+        <!-- Thêm các hoạt động từ nhánh LeDucThien -->
+        <activity
+            android:name=".LeDucThien.activity.danhSachRap"
+            android:exported="false" />
+        <activity
+            android:name=".LeDucThien.activity.home"
+            android:exported="false">
+        </activity>
+
+        <activity
+            android:name=".LeDucThien.activity.taiKhoan_BaoMat"
+            android:exported="false">
+        </activity>
+
+    </application>
 </manifest>
