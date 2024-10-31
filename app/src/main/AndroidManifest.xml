@@ -39,7 +39,13 @@
             android:exported="false" />
         <activity
             android:name=".PhanCongQuoc.activity.login"
-            android:exported="false" />
+            android:exported="true">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <!-- Thêm các hoạt động từ nhánh LeDucThien -->
         <activity
@@ -47,11 +53,12 @@
             android:exported="false" />
         <activity
             android:name=".LeDucThien.activity.home"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:exported="false">
+        </activity>
+
+        <activity
+            android:name=".LeDucThien.activity.taiKhoan_BaoMat"
+            android:exported="false">
         </activity>
 
     </application>

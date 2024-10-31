@@ -64,8 +64,9 @@ public class Tickets extends Fragment {
         viewPager.setAdapter(adapter);
 
         String[] tabTitles = new String[] {
-                "Chưa sử dụng",
-                "Đã sử dụng"
+                "Vé chưa dùng",
+                "Vé đã dùng",
+                "Vé khứ hồi"
         };
 
         new TabLayoutMediator(tabLayout, viewPager, new TabLayoutMediator.TabConfigurationStrategy() {

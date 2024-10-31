@@ -6,7 +6,6 @@ import android.view.View;
 import androidx.fragment.app.FragmentActivity;
 
 public class ActivityOpen {
-    // Hàm mở Activity khác khi click vào một đối tượng
     public static void openActivityOnClick(final FragmentActivity activity, final Class<?> targetActivity, int viewId) {
         View view = activity.findViewById(viewId);
         if (view != null) {
