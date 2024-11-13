@@ -1,13 +1,9 @@
 package com.example.cinebooker.PhanCongQuoc.activity;
 
 import android.os.Bundle;
-import android.view.View;
+import android.widget.ImageView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,21 +24,20 @@ public class voucher extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_voucher);
+        ImageView back = findViewById(R.id.voucher_back);
+        back.setOnClickListener(v -> onBackPressed());
 
-    }
-
-    public void ticketvoucher(){
-
+        // Khởi tạo RecyclerView và thiết lập layout manager
         list_voucher = findViewById(R.id.list_voucher);
         list_voucher.setLayoutManager(new LinearLayoutManager(this));
 
+        // Thêm khoảng cách giữa các item trong RecyclerView
         int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.recycler_view_spacing_5);
         list_voucher.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
 
+        // Khởi tạo danh sách và thêm các phần tử
         ticketvoucherMoviesList = new ArrayList<>();
-        // Khởi tạo ticketchuadungMoviesEntity theo thứ tự trong TicketViewHolder
         ticketvoucherMoviesList.add(new ticketvoucherMoviesEntity(
                 "TEAM 17",
                 R.drawable.icon17_itemvoucher,
@@ -50,7 +45,6 @@ public class voucher extends AppCompatActivity {
                 "Đơn tối thiểu 80k",
                 "05/10/2024",
                 "75%"
-
         ));
         ticketvoucherMoviesList.add(new ticketvoucherMoviesEntity(
                 "TEAM 17",
@@ -59,7 +53,6 @@ public class voucher extends AppCompatActivity {
                 "Đơn tối thiểu 80k",
                 "05/10/2024",
                 "75%"
-
         ));
         ticketvoucherMoviesList.add(new ticketvoucherMoviesEntity(
                 "TEAM 17",
@@ -68,7 +61,6 @@ public class voucher extends AppCompatActivity {
                 "Đơn tối thiểu 80k",
                 "05/10/2024",
                 "75%"
-
         ));
         ticketvoucherMoviesList.add(new ticketvoucherMoviesEntity(
                 "TEAM 17",
@@ -77,9 +69,9 @@ public class voucher extends AppCompatActivity {
                 "Đơn tối thiểu 80k",
                 "05/10/2024",
                 "75%"
-
         ));
 
+        // Thiết lập adapter và gắn vào RecyclerView
         ticketvoucherAdapter = new Ticket_voucherAdapter(ticketvoucherMoviesList);
         list_voucher.setAdapter(ticketvoucherAdapter);
     }

@@ -78,14 +78,14 @@
             android:orientation="horizontal">
 
             <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:text="Hạn sử dụng"
                     android:textSize="8sp"
                     android:textColor="@color/button"/>
@@ -93,7 +93,7 @@
                 <TextView
                     android:id="@+id/date_capbac"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:text="1 ngày"
                     android:layout_marginLeft="15dp"
                     android:textSize="8sp"
@@ -103,6 +103,8 @@
 
             <Button
                 android:id="@+id/btn_capbac"
+                android:layout_weight="1"
+                android:layout_gravity="end"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:layout_marginLeft="15dp"

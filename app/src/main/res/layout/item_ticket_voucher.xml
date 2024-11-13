@@ -25,7 +25,7 @@
             android:layout_gravity="start">
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="horizontal">
@@ -48,6 +48,11 @@
                     android:layout_marginLeft="10dp"
                     android:textColor="@color/pink" />
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -65,7 +70,8 @@
                 android:text="0%"
                 android:textColor="@color/red"
                 android:layout_marginTop="10dp"
-                android:layout_marginLeft="40dp" />
+                android:layout_marginLeft="5dp" />
+            </LinearLayout>
         </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
