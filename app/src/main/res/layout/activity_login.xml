@@ -5,8 +5,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingRight="40dp"
-    android:paddingLeft="40dp"
+    android:paddingRight="30dp"
+    android:paddingLeft="30dp"
     android:background="@color/black"
     tools:context=".PhanCongQuoc.activity.login">
 
