@@ -52,7 +52,7 @@
 
                 <ImageView
                     android:id="@+id/poster_chuadung"
-                    android:layout_width="85dp"
+                    android:layout_width="84dp"
                     android:layout_height="match_parent"
                     android:src="@drawable/camposter" />
 
