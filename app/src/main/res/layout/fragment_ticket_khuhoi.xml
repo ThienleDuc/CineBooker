@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
-    tools:context=".PhanCongQuoc.fragment.ticket_khohoiFragment">
+    tools:context=".PhanCongQuoc.fragment.ticket_khuhoiFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list_khuhoi"

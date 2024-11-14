@@ -65,7 +65,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="10dp"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -96,54 +96,49 @@
 
                     <ImageView
                         android:id="@+id/poster_xemthongtin"
-                        android:layout_width="75dp"
-                        android:layout_height="100dp"
-                        android:src="@drawable/phimcam" />
+                        android:layout_width="84dp"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/camposter" />
 
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="start"
-                        android:layout_marginLeft="5dp"
-                        android:orientation="vertical">
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        >
 
                         <TextView
                             android:id="@+id/age_xemthongtin"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="10dp"
                             android:text="18+"
-                            android:layout_marginTop="7dp"
-                            android:textColor="@color/red"
-                            android:textStyle="bold" /> <!-- Đặt kiểu chữ đậm -->
+                            android:textColor="@android:color/holo_red_dark"
+                            android:textSize="10sp"
+                            android:textStyle="bold" />
 
-                        <!-- TextView hiển thị "Cám" xuống dòng -->
                         <TextView
                             android:id="@+id/name_xemthongtin"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-
                             android:layout_marginTop="5dp"
                             android:text="Cám"
                             android:textColor="@color/pink"
-                            android:textSize="15dp"
-                            android:textStyle="bold" /> <!-- Đặt kiểu chữ đậm -->
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
                         <TextView
                             android:id="@+id/style_xemthongtin"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-
                             android:layout_marginTop="2dp"
                             android:text="Kinh dị"
                             android:textColor="@android:color/black"
-                            android:textSize="10dp"
-                            tools:ignore="TextSizeCheck" />
+                            android:textSize="10sp" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
-                            android:gravity="start"
                             android:orientation="horizontal">
 
                             <ImageView
@@ -164,21 +159,23 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="end|center"
                                 android:orientation="horizontal">
-                            <ImageView
-                                android:id="@+id/icon_CGV"
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:src="@drawable/icon_cgv" />
 
-                            <TextView
-                                android:id="@+id/diachi_xemthongtin"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:paddingHorizontal="3dp"
-                                android:text="CGV Vincom Plaza Đà Nẵng"
-                                android:textColor="@color/black"
-                                android:textSize="10sp"
-                                android:textStyle="bold" /></LinearLayout>
+                                <ImageView
+                                    android:id="@+id/icon_CGV"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:src="@drawable/icon_cgv" />
+
+                                <TextView
+                                    android:id="@+id/diachi_xemthongtin"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:paddingHorizontal="3dp"
+                                    android:text="CGV Vincom Plaza Đà Nẵng"
+                                    android:textColor="@color/black"
+                                    android:textSize="10sp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
@@ -195,6 +192,7 @@
 
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingLeft="5dp"
                         android:layout_weight="1"
                         android:text="Thời gian"
                         android:gravity="start"
@@ -214,6 +212,7 @@
                     <TextView
                         android:id="@+id/date_xemthongtin1"
                         android:layout_width="wrap_content"
+                        android:paddingRight="5dp"
                         android:layout_weight="1"
                         android:gravity="end"
                         android:layout_height="wrap_content"
@@ -236,6 +235,7 @@
 
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingLeft="5dp"
                         android:layout_weight="1"
                         android:text="Định dạng phim"
                         android:gravity="start"
@@ -246,6 +246,7 @@
                         android:id="@+id/đinhang_xuatphim"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingRight="5dp"
                         android:text="Phim 2D - Phu Đề"
                         android:textColor="@color/black"
                         android:textSize="8dp"
@@ -265,6 +266,7 @@
 
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingLeft="5dp"
                         android:text="Ghế ngồi"
                         android:layout_weight="1"
                         android:layout_gravity="start"
@@ -275,6 +277,7 @@
                         android:id="@+id/ghe_xemthongtin"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingRight="5dp"
                         android:text="G5"
                         android:gravity="end"
                         android:textColor="@color/black"
@@ -295,6 +298,7 @@
 
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingLeft="5dp"
                         android:layout_weight="1"
                         android:text="Phòng chiếu"
                         android:textColor="@color/black"
@@ -304,6 +308,7 @@
                         android:id="@+id/phong_xemthongtin"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingRight="5dp"
                         android:text="03"
                         android:gravity="end"
                         android:textColor="@color/black"
@@ -323,6 +328,7 @@
 
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingLeft="5dp"
                         android:layout_weight="1"
                         android:text="Tình trạng"
                         android:textColor="@color/black"
@@ -332,6 +338,7 @@
                         android:id="@+id/trangthai_xemthongtin"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingRight="5dp"
                         android:text="Đã sử dụng"
                         android:gravity="end"
                         android:textColor="@color/black"

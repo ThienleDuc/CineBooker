@@ -68,7 +68,7 @@ public class ticket_khuhoiFragment extends Fragment {
                 "kinh dị",
                 "1",
                 "CGV Vincom Plaza Đà Nẵng",
-                R.drawable.phimcam,
+                R.drawable.camposter,
                 R.drawable.icon_cgv
         ));
         ticketkhuhoiMoviesList.add(new ticketkhuhoiMoviesEntity(
@@ -80,7 +80,7 @@ public class ticket_khuhoiFragment extends Fragment {
                 "kinh dị",
                 "1",
                 "CGV Vincom Plaza Đà Nẵng",
-                R.drawable.phimcam,
+                R.drawable.camposter,
                 R.drawable.icon_cgv
         ));ticketkhuhoiMoviesList.add(new ticketkhuhoiMoviesEntity(
                 R.drawable.icon17_fragment,
@@ -91,7 +91,7 @@ public class ticket_khuhoiFragment extends Fragment {
                 "kinh dị",
                 "1",
                 "CGV Vincom Plaza Đà Nẵng",
-                R.drawable.phimcam,
+                R.drawable.camposter,
                 R.drawable.icon_cgv
         ));ticketkhuhoiMoviesList.add(new ticketkhuhoiMoviesEntity(
                 R.drawable.icon17_fragment,
@@ -102,7 +102,7 @@ public class ticket_khuhoiFragment extends Fragment {
                 "kinh dị",
                 "1",
                 "CGV Vincom Plaza Đà Nẵng",
-                R.drawable.phimcam,
+                R.drawable.camposter,
                 R.drawable.icon_cgv
         ));
         ticketkhuhoiMoviesList.add(new ticketkhuhoiMoviesEntity(
@@ -114,7 +114,7 @@ public class ticket_khuhoiFragment extends Fragment {
                 "kinh dị",
                 "1",
                 "CGV Vincom Plaza Đà Nẵng",
-                R.drawable.phimcam,
+                R.drawable.camposter,
                 R.drawable.icon_cgv
         ));
 

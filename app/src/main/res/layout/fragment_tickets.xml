@@ -68,7 +68,7 @@
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tickets_tab_layout"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="40dp"
             android:background="@color/white"
             app:tabIndicatorColor="@color/colorSelected"
             app:tabTextAppearance="@style/TabLayoutBoldTextAppearance" />

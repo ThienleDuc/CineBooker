@@ -100,7 +100,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="10dp"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -131,54 +131,48 @@
 
                     <ImageView
                         android:id="@+id/poster_xuatve"
-                        android:layout_width="75dp"
-                        android:layout_height="100dp"
-                        android:src="@drawable/phimcam" />
+                        android:layout_width="84dp"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/camposter" />
 
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="start"
-                        android:layout_marginLeft="5dp"
-                        android:orientation="vertical">
-
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        >
                         <TextView
                             android:id="@+id/age_xuatve"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="10dp"
                             android:text="18+"
-                            android:layout_marginTop="7dp"
-                            android:textColor="@color/red"
-                            android:textStyle="bold" /> <!-- Đặt kiểu chữ đậm -->
+                            android:textColor="@android:color/holo_red_dark"
+                            android:textSize="10sp"
+                            android:textStyle="bold" />
 
-                        <!-- TextView hiển thị "Cám" xuống dòng -->
                         <TextView
                             android:id="@+id/name_xuatve"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-
                             android:layout_marginTop="5dp"
                             android:text="Cám"
                             android:textColor="@color/pink"
-                            android:textSize="15dp"
-                            android:textStyle="bold" /> <!-- Đặt kiểu chữ đậm -->
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
                         <TextView
                             android:id="@+id/style_xuatve"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-
                             android:layout_marginTop="2dp"
                             android:text="Kinh dị"
                             android:textColor="@android:color/black"
-                            android:textSize="10dp"
-                            tools:ignore="TextSizeCheck" />
+                            android:textSize="10sp" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
-                            android:gravity="start"
                             android:orientation="horizontal">
 
                             <ImageView
@@ -199,8 +193,9 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="end|center"
                                 android:orientation="horizontal">
+
                                 <ImageView
-                                    android:id="@+id/icon_CGV"
+                                    android:id="@+id/icon_rap_xuatve"
                                     android:layout_width="wrap_content"
                                     android:layout_height="match_parent"
                                     android:src="@drawable/icon_cgv" />
@@ -217,7 +212,6 @@
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -231,6 +225,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:paddingLeft="5dp"
                         android:text="Thời gian"
                         android:gravity="start"
                         android:textColor="@color/black"
@@ -250,6 +245,7 @@
                         android:id="@+id/date_xuatve1"
                         android:layout_width="wrap_content"
                         android:layout_weight="1"
+                        android:paddingRight="5dp"
                         android:gravity="end"
                         android:layout_height="wrap_content"
                         android:text=" Thứ 4, 02/10/2024"
@@ -272,6 +268,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:paddingLeft="5dp"
                         android:text="Định dạng phim"
                         android:gravity="start"
                         android:textColor="@color/black"
@@ -281,6 +278,7 @@
                         android:id="@+id/đinhang_xuatphim"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingRight="5dp"
                         android:text="Phim 2D - Phu Đề"
                         android:textColor="@color/black"
                         android:textSize="8dp"
@@ -302,6 +300,7 @@
                         android:layout_height="wrap_content"
                         android:text="Ghế ngồi"
                         android:layout_weight="1"
+                        android:paddingLeft="5dp"
                         android:layout_gravity="start"
                         android:textColor="@color/black"
                         android:textSize="8dp" />
@@ -310,6 +309,7 @@
                         android:id="@+id/ghe_xuatve"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingRight="5dp"
                         android:text="G5"
                         android:gravity="end"
                         android:textColor="@color/black"
@@ -331,6 +331,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:paddingLeft="5dp"
                         android:text="Phòng chiếu"
                         android:textColor="@color/black"
                         android:textSize="8dp" />
@@ -339,6 +340,7 @@
                         android:id="@+id/phong_xuatve"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingRight="5dp"
                         android:text="03"
                         android:gravity="end"
                         android:textColor="@color/black"
@@ -359,6 +361,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:paddingLeft="5dp"
                         android:text="Tình trạng"
                         android:textColor="@color/black"
                         android:textSize="8dp" />
@@ -367,6 +370,7 @@
                         android:id="@+id/trangthai_xuatve"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingRight="5dp"
                         android:text="Đã sử dụng"
                         android:gravity="end"
                         android:textColor="@color/black"
