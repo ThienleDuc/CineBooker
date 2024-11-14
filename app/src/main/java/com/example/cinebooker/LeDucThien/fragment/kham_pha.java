@@ -63,6 +63,10 @@ public class kham_pha extends Fragment {
     private List<caroselSapChieuEntity> caroselSapChieuEntityList;
     private caroselSapChieuAdapter sapChieuAdapter;
     private TextView sapChieuMoreThan;
+    private TextView calandar_more;
+    private TextView rapChieu_more;
+    private TextView xephang_more;
+
 
     public kham_pha() {
         // Required empty public constructor
@@ -255,6 +259,30 @@ public class kham_pha extends Fragment {
         ngayChieuAdapter adapter = new ngayChieuAdapter(ngayChieuEntityList);
         calendar_tablayout.setAdapter(adapter);
 
+        calandar_more = view.findViewById(R.id.calandar_more);
+        calandar_more.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TabLayout tabLayout = requireActivity().findViewById(R.id.movies_tab_layout);
+
+                if(tabLayout != null) {
+                    String tabTitleToSelect = "Lịch chiếu";
+                    int tabCount = tabLayout.getTabCount();
+
+                    for(int i = 0; i < tabCount; i++) {
+                        TabLayout.Tab tab = tabLayout.getTabAt(i);
+
+                        if (tab != null && tab.getText() != null) {
+                            if (tab.getText().toString().toUpperCase().equals(tabTitleToSelect.trim().toUpperCase())) {
+                                tab.select();
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
         // Lắng nghe sự kiện click trên item của RecyclerView
         adapter.setOnItemClickListener(new ngayChieuAdapter.OnItemClickListener() {
             @Override
@@ -348,6 +376,29 @@ public class kham_pha extends Fragment {
         // Khởi tạo adapter và gán cho RecyclerView
         heThongRapChieuAdapter adapter = new heThongRapChieuAdapter(list);
         recyclerView.setAdapter(adapter);
+        rapChieu_more = view.findViewById(R.id.rapChieu_more);
+        rapChieu_more.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TabLayout tabLayout = requireActivity().findViewById(R.id.movies_tab_layout);
+
+                if(tabLayout != null) {
+                    String tabTitleToSelect = "Rạp chiếu";
+                    int tabCount = tabLayout.getTabCount();
+
+                    for(int i = 0; i < tabCount; i++) {
+                        TabLayout.Tab tab = tabLayout.getTabAt(i);
+
+                        if (tab != null && tab.getText() != null) {
+                            if (tab.getText().toString().toUpperCase().equals(tabTitleToSelect.trim().toUpperCase())) {
+                                tab.select();
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        });
     }
 
 
@@ -375,6 +426,29 @@ public class kham_pha extends Fragment {
                 ContextCompat.getColor(getContext(), R.color.colorUnSelected),
                 ContextCompat.getColor(getContext(), R.color.colorSelected)
         );
+        xephang_more = view.findViewById(R.id.xephang_more);
+        xephang_more.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TabLayout tabLayout = requireActivity().findViewById(R.id.movies_tab_layout);
+
+                if(tabLayout != null) {
+                    String tabTitleToSelect = "Xếp hạng";
+                    int tabCount = tabLayout.getTabCount();
+
+                    for(int i = 0; i < tabCount; i++) {
+                        TabLayout.Tab tab = tabLayout.getTabAt(i);
+
+                        if (tab != null && tab.getText() != null) {
+                            if (tab.getText().toString().toUpperCase().equals(tabTitleToSelect.trim().toUpperCase())) {
+                                tab.select();
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        });
 
     }
 }

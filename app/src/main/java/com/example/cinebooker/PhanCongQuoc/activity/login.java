@@ -28,6 +28,6 @@ public class login extends AppCompatActivity {
 
         dangKy.setOnClickListener(v -> ActivityOpen.openActivityOnClick(this, register.class, R.id.register_lg));
         dangNhap.setOnClickListener(v -> ActivityOpen.openActivityOnClick(this, home.class, R.id.login_btn));
-        ggDangNhap.setOnClickListener(v -> ActivityOpen.openActivityOnClick(this, home.class, R.id.login_btn));
+        ggDangNhap.setOnClickListener(v -> ActivityOpen.openActivityOnClick(this, home.class, R.id.login_btn_1));
     }
 }
