@@ -6,14 +6,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
     android:orientation="vertical"
     tools:context=".PhanCongQuoc.activity.yeu_cau_hoan_tien">
     <LinearLayout
 
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
         android:gravity="center"
-        android:layout_marginBottom="60dp"
         android:orientation="vertical">
 
         <LinearLayout
@@ -26,7 +28,6 @@
                 android:id="@+id/itemback"
                 android:layout_width="38dp"
                 android:layout_height="37dp"
-                android:layout_marginLeft="30dp"
                 android:src="@drawable/iconback_vephim" />
 
             <TextView
@@ -43,17 +44,17 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="30dp"
             android:background="@drawable/khung_fragment"
             android:gravity="center"
+            android:layout_marginTop="30dp"
             android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginBottom="10dp"
                 android:orientation="vertical"
-                android:layout_weight="5"
-                android:paddingLeft="5dp">
+                >
 
 
                 <LinearLayout
@@ -294,9 +295,8 @@
                     android:id="@+id/btn_ht"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-
                     android:text="Gửi yêu cầu"
-                    android:layout_marginTop="120dp"
+                    android:layout_marginTop="180dp"
                     />
 
             </LinearLayout>
