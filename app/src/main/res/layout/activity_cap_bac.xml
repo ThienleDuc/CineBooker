@@ -26,14 +26,14 @@
             android:src="@drawable/back" />
 
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Đặc quyền cấp bậc"
             android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:paddingLeft="50dp"
+          android:gravity="center"
             tools:ignore="RtlCompat" />
 
 
