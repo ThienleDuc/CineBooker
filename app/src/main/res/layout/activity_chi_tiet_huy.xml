@@ -346,16 +346,6 @@
 
 
                 </LinearLayout>
-                <Button
-                    android:id="@+id/btn_chitiethuy"
-                    android:layout_width="129dp"
-                    android:layout_height="29dp"
-                    android:layout_gravity="end"
-                    android:background="@drawable/khung_button3"
-                    android:text="Xác nhận hủy"
-                    android:layout_marginRight="15dp"
-                    android:textColor="@color/white"
-                    android:textSize="10sp" />
 
 
             </LinearLayout>

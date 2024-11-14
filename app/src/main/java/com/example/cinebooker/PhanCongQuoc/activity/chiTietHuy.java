@@ -22,9 +22,8 @@ public class chiTietHuy extends AppCompatActivity {
 
         ImageView back = findViewById(R.id.itemback);
 
-        Button btn = findViewById(R.id.btn_chitiethuy);
         back.setOnClickListener(v -> onBackPressed());
-        btn.setOnClickListener(v -> onBackPressed());
+
 
 
     }

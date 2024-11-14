@@ -26,6 +26,7 @@ import com.example.cinebooker.LeDucThien.entity.moviesNgayChieuEntity;
 import com.example.cinebooker.LeDucThien.entity.ngayChieuEntity;
 
 import com.example.cinebooker.LeDucThien.viewpager.XepHangViewPagerAdapter;
+import com.example.cinebooker.PhanCongQuoc.activity.register;
 import com.example.cinebooker.R;
 import com.example.cinebooker.LeDucThien.adapter.caroselDangChieuAdapter;
 import com.example.cinebooker.LeDucThien.adapter.caroselSapChieuAdapter;
@@ -94,11 +95,13 @@ public class kham_pha extends Fragment {
         }
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_kham_pha, container, false);
+
 
         dangChieu(view);
 
@@ -186,7 +189,7 @@ public class kham_pha extends Fragment {
         sapChieuAdapter = new caroselSapChieuAdapter(caroselSapChieuEntityList);
         sapChieuRecycleView.setAdapter(sapChieuAdapter);
 
-        sapChieuMoreThan = view.findViewById(R.id.dang_chieu_more);
+        sapChieuMoreThan = view.findViewById(R.id.sapChieu_more);
         sapChieuMoreThan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -222,6 +225,7 @@ public class kham_pha extends Fragment {
                 ActivityOpen.openActivityOnClick(requireActivity(), danhSachRap.class, R.id.danhsachrap_open);
             }
         });
+
 
         View tab1 = LayoutInflater.from(getContext()).inflate(R.layout.location_tab1, null);
         View tab2 = LayoutInflater.from(getContext()).inflate(R.layout.location_tab2, null);
@@ -371,5 +375,6 @@ public class kham_pha extends Fragment {
                 ContextCompat.getColor(getContext(), R.color.colorUnSelected),
                 ContextCompat.getColor(getContext(), R.color.colorSelected)
         );
+
     }
 }

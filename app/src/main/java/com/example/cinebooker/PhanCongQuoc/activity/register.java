@@ -21,7 +21,8 @@ public class register extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_register);
 
-//        TextView quayLai = findViewById(R.id.back_register);
+     TextView quayLai = findViewById(R.id.back_register);
+        quayLai.setOnClickListener(v -> onBackPressed());
 
         Button dangKy = findViewById(R.id.register_btn);
 
