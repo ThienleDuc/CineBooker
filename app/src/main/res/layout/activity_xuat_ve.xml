@@ -131,43 +131,51 @@
 
                     <ImageView
                         android:id="@+id/poster_xuatve"
-                        android:layout_width="84dp"
-                        android:layout_height="match_parent"
-                        android:src="@drawable/camposter" />
+                        android:layout_marginLeft="8dp"
+                        android:layout_width="70dp"
+                        android:layout_height="100dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/camposter"
+                        />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:padding="2dp"
                         android:orientation="vertical"
                         >
+
                         <TextView
                             android:id="@+id/age_xuatve"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:textSize="14sp"
                             android:text="18+"
-                            android:textColor="@android:color/holo_red_dark"
-                            android:textSize="10sp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:textColor="@android:color/holo_red_dark"/>
 
                         <TextView
                             android:id="@+id/name_xuatve"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
+                            android:textSize="16sp"
                             android:text="Cám"
                             android:textColor="@color/pink"
-                            android:textSize="15sp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:maxLines="1"
+                            android:ellipsize="end"/>
 
                         <TextView
                             android:id="@+id/style_xuatve"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="2dp"
-                            android:text="Kinh dị"
-                            android:textColor="@android:color/black"
-                            android:textSize="10sp" />
+                            android:textSize="10sp"
+                            android:text="Kinh di"
+                            android:textStyle="bold"
+                            android:textColor="@android:color/darker_gray"
+                            android:maxLines="1"
+                            android:ellipsize="end"/>
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -178,8 +186,7 @@
                             <ImageView
                                 android:id="@+id/ticket_xuatve"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="3dp"
+                                android:layout_height="match_parent"
                                 android:src="@drawable/ticket"/>
 
                             <TextView
@@ -187,6 +194,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text=" 1"
+                                android:textSize="10dp"
                                 android:textColor="@color/black" />
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -195,7 +203,7 @@
                                 android:orientation="horizontal">
 
                                 <ImageView
-                                    android:id="@+id/icon_rap_xuatve"
+                                    android:id="@+id/icon_CGV"
                                     android:layout_width="wrap_content"
                                     android:layout_height="match_parent"
                                     android:src="@drawable/icon_cgv" />
@@ -208,7 +216,8 @@
                                     android:text="CGV Vincom Plaza Đà Nẵng"
                                     android:textColor="@color/black"
                                     android:textSize="10sp"
-                                    android:textStyle="bold" /></LinearLayout>
+                                    android:textStyle="bold" />
+                            </LinearLayout>
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>

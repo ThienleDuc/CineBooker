@@ -12,7 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar"
         tools:targetApi="31">
-
+        <activity
+            android:name=".PhanCongQuoc.activity.login"
+            android:exported="false" />
         <activity
             android:name=".PhanCongQuoc.activity.xuat_ve"
             android:exported="false" />
@@ -38,28 +40,23 @@
             android:name=".PhanCongQuoc.activity.register"
             android:exported="false" />
         <activity
-            android:name=".PhanCongQuoc.activity.login"
+            android:name=".PhanCongQuoc.activity.StartActivity"
             android:exported="true">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!-- Thêm các hoạt động từ nhánh LeDucThien -->
+        </activity> <!-- Thêm các hoạt động từ nhánh LeDucThien -->
         <activity
             android:name=".LeDucThien.activity.danhSachRap"
             android:exported="false" />
         <activity
             android:name=".LeDucThien.activity.home"
-            android:exported="false">
-        </activity>
-
+            android:exported="false"></activity>
         <activity
             android:name=".LeDucThien.activity.taiKhoan_BaoMat"
-            android:exported="false">
-        </activity>
-
+            android:exported="false"></activity>
     </application>
+
 </manifest>

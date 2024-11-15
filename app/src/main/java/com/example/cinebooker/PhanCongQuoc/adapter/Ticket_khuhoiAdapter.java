@@ -107,7 +107,7 @@ public class Ticket_khuhoiAdapter extends RecyclerView.Adapter<Ticket_khuhoiAdap
             soluong_khuhoi = itemView.findViewById(R.id.soluong_khuhoi);
             diachi_khuhoi = itemView.findViewById(R.id.diachi_khuhoi);
             icon_khuhoi = itemView.findViewById(R.id.icon17_khuhoi);
-            icon_rap_khuhoi = itemView.findViewById(R.id.icon_rap_khuhoi);
+            icon_rap_khuhoi = itemView.findViewById(R.id.icon_CGV);
             btn_khuhoi = itemView.findViewById(R.id.btn_khuhoi);
 
         }
