@@ -11,7 +11,10 @@
         android:background="@drawable/khung_fragment"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:padding="10dp">
+        android:paddingTop="10dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -25,7 +28,6 @@
 
                 <ImageView
                     android:id="@+id/icon17_chuadung"
-                    android:layout_marginLeft="8dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/icon17_fragment"/>
@@ -50,14 +52,20 @@
                 android:layout_marginTop="5dp"
                 android:orientation="horizontal">
 
+                <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingStart="2dp"
+                android:paddingEnd="2dp"
+                android:background="@color/pink">
                 <ImageView
                     android:id="@+id/poster_chuadung"
-                    android:layout_marginLeft="8dp"
                     android:layout_width="70dp"
                     android:layout_height="100dp"
                     android:scaleType="fitXY"
                     android:src="@drawable/camposter"
-                   />
+                    /></LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -71,10 +79,14 @@
                         android:id="@+id/age_chuadung"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="14sp"
+                        android:textSize="10sp"
                         android:text="18+"
                         android:textStyle="bold"
-                        android:textColor="@android:color/holo_red_dark"/>
+                        android:shadowColor="#80000000"
+                        android:shadowDx="2"
+                        android:shadowDy="2"
+                        android:shadowRadius="4"
+                        android:textColor="#8B0000"/>
 
                     <TextView
                         android:id="@+id/name_chuadung"
@@ -82,6 +94,10 @@
                         android:layout_height="wrap_content"
                         android:textSize="16sp"
                         android:text="Cám"
+                        android:shadowColor="#80000000"
+                        android:shadowDx="2"
+                        android:shadowDy="2"
+                        android:shadowRadius="4"
                         android:textColor="@color/pink"
                         android:textStyle="bold"
                         android:maxLines="1"
@@ -92,9 +108,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="10sp"
-                        android:text="Kinh di"
                         android:textStyle="bold"
-                        android:textColor="@android:color/darker_gray"
+                        android:text="Kinh dị"
+                        android:textColor="@color/black"
                         android:maxLines="1"
                         android:ellipsize="end"/>
 
@@ -108,6 +124,7 @@
                             android:id="@+id/ticket_chuadung"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
+                            android:layout_gravity="center"
                             android:src="@drawable/ticket"/>
 
                         <TextView
@@ -115,7 +132,13 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text=" 1"
+                            android:layout_gravity="center"
+                            android:textStyle="bold"
                             android:textSize="10dp"
+                            android:shadowColor="#80000000"
+                            android:shadowDx="2"
+                            android:shadowDy="2"
+                            android:shadowRadius="4"
                             android:textColor="@color/black" />
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -134,9 +157,13 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingHorizontal="3dp"
-                            android:text="CGV Vincom Plaza Đà Nẵng"
+                              android:text="CGV Vincom Plaza Đà Nẵng"
                             android:textColor="@color/black"
                             android:textSize="10sp"
+                            android:shadowColor="#80000000"
+                            android:shadowDx="2"
+                            android:shadowDy="2"
+                            android:shadowRadius="4"
                             android:textStyle="bold" />
                         </LinearLayout>
                     </LinearLayout>
@@ -154,7 +181,6 @@
                     android:layout_height="29dp"
                     android:layout_weight="1"
                     android:layout_gravity="start"
-                    android:layout_marginLeft="10dp"
                     android:background="@drawable/khung_button3"
                     android:text="Hoàn vé"
                     android:textColor="@color/white"

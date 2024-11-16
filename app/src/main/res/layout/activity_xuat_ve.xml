@@ -85,29 +85,29 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:paddingBottom="10dp"
             android:background="@drawable/khung_fragment"
             android:gravity="center"
             android:orientation="horizontal">
 
             <LinearLayout
-                android:paddingLeft="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="10dp"
                 android:orientation="vertical">
 
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
                     android:orientation="horizontal">
 
                     <ImageView
                         android:id="@+id/icon17_xuatve"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="8dp"
                         android:src="@drawable/icon17_fragment"/>
 
                     <TextView
@@ -129,14 +129,21 @@
                     android:layout_marginTop="5dp"
                     android:orientation="horizontal">
 
-                    <ImageView
-                        android:id="@+id/poster_xuatve"
-                        android:layout_marginLeft="8dp"
-                        android:layout_width="70dp"
-                        android:layout_height="100dp"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/camposter"
-                        />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingStart="2dp"
+                        android:paddingEnd="2dp"
+                        
+                        android:background="@color/pink">
+                        <ImageView
+                            android:id="@+id/poster_xuatve"
+                            android:layout_width="70dp"
+                            android:layout_height="100dp"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/camposter"
+                            /></LinearLayout>
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -150,10 +157,14 @@
                             android:id="@+id/age_xuatve"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textSize="14sp"
+                            android:textSize="10sp"
                             android:text="18+"
                             android:textStyle="bold"
-                            android:textColor="@android:color/holo_red_dark"/>
+                            android:shadowColor="#80000000"
+                            android:shadowDx="2"
+                            android:shadowDy="2"
+                            android:shadowRadius="4"
+                            android:textColor="#8B0000"/>
 
                         <TextView
                             android:id="@+id/name_xuatve"
@@ -161,6 +172,10 @@
                             android:layout_height="wrap_content"
                             android:textSize="16sp"
                             android:text="Cám"
+                            android:shadowColor="#80000000"
+                            android:shadowDx="2"
+                            android:shadowDy="2"
+                            android:shadowRadius="4"
                             android:textColor="@color/pink"
                             android:textStyle="bold"
                             android:maxLines="1"
@@ -171,9 +186,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textSize="10sp"
-                            android:text="Kinh di"
                             android:textStyle="bold"
-                            android:textColor="@android:color/darker_gray"
+                            android:text="Kinh dị"
+                            android:textColor="@color/black"
                             android:maxLines="1"
                             android:ellipsize="end"/>
 
@@ -187,6 +202,7 @@
                                 android:id="@+id/ticket_xuatve"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
+                                android:layout_gravity="center"
                                 android:src="@drawable/ticket"/>
 
                             <TextView
@@ -194,7 +210,13 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text=" 1"
+                                android:layout_gravity="center"
+                                android:textStyle="bold"
                                 android:textSize="10dp"
+                                android:shadowColor="#80000000"
+                                android:shadowDx="2"
+                                android:shadowDy="2"
+                                android:shadowRadius="4"
                                 android:textColor="@color/black" />
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -216,6 +238,10 @@
                                     android:text="CGV Vincom Plaza Đà Nẵng"
                                     android:textColor="@color/black"
                                     android:textSize="10sp"
+                                    android:shadowColor="#80000000"
+                                    android:shadowDx="2"
+                                    android:shadowDy="2"
+                                    android:shadowRadius="4"
                                     android:textStyle="bold" />
                             </LinearLayout>
                         </LinearLayout>
@@ -234,7 +260,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:paddingLeft="5dp"
                         android:text="Thời gian"
                         android:gravity="start"
                         android:textColor="@color/black"
@@ -254,7 +279,7 @@
                         android:id="@+id/date_xuatve1"
                         android:layout_width="wrap_content"
                         android:layout_weight="1"
-                        android:paddingRight="5dp"
+                     
                         android:gravity="end"
                         android:layout_height="wrap_content"
                         android:text=" Thứ 4, 02/10/2024"
@@ -277,7 +302,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:paddingLeft="5dp"
+                       
                         android:text="Định dạng phim"
                         android:gravity="start"
                         android:textColor="@color/black"
@@ -287,7 +312,7 @@
                         android:id="@+id/đinhang_xuatphim"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingRight="5dp"
+                     
                         android:text="Phim 2D - Phu Đề"
                         android:textColor="@color/black"
                         android:textSize="8dp"
@@ -309,7 +334,7 @@
                         android:layout_height="wrap_content"
                         android:text="Ghế ngồi"
                         android:layout_weight="1"
-                        android:paddingLeft="5dp"
+                       
                         android:layout_gravity="start"
                         android:textColor="@color/black"
                         android:textSize="8dp" />
@@ -318,7 +343,7 @@
                         android:id="@+id/ghe_xuatve"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingRight="5dp"
+                     
                         android:text="G5"
                         android:gravity="end"
                         android:textColor="@color/black"
@@ -340,7 +365,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:paddingLeft="5dp"
+                       
                         android:text="Phòng chiếu"
                         android:textColor="@color/black"
                         android:textSize="8dp" />
@@ -349,7 +374,7 @@
                         android:id="@+id/phong_xuatve"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingRight="5dp"
+                     
                         android:text="03"
                         android:gravity="end"
                         android:textColor="@color/black"
@@ -370,7 +395,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:paddingLeft="5dp"
+                       
                         android:text="Tình trạng"
                         android:textColor="@color/black"
                         android:textSize="8dp" />
@@ -379,7 +404,7 @@
                         android:id="@+id/trangthai_xuatve"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingRight="5dp"
+                     
                         android:text="Đã sử dụng"
                         android:gravity="end"
                         android:textColor="@color/black"
