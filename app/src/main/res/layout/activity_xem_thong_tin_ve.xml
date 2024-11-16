@@ -70,14 +70,14 @@
 
                     <ImageView
                         android:id="@+id/icon17_xemthongtin"
+                        android:layout_marginLeft="8dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="8dp"
                         android:src="@drawable/icon17_fragment"/>
 
                     <TextView
                         android:id="@+id/date_xemthongtin"
-                        android:layout_width="0dp"
+                        android:layout_width="223dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="13dp"
                         android:layout_marginTop="5dp"
@@ -85,6 +85,20 @@
                         android:gravity="start|center"
                         android:text="02/09/2024 18:30"
                         android:textColor="@color/black"
+                        android:textSize="8sp" />
+
+                    <TextView
+                        android:id="@+id/date_1_xemthongtin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="13dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:paddingRight="25dp"
+                        android:gravity="end|center"
+                        android:text="02/10/2024 18:30"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
                         android:textSize="8sp" />
                 </LinearLayout>
 
