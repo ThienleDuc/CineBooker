@@ -1,0 +1,558 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/black"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/button">
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="32dp"
+                android:text="Thanh Toán"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                android:textStyle="bold"
+
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="255dp"
+                android:layout_height="55dp"
+                android:text="Thanh toán dịch vụ"
+                android:textAlignment="center"
+                android:textColor="#F8F8F8"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="32dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView13"
+                app:layout_constraintVertical_bias="0.0"
+                tools:layout_editor_absoluteX="0dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/khung_icon"
+                    android:orientation="horizontal"
+                    android:padding="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="MissingConstraints">
+
+                    <LinearLayout
+                        android:id="@+id/thongtinvao"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView26"
+                            android:layout_width="match_parent"
+                            android:textColor="@color/white"
+                            android:layout_height="wrap_content"
+                            android:text="Dịch vụ"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/textView27"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white"
+                            android:text="Phim"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/textView28"
+                            android:layout_width="match_parent"
+                            android:textColor="@color/white"
+                            android:layout_height="wrap_content"
+                            android:text="Xuất Chiếu"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/textView29"
+                            android:layout_width="match_parent"
+                            android:textColor="@color/white"
+                            android:layout_height="wrap_content"
+                            android:text="Rạp"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/textView30"
+                            android:layout_width="match_parent"
+                            android:textColor="@color/white"
+                            android:layout_height="wrap_content"
+                            android:text="Phòng chiếu"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/textView31"
+                            android:layout_width="match_parent"
+                            android:textColor="@color/white"
+                            android:layout_height="wrap_content"
+                            android:text="Ghế "
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/textView33"
+                            android:layout_width="match_parent"
+                            android:textColor="@color/white"
+                            android:layout_height="wrap_content"
+                            android:text="Tổng tiền"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/textView32"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white"
+                            android:text="Người Đặt"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/textView34"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white"
+                            android:text="SDT"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/textView35"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white"
+                            android:text="Email"
+                            android:textSize="18sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/thongtinra"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView36"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Mua vé xem phim"
+                            android:textColor="@color/white"
+                            android:textAlignment="textEnd"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/textView37"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white"
+                            android:text="CÁM"
+                            android:textAlignment="textEnd"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/textView38"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white"
+                            android:text="02/10/2024 - 19.00 pm"
+                            android:textAlignment="textEnd"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/textView39"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="CGV Vincom Đà Nẵng"
+                            android:textColor="@color/white"
+                            android:textAlignment="textEnd"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/textView40"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white"
+                            android:text="03"
+                            android:textAlignment="textEnd"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/textView41"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white"
+                            android:text="G5"
+                            android:textAlignment="textEnd"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/textView42"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white"
+                            android:text="75.000dd"
+                            android:textAlignment="textEnd"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/textView43"
+                            android:layout_width="match_parent"
+                            android:textColor="@color/white"
+                            android:layout_height="wrap_content"
+                            android:text=" Nguyen Van A"
+                            android:textAlignment="textEnd"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/textView44"
+                            android:textColor="@color/white"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="0123456789"
+                            android:textAlignment="textEnd"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/textView45"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white"
+                            android:text="NVA@gmail.com"
+                            android:textAlignment="textEnd"
+                            android:textSize="18sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <TextView
+                android:id="@+id/textView46"
+                android:layout_width="261dp"
+                android:layout_height="wrap_content"
+                android:text="Tài khoản / Thẻ"
+                android:textColor="#F8F8F8"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@+id/textView46"
+                tools:layout_editor_absoluteX="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="5dp"
+                    android:background="@color/cardview_dark_background"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <ImageView
+                        android:id="@+id/imageView15"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        app:srcCompat="@drawable/momo" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="233dp"
+                        android:layout_height="match_parent"
+                        android:background="">
+
+                        <TextView
+                            android:id="@+id/textView47"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white"
+                            android:text="Số dư : 123.123đ"
+                            app:layout_constraintStart_toStartOf="@+id/momo"
+                            tools:ignore="DuplicateIds,MissingConstraints"
+                            tools:layout_editor_absoluteY="43dp" />
+
+                        <TextView
+                            android:id="@+id/momo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:textColor="@color/white"
+                            android:text="MOMO"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <TextView
+                        android:id="@+id/textView50"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Nạp thêm"
+                        android:textColor="#2196F3"
+                        tools:ignore="DuplicateIds" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="5dp"
+                    android:background="@color/cardview_dark_background"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <ImageView
+                        android:id="@+id/imageView15"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        app:srcCompat="@drawable/zal"
+                        tools:ignore="DuplicateIds" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="233dp"
+                        android:layout_height="match_parent"
+                        android:background="">
+
+                        <TextView
+                            android:id="@+id/textView47"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white"
+                            android:text="Số dư : 123.123đ"
+                            app:layout_constraintStart_toStartOf="@+id/zalo"
+                            tools:ignore="DuplicateIds,MissingConstraints"
+                            tools:layout_editor_absoluteY="43dp" />
+
+                        <TextView
+                            android:id="@+id/zalo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:text="ZALO"
+                            android:textColor="@color/white"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <TextView
+                        android:id="@+id/textView50"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Nạp thêm"
+                        android:textColor="#2196F3"
+                        tools:ignore="DuplicateIds" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:background="@color/cardview_dark_background"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <ImageView
+                        android:id="@+id/visa"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        app:srcCompat="@drawable/visa"
+                        tools:ignore="DuplicateIds" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="233dp"
+                        android:layout_height="match_parent"
+                        android:background="">
+
+                        <TextView
+                            android:id="@+id/textView47"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Số dư : 123.123đ"
+                            android:textColor="@color/white"
+                            app:layout_constraintStart_toStartOf="@+id/visa"
+                            tools:ignore="DuplicateIds,MissingConstraints"
+                            tools:layout_editor_absoluteY="43dp" />
+
+                        <TextView
+                            android:id="@+id/visa"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:textColor="@color/white"
+                            android:layout_marginTop="16dp"
+                            android:text="VISA"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:ignore="DuplicateIds" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <TextView
+                        android:id="@+id/textView50"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Nạp thêm"
+                        android:textColor="#2196F3"
+                        tools:ignore="DuplicateIds" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:background="@color/cardview_dark_background"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <ImageView
+                        android:id="@+id/imageView15"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        app:srcCompat="@drawable/card"
+                        tools:ignore="DuplicateIds" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="233dp"
+                        android:layout_height="match_parent"
+                        android:background="">
+
+                        <TextView
+                            android:id="@+id/textView47"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Số dư : 123.123đ"
+                            android:textColor="@color/white"
+                            app:layout_constraintStart_toStartOf="@+id/card"
+                            tools:ignore="DuplicateIds,MissingConstraints"
+                            tools:layout_editor_absoluteY="43dp" />
+
+                        <TextView
+                            android:id="@+id/card"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:text="CARD"
+                            android:textSize="20sp"
+                            android:textColor="@color/white"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <TextView
+                        android:id="@+id/textView50"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Nạp thêm"
+
+                        android:textColor="#2196F3"
+                        tools:ignore="DuplicateIds" />
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/cardview_dark_background"
+            android:padding="10dp">
+
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="394dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/button_thanhtoan"
+                android:text="Thanh Toán"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.47"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView22" />
+
+            <TextView
+                android:id="@+id/textView22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:textColor="@color/white"
+                android:layout_marginTop="10dp"
+                android:text="Tổng Cộng"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView23"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:text="90.000đ"
+                android:textColor="#FF0101"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+</RelativeLayout>

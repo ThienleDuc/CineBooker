@@ -13,7 +13,7 @@
         android:theme="@style/Theme.AppCompat.NoActionBar"
         tools:targetApi="31">
         <activity
-            android:name=".mainproject.MainActivity"
+            android:name=".TranGiaThai.Activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,18 +21,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".appCompatActivity.xemthongtin"
-            android:exported="false" />
-        <activity
-            android:name=".appCompatActivity.xuatve"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
-            android:exported="true" />
-        <activity
-            android:name=".appCompatActivity.register"
-            android:exported="true" />
+
     </application>
 
 </manifest>

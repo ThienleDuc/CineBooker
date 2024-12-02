@@ -12,4 +12,8 @@
     <color name="colorUnSelected">#FFFFFFFF</color>
     <color name="colorIconNavigation">#B1B1B1</color>
     <color name="colorFrameTicketsBackground">#D42A87</color>
+    <color name="while_silver">#484141</color>
+    <color name="btn_thanhtoan">#A19696</color>
+    <color name="green">#50b456</color>
+    <color name="Gray">#595151</color>
 </resources>
