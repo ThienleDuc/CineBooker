@@ -43,4 +43,6 @@ dependencies {
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
 
+    implementation("com.microsoft.sqlserver:mssql-jdbc:9.4.1.jre8")
+
 }

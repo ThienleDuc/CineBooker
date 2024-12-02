@@ -1,13 +1,12 @@
 package com.example.cinebooker.PhanCongQuoc.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.widget.ImageView;
+import android.os.Handler;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+
 
 import com.example.cinebooker.R;
 import com.example.cinebooker.generalMethod.ActivityOpen;
@@ -20,9 +19,12 @@ public class StartActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_start);
 
-        ImageView logo = findViewById(R.id.batdau);
-        logo.setOnClickListener(v -> {
-            ActivityOpen.openActivityOnClick(this, login.class, R.id.batdau);
-        });
+        // Sử dụng Handler để chuyển màn hình tự động sau 5 giây
+        new Handler().postDelayed(() -> {
+            // Chuyển đến màn hình login sau 5 giây
+            Intent intent = new Intent(this, login.class);
+            startActivity(intent);
+            finish();  // Để không quay lại màn hình start khi nhấn back
+        }, 5000); // 5
     }
 }
