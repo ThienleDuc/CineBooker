@@ -1,4 +1,4 @@
-package com.example.cinebooker.TranGiaThai.fragment;
+package com.example.cinebooker.TranGiaThai.Fragment;
 
 import android.os.Bundle;
 

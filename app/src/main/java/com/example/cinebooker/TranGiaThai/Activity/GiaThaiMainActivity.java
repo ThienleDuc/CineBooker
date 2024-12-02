@@ -20,7 +20,7 @@ import com.example.cinebooker.generalMethod.FragmentUtils;
 import com.google.android.material.tabs.TabLayout;
 
 
-public class MainActivity extends AppCompatActivity {
+public class GiaThaiMainActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private RecyclerView recyclerView;
@@ -34,8 +34,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_maingiathai);
 
 
-        tabLayout = findViewById(R.id.tab_layout);
-        viewPager = findViewById(R.id.view_pager);
+        tabLayout = findViewById(R.id.tab_layout_gt);
+        viewPager = findViewById(R.id.view_pager_gt);
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);

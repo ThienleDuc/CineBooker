@@ -69,7 +69,7 @@ private Button returnButton;;
         continueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TabLayout tabLayout = requireActivity().findViewById(R.id.tab_layout);
+                TabLayout tabLayout = requireActivity().findViewById(R.id.tab_layout_gt);
                 if(tabLayout != null) {
                     String tabTitleToSelect = "Thức Ăn";
                     int tabCount = tabLayout.getTabCount();
@@ -93,7 +93,7 @@ private Button returnButton;;
         returnButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TabLayout tabLayout = requireActivity().findViewById(R.id.tab_layout);
+                TabLayout tabLayout = requireActivity().findViewById(R.id.tab_layout_gt);
                 if(tabLayout != null) {
                     String tabTitleToSelect = "Thông Tin";
                     int tabCount = tabLayout.getTabCount();

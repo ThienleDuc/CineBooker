@@ -108,7 +108,7 @@ public class ThongTin extends Fragment {
         btn_datve.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TabLayout tabLayout = requireActivity().findViewById(R.id.tab_layout);
+                TabLayout tabLayout = requireActivity().findViewById(R.id.tab_layout_gt);
                 if(tabLayout != null) {
                     String tabTitleToSelect = "Chọn Ghế";
                     int tabCount = tabLayout.getTabCount();

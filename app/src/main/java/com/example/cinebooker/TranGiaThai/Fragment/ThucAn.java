@@ -78,7 +78,7 @@ public class ThucAn extends Fragment {
         btn_thanhtoan_thucan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TabLayout tabLayout = requireActivity().findViewById(R.id.tab_layout);
+                TabLayout tabLayout = requireActivity().findViewById(R.id.tab_layout_gt);
                 if(tabLayout != null) {
                     String tabTitleToSelect = "Thanh Toán";
                     int tabCount = tabLayout.getTabCount();
