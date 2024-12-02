@@ -53,10 +53,10 @@
             android:exported="false" />
         <activity
             android:name=".LeDucThien.activity.home"
-            android:exported="false"></activity>
+            android:exported="false"/>
         <activity
             android:name=".LeDucThien.activity.taiKhoan_BaoMat"
-            android:exported="false"></activity>
+            android:exported="false"/>
     </application>
 
 </manifest>
