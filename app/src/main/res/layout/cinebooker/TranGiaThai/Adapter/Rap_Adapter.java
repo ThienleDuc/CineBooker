@@ -30,7 +30,7 @@ public class Rap_Adapter extends RecyclerView.Adapter<Rap_Adapter.viewHoler> {
     @NonNull
     @Override
     public Rap_Adapter.viewHoler onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.items_rap, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.items_rap_giathai, parent, false);
 
         return new viewHoler(view);
     }

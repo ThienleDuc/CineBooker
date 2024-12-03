@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".TranGiaThai.Fragment.ChonGhe">
-
-    <!-- TODO: Update blank fragment layout -->
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/black">
+    tools:context=".TranGiaThai.Activity.ChonGhe">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -81,7 +76,7 @@
                 android:text="trở lại"
                 android:textStyle="italic"
                 android:textColor="@color/red"
-                 />
+                />
 
         </LinearLayout>
         <Space
@@ -1055,6 +1050,5 @@
             android:layout_height="10dp" />
 
     </LinearLayout>
-    </ScrollView>
 
-</FrameLayout>
+</ScrollView>
