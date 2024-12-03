@@ -1,11 +1,11 @@
-﻿CREATE DATABASE dbQuanLyXemPhim
+CREATE DATABASE dbQuanLyXemPhim
 GO
 USE dbQuanLyXemPhim
 GO
 -- Bảng KhachHang
 CREATE TABLE KhachHang (
     MaKhachHang INT PRIMARY KEY IDENTITY(1,1),
-    MaCapBacChiTieu INT,
+    MaChiTietCapBac INT,
     Email VARCHAR(255) NOT NULL,
     MatKhau VARCHAR(16) NOT NULL,
     AnhKhachHang VARCHAR(MAX),
@@ -17,8 +17,16 @@ CREATE TABLE CapBacChiTieu (
     MaCapBacChiTieu INT PRIMARY KEY IDENTITY(1,1),
     AnhCapBac VARCHAR(MAX),
     TenCapBac NVARCHAR(50) NOT NULL,
-    HanMucChiTieu INT NOT NULL,
-    ThoiGianReset DATETIME
+    HanMucChiTieu INT NOT NULL
+);
+
+
+-- Bảng ChiTietCapBac
+CREATE TABLE ChiTietCapBac (
+    MaChiTietCapBac INT PRIMARY KEY IDENTITY(1,1),
+    MaKhachHang INT,
+    MaCapBacChiTieu INT,
+    ThoiHanReset DATETIME
 );
 
 -- Bảng Phim
@@ -26,12 +34,12 @@ CREATE TABLE Phim (
     MaPhim INT PRIMARY KEY IDENTITY(1,1),
     AnhPhim VARCHAR(MAX),
     TenPhim NVARCHAR(255) NOT NULL,
-    Tuoi int,
+	Tuoi int,
     MaTheLoai INT,
     NgayKhoiChieu DATETIME NOT NULL,
-    NgayKetThuc DATETIME NOT NULL,
+	NgayKetThuc DATETIME NOT NULL,
     TrangThaiChieu NVARCHAR(50),
-    ThoiLuong Time
+	ThoiLuong Time
 );
 
 -- Bảng TheLoai
@@ -135,7 +143,7 @@ CREATE TABLE VoucherDoiTac (
     MucGiam INT NOT NULL,
     HanSuDung DATETIME NOT NULL,
     TrangThaiSuDung NVARCHAR(50),
-    SoLuongToiDa int
+	SoLuongToiDa int
 );
 
 -- Bảng VoucherCuaToi
@@ -148,7 +156,7 @@ CREATE TABLE VoucherCuaToi (
     MucGiam INT NOT NULL,
     HanSuDung DATETIME NOT NULL,
     TrangThaiSuDung NVARCHAR(50),
-    SoLuongToiDa int
+	SoLuongToiDa int
 );
 
 -- Bảng VoucherUngDung
@@ -162,12 +170,6 @@ CREATE TABLE VoucherUngDung (
     HanSuDung DATETIME NOT NULL,
     TrangThaiSuDung NVARCHAR(50),
 	SoLuongToiDa int
-);
--- Bảng DoiTuongApDung
-CREATE TABLE DoiTuongApDung (
-    MaDoiTuongApDung INT PRIMARY KEY IDENTITY(1,1),
-    DoiTuongApDung NVARCHAR(255) NOT NULL,
-    MucApDung INT NOT NULL
 );
 -- Bảng DoiTuongApDung
 CREATE TABLE DoiTuongApDung (
@@ -264,3 +266,21 @@ FOREIGN KEY (MaDoiTuongApDung) REFERENCES DoiTuongApDung(MaDoiTuongApDung);
 ALTER TABLE VoucherUngDung
 ADD CONSTRAINT FK_VoucherUngDung_DoiTuongApDung
 FOREIGN KEY (MaDoiTuongApDung) REFERENCES DoiTuongApDung(MaDoiTuongApDung);
+
+-- Ràng buộc khóa ngoại giữa ChiTietCapBac và CapBacChiTieu
+ALTER TABLE ChiTietCapBac
+ADD CONSTRAINT FK_ChiTietCapBac_CapBacChiTieu
+FOREIGN KEY (MaCapBacChiTieu) REFERENCES CapBacChiTieu(MaCapBacChiTieu)
+ON DELETE CASCADE;
+
+-- Ràng buộc khóa ngoại giữa ChiTietCapBac và KhachHang
+ALTER TABLE ChiTietCapBac
+ADD CONSTRAINT FK_ChiTietCapBac_KhachHang
+FOREIGN KEY (MaKhachHang) REFERENCES KhachHang(MaKhachHang)
+ON DELETE CASCADE;
+
+-- Ràng buộc chỉ một MaChiTietCapBac tồn tại cho mỗi KhachHang trong KhachHang
+ALTER TABLE KhachHang
+ADD CONSTRAINT FK_KhachHang_ChiTietCapBac
+FOREIGN KEY (MaChiTietCapBac) REFERENCES ChiTietCapBac(MaChiTietCapBac)
+ON DELETE SET NULL;
