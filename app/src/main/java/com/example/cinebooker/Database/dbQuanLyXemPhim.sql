@@ -131,7 +131,8 @@ CREATE TABLE VoucherDoiTac (
     TrangThaiGiam NVARCHAR(50),
     MucGiam INT NOT NULL,
     HanSuDung DATETIME NOT NULL,
-    TrangThaiSuDung NVARCHAR(50)
+    TrangThaiSuDung NVARCHAR(50),
+    SoLuongToiDa int
 );
 
 -- Bảng VoucherCuaToi
@@ -143,7 +144,8 @@ CREATE TABLE VoucherCuaToi (
     TrangThaiGiam NVARCHAR(50),
     MucGiam INT NOT NULL,
     HanSuDung DATETIME NOT NULL,
-    TrangThaiSuDung NVARCHAR(50)
+    TrangThaiSuDung NVARCHAR(50),
+    SoLuongToiDa int
 );
 
 -- Bảng DoiTuongApDung
