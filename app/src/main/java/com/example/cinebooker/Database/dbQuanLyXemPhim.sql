@@ -28,6 +28,7 @@ CREATE TABLE Phim (
     Tuoi int,
     MaTheLoai INT,
     NgayKhoiChieu DATETIME NOT NULL,
+    NgayKetThuc DATETIME NOT NULL,
     TrangThaiChieu NVARCHAR(50),
     ThoiLuong Time
 );
