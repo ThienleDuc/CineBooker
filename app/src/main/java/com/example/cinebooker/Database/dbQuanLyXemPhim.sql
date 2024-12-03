@@ -17,7 +17,8 @@ CREATE TABLE CapBacChiTieu (
     MaCapBacChiTieu INT PRIMARY KEY IDENTITY(1,1),
     AnhCapBac VARCHAR(MAX),
     TenCapBac NVARCHAR(50) NOT NULL,
-    HanMucChiTieu INT NOT NULL
+    HanMucChiTieu INT NOT NULL,
+    ThoiGianReset DATETIME
 );
 
 -- Bảng Phim
