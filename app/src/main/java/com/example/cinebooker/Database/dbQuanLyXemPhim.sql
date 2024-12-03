@@ -5,7 +5,7 @@ GO
 -- Bảng KhachHang
 CREATE TABLE KhachHang (
     MaKhachHang INT PRIMARY KEY IDENTITY(1,1),
-    MaChiTietCapBac INT,
+    MaChiTietCapBac INT, -- Liên kết đến bảng ChiTietCapBac
     Email VARCHAR(255) NOT NULL,
     MatKhau VARCHAR(16) NOT NULL,
     AnhKhachHang VARCHAR(MAX),
@@ -20,12 +20,11 @@ CREATE TABLE CapBacChiTieu (
     HanMucChiTieu INT NOT NULL
 );
 
-
 -- Bảng ChiTietCapBac
 CREATE TABLE ChiTietCapBac (
     MaChiTietCapBac INT PRIMARY KEY IDENTITY(1,1),
-    MaKhachHang INT,
-    MaCapBacChiTieu INT,
+    MaKhachHang INT NOT NULL, -- Liên kết đến bảng KhachHang
+    MaCapBacChiTieu INT NOT NULL, -- Liên kết đến bảng CapBacChiTieu
     ThoiHanReset DATETIME
 );
 
@@ -185,10 +184,23 @@ GO
 
 -- Ràng buộc khóa ngoại cho bảng TheLoai (Không có khóa phụ, tạo trước)
 
--- Ràng buộc khóa ngoại cho bảng KhachHang
+-- Ràng buộc khóa ngoại giữa ChiTietCapBac và CapBacChiTieu
+ALTER TABLE ChiTietCapBac
+ADD CONSTRAINT FK_ChiTietCapBac_CapBacChiTieu
+FOREIGN KEY (MaCapBacChiTieu) REFERENCES CapBacChiTieu(MaCapBacChiTieu)
+ON DELETE CASCADE;
+
+-- Ràng buộc khóa ngoại giữa ChiTietCapBac và KhachHang
+ALTER TABLE ChiTietCapBac
+ADD CONSTRAINT FK_ChiTietCapBac_KhachHang
+FOREIGN KEY (MaKhachHang) REFERENCES KhachHang(MaKhachHang)
+ON DELETE CASCADE;
+
+-- Ràng buộc khóa ngoại giữa KhachHang và ChiTietCapBac
 ALTER TABLE KhachHang
-ADD CONSTRAINT FK_KhachHang_CapBacChiTieu
-FOREIGN KEY (MaCapBacChiTieu) REFERENCES CapBacChiTieu(MaCapBacChiTieu);
+ADD CONSTRAINT FK_KhachHang_ChiTietCapBac
+FOREIGN KEY (MaChiTietCapBac) REFERENCES ChiTietCapBac(MaChiTietCapBac)
+ON DELETE NO ACTION; -- Tránh vòng lặp
 
 -- Ràng buộc khóa ngoại cho bảng Phim
 ALTER TABLE Phim
@@ -266,21 +278,3 @@ FOREIGN KEY (MaDoiTuongApDung) REFERENCES DoiTuongApDung(MaDoiTuongApDung);
 ALTER TABLE VoucherUngDung
 ADD CONSTRAINT FK_VoucherUngDung_DoiTuongApDung
 FOREIGN KEY (MaDoiTuongApDung) REFERENCES DoiTuongApDung(MaDoiTuongApDung);
-
--- Ràng buộc khóa ngoại giữa ChiTietCapBac và CapBacChiTieu
-ALTER TABLE ChiTietCapBac
-ADD CONSTRAINT FK_ChiTietCapBac_CapBacChiTieu
-FOREIGN KEY (MaCapBacChiTieu) REFERENCES CapBacChiTieu(MaCapBacChiTieu)
-ON DELETE CASCADE;
-
--- Ràng buộc khóa ngoại giữa ChiTietCapBac và KhachHang
-ALTER TABLE ChiTietCapBac
-ADD CONSTRAINT FK_ChiTietCapBac_KhachHang
-FOREIGN KEY (MaKhachHang) REFERENCES KhachHang(MaKhachHang)
-ON DELETE CASCADE;
-
--- Ràng buộc chỉ một MaChiTietCapBac tồn tại cho mỗi KhachHang trong KhachHang
-ALTER TABLE KhachHang
-ADD CONSTRAINT FK_KhachHang_ChiTietCapBac
-FOREIGN KEY (MaChiTietCapBac) REFERENCES ChiTietCapBac(MaChiTietCapBac)
-ON DELETE SET NULL;
