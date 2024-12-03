@@ -148,6 +148,24 @@ CREATE TABLE VoucherCuaToi (
     SoLuongToiDa int
 );
 
+-- Bảng VoucherUngDung
+CREATE TABLE VoucherUngDung (
+    MaVoucherUngDung INT PRIMARY KEY IDENTITY(1,1),
+	AnhUngDung VARCHAR(MAX),
+    TenVoucher VARCHAR(50) NOT NULL,
+    MaDoiTuongApDung INT,
+    TrangThaiGiam NVARCHAR(50),
+    MucGiam INT NOT NULL,
+    HanSuDung DATETIME NOT NULL,
+    TrangThaiSuDung NVARCHAR(50),
+	SoLuongToiDa int
+);
+-- Bảng DoiTuongApDung
+CREATE TABLE DoiTuongApDung (
+    MaDoiTuongApDung INT PRIMARY KEY IDENTITY(1,1),
+    DoiTuongApDung NVARCHAR(255) NOT NULL,
+    MucApDung INT NOT NULL
+);
 -- Bảng DoiTuongApDung
 CREATE TABLE DoiTuongApDung (
     MaDoiTuongApDung INT PRIMARY KEY IDENTITY(1,1),
@@ -237,4 +255,9 @@ ALTER TABLE VoucherDoiTac
 ADD CONSTRAINT FK_VoucherDoiTac_RapChieu
 FOREIGN KEY (MaRapChieu) REFERENCES RapChieu(MaRapChieu),
 CONSTRAINT FK_VoucherDoiTac_DoiTuongApDung
+FOREIGN KEY (MaDoiTuongApDung) REFERENCES DoiTuongApDung(MaDoiTuongApDung);
+
+-- Ràng buộc khóa ngoại cho bảng VoucherUngDung
+ALTER TABLE VoucherUngDung
+ADD CONSTRAINT FK_VoucherUngDung_DoiTuongApDung
 FOREIGN KEY (MaDoiTuongApDung) REFERENCES DoiTuongApDung(MaDoiTuongApDung);
