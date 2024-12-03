@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.cinebooker.R;
 import com.example.cinebooker.TranGiaThai.Adapter.Thucan_Adapter;
 import com.example.cinebooker.TranGiaThai.Entity.Thucan_Entity;
+import com.example.cinebooker.generalMethod.ActivityOpen;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -24,7 +25,6 @@ public class ThucAn extends AppCompatActivity {
     private RecyclerView ThucAnRecyclerView;
     private Thucan_Adapter ThucAnAdapter;
     private List<Thucan_Entity> ThucAnList;
-    private Button btn_thanhtoan_thucan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +56,6 @@ public class ThucAn extends AppCompatActivity {
         ThucAnAdapter = new Thucan_Adapter(ThucAnList);
         ThucAnRecyclerView.setAdapter(ThucAnAdapter);
 
-        // Handle the payment button click
-        btn_thanhtoan_thucan = findViewById(R.id.btn_thanhtoan_thucan);
+        ActivityOpen.openActivityOnClick(this, ThanhToan.class, R.id.btn_thanhtoan_thucan);
     }
 }

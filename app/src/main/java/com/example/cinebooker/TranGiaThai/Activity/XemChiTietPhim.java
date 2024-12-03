@@ -29,8 +29,6 @@ public class XemChiTietPhim extends AppCompatActivity {
     private List<Khunggiochieu_Entity> KCHList;
     private Rap_Adapter RapAdapter;
     private List<Rap_Entity> RapList;
-    private Button btnDatVe;
-    private LinearLayout map;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,12 +69,10 @@ public class XemChiTietPhim extends AppCompatActivity {
         RapAdapter = new Rap_Adapter(RapList);
         RapRecyclerView.setAdapter(RapAdapter);
 
-        btnDatVe = findViewById(R.id.btn_tieptuc);
-        btnDatVe.setOnClickListener(v -> ActivityOpen.openActivityOnClick(XemChiTietPhim.this, SecondActivity.class, R.id.map_open));
+        ActivityOpen.openActivityOnClick(this, ChonGhe.class, R.id.btn_tieptuc);
     }
 
     private void setupMap() {
-        map = findViewById(R.id.LN1);
-        map.setOnClickListener(v -> ActivityOpen.openActivityOnClick(this, SecondActivity.class, R.id.map_open));
+        ActivityOpen.openActivityOnClick(this, SecondActivity.class, R.id.LN1);
     }
 }

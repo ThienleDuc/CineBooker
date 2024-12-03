@@ -52,17 +52,13 @@ public Khunggiochieu_Adapter(List<Khunggiochieu_Entity> list)
         return 0;
     }
 
-
-
-                public class viewHoler extends RecyclerView.ViewHolder {
-                    TextView giochieu, chotrong;
-                    public viewHoler(@NonNull View itemView) {
-                super(itemView);
-                giochieu = itemView.findViewById(R.id.giochieu);
-                chotrong = itemView.findViewById(R.id.chotrong);
+    public class viewHoler extends RecyclerView.ViewHolder {
+        TextView giochieu, chotrong;
+        public viewHoler(@NonNull View itemView) {
+            super(itemView);
+            giochieu = itemView.findViewById(R.id.giochieu);
+            chotrong = itemView.findViewById(R.id.chotrong);
 
             }
-
-
-                }
+    }
 }

@@ -1,7 +1,6 @@
 package com.example.cinebooker.TranGiaThai.Activity;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
@@ -15,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.cinebooker.R;
 import com.example.cinebooker.TranGiaThai.Adapter.Ghe_Adapter;
 import com.example.cinebooker.TranGiaThai.Entity.Ghe_Entity;
+import com.example.cinebooker.generalMethod.ActivityOpen;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -59,5 +59,6 @@ public class ChonGhe extends AppCompatActivity {
         GheAdapter = new Ghe_Adapter(GheList);
         GheRecyclerView.setAdapter(GheAdapter);
 
+        ActivityOpen.openActivityOnClick(this, ThucAn.class, R.id.btn_thanhtoan_chonghe);
     }
 }

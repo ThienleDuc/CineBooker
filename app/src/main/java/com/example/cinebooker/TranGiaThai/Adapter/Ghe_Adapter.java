@@ -55,8 +55,6 @@ public class Ghe_Adapter extends RecyclerView.Adapter<Ghe_Adapter.viewHoler> {
         return 0;
     }
 
-
-
     public class viewHoler extends RecyclerView.ViewHolder {
         TextView tenghe,soluongghe;
         ImageView item_ghe;
@@ -67,7 +65,6 @@ public class Ghe_Adapter extends RecyclerView.Adapter<Ghe_Adapter.viewHoler> {
             item_ghe = itemView.findViewById(R.id.items_ghe);
 
         }
-
 
     }
 }

@@ -14,7 +14,6 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.cinebooker.R;
 import com.example.cinebooker.TranGiaThai.Adapter.Khunggiochieu_Adapter;
-import com.example.cinebooker.TranGiaThai.Adapter.ViewPagerAdapter;
 import com.example.cinebooker.generalMethod.FragmentUtils;
 import com.google.android.material.tabs.TabLayout;
 
