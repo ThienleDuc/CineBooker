@@ -25,7 +25,7 @@ CREATE TABLE Phim (
     MaPhim INT PRIMARY KEY IDENTITY(1,1),
     AnhPhim VARCHAR(MAX),
     TenPhim NVARCHAR(255) NOT NULL,
-    Age int,
+    Tuoi int,
     MaTheLoai INT,
     NgayKhoiChieu DATETIME NOT NULL,
     TrangThaiChieu NVARCHAR(50),
