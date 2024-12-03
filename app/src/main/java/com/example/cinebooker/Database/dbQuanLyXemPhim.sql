@@ -27,7 +27,8 @@ CREATE TABLE Phim (
     TenPhim NVARCHAR(255) NOT NULL,
     MaTheLoai INT,
     NgayKhoiChieu DATETIME NOT NULL,
-    TrangThaiChieu NVARCHAR(50)
+    TrangThaiChieu NVARCHAR(50),
+    ThoiLuong Time
 );
 
 -- Bảng TheLoai
