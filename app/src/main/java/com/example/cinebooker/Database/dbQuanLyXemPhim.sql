@@ -41,10 +41,16 @@ CREATE TABLE Phim (
 	ThoiLuong Time
 );
 
+-- Bảng TheLoaiCha
+CREATE TABLE TheLoaiCha (
+    MaTheLoaiCha INT PRIMARY KEY IDENTITY(1,1),
+    TenTheLoai NVARCHAR(50) NOT NULL
+);
+
 -- Bảng TheLoai
 CREATE TABLE TheLoai (
     MaTheLoai INT PRIMARY KEY IDENTITY(1,1),
-    TenTheLoai NVARCHAR(50) NOT NULL
+    MaTheLoaiCha INT
 );
 
 -- Bảng DanhGia
@@ -220,6 +226,13 @@ ON UPDATE CASCADE;
 ALTER TABLE Phim
 ADD CONSTRAINT FK_Phim_TheLoai
 FOREIGN KEY (MaTheLoai) REFERENCES TheLoai(MaTheLoai);
+
+-- Tạo ràng buộc khóa ngoại giữa bảng TheLoai và TheLoaiCha
+ALTER TABLE TheLoai
+ADD CONSTRAINT FK_TheLoai_TheLoaiCha
+FOREIGN KEY (MaTheLoaiCha)
+REFERENCES TheLoaiCha (MaTheLoaiCha)
+ON DELETE SET NULL; -- Hoặc sử dụng ON DELETE CASCADE nếu muốn xóa thể loại con khi xóa thể loại cha
 
 -- Ràng buộc khóa ngoại cho bảng LichChieu
 ALTER TABLE LichChieu
