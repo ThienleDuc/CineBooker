@@ -158,7 +158,7 @@ CREATE TABLE VoucherDoiTac (
 -- Bảng VoucherCuaToi
 CREATE TABLE VoucherCuaToi (
     MaVoucherCuaToi INT PRIMARY KEY IDENTITY(1,1),
-    MaCapBacChiTieu INT,
+    MaKhachHang INT,
     TenVoucher VARCHAR(50) NOT NULL,
     MaDoiTuongApDung INT,
     TrangThaiGiam NVARCHAR(50),
@@ -284,8 +284,8 @@ FOREIGN KEY (MaVe) REFERENCES VePhim(MaVe);
 
 -- Ràng buộc khóa ngoại cho bảng VoucherCuaToi
 ALTER TABLE VoucherCuaToi
-ADD CONSTRAINT FK_VoucherCuaToi_CapBacChiTieu
-FOREIGN KEY (MaCapBacChiTieu) REFERENCES CapBacChiTieu(MaCapBacChiTieu),
+ADD CONSTRAINT FK_VoucherCuaToi_KhachHang
+FOREIGN KEY (MaKhachHang) REFERENCES KhachHang(MaKhachHang),
 CONSTRAINT FK_VoucherCuaToi_DoiTuongApDung
 FOREIGN KEY (MaDoiTuongApDung) REFERENCES DoiTuongApDung(MaDoiTuongApDung);
 
