@@ -5,7 +5,6 @@ GO
 -- Bảng KhachHang
 CREATE TABLE KhachHang (
     MaKhachHang INT PRIMARY KEY IDENTITY(1,1),
-    MaChiTietCapBac INT, -- Liên kết đến bảng ChiTietCapBac
     Email VARCHAR(255) NOT NULL,
     MatKhau VARCHAR(16) NOT NULL,
     AnhKhachHang VARCHAR(MAX),
@@ -33,13 +32,13 @@ CREATE TABLE Phim (
     MaPhim INT PRIMARY KEY IDENTITY(1,1),
     AnhPhim VARCHAR(MAX),
     TenPhim NVARCHAR(255) NOT NULL,
-    Tuoi int,
-    DinhDangPhim NVARCHAR(255),
+	Tuoi int,
+	DinhDangPhim NVARCHAR(255),
     MaTheLoai INT,
     NgayKhoiChieu DATETIME NOT NULL,
-    NgayKetThuc DATETIME NOT NULL,
+	NgayKetThuc DATETIME NOT NULL,
     TrangThaiChieu NVARCHAR(50),
-    ThoiLuong Time
+	ThoiLuong Time
 );
 
 -- Bảng TheLoai
@@ -185,23 +184,27 @@ GO
 
 -- Ràng buộc khóa ngoại cho bảng TheLoai (Không có khóa phụ, tạo trước)
 
--- Ràng buộc khóa ngoại giữa ChiTietCapBac và CapBacChiTieu
-ALTER TABLE ChiTietCapBac
-ADD CONSTRAINT FK_ChiTietCapBac_CapBacChiTieu
-FOREIGN KEY (MaCapBacChiTieu) REFERENCES CapBacChiTieu(MaCapBacChiTieu)
-ON DELETE CASCADE;
-
--- Ràng buộc khóa ngoại giữa ChiTietCapBac và KhachHang
-ALTER TABLE ChiTietCapBac
-ADD CONSTRAINT FK_ChiTietCapBac_KhachHang
-FOREIGN KEY (MaKhachHang) REFERENCES KhachHang(MaKhachHang)
-ON DELETE CASCADE;
-
--- Ràng buộc khóa ngoại giữa KhachHang và ChiTietCapBac
+-- Thêm ràng buộc UNIQUE cho Email trong bảng KhachHang
 ALTER TABLE KhachHang
-ADD CONSTRAINT FK_KhachHang_ChiTietCapBac
-FOREIGN KEY (MaChiTietCapBac) REFERENCES ChiTietCapBac(MaChiTietCapBac)
-ON DELETE NO ACTION; -- Tránh vòng lặp
+ADD CONSTRAINT UQ_KhachHang_Email UNIQUE (Email);
+
+-- Thêm ràng buộc CHECK cho HanMucChiTieu trong bảng CapBacChiTieu
+ALTER TABLE CapBacChiTieu
+ADD CONSTRAINT CK_HanMucChiTieu_Positive CHECK (HanMucChiTieu > 0);
+
+-- Thêm ràng buộc FOREIGN KEY cho MaKhachHang trong bảng ChiTietCapBac
+ALTER TABLE ChiTietCapBac
+ADD CONSTRAINT FK_ChiTietCapBac_KhachHang FOREIGN KEY (MaKhachHang) 
+REFERENCES KhachHang (MaKhachHang)
+ON DELETE CASCADE 
+ON UPDATE CASCADE;
+
+-- Thêm ràng buộc FOREIGN KEY cho MaCapBacChiTieu trong bảng ChiTietCapBac
+ALTER TABLE ChiTietCapBac
+ADD CONSTRAINT FK_ChiTietCapBac_CapBacChiTieu FOREIGN KEY (MaCapBacChiTieu) 
+REFERENCES CapBacChiTieu (MaCapBacChiTieu)
+ON DELETE NO ACTION 
+ON UPDATE CASCADE;
 
 -- Ràng buộc khóa ngoại cho bảng Phim
 ALTER TABLE Phim
