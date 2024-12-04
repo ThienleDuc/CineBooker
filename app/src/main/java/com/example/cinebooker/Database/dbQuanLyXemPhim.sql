@@ -289,6 +289,9 @@ FOREIGN KEY (MaCapBacChiTieu) REFERENCES CapBacChiTieu(MaCapBacChiTieu),
 CONSTRAINT FK_VoucherCuaToi_DoiTuongApDung
 FOREIGN KEY (MaDoiTuongApDung) REFERENCES DoiTuongApDung(MaDoiTuongApDung);
 
+ALTER TABLE VoucherCuaToi
+ADD CONSTRAINT UQ_VoucherCuaToi_TenVoucher UNIQUE (TenVoucher);
+
 -- Ràng buộc khóa ngoại cho bảng VoucherDoiTac
 ALTER TABLE VoucherDoiTac
 ADD CONSTRAINT FK_VoucherDoiTac_RapChieu
@@ -296,7 +299,13 @@ FOREIGN KEY (MaRapChieu) REFERENCES RapChieu(MaRapChieu),
 CONSTRAINT FK_VoucherDoiTac_DoiTuongApDung
 FOREIGN KEY (MaDoiTuongApDung) REFERENCES DoiTuongApDung(MaDoiTuongApDung);
 
+ALTER TABLE VoucherDoiTac
+ADD CONSTRAINT UQ_VoucherDoiTac_TenVoucher UNIQUE (TenVoucher);
+
 -- Ràng buộc khóa ngoại cho bảng VoucherUngDung
 ALTER TABLE VoucherUngDung
 ADD CONSTRAINT FK_VoucherUngDung_DoiTuongApDung
 FOREIGN KEY (MaDoiTuongApDung) REFERENCES DoiTuongApDung(MaDoiTuongApDung);
+
+ALTER TABLE VoucherUngDung
+ADD CONSTRAINT UQ_VoucherUngDung_TenVoucher UNIQUE (TenVoucher);
