@@ -9,21 +9,22 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.cinebooker.LeDucThien.entity.caroselDangChieuEntity;
+import com.example.cinebooker.LeDucThien.entity.ent_PhimDangChieu;
 import com.example.cinebooker.R;
 import com.example.cinebooker.generalMethod.NumberFormatter;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class caroselDangChieuAdapter extends RecyclerView.Adapter<caroselDangChieuAdapter.viewHolder> {
 
-    private List<caroselDangChieuEntity> dangChieulist;
+    private List<ent_PhimDangChieu> dangChieulist;
 
     public caroselDangChieuAdapter() {
 
     }
 
-    public caroselDangChieuAdapter(List<caroselDangChieuEntity> dangChieulist) {
+    public caroselDangChieuAdapter(List<ent_PhimDangChieu> dangChieulist) {
         this.dangChieulist = dangChieulist;
     }
 
@@ -36,15 +37,15 @@ public class caroselDangChieuAdapter extends RecyclerView.Adapter<caroselDangChi
 
     @Override
     public void onBindViewHolder(@NonNull caroselDangChieuAdapter.viewHolder holder, int position) {
-        caroselDangChieuEntity dangChieu = dangChieulist.get(position);
+        ent_PhimDangChieu dangChieu = dangChieulist.get(position);
 
-        holder.moviePoster.setImageResource(dangChieu.getMoviePoster());
+        Picasso.get().load(dangChieu.getAnhPhim()).into(holder.moviePoster);
 
-        holder.age.setText(dangChieu.getAge());
-        holder.movieName.setText(dangChieu.getMovieName());
-        holder.styleMovie.setText(dangChieu.getStyleMovie());
+        holder.age.setText(dangChieu.getTuoi());
+        holder.movieName.setText(dangChieu.getTenPhim());
+        holder.styleMovie.setText(dangChieu.getTenTheLoai());
 
-        holder.vote.setText(NumberFormatter.formatNumber(dangChieu.getVote().doubleValue()));
+        holder.vote.setText(NumberFormatter.formatNumber(dangChieu.getDiemDanhGiaTrungBinh()));
 
     }
 

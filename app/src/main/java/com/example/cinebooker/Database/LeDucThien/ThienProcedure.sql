@@ -1,26 +1,4 @@
 ﻿use dbQuanLyXemPhim
-go
-CREATE PROCEDURE pr_GetPhimDangChieuInfo
-AS
-BEGIN
-    SELECT 
-        p.MaPhim,
-        p.AnhPhim,
-        p.TenPhim,
-        p.Tuoi,
-        tl.TenTheLoai AS TheLoai,
-        dbo.fn_DiemDanhGiaPhimTrungBinhTheoNgay(p.MaPhim) AS DiemDanhGiaTrungBinh
-    FROM 
-        Phim p
-    INNER JOIN 
-        TheLoai tl ON p.MaTheLoai = tl.MaTheLoai
-    INNER JOIN 
-        LichChieu lc ON p.MaPhim = lc.MaPhim
-    INNER JOIN 
-        PhimDangChieu pdc ON lc.MaLichChieu = pdc.MaLichChieu
-    ORDER BY 
-        dbo.fn_DiemDanhGiaPhimTrungBinhTheoNgay(p.MaPhim) DESC;
-END;
 GO
 CREATE PROCEDURE pr_LayPhimDangChieu
 AS
@@ -29,22 +7,37 @@ BEGIN
 
     SELECT 
         P.MaPhim,
-        P.AnhPhim,
         P.TenPhim,
         P.Tuoi,
         P.DinhDangPhim,
-        TL.TenTheLoai,
+        STRING_AGG(TC.TenTheLoai, ', ') AS TenTheLoai,
         P.NgayKhoiChieu,
         P.NgayKetThuc,
         P.TrangThaiChieu,
-        P.ThoiLuong
+        P.ThoiLuong,
+        dbo.fn_DiemDanhGiaPhimTrungBinh(P.MaPhim) AS DiemDanhGiaTrungBinh
     FROM 
         Phim P
-    INNER JOIN 
-        TheLoai TL ON P.MaTheLoai = TL.MaTheLoai
+    LEFT JOIN 
+        TheLoai TL ON P.MaPhim = TL.MaPhim
+    LEFT JOIN 
+        TheLoaiCha TC ON TL.MaTheLoaiCha = TC.MaTheLoaiCha
     WHERE 
-        P.TrangThaiChieu = N'Đang chiếu';
+        P.TrangThaiChieu = N'Đang chiếu'
+    GROUP BY 
+        P.MaPhim, 
+        P.AnhPhim, 
+        P.TenPhim, 
+        P.Tuoi, 
+        P.DinhDangPhim, 
+        P.NgayKhoiChieu, 
+        P.NgayKetThuc, 
+        P.TrangThaiChieu, 
+        P.ThoiLuong;
 END;
+EXEC dbo.pr_LayPhimDangChieu
+
+Select * from Phim Where TrangThaiChieu = N'Đang chiếu'
 GO
 CREATE PROCEDURE pr_LayPhimSapChieu
 AS
@@ -57,17 +50,29 @@ BEGIN
         P.TenPhim,
         P.Tuoi,
         P.DinhDangPhim,
-        TL.TenTheLoai,
+        STRING_AGG(TC.TenTheLoai, ', ') AS TenTheLoai,
         P.NgayKhoiChieu,
         P.NgayKetThuc,
         P.TrangThaiChieu,
         P.ThoiLuong
     FROM 
         Phim P
-    INNER JOIN 
-        TheLoai TL ON P.MaTheLoai = TL.MaTheLoai
+    LEFT JOIN 
+        TheLoai TL ON P.MaPhim = TL.MaPhim
+    LEFT JOIN 
+        TheLoaiCha TC ON TL.MaTheLoaiCha = TC.MaTheLoaiCha
     WHERE 
-        P.TrangThaiChieu = N'Sắp chiếu';
+        P.TrangThaiChieu = N'Sắp chiếu'
+    GROUP BY 
+        P.MaPhim, 
+        P.AnhPhim, 
+        P.TenPhim, 
+        P.Tuoi, 
+        P.DinhDangPhim, 
+        P.NgayKhoiChieu, 
+        P.NgayKetThuc, 
+        P.TrangThaiChieu, 
+        P.ThoiLuong;
 END;
 GO
 CREATE PROCEDURE pr_GetRapChieuCon
@@ -120,7 +125,7 @@ BEGIN
             Phim.AnhPhim,
             Phim.TenPhim,
             Phim.Tuoi,
-            TheLoai.TenTheLoai,
+            STRING_AGG(TheLoai.TenTheLoai, ', ') AS TenTheLoai, -- Kết hợp tên thể loại với dấu phẩy
             Phim.DinhDangPhim,
             dbo.fn_DiemDanhGiaTrungBinhTheoNgayChieuRapChieuCon(@MaPhim, @NgayChieu, @TenRapChieuCon) AS DiemDanhGiaTrungBinh,
             dbo.fn_TongLuotMuaPhimTrungBinhTheoNgayChieuRapChieuCon(@MaPhim, @NgayChieu, @TenRapChieuCon) AS TongLuotMuaPhim,
@@ -130,7 +135,12 @@ BEGIN
         JOIN 
             TheLoai ON Phim.MaTheLoai = TheLoai.MaTheLoai
         WHERE 
-            Phim.MaPhim = @MaPhim;
+            Phim.MaPhim = @MaPhim
+        GROUP BY 
+            Phim.AnhPhim,
+            Phim.TenPhim,
+            Phim.Tuoi,
+            Phim.DinhDangPhim;
 
         FETCH NEXT FROM PhimCursor INTO @MaPhim, @NgayChieu;
     END
@@ -138,6 +148,7 @@ BEGIN
     CLOSE PhimCursor;
     DEALLOCATE PhimCursor;
 END;
+
 GO
 CREATE PROCEDURE pr_LayThoiGianChieuPhim
     @MaPhim INT,
@@ -225,7 +236,7 @@ BEGIN
         Phim.AnhPhim,
         Phim.TenPhim,
         Phim.Tuoi,
-        TheLoai.TenTheLoai,
+        STRING_AGG(TheLoai.TenTheLoai, ', ') AS TenTheLoai,  -- Nối tên thể loại
         Phim.DinhDangPhim,
         dbo.fn_DiemDanhGiaPhimTrungBinhTheoNgay(Phim.MaPhim) AS DiemDanhGiaTrungBinh,
         dbo.fn_TongLuotMuaPhimTheoNgay(Phim.MaPhim) AS TongLuotMuaPhim,
@@ -236,9 +247,8 @@ BEGIN
     FROM 
         Phim
     JOIN 
-        TheLoai ON Phim.MaTheLoai = TheLoai.MaTheLoai
+        TheLoai ON Phim.MaPhim = TheLoai.MaPhim  -- Chỉnh lại điều kiện JOIN với bảng TheLoai
     WHERE 
-        -- Điều kiện chỉ lấy các phim đang chiếu ngày hôm nay
         EXISTS (
             SELECT 1 
             FROM LichChieu
@@ -246,8 +256,13 @@ BEGIN
             WHERE LichChieu.MaPhim = Phim.MaPhim
             AND CAST(ChiTietLichChieu.NgayChieu AS DATE) = CAST(GETDATE() AS DATE)
         )
+    GROUP BY 
+        Phim.AnhPhim,
+        Phim.TenPhim,
+        Phim.Tuoi,
+        Phim.DinhDangPhim,
+        Phim.MaPhim
     ORDER BY 
-        -- Sắp xếp theo điểm xếp hạng giảm dần
         DiemXepHang DESC;
 END;
 GO
@@ -261,7 +276,7 @@ BEGIN
         Phim.AnhPhim,
         Phim.TenPhim,
         Phim.Tuoi,
-        TheLoai.TenTheLoai,
+        STRING_AGG(TheLoai.TenTheLoai, ', ') AS TenTheLoai,  -- Nối tên thể loại
         Phim.DinhDangPhim,
         dbo.fn_DiemDanhGiaPhimTrungBinhTheoTuan(Phim.MaPhim) AS DiemDanhGiaTrungBinh,
         dbo.fn_TongLuotMuaPhimTheoTuan(Phim.MaPhim) AS TongLuotMuaPhim,
@@ -272,9 +287,8 @@ BEGIN
     FROM 
         Phim
     JOIN 
-        TheLoai ON Phim.MaTheLoai = TheLoai.MaTheLoai
+        TheLoai ON Phim.MaPhim = TheLoai.MaPhim  -- Chỉnh lại điều kiện JOIN với bảng TheLoai
     WHERE 
-        -- Điều kiện chỉ lấy các phim có lịch chiếu trong tuần hiện tại
         EXISTS (
             SELECT 1 
             FROM LichChieu
@@ -283,8 +297,13 @@ BEGIN
             AND DATEPART(ISO_WEEK, ChiTietLichChieu.NgayChieu) = DATEPART(ISO_WEEK, GETDATE())
             AND YEAR(ChiTietLichChieu.NgayChieu) = YEAR(GETDATE())
         )
+    GROUP BY 
+        Phim.AnhPhim,
+        Phim.TenPhim,
+        Phim.Tuoi,
+        Phim.DinhDangPhim,
+        Phim.MaPhim
     ORDER BY 
-        -- Sắp xếp theo điểm xếp hạng giảm dần
         DiemXepHang DESC;
 END;
 GO
@@ -298,7 +317,7 @@ BEGIN
         Phim.AnhPhim,
         Phim.TenPhim,
         Phim.Tuoi,
-        TheLoai.TenTheLoai,
+        STRING_AGG(TheLoai.TenTheLoai, ', ') AS TenTheLoai,  -- Nối tên thể loại
         Phim.DinhDangPhim,
         dbo.fn_DiemDanhGiaPhimTrungBinhTheoThang(Phim.MaPhim) AS DiemDanhGiaTrungBinh,
         dbo.fn_TongLuotMuaPhimTheoThang(Phim.MaPhim) AS TongLuotMuaPhim,
@@ -309,9 +328,8 @@ BEGIN
     FROM 
         Phim
     JOIN 
-        TheLoai ON Phim.MaTheLoai = TheLoai.MaTheLoai
+        TheLoai ON Phim.MaPhim = TheLoai.MaPhim  -- Chỉnh lại điều kiện JOIN với bảng TheLoai
     WHERE 
-        -- Điều kiện chỉ lấy các phim có lịch chiếu trong tháng hiện tại
         EXISTS (
             SELECT 1 
             FROM LichChieu
@@ -320,8 +338,12 @@ BEGIN
             AND MONTH(ChiTietLichChieu.NgayChieu) = MONTH(GETDATE())
             AND YEAR(ChiTietLichChieu.NgayChieu) = YEAR(GETDATE())
         )
+    GROUP BY 
+        Phim.AnhPhim,
+        Phim.TenPhim,
+        Phim.Tuoi,
+        Phim.DinhDangPhim,
+        Phim.MaPhim
     ORDER BY 
-        -- Sắp xếp theo điểm xếp hạng giảm dần
         DiemXepHang DESC;
 END;
-GO

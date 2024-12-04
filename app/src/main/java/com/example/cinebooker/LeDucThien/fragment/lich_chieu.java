@@ -12,10 +12,11 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.cinebooker.LeDucThien.BussinessLogic.BL_PhimDangChieu;
 import com.example.cinebooker.LeDucThien.activity.danhSachRap;
 import com.example.cinebooker.LeDucThien.adapter.moviesNgayChieuAdapter;
 import com.example.cinebooker.LeDucThien.adapter.ngayChieuAdapter;
-import com.example.cinebooker.LeDucThien.entity.caroselDangChieuEntity;
+import com.example.cinebooker.LeDucThien.entity.ent_PhimDangChieu;
 import com.example.cinebooker.LeDucThien.entity.moviesNgayChieuEntity;
 import com.example.cinebooker.LeDucThien.entity.ngayChieuEntity;
 import com.example.cinebooker.LeDucThien.entity.thoiGianChieuPhimEntity;
@@ -46,7 +47,7 @@ public class lich_chieu extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private List<caroselDangChieuEntity> movieDangChieuList;
+    private List<ent_PhimDangChieu> movieDangChieuList;
 
 
     public lich_chieu() {
@@ -196,26 +197,9 @@ public class lich_chieu extends Fragment {
     public void dangChieu (View view) {
 
         RecyclerView dangChieuRecycleView = view.findViewById(R.id.carosel_recycleView_dangChieu);
-        dangChieuRecycleView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
-        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.recycler_view_spacing_7_5);
-        dangChieuRecycleView.addItemDecoration(new HorizontalSpaceItemDecoration(spacingInPixels));
-
-        movieDangChieuList = new ArrayList<>();
-
-        movieDangChieuList.add(new caroselDangChieuEntity(R.drawable.camposter, "18+",6.2,"Cám", "Kinh dị"));
-        movieDangChieuList.add(new caroselDangChieuEntity(R.drawable.camposter, "18+",6.2,"Cám", "Kinh dị"));
-        movieDangChieuList.add(new caroselDangChieuEntity(R.drawable.camposter, "18+",6.2,"Cám", "Kinh dị"));
-        movieDangChieuList.add(new caroselDangChieuEntity(R.drawable.camposter, "18+",6.2,"Cám", "Kinh dị"));
-        movieDangChieuList.add(new caroselDangChieuEntity(R.drawable.camposter, "18+",6.2,"Cám", "Kinh dị"));
-        movieDangChieuList.add(new caroselDangChieuEntity(R.drawable.camposter, "18+",6.2,"Cám", "Kinh dị"));
-        movieDangChieuList.add(new caroselDangChieuEntity(R.drawable.camposter, "18+",6.2,"Cám", "Kinh dị"));
-        movieDangChieuList.add(new caroselDangChieuEntity(R.drawable.camposter, "18+",6.2,"Cám", "Kinh dị"));
-        movieDangChieuList.add(new caroselDangChieuEntity(R.drawable.camposter, "18+",6.2,"Cám", "Kinh dị"));
-        movieDangChieuList.add(new caroselDangChieuEntity(R.drawable.camposter, "18+",6.2,"Cám", "Kinh dị"));
-
-        caroselDangChieuAdapter dangChieuAdapter = new caroselDangChieuAdapter(movieDangChieuList);
-        dangChieuRecycleView.setAdapter(dangChieuAdapter);
+        BL_PhimDangChieu blPhimDangChieu = new BL_PhimDangChieu();
+        blPhimDangChieu.LoadDangChieuHor(getContext(), dangChieuRecycleView);
 
         TextView dangChieuMoreThan = view.findViewById(R.id.dang_chieu_more);
         dangChieuMoreThan.setOnClickListener(new View.OnClickListener() {

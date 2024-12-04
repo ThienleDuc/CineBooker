@@ -45,5 +45,6 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
 
     implementation("com.microsoft.sqlserver:mssql-jdbc:9.4.1.jre8")
+    implementation("com.squareup.picasso:picasso:2.8")
 
 }
