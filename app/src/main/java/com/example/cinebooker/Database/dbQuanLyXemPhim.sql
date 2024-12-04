@@ -5,7 +5,6 @@ GO
 -- Bảng KhachHang
 CREATE TABLE KhachHang (
     MaKhachHang INT PRIMARY KEY IDENTITY(1,1),
-    MaCapBacChiTieu INT,
     Email VARCHAR(255) NOT NULL,
     MatKhau VARCHAR(16) NOT NULL,
     AnhKhachHang VARCHAR(MAX),
@@ -20,20 +19,38 @@ CREATE TABLE CapBacChiTieu (
     HanMucChiTieu INT NOT NULL
 );
 
+-- Bảng ChiTietCapBac
+CREATE TABLE ChiTietCapBac (
+    MaChiTietCapBac INT PRIMARY KEY IDENTITY(1,1),
+    MaKhachHang INT NOT NULL, -- Liên kết đến bảng KhachHang
+    MaCapBacChiTieu INT NOT NULL, -- Liên kết đến bảng CapBacChiTieu
+    ThoiHanReset DATETIME2
+);
+
 -- Bảng Phim
 CREATE TABLE Phim (
     MaPhim INT PRIMARY KEY IDENTITY(1,1),
     AnhPhim VARCHAR(MAX),
     TenPhim NVARCHAR(255) NOT NULL,
-    MaTheLoai INT,
-    NgayKhoiChieu DATETIME NOT NULL,
-    TrangThaiChieu NVARCHAR(50)
+	Tuoi INT,
+	DinhDangPhim NVARCHAR(255),
+    NgayKhoiChieu DATETIME2 NOT NULL,
+	NgayKetThuc DATETIME2 NOT NULL,
+    TrangThaiChieu NVARCHAR(50),
+	ThoiLuong Time
+);
+
+-- Bảng TheLoaiCha
+CREATE TABLE TheLoaiCha (
+    MaTheLoaiCha INT PRIMARY KEY IDENTITY(1,1),
+    TenTheLoai NVARCHAR(50) NOT NULL
 );
 
 -- Bảng TheLoai
 CREATE TABLE TheLoai (
     MaTheLoai INT PRIMARY KEY IDENTITY(1,1),
-    TenTheLoai NVARCHAR(50) NOT NULL
+    MaTheLoaiCha INT,
+	MaPhim INT
 );
 
 -- Bảng DanhGia
@@ -41,16 +58,10 @@ CREATE TABLE DanhGia (
     MaDanhGia INT PRIMARY KEY IDENTITY(1,1),
     MaKhachHang INT,
     MaPhim INT,
-    NgayDanhGia DATETIME NOT NULL,
+    NgayDanhGia DATETIME2 NOT NULL,
     DanhGia NVARCHAR(1000),
     DiemDanhGia FLOAT,
     LuotThich INT DEFAULT 0
-);
-
--- Bảng PhimDangChieu
-CREATE TABLE PhimDangChieu (
-    MaPhimDangChieu INT PRIMARY KEY IDENTITY(1,1),
-    MaLichChieu INT
 );
 
 -- Bảng LichChieu
@@ -64,10 +75,26 @@ CREATE TABLE LichChieu (
 CREATE TABLE ChiTietLichChieu (
     MaChiTietLichChieu INT PRIMARY KEY IDENTITY(1,1),
     MaLichChieu INT,
-    NgayChieu DATETIME NOT NULL,
+    NgayChieu DATETIME2 NOT NULL,
     ThoiGianBatDau TIME NOT NULL,
     ThoiGianKetThuc TIME NOT NULL
 );
+
+-- Bảng TinhThanhPho
+CREATE TABLE TinhThanhPho (
+    MaTinhThanh INT PRIMARY KEY IDENTITY(1,1),
+    TenTinhThanh NVARCHAR(255)
+);
+
+-- Bảng DiaChiRapChieu
+CREATE TABLE DiaChiRapChieuCon (
+    MaDiaChiRapChieuCon INT PRIMARY KEY IDENTITY(1,1),
+	MaRapChieuCon INT,
+    MaTinhThanh INT,
+    DiaChiRapChieu NVARCHAR(255),
+	map VARCHAR(MAX)
+);
+
 
 -- Bảng RapChieu
 CREATE TABLE RapChieu (
@@ -81,16 +108,16 @@ CREATE TABLE RapChieu (
 CREATE TABLE RapChieuCon (
     MaRapChieuCon INT PRIMARY KEY IDENTITY(1,1),
     MaRapChieu INT,
-    TenRapChieuCon NVARCHAR(255) NOT NULL,
-    DiaChiCon NVARCHAR(255)
+    TenRapChieuCon NVARCHAR(255) NOT NULL
 );
+
 
 -- Bảng DanhGiaRapChieu
 CREATE TABLE DanhGiaRapChieu (
     MaDanhGiaRapChieu INT PRIMARY KEY IDENTITY(1,1),
     MaRapChieuCon INT,
     MaKhachHang INT,
-    NgayDanhGia DATETIME NOT NULL,
+    NgayDanhGia DATETIME2 NOT NULL,
     DanhGia NVARCHAR(1000),
     DiemDanhGia FLOAT
 );
@@ -98,7 +125,7 @@ CREATE TABLE DanhGiaRapChieu (
 -- Bảng VePhim
 CREATE TABLE VePhim (
     MaVe INT PRIMARY KEY IDENTITY(1,1),
-    MaPhimDangChieu INT,
+    MaLichChieu INT,
     MaKhachHang INT,
     SoLuongVe INT DEFAULT 1,
     GheNgoi INT,
@@ -110,7 +137,7 @@ CREATE TABLE TinhTrangVe (
     MaTinhTrang INT PRIMARY KEY IDENTITY(1,1),
 	MaVe INT,
     TinhTrang NVARCHAR(50),
-    ThoiGian DATETIME NOT NULL
+    ThoiGian DATETIME2 NOT NULL
 );
 
 -- Bảng ThanhToan
@@ -129,22 +156,36 @@ CREATE TABLE VoucherDoiTac (
     MaDoiTuongApDung INT,
     TrangThaiGiam NVARCHAR(50),
     MucGiam INT NOT NULL,
-    HanSuDung DATETIME NOT NULL,
-    TrangThaiSuDung NVARCHAR(50)
+    HanSuDung DATETIME2 NOT NULL,
+    TrangThaiSuDung NVARCHAR(50),
+	SoLuongToiDa int
 );
 
 -- Bảng VoucherCuaToi
 CREATE TABLE VoucherCuaToi (
     MaVoucherCuaToi INT PRIMARY KEY IDENTITY(1,1),
-    MaCapBacChiTieu INT,
+    MaKhachHang INT,
     TenVoucher VARCHAR(50) NOT NULL,
     MaDoiTuongApDung INT,
     TrangThaiGiam NVARCHAR(50),
     MucGiam INT NOT NULL,
-    HanSuDung DATETIME NOT NULL,
-    TrangThaiSuDung NVARCHAR(50)
+    HanSuDung DATETIME2 NOT NULL,
+    TrangThaiSuDung NVARCHAR(50),
+	SoLuongToiDa int
 );
 
+-- Bảng VoucherUngDung
+CREATE TABLE VoucherUngDung (
+    MaVoucherUngDung INT PRIMARY KEY IDENTITY(1,1),
+	AnhUngDung VARCHAR(MAX),
+    TenVoucher VARCHAR(50) NOT NULL,
+    MaDoiTuongApDung INT,
+    TrangThaiGiam NVARCHAR(50),
+    MucGiam INT NOT NULL,
+    HanSuDung DATETIME2 NOT NULL,
+    TrangThaiSuDung NVARCHAR(50),
+	SoLuongToiDa int
+);
 -- Bảng DoiTuongApDung
 CREATE TABLE DoiTuongApDung (
     MaDoiTuongApDung INT PRIMARY KEY IDENTITY(1,1),
@@ -159,15 +200,38 @@ GO
 
 -- Ràng buộc khóa ngoại cho bảng TheLoai (Không có khóa phụ, tạo trước)
 
--- Ràng buộc khóa ngoại cho bảng KhachHang
+-- Thêm ràng buộc UNIQUE cho Email trong bảng KhachHang
 ALTER TABLE KhachHang
-ADD CONSTRAINT FK_KhachHang_CapBacChiTieu
-FOREIGN KEY (MaCapBacChiTieu) REFERENCES CapBacChiTieu(MaCapBacChiTieu);
+ADD CONSTRAINT UQ_KhachHang_Email UNIQUE (Email);
 
--- Ràng buộc khóa ngoại cho bảng Phim
-ALTER TABLE Phim
-ADD CONSTRAINT FK_Phim_TheLoai
-FOREIGN KEY (MaTheLoai) REFERENCES TheLoai(MaTheLoai);
+-- Thêm ràng buộc CHECK cho HanMucChiTieu trong bảng CapBacChiTieu
+ALTER TABLE CapBacChiTieu
+ADD CONSTRAINT CK_HanMucChiTieu_Positive CHECK (HanMucChiTieu > 0);
+
+-- Thêm ràng buộc FOREIGN KEY cho MaKhachHang trong bảng ChiTietCapBac
+ALTER TABLE ChiTietCapBac
+ADD CONSTRAINT FK_ChiTietCapBac_KhachHang FOREIGN KEY (MaKhachHang) 
+REFERENCES KhachHang (MaKhachHang)
+ON DELETE CASCADE 
+ON UPDATE CASCADE;
+
+-- Thêm ràng buộc FOREIGN KEY cho MaCapBacChiTieu trong bảng ChiTietCapBac
+ALTER TABLE ChiTietCapBac
+ADD CONSTRAINT FK_ChiTietCapBac_CapBacChiTieu FOREIGN KEY (MaCapBacChiTieu) 
+REFERENCES CapBacChiTieu (MaCapBacChiTieu)
+ON DELETE NO ACTION 
+ON UPDATE CASCADE;
+
+-- Tạo ràng buộc khóa ngoại giữa bảng TheLoai và TheLoaiCha
+ALTER TABLE TheLoai
+ADD CONSTRAINT FK_TheLoai_TheLoaiCha
+FOREIGN KEY (MaTheLoaiCha)
+REFERENCES TheLoaiCha (MaTheLoaiCha)
+ON DELETE SET NULL,
+CONSTRAINT FK_TheLoai_Phim
+FOREIGN KEY (MaPhim)
+REFERENCES Phim (MaPhim)
+ON DELETE SET NULL;
 
 -- Ràng buộc khóa ngoại cho bảng LichChieu
 ALTER TABLE LichChieu
@@ -181,14 +245,22 @@ ALTER TABLE RapChieuCon
 ADD CONSTRAINT FK_RapChieuCon_RapChieu
 FOREIGN KEY (MaRapChieu) REFERENCES RapChieu(MaRapChieu);
 
+-- Tạo ràng buộc giữa bảng DiaChiRapChieuCon và TinhThanhPho
+ALTER TABLE DiaChiRapChieuCon
+ADD CONSTRAINT FK_DiaChiRapChieuCon_TinhThanhPho
+FOREIGN KEY (MaTinhThanh) REFERENCES TinhThanhPho(MaTinhThanh)
+ON DELETE CASCADE;  -- Xóa các địa chỉ nếu thành phố bị xóa
+
+-- Tạo ràng buộc giữa bảng DiaChiRapChieuCon và RapChieuCon
+ALTER TABLE DiaChiRapChieuCon
+ADD CONSTRAINT FK_DiaChiRapChieuCon_RapChieuCon
+FOREIGN KEY (MaRapChieuCon) REFERENCES RapChieuCon(MaRapChieuCon)
+ON DELETE CASCADE;  -- Xóa các địa chỉ nếu RapChieuCon bị xóa
+
+
 -- Ràng buộc khóa ngoại cho bảng ChiTietLichChieu
 ALTER TABLE ChiTietLichChieu
 ADD CONSTRAINT FK_ChiTietLichChieu_LichChieu
-FOREIGN KEY (MaLichChieu) REFERENCES LichChieu(MaLichChieu);
-
--- Ràng buộc khóa ngoại cho bảng PhimDangChieu
-ALTER TABLE PhimDangChieu
-ADD CONSTRAINT FK_PhimDangChieu_LichChieu
 FOREIGN KEY (MaLichChieu) REFERENCES LichChieu(MaLichChieu);
 
 -- Ràng buộc khóa ngoại cho bảng DanhGia
@@ -207,8 +279,8 @@ FOREIGN KEY (MaKhachHang) REFERENCES KhachHang(MaKhachHang);
 
 -- Ràng buộc khóa ngoại cho bảng VePhim
 ALTER TABLE VePhim
-ADD CONSTRAINT FK_VePhim_PhimDangChieu
-FOREIGN KEY (MaPhimDangChieu) REFERENCES PhimDangChieu(MaPhimDangChieu),
+ADD CONSTRAINT FK_VePhim_LichChieu
+FOREIGN KEY (MaLichChieu) REFERENCES LichChieu(MaLichChieu),
 CONSTRAINT FK_VePhim_KhachHang
 FOREIGN KEY (MaKhachHang) REFERENCES KhachHang(MaKhachHang);
 
@@ -224,10 +296,13 @@ FOREIGN KEY (MaVe) REFERENCES VePhim(MaVe);
 
 -- Ràng buộc khóa ngoại cho bảng VoucherCuaToi
 ALTER TABLE VoucherCuaToi
-ADD CONSTRAINT FK_VoucherCuaToi_CapBacChiTieu
-FOREIGN KEY (MaCapBacChiTieu) REFERENCES CapBacChiTieu(MaCapBacChiTieu),
+ADD CONSTRAINT FK_VoucherCuaToi_KhachHang
+FOREIGN KEY (MaKhachHang) REFERENCES KhachHang(MaKhachHang),
 CONSTRAINT FK_VoucherCuaToi_DoiTuongApDung
 FOREIGN KEY (MaDoiTuongApDung) REFERENCES DoiTuongApDung(MaDoiTuongApDung);
+
+ALTER TABLE VoucherCuaToi
+ADD CONSTRAINT UQ_VoucherCuaToi_TenVoucher UNIQUE (TenVoucher);
 
 -- Ràng buộc khóa ngoại cho bảng VoucherDoiTac
 ALTER TABLE VoucherDoiTac
@@ -235,3 +310,17 @@ ADD CONSTRAINT FK_VoucherDoiTac_RapChieu
 FOREIGN KEY (MaRapChieu) REFERENCES RapChieu(MaRapChieu),
 CONSTRAINT FK_VoucherDoiTac_DoiTuongApDung
 FOREIGN KEY (MaDoiTuongApDung) REFERENCES DoiTuongApDung(MaDoiTuongApDung);
+
+ALTER TABLE VoucherDoiTac
+ADD CONSTRAINT UQ_VoucherDoiTac_TenVoucher UNIQUE (TenVoucher);
+
+-- Ràng buộc khóa ngoại cho bảng VoucherUngDung
+ALTER TABLE VoucherUngDung
+ADD CONSTRAINT FK_VoucherUngDung_DoiTuongApDung
+FOREIGN KEY (MaDoiTuongApDung) REFERENCES DoiTuongApDung(MaDoiTuongApDung);
+
+ALTER TABLE VoucherUngDung
+ADD CONSTRAINT UQ_VoucherUngDung_TenVoucher UNIQUE (TenVoucher);
+
+
+
