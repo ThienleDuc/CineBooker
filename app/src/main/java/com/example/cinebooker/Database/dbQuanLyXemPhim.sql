@@ -24,7 +24,7 @@ CREATE TABLE ChiTietCapBac (
     MaChiTietCapBac INT PRIMARY KEY IDENTITY(1,1),
     MaKhachHang INT NOT NULL, -- Liên kết đến bảng KhachHang
     MaCapBacChiTieu INT NOT NULL, -- Liên kết đến bảng CapBacChiTieu
-    ThoiHanReset DATETIME
+    ThoiHanReset DATETIME2
 );
 
 -- Bảng Phim
@@ -35,8 +35,8 @@ CREATE TABLE Phim (
 	Tuoi int,
 	DinhDangPhim NVARCHAR(255),
     MaTheLoai INT,
-    NgayKhoiChieu DATETIME NOT NULL,
-	NgayKetThuc DATETIME NOT NULL,
+    NgayKhoiChieu DATETIME2 NOT NULL,
+	NgayKetThuc DATETIME2 NOT NULL,
     TrangThaiChieu NVARCHAR(50),
 	ThoiLuong Time
 );
@@ -52,7 +52,7 @@ CREATE TABLE DanhGia (
     MaDanhGia INT PRIMARY KEY IDENTITY(1,1),
     MaKhachHang INT,
     MaPhim INT,
-    NgayDanhGia DATETIME NOT NULL,
+    NgayDanhGia DATETIME2 NOT NULL,
     DanhGia NVARCHAR(1000),
     DiemDanhGia FLOAT,
     LuotThich INT DEFAULT 0
@@ -69,7 +69,7 @@ CREATE TABLE LichChieu (
 CREATE TABLE ChiTietLichChieu (
     MaChiTietLichChieu INT PRIMARY KEY IDENTITY(1,1),
     MaLichChieu INT,
-    NgayChieu DATETIME NOT NULL,
+    NgayChieu DATETIME2 NOT NULL,
     ThoiGianBatDau TIME NOT NULL,
     ThoiGianKetThuc TIME NOT NULL
 );
@@ -111,7 +111,7 @@ CREATE TABLE DanhGiaRapChieu (
     MaDanhGiaRapChieu INT PRIMARY KEY IDENTITY(1,1),
     MaRapChieuCon INT,
     MaKhachHang INT,
-    NgayDanhGia DATETIME NOT NULL,
+    NgayDanhGia DATETIME2 NOT NULL,
     DanhGia NVARCHAR(1000),
     DiemDanhGia FLOAT
 );
@@ -131,7 +131,7 @@ CREATE TABLE TinhTrangVe (
     MaTinhTrang INT PRIMARY KEY IDENTITY(1,1),
 	MaVe INT,
     TinhTrang NVARCHAR(50),
-    ThoiGian DATETIME NOT NULL
+    ThoiGian DATETIME2 NOT NULL
 );
 
 -- Bảng ThanhToan
@@ -150,7 +150,7 @@ CREATE TABLE VoucherDoiTac (
     MaDoiTuongApDung INT,
     TrangThaiGiam NVARCHAR(50),
     MucGiam INT NOT NULL,
-    HanSuDung DATETIME NOT NULL,
+    HanSuDung DATETIME2 NOT NULL,
     TrangThaiSuDung NVARCHAR(50),
 	SoLuongToiDa int
 );
@@ -163,7 +163,7 @@ CREATE TABLE VoucherCuaToi (
     MaDoiTuongApDung INT,
     TrangThaiGiam NVARCHAR(50),
     MucGiam INT NOT NULL,
-    HanSuDung DATETIME NOT NULL,
+    HanSuDung DATETIME2 NOT NULL,
     TrangThaiSuDung NVARCHAR(50),
 	SoLuongToiDa int
 );
@@ -176,7 +176,7 @@ CREATE TABLE VoucherUngDung (
     MaDoiTuongApDung INT,
     TrangThaiGiam NVARCHAR(50),
     MucGiam INT NOT NULL,
-    HanSuDung DATETIME NOT NULL,
+    HanSuDung DATETIME2 NOT NULL,
     TrangThaiSuDung NVARCHAR(50),
 	SoLuongToiDa int
 );
