@@ -58,12 +58,6 @@ CREATE TABLE DanhGia (
     LuotThich INT DEFAULT 0
 );
 
--- Bảng PhimDangChieu
-CREATE TABLE PhimDangChieu (
-    MaPhimDangChieu INT PRIMARY KEY IDENTITY(1,1),
-    MaLichChieu INT
-);
-
 -- Bảng LichChieu
 CREATE TABLE LichChieu (
     MaLichChieu INT PRIMARY KEY IDENTITY(1,1),
@@ -122,7 +116,7 @@ CREATE TABLE DanhGiaRapChieu (
 -- Bảng VePhim
 CREATE TABLE VePhim (
     MaVe INT PRIMARY KEY IDENTITY(1,1),
-    MaPhimDangChieu INT,
+    MaLichChieu INT,
     MaKhachHang INT,
     SoLuongVe INT DEFAULT 1,
     GheNgoi INT,
@@ -253,11 +247,6 @@ ALTER TABLE ChiTietLichChieu
 ADD CONSTRAINT FK_ChiTietLichChieu_LichChieu
 FOREIGN KEY (MaLichChieu) REFERENCES LichChieu(MaLichChieu);
 
--- Ràng buộc khóa ngoại cho bảng PhimDangChieu
-ALTER TABLE PhimDangChieu
-ADD CONSTRAINT FK_PhimDangChieu_LichChieu
-FOREIGN KEY (MaLichChieu) REFERENCES LichChieu(MaLichChieu);
-
 -- Ràng buộc khóa ngoại cho bảng DanhGia
 ALTER TABLE DanhGia
 ADD CONSTRAINT FK_DanhGia_KhachHang
@@ -275,7 +264,7 @@ FOREIGN KEY (MaKhachHang) REFERENCES KhachHang(MaKhachHang);
 -- Ràng buộc khóa ngoại cho bảng VePhim
 ALTER TABLE VePhim
 ADD CONSTRAINT FK_VePhim_PhimDangChieu
-FOREIGN KEY (MaPhimDangChieu) REFERENCES PhimDangChieu(MaPhimDangChieu),
+FOREIGN KEY (MaLichChieu) REFERENCES LichCieu(MaLichChieu),
 CONSTRAINT FK_VePhim_KhachHang
 FOREIGN KEY (MaKhachHang) REFERENCES KhachHang(MaKhachHang);
 
