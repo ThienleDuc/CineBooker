@@ -263,8 +263,8 @@ FOREIGN KEY (MaKhachHang) REFERENCES KhachHang(MaKhachHang);
 
 -- Ràng buộc khóa ngoại cho bảng VePhim
 ALTER TABLE VePhim
-ADD CONSTRAINT FK_VePhim_PhimDangChieu
-FOREIGN KEY (MaLichChieu) REFERENCES LichCieu(MaLichChieu),
+ADD CONSTRAINT FK_VePhim_LichChieu
+FOREIGN KEY (MaLichChieu) REFERENCES LichChieu(MaLichChieu),
 CONSTRAINT FK_VePhim_KhachHang
 FOREIGN KEY (MaKhachHang) REFERENCES KhachHang(MaKhachHang);
 
