@@ -33,12 +33,13 @@ CREATE TABLE Phim (
     MaPhim INT PRIMARY KEY IDENTITY(1,1),
     AnhPhim VARCHAR(MAX),
     TenPhim NVARCHAR(255) NOT NULL,
-	Tuoi int,
+    Tuoi int,
+    DinhDangPhim NVARCHAR(255),
     MaTheLoai INT,
     NgayKhoiChieu DATETIME NOT NULL,
-	NgayKetThuc DATETIME NOT NULL,
+    NgayKetThuc DATETIME NOT NULL,
     TrangThaiChieu NVARCHAR(50),
-	ThoiLuong Time
+    ThoiLuong Time
 );
 
 -- Bảng TheLoai
