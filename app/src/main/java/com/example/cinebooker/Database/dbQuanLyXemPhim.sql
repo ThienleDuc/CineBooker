@@ -80,6 +80,20 @@ CREATE TABLE ChiTietLichChieu (
     ThoiGianKetThuc TIME NOT NULL
 );
 
+-- Bảng TinhThanhPho
+CREATE TABLE TinhThanhPho (
+    MaTinhThanh INT PRIMARY KEY IDENTITY(1,1),
+    TenTinhThanh NVARCHAR(255)
+);
+
+-- Bảng DiaChiRapChieu
+CREATE TABLE DiaChiRapChieuCon (
+    MaDiaChiRapChieuCon INT PRIMARY KEY IDENTITY(1,1),
+	MaRapChieuCon INT,
+    MaTinhThanh INT,
+    DiaChiRapChieu NVARCHAR(255)
+);
+
 -- Bảng RapChieu
 CREATE TABLE RapChieu (
     MaRapChieu INT PRIMARY KEY IDENTITY(1,1),
@@ -92,8 +106,7 @@ CREATE TABLE RapChieu (
 CREATE TABLE RapChieuCon (
     MaRapChieuCon INT PRIMARY KEY IDENTITY(1,1),
     MaRapChieu INT,
-    TenRapChieuCon NVARCHAR(255) NOT NULL,
-    DiaChiCon NVARCHAR(255)
+    TenRapChieuCon NVARCHAR(255) NOT NULL
 );
 
 -- Bảng DanhGiaRapChieu
@@ -222,6 +235,18 @@ FOREIGN KEY (MaPhim) REFERENCES Phim(MaPhim);
 ALTER TABLE RapChieuCon
 ADD CONSTRAINT FK_RapChieuCon_RapChieu
 FOREIGN KEY (MaRapChieu) REFERENCES RapChieu(MaRapChieu);
+
+-- Tạo ràng buộc giữa bảng DiaChiRapChieuCon và TinhThanhPho
+ALTER TABLE DiaChiRapChieuCon
+ADD CONSTRAINT FK_DiaChiRapChieuCon_TinhThanhPho
+FOREIGN KEY (MaTinhThanh) REFERENCES TinhThanhPho(MaTinhThanh)
+ON DELETE CASCADE;  -- Xóa các địa chỉ nếu thành phố bị xóa
+
+-- Tạo ràng buộc giữa bảng DiaChiRapChieuCon và RapChieuCon
+ALTER TABLE DiaChiRapChieuCon
+ADD CONSTRAINT FK_DiaChiRapChieuCon_RapChieuCon
+FOREIGN KEY (MaRapChieuCon) REFERENCES RapChieuCon(MaRapChieuCon)
+ON DELETE CASCADE;  -- Xóa các địa chỉ nếu RapChieuCon bị xóa
 
 -- Ràng buộc khóa ngoại cho bảng ChiTietLichChieu
 ALTER TABLE ChiTietLichChieu
