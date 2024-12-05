@@ -59,6 +59,10 @@ public class Ticket_dadungAdapter extends RecyclerView.Adapter<Ticket_dadungAdap
         holder.age_dadung.setText(ticket.getAge_dadung());
         holder.movieName_dadung.setText(ticket.getName_dadung());
         holder.styleMovie_dadung.setText(ticket.getStyle_dadung());
+        holder.soluong_chuadung.setText(ticket.getSoluong_dadung());
+        holder.anhrap.setImageResource(ticket.getAnhrap_dadung());
+        holder.diachi.setText(ticket.getDiachi_dadung());
+
         // Thiết lập listener cho nút
         holder.btn_dadung.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,17 +83,20 @@ public class Ticket_dadungAdapter extends RecyclerView.Adapter<Ticket_dadungAdap
     }
 
     public class TicketViewHolder extends RecyclerView.ViewHolder {
-        ImageView posterMovie_dadung;
-        TextView age_dadung, movieName_dadung, styleMovie_dadung, date_dadung,date_1_dadung;
+        ImageView posterMovie_dadung,anhrap;
+        TextView age_dadung, movieName_dadung, styleMovie_dadung, date_dadung,date_1_dadung,soluong_chuadung,diachi;
         Button btn_dadung;
         public TicketViewHolder(@NonNull View itemView) {
             super(itemView);
+            date_dadung = itemView.findViewById(R.id.date_dadung);
+            date_1_dadung = itemView.findViewById(R.id.date_1_dadung);
             posterMovie_dadung = itemView.findViewById(R.id.poster_dadung);
             age_dadung = itemView.findViewById(R.id.age_dadung);
             movieName_dadung = itemView.findViewById(R.id.name_dadung);
             styleMovie_dadung = itemView.findViewById(R.id.style_dadung);
-            date_dadung = itemView.findViewById(R.id.date_dadung);
-            date_1_dadung = itemView.findViewById(R.id.date_1_dadung);
+            soluong_chuadung = itemView.findViewById(R.id.soluong_chuadung);
+            anhrap = itemView.findViewById(R.id.icon_CGV);
+            diachi = itemView.findViewById(R.id.diachi_chuadung);
             btn_dadung = itemView.findViewById(R.id.btn_dadung);
         }
     }

@@ -58,6 +58,10 @@ public class Ticket_chuadungAdapter extends RecyclerView.Adapter<Ticket_chuadung
         holder.age_chuadung.setText(ticket.getAge_chuadung());
         holder.movieName_chuadung.setText(ticket.getName_chuadung());
         holder.styleMovie_chuadung.setText(ticket.getStyle_chuadung());
+        holder.soluong_chuadung.setText(ticket.getSoluong_chuadung());
+        holder.anhrap.setImageResource(ticket.getAnhrap());
+        holder.diachi.setText(ticket.getDiachi_chuadung());
+
 
         // Sử dụng context của view để mở Activity
         holder.btn_chuadung.setOnClickListener(new View.OnClickListener() {
@@ -87,8 +91,8 @@ public class Ticket_chuadungAdapter extends RecyclerView.Adapter<Ticket_chuadung
     }
 
     public class TicketViewHolder extends RecyclerView.ViewHolder {
-        ImageView posterMovie_chuadung;
-        TextView age_chuadung, movieName_chuadung, styleMovie_chuadung, date_chuadung;
+        ImageView posterMovie_chuadung,anhrap;
+        TextView age_chuadung, movieName_chuadung, styleMovie_chuadung, date_chuadung,soluong_chuadung,diachi;
         Button btn_chuadung, btn_chuadung1;
 
         public TicketViewHolder(@NonNull View itemView) {
@@ -98,6 +102,9 @@ public class Ticket_chuadungAdapter extends RecyclerView.Adapter<Ticket_chuadung
             movieName_chuadung = itemView.findViewById(R.id.name_chuadung);
             styleMovie_chuadung = itemView.findViewById(R.id.style_chuadung);
             date_chuadung = itemView.findViewById(R.id.date_chuadung);
+            soluong_chuadung = itemView.findViewById(R.id.soluong_chuadung);
+            anhrap = itemView.findViewById(R.id.icon_CGV);
+            diachi = itemView.findViewById(R.id.diachi_chuadung);
             btn_chuadung = itemView.findViewById(R.id.btn_chuadung);
             btn_chuadung1 = itemView.findViewById(R.id.btn_chuadung1);
         }

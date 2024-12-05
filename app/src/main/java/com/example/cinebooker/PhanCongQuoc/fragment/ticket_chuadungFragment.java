@@ -64,6 +64,7 @@ public class ticket_chuadungFragment extends Fragment {
                 "Cám",               // name_chuadung
                 "Kinh dị",           // style_chuadung
                 1,                    // soluong_chuadung
+                R.drawable.icon_cgv,
                 "CGV Vincom Plaza Đà Nẵng" // diachi_chuadung
         ));
         ticketChuadungMoviesList.add(new ticketchuadungMoviesEntity(
@@ -72,7 +73,8 @@ public class ticket_chuadungFragment extends Fragment {
                 "18+",                // age_chuadung
                 "Cám",               // name_chuadung
                 "Kinh dị",           // style_chuadung
-                1,                    // soluong_chuadung
+                1,
+                R.drawable.icon_cgv,// soluong_chuadung
                 "CGV Vincom Plaza Đà Nẵng" // diachi_chuadung
         ));
         ticketChuadungMoviesList.add(new ticketchuadungMoviesEntity(
@@ -81,7 +83,8 @@ public class ticket_chuadungFragment extends Fragment {
                 "18+",                // age_chuadung
                 "Cám",               // name_chuadung
                 "Kinh dị",           // style_chuadung
-                1,                    // soluong_chuadung
+                1,
+                R.drawable.icon_cgv,// soluong_chuadung
                 "CGV Vincom Plaza Đà Nẵng" // diachi_chuadung
         ));
         ticketChuadungMoviesList.add(new ticketchuadungMoviesEntity(
@@ -90,7 +93,8 @@ public class ticket_chuadungFragment extends Fragment {
                 "18+",                // age_chuadung
                 "Cám",               // name_chuadung
                 "Kinh dị",           // style_chuadung
-                1,                    // soluong_chuadung
+                1,
+                R.drawable.icon_cgv,// soluong_chuadung
                 "CGV Vincom Plaza Đà Nẵng" // diachi_chuadung
         ));
         ticketChuadungMoviesList.add(new ticketchuadungMoviesEntity(
@@ -99,7 +103,8 @@ public class ticket_chuadungFragment extends Fragment {
                 "18+",                // age_chuadung
                 "Cám",               // name_chuadung
                 "Kinh dị",           // style_chuadung
-                1,                    // soluong_chuadung
+                1,
+                R.drawable.icon_cgv,// soluong_chuadung
                 "CGV Vincom Plaza Đà Nẵng" // diachi_chuadung
         ));
         ticketChuadungMoviesList.add(new ticketchuadungMoviesEntity(
@@ -108,7 +113,8 @@ public class ticket_chuadungFragment extends Fragment {
                 "18+",                // age_chuadung
                 "Cám",               // name_chuadung
                 "Kinh dị",           // style_chuadung
-                1,                    // soluong_chuadung
+                1,
+                R.drawable.icon_cgv,// soluong_chuadung
                 "CGV Vincom Plaza Đà Nẵng" // diachi_chuadung
         ));
 

@@ -25,6 +25,9 @@
             android:name=".PhanCongQuoc.activity.xem_thong_tin_ve"
             android:exported="false" />
         <activity
+            android:name=".PhanCongQuoc.activity.StartActivity"
+            android:exported="false" />
+        <activity
             android:name=".PhanCongQuoc.activity.yeu_cau_hoan_tien"
             android:exported="false" />
         <activity
@@ -40,7 +43,7 @@
             android:name=".PhanCongQuoc.activity.register"
             android:exported="false" />
         <activity
-            android:name=".PhanCongQuoc.activity.StartActivity"
+            android:name=".LeDucThien.activity.taiKhoan_BaoMat"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -54,9 +57,7 @@
         <activity
             android:name=".LeDucThien.activity.home"
             android:exported="false"/>
-        <activity
-            android:name=".LeDucThien.activity.taiKhoan_BaoMat"
-            android:exported="false"/>
+
     </application>
 
 </manifest>

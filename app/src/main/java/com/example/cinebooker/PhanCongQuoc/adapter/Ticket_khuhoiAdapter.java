@@ -55,7 +55,6 @@ public class Ticket_khuhoiAdapter extends RecyclerView.Adapter<Ticket_khuhoiAdap
         ticketkhuhoiMoviesEntity ticket = ticketkhuhoiMoviesList.get(position);
 
         // Gán giá trị từ ticketkhuhoiMoviesEntity
-        holder.icon_khuhoi.setImageResource(ticket.getIcon_khuhoi());
         holder.date_khuhoi.setText(ticket.getDate_khuhoi());
         holder.date_1_khuhoi.setText(ticket.getDate_1_khuhoi());
         holder.poster_khuhoi.setImageResource(ticket.getPoster_khuhoi());
@@ -92,7 +91,6 @@ public class Ticket_khuhoiAdapter extends RecyclerView.Adapter<Ticket_khuhoiAdap
         TextView style_khuhoi;
         TextView soluong_khuhoi;
         TextView diachi_khuhoi;
-        ImageView icon_khuhoi; // Icon của đơn vị
         ImageView icon_rap_khuhoi; // Icon của rạp
         Button btn_khuhoi;
 
@@ -106,7 +104,6 @@ public class Ticket_khuhoiAdapter extends RecyclerView.Adapter<Ticket_khuhoiAdap
             style_khuhoi = itemView.findViewById(R.id.style_khuhoi);
             soluong_khuhoi = itemView.findViewById(R.id.soluong_khuhoi);
             diachi_khuhoi = itemView.findViewById(R.id.diachi_khuhoi);
-            icon_khuhoi = itemView.findViewById(R.id.icon17_khuhoi);
             icon_rap_khuhoi = itemView.findViewById(R.id.icon_CGV);
             btn_khuhoi = itemView.findViewById(R.id.btn_khuhoi);
 

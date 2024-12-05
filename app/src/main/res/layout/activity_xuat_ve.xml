@@ -68,17 +68,11 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
+                    android:id="@+id/qr_xuatve"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:src="@drawable/qr_xuatve" />
 
-                <ImageView
-                    android:id="@+id/poster_xuatve1"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:src="@drawable/phimcam"
-                    android:layout_gravity="center"
-                    android:scaleType="centerCrop" />
             </FrameLayout>
         </LinearLayout>
         <LinearLayout
@@ -111,7 +105,7 @@
                         android:src="@drawable/icon17_fragment"/>
 
                     <TextView
-                        android:id="@+id/date_xuatve"
+                        android:id="@+id/date_xuatve_1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="13dp"
@@ -138,7 +132,7 @@
                         
                         android:background="@color/pink">
                         <ImageView
-                            android:id="@+id/poster_xuatve"
+                            android:id="@+id/poster_xuatve_2"
                             android:layout_width="70dp"
                             android:layout_height="100dp"
                             android:scaleType="fitXY"
@@ -225,7 +219,7 @@
                                 android:orientation="horizontal">
 
                                 <ImageView
-                                    android:id="@+id/icon_CGV"
+                                    android:id="@+id/icon_rap_xuatve"
                                     android:layout_width="wrap_content"
                                     android:layout_height="match_parent"
                                     android:src="@drawable/icon_cgv" />
@@ -265,18 +259,40 @@
                         android:textColor="@color/black"
                         android:textSize="8dp" />
 
-                    <TextView
-                        android:id="@+id/time_phim"
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="19:00 - 21:00"
-                        android:layout_weight="1"
-                        android:textColor="@color/black"
-                        android:textSize="8dp"
-                        android:textStyle="bold" />
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/time_batdau"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="19:00 "
+                            android:textColor="@color/black"
+                            android:textSize="8dp"
+                            android:textStyle="bold" />
+                        <TextView
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="-"
+                            android:textColor="@color/colorIconNavigation"
+                            android:textSize="8dp"
+                            android:textStyle="bold" />
+                        <TextView
+                            android:id="@+id/time_ketthuc"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=" 21:00"
+                            android:textColor="@color/black"
+                            android:textSize="8dp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
 
                     <TextView
-                        android:id="@+id/date_xuatve1"
+                        android:id="@+id/date_xuatve_2"
                         android:layout_width="wrap_content"
                         android:layout_weight="1"
                      
@@ -309,7 +325,7 @@
                         android:textSize="8dp" />
 
                     <TextView
-                        android:id="@+id/đinhang_xuatphim"
+                        android:id="@+id/dinhdang_xuatphim"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                      
@@ -374,7 +390,6 @@
                         android:id="@+id/phong_xuatve"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                     
                         android:text="03"
                         android:gravity="end"
                         android:textColor="@color/black"
@@ -404,7 +419,6 @@
                         android:id="@+id/trangthai_xuatve"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                     
                         android:text="Đã sử dụng"
                         android:gravity="end"
                         android:textColor="@color/black"

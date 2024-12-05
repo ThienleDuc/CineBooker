@@ -1,11 +1,11 @@
-﻿CREATE DATABASE dbQuanLyXemPhim
+﻿
+CREATE DATABASE dbQuanLyXemPhim
 GO
 USE dbQuanLyXemPhim
 GO
 -- Bảng KhachHang
 CREATE TABLE KhachHang (
     MaKhachHang INT PRIMARY KEY IDENTITY(1,1),
-    MaCapBacChiTieu INT,
     Email VARCHAR(255) NOT NULL,
     MatKhau VARCHAR(16) NOT NULL,
     AnhKhachHang VARCHAR(MAX),
@@ -20,14 +20,26 @@ CREATE TABLE CapBacChiTieu (
     HanMucChiTieu INT NOT NULL
 );
 
+-- Bảng ChiTietCapBac
+CREATE TABLE ChiTietCapBac (
+    MaChiTietCapBac INT PRIMARY KEY IDENTITY(1,1),
+    MaKhachHang INT NOT NULL, -- Liên kết đến bảng KhachHang
+    MaCapBacChiTieu INT NOT NULL, -- Liên kết đến bảng CapBacChiTieu
+    ThoiHanReset DATETIME
+);
+
 -- Bảng Phim
 CREATE TABLE Phim (
     MaPhim INT PRIMARY KEY IDENTITY(1,1),
     AnhPhim VARCHAR(MAX),
     TenPhim NVARCHAR(255) NOT NULL,
+	Tuoi int,
+	DinhDangPhim NVARCHAR(255),
     MaTheLoai INT,
     NgayKhoiChieu DATETIME NOT NULL,
-    TrangThaiChieu NVARCHAR(50)
+	NgayKetThuc DATETIME NOT NULL,
+    TrangThaiChieu NVARCHAR(50),
+	ThoiLuong Time
 );
 
 -- Bảng TheLoai
@@ -47,12 +59,6 @@ CREATE TABLE DanhGia (
     LuotThich INT DEFAULT 0
 );
 
--- Bảng PhimDangChieu
-CREATE TABLE PhimDangChieu (
-    MaPhimDangChieu INT PRIMARY KEY IDENTITY(1,1),
-    MaLichChieu INT
-);
-
 -- Bảng LichChieu
 CREATE TABLE LichChieu (
     MaLichChieu INT PRIMARY KEY IDENTITY(1,1),
@@ -69,6 +75,22 @@ CREATE TABLE ChiTietLichChieu (
     ThoiGianKetThuc TIME NOT NULL
 );
 
+-- Bảng TinhThanhPho
+CREATE TABLE TinhThanhPho (
+    MaTinhThanh INT PRIMARY KEY IDENTITY(1,1),
+    TenTinhThanh NVARCHAR(255)
+);
+
+-- Bảng DiaChiRapChieu
+CREATE TABLE DiaChiRapChieuCon (
+    MaDiaChiRapChieuCon INT PRIMARY KEY IDENTITY(1,1),
+	MaRapChieuCon INT,
+    MaTinhThanh INT,
+    DiaChiRapChieu NVARCHAR(255),
+	map VARCHAR(MAX)
+);
+
+
 -- Bảng RapChieu
 CREATE TABLE RapChieu (
     MaRapChieu INT PRIMARY KEY IDENTITY(1,1),
@@ -81,9 +103,9 @@ CREATE TABLE RapChieu (
 CREATE TABLE RapChieuCon (
     MaRapChieuCon INT PRIMARY KEY IDENTITY(1,1),
     MaRapChieu INT,
-    TenRapChieuCon NVARCHAR(255) NOT NULL,
-    DiaChiCon NVARCHAR(255)
+    TenRapChieuCon NVARCHAR(255) NOT NULL
 );
+
 
 -- Bảng DanhGiaRapChieu
 CREATE TABLE DanhGiaRapChieu (
@@ -98,7 +120,7 @@ CREATE TABLE DanhGiaRapChieu (
 -- Bảng VePhim
 CREATE TABLE VePhim (
     MaVe INT PRIMARY KEY IDENTITY(1,1),
-    MaPhimDangChieu INT,
+    MaLichChieu INT,
     MaKhachHang INT,
     SoLuongVe INT DEFAULT 1,
     GheNgoi INT,
@@ -130,7 +152,8 @@ CREATE TABLE VoucherDoiTac (
     TrangThaiGiam NVARCHAR(50),
     MucGiam INT NOT NULL,
     HanSuDung DATETIME NOT NULL,
-    TrangThaiSuDung NVARCHAR(50)
+    TrangThaiSuDung NVARCHAR(50),
+	SoLuongToiDa int
 );
 
 -- Bảng VoucherCuaToi
@@ -142,15 +165,197 @@ CREATE TABLE VoucherCuaToi (
     TrangThaiGiam NVARCHAR(50),
     MucGiam INT NOT NULL,
     HanSuDung DATETIME NOT NULL,
-    TrangThaiSuDung NVARCHAR(50)
+    TrangThaiSuDung NVARCHAR(50),
+	SoLuongToiDa int
 );
 
+-- Bảng VoucherUngDung
+CREATE TABLE VoucherUngDung (
+    MaVoucherUngDung INT PRIMARY KEY IDENTITY(1,1),
+	AnhUngDung VARCHAR(MAX),
+    TenVoucher VARCHAR(50) NOT NULL,
+    MaDoiTuongApDung INT,
+    TrangThaiGiam NVARCHAR(50),
+    MucGiam INT NOT NULL,
+    HanSuDung DATETIME NOT NULL,
+    TrangThaiSuDung NVARCHAR(50),
+	SoLuongToiDa int
+);
 -- Bảng DoiTuongApDung
 CREATE TABLE DoiTuongApDung (
     MaDoiTuongApDung INT PRIMARY KEY IDENTITY(1,1),
     DoiTuongApDung NVARCHAR(255) NOT NULL,
     MucApDung INT NOT NULL
 );
+
+
+CREATE TABLE TaiKhoan17 (
+    MaTaiKhoan INT PRIMARY KEY IDENTITY(1,1),
+    SoDu int
+);
+
+-- Tạo bảng VePhimChuaDung
+CREATE TABLE VePhimChuaDung (
+    MaChuaDung INT PRIMARY KEY IDENTITY(1,1),
+      -- Mã tự tăng, khóa chính
+    ThoiGian DATETIME NOT NULL,                 -- Thời gian từ bảng TinhTrangVe
+    AnhPhim VARCHAR(MAX),                       -- Ảnh phim từ bảng Phim
+    TenPhim NVARCHAR(255) NOT NULL,             -- Tên phim từ bảng Phim
+    Tuoi INT,                                   -- Độ tuổi từ bảng Phim
+    TenTheLoai NVARCHAR(50) NOT NULL,           -- Tên thể loại từ bảng TheLoai
+    SoLuongVe INT DEFAULT 1,                    -- Số lượng vé từ bảng VePhim
+    AnhRapChieu VARCHAR(MAX),                   -- Ảnh rạp chiếu từ bảng RapChieu
+    TenRapChieu NVARCHAR(255) NOT NULL,         -- Tên rạp chiếu từ bảng RapChieu
+    ThoiGianBatDau TIME NOT NULL,               -- Thời gian bắt đầu từ bảng ChiTietLichChieu
+    DinhDangPhim NVARCHAR(255),                 -- Định dạng phim từ bảng Phim
+    GheNgoi INT,                                -- Ghế ngồi từ bảng VePhim
+    PhongChieu INT,                             -- Phòng chiếu từ bảng VePhim
+    TinhTrang NVARCHAR(50),                     -- Tình trạng từ bảng TinhTrangVe
+    MaTheLoai INT,
+	 MaPhim INT,
+	  MaRapChieu INT,
+	   MaChiTietLichChieu INT,
+	   MaTinhTrang int,
+    MaVe INT,-- Khóa ngoại liên kết với bảng Phim
+    CONSTRAINT FK_VePhimChuaDung_Phim FOREIGN KEY (MaPhim) REFERENCES Phim(MaPhim),
+    CONSTRAINT FK_VePhimChuaDung_TheLoai FOREIGN KEY (MaTheLoai) REFERENCES TheLoai(MaTheLoai),
+    CONSTRAINT FK_VePhimChuaDung_RapChieu FOREIGN KEY (MaRapChieu) REFERENCES RapChieu(MaRapChieu),
+    CONSTRAINT FK_VePhimChuaDung_ChiTietLichChieu FOREIGN KEY (MaChiTietLichChieu) REFERENCES ChiTietLichChieu(MaChiTietLichChieu),
+   CONSTRAINT FK_VePhimChuaDung_TinhTrangVe FOREIGN KEY (MaTinhTrang) REFERENCES TinhTrangVe(MaTinhTrang)
+);
+
+-- Tạo bảng XuatVe
+CREATE TABLE XuatVe (
+    MaXuatVe INT PRIMARY KEY IDENTITY(1,1),
+    ThoiGian DATETIME NOT NULL,
+    AnhPhim VARCHAR(MAX),                         -- Ảnh phim từ bảng Phim
+    TenPhim NVARCHAR(255) NOT NULL,               -- Tên phim từ bảng Phim
+    Tuoi INT,                                     -- Độ tuổi từ bảng Phim
+    TenTheLoai NVARCHAR(50) NOT NULL,             -- Tên thể loại từ bảng TheLoai
+    SoLuongVe INT DEFAULT 1,                      -- Số lượng vé từ bảng VePhim
+    AnhRapChieu VARCHAR(MAX),                     -- Ảnh rạp chiếu từ bảng RapChieu
+    TenRapChieu NVARCHAR(255) NOT NULL,           -- Tên rạp chiếu từ bảng RapChieu
+    ThoiGianBatDau TIME NOT NULL,                 -- Thời gian bắt đầu từ bảng ChiTietLichChieu
+    DinhDangPhim NVARCHAR(255),                   -- Định dạng phim từ bảng Phim
+    GheNgoi INT,                                  -- Ghế ngồi từ bảng VePhim
+    PhongChieu INT,                               -- Phòng chiếu từ bảng VePhim
+    TinhTrang NVARCHAR(50),                       -- Tình trạng từ bảng TinhTrangVe                           -- Ngày xuất vé
+    MaChuaDung INT NULL,                          -- Mã vé chưa dùng, liên kết với bảng VePhimChuaDung
+    CONSTRAINT FK_XuatVe_VePhimChuaDung FOREIGN KEY (MaChuaDung) REFERENCES VePhimChuaDung(MaChuaDung)
+);
+
+
+CREATE TABLE VePhimDaDung (
+    MaDaDung INT PRIMARY KEY IDENTITY(1,1),
+     ThoiGian DATETIME NOT NULL,    -- Mã xuất vé tự tăn
+    AnhPhim VARCHAR(MAX),                         -- Ảnh phim từ bảng Phim
+    TenPhim NVARCHAR(255) NOT NULL,               -- Tên phim từ bảng Phim
+    Tuoi INT,                                     -- Độ tuổi từ bảng Phim
+    TenTheLoai NVARCHAR(50) NOT NULL,             -- Tên thể loại từ bảng TheLoai
+    SoLuongVe INT DEFAULT 1,                      -- Số lượng vé từ bảng VePhim
+    AnhRapChieu VARCHAR(MAX),                     -- Ảnh rạp chiếu từ bảng RapChieu
+    TenRapChieu NVARCHAR(255) NOT NULL,           -- Tên rạp chiếu từ bảng RapChieu
+    ThoiGianBatDau TIME NOT NULL,                 -- Thời gian bắt đầu từ bảng ChiTietLichChieu
+    DinhDangPhim NVARCHAR(255),                   -- Định dạng phim từ bảng Phim
+    GheNgoi INT,                                  -- Ghế ngồi từ bảng VePhim
+    PhongChieu INT,                               -- Phòng chiếu từ bảng VePhim
+    TinhTrang NVARCHAR(50),                       -- Tình trạng từ bảng TinhTrangVe
+     NgayHuy DATETIME DEFAULT GETDATE(),
+    MaXuatVe INT NULL,                          -- Mã vé chưa dùng, liên kết với bảng VePhimChuaDung
+    CONSTRAINT FK_XuatVe_VePhimDaDung FOREIGN KEY (MaXuatVe) REFERENCES XuatVe(MaXuatVe)
+);
+
+
+CREATE TABLE XemThongTin (
+    MaXemThongTin INT PRIMARY KEY IDENTITY(1,1),      -- Mã xuất vé tự tăng
+     ThoiGian DATETIME NOT NULL,    -- Mã xuất vé tự tăn
+     AnhPhim VARCHAR(MAX),                         -- Ảnh phim từ bảng Phim
+        TenPhim NVARCHAR(255) NOT NULL,               -- Tên phim từ bảng Phim
+        Tuoi INT,                                     -- Độ tuổi từ bảng Phim
+        TenTheLoai NVARCHAR(50) NOT NULL,             -- Tên thể loại từ bảng TheLoai
+        SoLuongVe INT DEFAULT 1,                      -- Số lượng vé từ bảng VePhim
+        AnhRapChieu VARCHAR(MAX),                     -- Ảnh rạp chiếu từ bảng RapChieu
+        TenRapChieu NVARCHAR(255) NOT NULL,           -- Tên rạp chiếu từ bảng RapChieu
+        ThoiGianBatDau TIME NOT NULL,                 -- Thời gian bắt đầu từ bảng ChiTietLichChieu
+        DinhDangPhim NVARCHAR(255),                   -- Định dạng phim từ bảng Phim
+     GheNgoi INT,                                  -- Ghế ngồi từ bảng VePhim
+     PhongChieu INT,                               -- Phòng chiếu từ bảng VePhim
+     TinhTrang NVARCHAR(50),                       -- Tình trạng từ bảng TinhTrangVe
+    NgayXuat DATETIME DEFAULT GETDATE(),      -- Ngày xuất vé
+    MaDaDung INT NULL,                          -- Mã vé chưa dùng, liên kết với bảng VePhimChuaDung
+    CONSTRAINT FK_XemThongTin_VePhimDaDung FOREIGN KEY (MaDaDung) REFERENCES VePhimDaDung(MaDaDung)
+);
+
+
+
+CREATE TABLE HoanVe (
+    MaHoanVe INT PRIMARY KEY IDENTITY(1,1),      -- Mã xuất vé tự tăng
+     ThoiGian DATETIME NOT NULL,    -- Mã xuất vé tự tăn
+        AnhPhim VARCHAR(MAX),                         -- Ảnh phim từ bảng Phim
+        TenPhim NVARCHAR(255) NOT NULL,               -- Tên phim từ bảng Phim
+        Tuoi INT,                                     -- Độ tuổi từ bảng Phim
+        TenTheLoai NVARCHAR(50) NOT NULL,             -- Tên thể loại từ bảng TheLoai
+        SoLuongVe INT DEFAULT 1,                      -- Số lượng vé từ bảng VePhim
+        AnhRapChieu VARCHAR(MAX),                     -- Ảnh rạp chiếu từ bảng RapChieu
+        TenRapChieu NVARCHAR(255) NOT NULL,           -- Tên rạp chiếu từ bảng RapChieu
+        ThoiGianBatDau TIME NOT NULL,                 -- Thời gian bắt đầu từ bảng ChiTietLichChieu
+        DinhDangPhim NVARCHAR(255),                   -- Định dạng phim từ bảng Phim
+        GheNgoi INT,                                  -- Ghế ngồi từ bảng VePhim
+        PhongChieu INT,                               -- Phòng chiếu từ bảng VePhim
+        TinhTrang NVARCHAR(50),                       -- Tình trạng từ bảng TinhTrangVe
+         NgayHuy DATETIME DEFAULT GETDATE(),       -- Ngày xuất vé
+        MaTaiKhoan INT NULL,   
+	   MaChuaDung INT NULL,  
+    SoDu int,
+    CONSTRAINT FK_HoanVe_VePhimChuaDung FOREIGN KEY (MaChuaDung) REFERENCES VePhimChuaDung(MaChuaDung),
+     CONSTRAINT FK_HoanVe_TaiKhoan17 FOREIGN KEY (MaTaiKhoan) REFERENCES TaiKhoan17(MaTaiKhoan)
+);
+
+
+CREATE TABLE VePhimKhuHoi  (
+    MaKhuHoi INT PRIMARY KEY IDENTITY(1,1),      -- Mã xuất vé tự tăng
+    ThoiGian DATETIME NOT NULL,    -- Mã xuất vé tự tăn
+       AnhPhim VARCHAR(MAX),                         -- Ảnh phim từ bảng Phim
+       TenPhim NVARCHAR(255) NOT NULL,               -- Tên phim từ bảng Phim
+       Tuoi INT,                                     -- Độ tuổi từ bảng Phim
+       TenTheLoai NVARCHAR(50) NOT NULL,             -- Tên thể loại từ bảng TheLoai
+       SoLuongVe INT DEFAULT 1,                      -- Số lượng vé từ bảng VePhim
+       AnhRapChieu VARCHAR(MAX),                     -- Ảnh rạp chiếu từ bảng RapChieu
+       TenRapChieu NVARCHAR(255) NOT NULL,           -- Tên rạp chiếu từ bảng RapChieu
+       ThoiGianBatDau TIME NOT NULL,                 -- Thời gian bắt đầu từ bảng ChiTietLichChieu
+       DinhDangPhim NVARCHAR(255),                   -- Định dạng phim từ bảng Phim
+       GheNgoi INT,                                  -- Ghế ngồi từ bảng VePhim
+       PhongChieu INT,                               -- Phòng chiếu từ bảng VePhim
+       TinhTrang NVARCHAR(50),                       -- Tình trạng từ bảng TinhTrangVe
+        NgayHuy DATETIME DEFAULT GETDATE(),         -- Ngày xuất vé
+    MaHoanVe INT NULL,                          -- Mã vé chưa dùng, liên kết với bảng VePhimChuaDung
+    CONSTRAINT FK_VePhimKhuHoi_HoanVe FOREIGN KEY (MaHoanVe) REFERENCES HoanVe(MaHoanVe)
+);
+
+
+CREATE TABLE ChiTietVeHuy  (
+    MaChiTietHuy INT PRIMARY KEY IDENTITY(1,1),      -- Mã xuất vé tự tăng
+     ThoiGian DATETIME NOT NULL,    -- Mã xuất vé tự tăn
+        AnhPhim VARCHAR(MAX),                         -- Ảnh phim từ bảng Phim
+        TenPhim NVARCHAR(255) NOT NULL,               -- Tên phim từ bảng Phim
+        Tuoi INT,                                     -- Độ tuổi từ bảng Phim
+        TenTheLoai NVARCHAR(50) NOT NULL,             -- Tên thể loại từ bảng TheLoai
+        SoLuongVe INT DEFAULT 1,                      -- Số lượng vé từ bảng VePhim
+        AnhRapChieu VARCHAR(MAX),                     -- Ảnh rạp chiếu từ bảng RapChieu
+        TenRapChieu NVARCHAR(255) NOT NULL,           -- Tên rạp chiếu từ bảng RapChieu
+        ThoiGianBatDau TIME NOT NULL,                 -- Thời gian bắt đầu từ bảng ChiTietLichChieu
+        DinhDangPhim NVARCHAR(255),                   -- Định dạng phim từ bảng Phim
+        GheNgoi INT,                                  -- Ghế ngồi từ bảng VePhim
+        PhongChieu INT,                               -- Phòng chiếu từ bảng VePhim
+        TinhTrang NVARCHAR(50),                       -- Tình trạng từ bảng TinhTrangVe
+         NgayHuy DATETIME DEFAULT GETDATE(),        -- Ngày xuất vé
+    MaKhuHoi INT NULL,                          -- Mã vé chưa dùng, liên kết với bảng VePhimChuaDung
+    CONSTRAINT FK_ChiTietVeHuy_VePhimKhuHoi FOREIGN KEY (MaKhuHoi) REFERENCES VePhimKhuHoi(MaKhuHoi)
+);
+
+
+
+
 
 GO
 -- Ràng buộc khóa ngoại cho bảng CapBacChiTieu (Không có khóa phụ, tạo trước)
@@ -159,10 +364,27 @@ GO
 
 -- Ràng buộc khóa ngoại cho bảng TheLoai (Không có khóa phụ, tạo trước)
 
--- Ràng buộc khóa ngoại cho bảng KhachHang
+-- Thêm ràng buộc UNIQUE cho Email trong bảng KhachHang
 ALTER TABLE KhachHang
-ADD CONSTRAINT FK_KhachHang_CapBacChiTieu
-FOREIGN KEY (MaCapBacChiTieu) REFERENCES CapBacChiTieu(MaCapBacChiTieu);
+ADD CONSTRAINT UQ_KhachHang_Email UNIQUE (Email);
+
+-- Thêm ràng buộc CHECK cho HanMucChiTieu trong bảng CapBacChiTieu
+ALTER TABLE CapBacChiTieu
+ADD CONSTRAINT CK_HanMucChiTieu_Positive CHECK (HanMucChiTieu > 0);
+
+-- Thêm ràng buộc FOREIGN KEY cho MaKhachHang trong bảng ChiTietCapBac
+ALTER TABLE ChiTietCapBac
+ADD CONSTRAINT FK_ChiTietCapBac_KhachHang FOREIGN KEY (MaKhachHang) 
+REFERENCES KhachHang (MaKhachHang)
+ON DELETE CASCADE 
+ON UPDATE CASCADE;
+
+-- Thêm ràng buộc FOREIGN KEY cho MaCapBacChiTieu trong bảng ChiTietCapBac
+ALTER TABLE ChiTietCapBac
+ADD CONSTRAINT FK_ChiTietCapBac_CapBacChiTieu FOREIGN KEY (MaCapBacChiTieu) 
+REFERENCES CapBacChiTieu (MaCapBacChiTieu)
+ON DELETE NO ACTION 
+ON UPDATE CASCADE;
 
 -- Ràng buộc khóa ngoại cho bảng Phim
 ALTER TABLE Phim
@@ -181,14 +403,22 @@ ALTER TABLE RapChieuCon
 ADD CONSTRAINT FK_RapChieuCon_RapChieu
 FOREIGN KEY (MaRapChieu) REFERENCES RapChieu(MaRapChieu);
 
+-- Tạo ràng buộc giữa bảng DiaChiRapChieuCon và TinhThanhPho
+ALTER TABLE DiaChiRapChieuCon
+ADD CONSTRAINT FK_DiaChiRapChieuCon_TinhThanhPho
+FOREIGN KEY (MaTinhThanh) REFERENCES TinhThanhPho(MaTinhThanh)
+ON DELETE CASCADE;  -- Xóa các địa chỉ nếu thành phố bị xóa
+
+-- Tạo ràng buộc giữa bảng DiaChiRapChieuCon và RapChieuCon
+ALTER TABLE DiaChiRapChieuCon
+ADD CONSTRAINT FK_DiaChiRapChieuCon_RapChieuCon
+FOREIGN KEY (MaRapChieuCon) REFERENCES RapChieuCon(MaRapChieuCon)
+ON DELETE CASCADE;  -- Xóa các địa chỉ nếu RapChieuCon bị xóa
+
+
 -- Ràng buộc khóa ngoại cho bảng ChiTietLichChieu
 ALTER TABLE ChiTietLichChieu
 ADD CONSTRAINT FK_ChiTietLichChieu_LichChieu
-FOREIGN KEY (MaLichChieu) REFERENCES LichChieu(MaLichChieu);
-
--- Ràng buộc khóa ngoại cho bảng PhimDangChieu
-ALTER TABLE PhimDangChieu
-ADD CONSTRAINT FK_PhimDangChieu_LichChieu
 FOREIGN KEY (MaLichChieu) REFERENCES LichChieu(MaLichChieu);
 
 -- Ràng buộc khóa ngoại cho bảng DanhGia
@@ -207,8 +437,8 @@ FOREIGN KEY (MaKhachHang) REFERENCES KhachHang(MaKhachHang);
 
 -- Ràng buộc khóa ngoại cho bảng VePhim
 ALTER TABLE VePhim
-ADD CONSTRAINT FK_VePhim_PhimDangChieu
-FOREIGN KEY (MaPhimDangChieu) REFERENCES PhimDangChieu(MaPhimDangChieu),
+ADD CONSTRAINT FK_VePhim_LichChieu
+FOREIGN KEY (MaLichChieu) REFERENCES LichChieu(MaLichChieu),
 CONSTRAINT FK_VePhim_KhachHang
 FOREIGN KEY (MaKhachHang) REFERENCES KhachHang(MaKhachHang);
 
@@ -235,3 +465,9 @@ ADD CONSTRAINT FK_VoucherDoiTac_RapChieu
 FOREIGN KEY (MaRapChieu) REFERENCES RapChieu(MaRapChieu),
 CONSTRAINT FK_VoucherDoiTac_DoiTuongApDung
 FOREIGN KEY (MaDoiTuongApDung) REFERENCES DoiTuongApDung(MaDoiTuongApDung);
+
+-- Ràng buộc khóa ngoại cho bảng VoucherUngDung
+ALTER TABLE VoucherUngDung
+ADD CONSTRAINT FK_VoucherUngDung_DoiTuongApDung
+FOREIGN KEY (MaDoiTuongApDung) REFERENCES DoiTuongApDung(MaDoiTuongApDung);
+SELECT * FROM VePhimChuaDung

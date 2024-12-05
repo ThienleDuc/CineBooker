@@ -8,11 +8,12 @@ public class ticketdadungMoviesEntity {
     private String age_dadung; // Độ tuổi
     private String name_dadung; // Tên phim
     private String style_dadung; // Thể loại phim
-    private int soluong_dadung; // Số lượng vé
+    private int soluong_dadung;
+    private int anhrap_dadung;// Số lượng vé// Số lượng vé
     private String diachi_dadung; // Địa chỉ
 
     // Constructor với tất cả các tham số
-    public ticketdadungMoviesEntity(String date_dadung, String date_1_dadung, int poster_dadung, String age_dadung, String name_dadung, String style_dadung, int soluong_dadung, String diachi_dadung) {
+    public ticketdadungMoviesEntity(String date_dadung, String date_1_dadung, int poster_dadung, String age_dadung, String name_dadung, String style_dadung, int soluong_dadung,int anhrap_dadung, String diachi_dadung) {
         this.date_dadung = date_dadung;
         this.date_1_dadung = date_1_dadung;
         this.poster_dadung = poster_dadung;
@@ -20,6 +21,7 @@ public class ticketdadungMoviesEntity {
         this.name_dadung = name_dadung;
         this.style_dadung = style_dadung;
         this.soluong_dadung = soluong_dadung;
+        this.anhrap_dadung=anhrap_dadung;
         this.diachi_dadung = diachi_dadung;
     }
 
@@ -78,6 +80,14 @@ public class ticketdadungMoviesEntity {
 
     public void setSoluong_dadung(int soluong_dadung) {
         this.soluong_dadung = soluong_dadung;
+    }
+
+    public int getAnhrap_dadung () {
+        return anhrap_dadung;
+    }
+
+    public void setAnhrap_dadung(int anhrap_dadung) {
+        this.anhrap_dadung = anhrap_dadung;
     }
 
     public String getDiachi_dadung() {

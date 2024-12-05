@@ -2,7 +2,6 @@ package com.example.cinebooker.PhanCongQuoc.entity;
 
 public class ticketkhuhoiMoviesEntity {
 
-    private int icon_khuhoi; // Resource ID cho icon
     private String date_khuhoi; // Ngày chiếu
     private String date_1_khuhoi; // Ngày kết thúc
     private String age_khuhoi; // Giới hạn độ tuổi
@@ -18,7 +17,7 @@ public class ticketkhuhoiMoviesEntity {
                                     String age_khuhoi, String name_khuhoi, String style_khuhoi,
                                     String soluong_khuhoi, String diachi_khuhoi,
                                     int poster_khuhoi, int icon_rap_khuhoi) {
-        this.icon_khuhoi = icon_khuhoi;
+
         this.date_khuhoi = date_khuhoi;
         this.date_1_khuhoi = date_1_khuhoi;
         this.age_khuhoi = age_khuhoi;
@@ -31,13 +30,6 @@ public class ticketkhuhoiMoviesEntity {
     }
 
     // Getter và Setter
-    public int getIcon_khuhoi() {
-        return icon_khuhoi;
-    }
-
-    public void setIcon_khuhoi(int icon_khuhoi) {
-        this.icon_khuhoi = icon_khuhoi;
-    }
 
     public String getDate_khuhoi() {
         return date_khuhoi;

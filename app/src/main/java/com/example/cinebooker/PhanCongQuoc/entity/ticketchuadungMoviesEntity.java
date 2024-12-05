@@ -7,7 +7,8 @@ public class ticketchuadungMoviesEntity {
     private String age_chuadung; // Độ tuổi
     private String name_chuadung; // Tên phim
     private String style_chuadung; // Thể loại phim
-    private int soluong_chuadung; // Số lượng vé
+    private int soluong_chuadung;
+    private int anhrap;// Số lượng vé
     private String diachi_chuadung; // Địa chỉ
     ; // Văn bản của nút xuất vé
 
@@ -15,7 +16,7 @@ public class ticketchuadungMoviesEntity {
 
 
     // Constructor với tất cả các tham số
-    public ticketchuadungMoviesEntity( String date_chuadung, int poster_chuadung, String age_chuadung, String name_chuadung, String style_chuadung, int soluong_chuadung, String diachi_chuadung) {
+    public ticketchuadungMoviesEntity( String date_chuadung, int poster_chuadung, String age_chuadung, String name_chuadung, String style_chuadung, int soluong_chuadung,int anhrap, String diachi_chuadung) {
 
         this.date_chuadung = date_chuadung;
         this.poster_chuadung = poster_chuadung;
@@ -23,6 +24,7 @@ public class ticketchuadungMoviesEntity {
         this.name_chuadung = name_chuadung;
         this.style_chuadung = style_chuadung;
         this.soluong_chuadung = soluong_chuadung;
+        this.anhrap=anhrap;
         this.diachi_chuadung = diachi_chuadung;
 
     }
@@ -76,6 +78,13 @@ public class ticketchuadungMoviesEntity {
 
     public void setSoluong_chuadung(int soluong_chuadung) {
         this.soluong_chuadung = soluong_chuadung;
+    }
+    public int getAnhrap() {
+        return anhrap;
+    }
+
+    public void setAnhrap(int anhrap) {
+        this.anhrap = anhrap;
     }
 
     public String getDiachi_chuadung() {
