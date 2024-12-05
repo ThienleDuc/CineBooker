@@ -1,6 +1,7 @@
 package com.example.cinebooker.LeDucThien.BussinessLogic;
 
 import android.content.Context;
+import android.util.Log;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,63 +13,56 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class BL_PhimDangChieu {
-    private PD_PhimDangChieu pdPhimDangChieu;
+    private final PD_PhimDangChieu pdPhimDangChieu;
 
     public BL_PhimDangChieu() {
         pdPhimDangChieu = new PD_PhimDangChieu();
     }
 
-    // Lấy danh sách phim đang chiếu
-    public List<ent_PhimDangChieu> getDanhSachPhimDangChieu() {
-        // Gọi đến phương thức của PD_PhimDangChieu để lấy dữ liệu
+    // Phương thức lấy danh sách phim đang chiếu
+    private List<ent_PhimDangChieu> getDanhSachPhimDangChieu() {
         return pdPhimDangChieu.getPhimDangChieu();
     }
 
-    public void LoadDangChieuVer(Context context, RecyclerView recyclerView) {
-        // Sử dụng ExecutorService để thực hiện việc lấy dữ liệu trong một luồng khác (không phải UI thread)
-        ExecutorService executor = Executors.newSingleThreadExecutor();
-        executor.execute(new Runnable() {
-            @Override
-            public void run() {
+    // Phương thức chung để load phim vào RecyclerView
+    private void loadPhimToRecyclerView(Context context, RecyclerView recyclerView, boolean isHorizontal) {
+        // Kiểm tra RecyclerView không được null
+        if (recyclerView == null) {
+            Log.w("BL_PhimDangChieu", "RecyclerView is null. Data will not be loaded.");
+            return;
+        }
 
-                // Lấy danh sách phim đang chiếu
+        // Tạo ExecutorService để chạy công việc không đồng bộ
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        executor.execute(() -> {
+            try {
+                // Lấy danh sách phim đang chiếu từ cơ sở dữ liệu
                 List<ent_PhimDangChieu> list = getDanhSachPhimDangChieu();
 
-                // Trả kết quả về UI thread để cập nhật RecyclerView
-                // Sử dụng runOnUiThread để cập nhật UI sau khi xử lý xong
+                // Cập nhật RecyclerView trên UI thread
                 if (context instanceof android.app.Activity) {
-                    ((android.app.Activity) context).runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            pdPhimDangChieu.loadMoviesToRecyclerViewVertical(context, recyclerView, list);
-                        }
+                    ((android.app.Activity) context).runOnUiThread(() -> {
+                        // Gọi phương thức từ PD_PhimDangChieu để load dữ liệu vào RecyclerView
+                        pdPhimDangChieu.loadMoviesToRecyclerView(context, recyclerView, list, isHorizontal);
                     });
                 }
+            } catch (Exception e) {
+                // Log lỗi nếu có exception xảy ra
+                Log.e("BL_PhimDangChieu", "Error while loading data", e);
+            } finally {
+                // Đảm bảo shutdown ExecutorService để tránh rò rỉ tài nguyên
+                executor.shutdown();
             }
         });
     }
 
-    public void LoadDangChieuHor(Context context, RecyclerView recyclerView) {
-        // Sử dụng ExecutorService để thực hiện việc lấy dữ liệu trong một luồng khác (không phải UI thread)
-        ExecutorService executor = Executors.newSingleThreadExecutor();
-        executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                // Lấy danh sách phim đang chiếu
-                List<ent_PhimDangChieu> list = getDanhSachPhimDangChieu();
-
-                // Trả kết quả về UI thread để cập nhật RecyclerView
-                // Sử dụng runOnUiThread để cập nhật UI sau khi xử lý xong
-                if (context instanceof android.app.Activity) {
-                    ((android.app.Activity) context).runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            pdPhimDangChieu.loadMoviesToRecyclerViewHorizontal(context, recyclerView, list);
-                        }
-                    });
-                }
-            }
-        });
+    // Gọi loadPhimToRecyclerView với kiểu dọc
+    public void loadDangChieuVertical(Context context, RecyclerView recyclerView) {
+        loadPhimToRecyclerView(context, recyclerView, false); // false cho kiểu dọc
     }
 
+    // Gọi loadPhimToRecyclerView với kiểu ngang
+    public void loadDangChieuHorizontal(Context context, RecyclerView recyclerView) {
+        loadPhimToRecyclerView(context, recyclerView, true); // true cho kiểu ngang
+    }
 }

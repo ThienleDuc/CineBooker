@@ -4,23 +4,27 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class ent_PhimDangChieu {
+
     private int maPhim;
     private String anhPhim;
     private String tenPhim;
     private int tuoi;
     private String dinhDangPhim;
     private String tenTheLoai;
-    private Date ngayKhoiChieu;
-    private Date ngayKetThuc;
+    private String ngayKhoiChieu;  // Ngày khởi chiếu dưới dạng String
+    private String ngayKetThuc;    // Ngày kết thúc dưới dạng String
     private String trangThaiChieu;
-    private String thoiLuong;
+    private String thoiLuong;      // Thời lượng dưới dạng String (ví dụ: "02:30")
     private float diemDanhGiaTrungBinh;
 
-
+    // Constructor mặc định
     public ent_PhimDangChieu() {
     }
 
-    public ent_PhimDangChieu(int maPhim, String anhPhim, String tenPhim, int tuoi, String dinhDangPhim, String tenTheLoai, Date ngayKhoiChieu, Date ngayKetThuc, String trangThaiChieu, String thoiLuong, float diemDanhGiaTrungBinh) {
+    // Constructor đầy đủ
+    public ent_PhimDangChieu(int maPhim, String anhPhim, String tenPhim, int tuoi, String dinhDangPhim,
+                             String tenTheLoai, String ngayKhoiChieu, String ngayKetThuc, String trangThaiChieu,
+                             String thoiLuong, float diemDanhGiaTrungBinh) {
         this.maPhim = maPhim;
         this.anhPhim = anhPhim;
         this.tenPhim = tenPhim;
@@ -34,6 +38,7 @@ public class ent_PhimDangChieu {
         this.diemDanhGiaTrungBinh = diemDanhGiaTrungBinh;
     }
 
+    // Getter và Setter
     public int getMaPhim() {
         return maPhim;
     }
@@ -43,7 +48,7 @@ public class ent_PhimDangChieu {
     }
 
     public String getAnhPhim() {
-        return "R.drawable." + anhPhim;
+        return anhPhim;
     }
 
     public void setAnhPhim(String anhPhim) {
@@ -82,34 +87,48 @@ public class ent_PhimDangChieu {
         this.tenTheLoai = tenTheLoai;
     }
 
-    public Date getNgayKhoiChieu() {
+    public String getNgayKhoiChieu() {
         return ngayKhoiChieu;
     }
 
-    public void setNgayKhoiChieu(Date ngayKhoiChieu) {
+    public void setNgayKhoiChieu(String ngayKhoiChieu) {
         this.ngayKhoiChieu = ngayKhoiChieu;
     }
 
     public String getFormattedNgayKhoiChieu() {
         if (ngayKhoiChieu != null) {
-            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-            return formatter.format(ngayKhoiChieu);
+            // Định dạng lại ngày khởi chiếu theo định dạng dd/MM/yyyy
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            try {
+                Date date = new SimpleDateFormat("yyyy-MM-dd").parse(ngayKhoiChieu);
+                return sdf.format(date);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                return ngayKhoiChieu; // Trả về giá trị gốc nếu gặp lỗi
+            }
         }
         return null;
     }
 
-    public Date getNgayKetThuc() {
+    public String getNgayKetThuc() {
         return ngayKetThuc;
     }
 
-    public void setNgayKetThuc(Date ngayKetThuc) {
+    public void setNgayKetThuc(String ngayKetThuc) {
         this.ngayKetThuc = ngayKetThuc;
     }
 
     public String getFormattedNgayKetThuc() {
         if (ngayKetThuc != null) {
-            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-            return formatter.format(ngayKetThuc);
+            // Định dạng lại ngày kết thúc theo định dạng dd/MM/yyyy
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            try {
+                Date date = new SimpleDateFormat("yyyy-MM-dd").parse(ngayKetThuc);
+                return sdf.format(date);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                return ngayKetThuc; // Trả về giá trị gốc nếu gặp lỗi
+            }
         }
         return null;
     }
@@ -128,6 +147,21 @@ public class ent_PhimDangChieu {
 
     public void setThoiLuong(String thoiLuong) {
         this.thoiLuong = thoiLuong;
+    }
+
+    public String getFormattedThoiLuong() {
+        if (thoiLuong != null) {
+            // Định dạng lại thời gian theo định dạng HH:mm
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+            try {
+                Date time = new SimpleDateFormat("HH:mm:ss").parse(thoiLuong);
+                return sdf.format(time);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                return thoiLuong; // Trả về giá trị gốc nếu gặp lỗi
+            }
+        }
+        return null;
     }
 
     public float getDiemDanhGiaTrungBinh() {

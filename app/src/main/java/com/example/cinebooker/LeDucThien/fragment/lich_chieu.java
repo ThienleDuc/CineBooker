@@ -199,7 +199,7 @@ public class lich_chieu extends Fragment {
         RecyclerView dangChieuRecycleView = view.findViewById(R.id.carosel_recycleView_dangChieu);
 
         BL_PhimDangChieu blPhimDangChieu = new BL_PhimDangChieu();
-        blPhimDangChieu.LoadDangChieuHor(getContext(), dangChieuRecycleView);
+        blPhimDangChieu.loadDangChieuHorizontal(getContext(), dangChieuRecycleView);
 
         TextView dangChieuMoreThan = view.findViewById(R.id.dang_chieu_more);
         dangChieuMoreThan.setOnClickListener(new View.OnClickListener() {

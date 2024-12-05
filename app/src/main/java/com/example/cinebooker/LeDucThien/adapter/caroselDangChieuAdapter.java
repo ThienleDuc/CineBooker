@@ -20,33 +20,36 @@ public class caroselDangChieuAdapter extends RecyclerView.Adapter<caroselDangChi
 
     private List<ent_PhimDangChieu> dangChieulist;
 
-    public caroselDangChieuAdapter() {
-
-    }
-
+    // Constructor
     public caroselDangChieuAdapter(List<ent_PhimDangChieu> dangChieulist) {
         this.dangChieulist = dangChieulist;
     }
 
     @NonNull
     @Override
-    public caroselDangChieuAdapter.viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.iteams_carosel_movie_dangchieu, parent, false);
         return new viewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull caroselDangChieuAdapter.viewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull viewHolder holder, int position) {
         ent_PhimDangChieu dangChieu = dangChieulist.get(position);
 
-        Picasso.get().load(dangChieu.getAnhPhim()).into(holder.moviePoster);
+        // Load poster movie using Picasso
+        Picasso.get().load(dangChieu.getAnhPhim())
+                .placeholder(R.drawable.placeholder)  // Optional: Add a placeholder image
+                .into(holder.moviePoster);
 
-        holder.age.setText(dangChieu.getTuoi());
+        // Set age (convert to String)
+        holder.age.setText(String.valueOf(dangChieu.getTuoi()));
+
+        // Set movie name, style, and vote
         holder.movieName.setText(dangChieu.getTenPhim());
         holder.styleMovie.setText(dangChieu.getTenTheLoai());
 
+        // Format vote (if NumberFormatter is available)
         holder.vote.setText(NumberFormatter.formatNumber(dangChieu.getDiemDanhGiaTrungBinh()));
-
     }
 
     @Override
@@ -57,9 +60,11 @@ public class caroselDangChieuAdapter extends RecyclerView.Adapter<caroselDangChi
     public class viewHolder extends RecyclerView.ViewHolder {
         ImageView moviePoster;
         TextView age, movieName, styleMovie, vote;
+
         public viewHolder(@NonNull View itemView) {
             super(itemView);
 
+            // Initialize the views
             moviePoster = itemView.findViewById(R.id.dang_chieu_poster_movie);
             age = itemView.findViewById(R.id.dang_chieu_age);
             movieName = itemView.findViewById(R.id.dang_chieu_movie_name);

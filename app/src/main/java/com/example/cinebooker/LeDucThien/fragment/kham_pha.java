@@ -126,7 +126,7 @@ public class kham_pha extends Fragment {
         RecyclerView dangChieuRecycleView = view.findViewById(R.id.recycleView_dangChieu);
 
         BL_PhimDangChieu blPhimDangChieu = new BL_PhimDangChieu();
-        blPhimDangChieu.LoadDangChieuHor(getContext(), dangChieuRecycleView);
+        blPhimDangChieu.loadDangChieuHorizontal(getContext(), dangChieuRecycleView);
 
         dangChieuMoreThan = view.findViewById(R.id.dang_chieu_more);
         dangChieuMoreThan.setOnClickListener(new View.OnClickListener() {
