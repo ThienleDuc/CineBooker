@@ -1,4 +1,4 @@
-﻿use dbQuanLyXemPhim
+use dbQuanLyXemPhim
 GO
 CREATE PROCEDURE pr_LayPhimDangChieu
 AS
@@ -7,14 +7,18 @@ BEGIN
 
     SELECT 
         P.MaPhim,
+        P.AnhPhim,
         P.TenPhim,
         P.Tuoi,
         P.DinhDangPhim,
         STRING_AGG(TC.TenTheLoai, ', ') AS TenTheLoai,
-        P.NgayKhoiChieu,
-        P.NgayKetThuc,
+        -- Chuyển đổi NgayKhoiChieu và NgayKetThuc sang định dạng dd/MM/yyyy
+        FORMAT(P.NgayKhoiChieu, 'dd/MM/yyyy') AS NgayKhoiChieu,
+        FORMAT(P.NgayKetThuc, 'dd/MM/yyyy') AS NgayKetThuc,
         P.TrangThaiChieu,
-        P.ThoiLuong,
+        -- Lấy giờ và phút từ ThoiLuong
+        RIGHT('00' + CAST(DATEPART(HOUR, P.ThoiLuong) AS VARCHAR), 2) + ':' + RIGHT('00' + CAST(DATEPART(MINUTE, P.ThoiLuong) AS VARCHAR), 2) AS ThoiLuong,
+        -- Gọi hàm fn_DiemDanhGiaPhimTrungBinh để tính điểm trung bình
         dbo.fn_DiemDanhGiaPhimTrungBinh(P.MaPhim) AS DiemDanhGiaTrungBinh
     FROM 
         Phim P
