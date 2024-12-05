@@ -86,7 +86,7 @@ public class dang_chieu extends Fragment {
         RecyclerView dangChieuRecycleView = view.findViewById(R.id.recycleView_dangChieu);
 
         BL_PhimDangChieu blPhimDangChieu = new BL_PhimDangChieu();
-        blPhimDangChieu.loadDangChieuHorizontal(getContext(), dangChieuRecycleView);
+        blPhimDangChieu.loadDangChieuVertical(getContext(), dangChieuRecycleView);
     }
 
     public void binhluan (View view) {

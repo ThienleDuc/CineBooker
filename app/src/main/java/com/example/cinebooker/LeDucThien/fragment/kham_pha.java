@@ -122,8 +122,7 @@ public class kham_pha extends Fragment {
 
     public void dangChieu (View view) {
 
-        dangChieuRecycleView = view.findViewById(R.id.carosel_recycleView_dangChieu);
-        RecyclerView dangChieuRecycleView = view.findViewById(R.id.recycleView_dangChieu);
+        RecyclerView dangChieuRecycleView = view.findViewById(R.id.carosel_recycleView_dangChieu);
 
         BL_PhimDangChieu blPhimDangChieu = new BL_PhimDangChieu();
         blPhimDangChieu.loadDangChieuHorizontal(getContext(), dangChieuRecycleView);

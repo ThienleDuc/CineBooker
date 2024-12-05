@@ -112,15 +112,8 @@ public class PD_PhimDangChieu {
         }
 
         // Tạo adapter và gán vào RecyclerView
-        moviesDangChieuAdapter adapter = new moviesDangChieuAdapter(movieList);
+        moviesDangChieuAdapter adapter = new moviesDangChieuAdapter();
         recyclerView.setAdapter(adapter);
-    }
-
-    // Phương thức chuyển đổi thời gian từ định dạng HH:mm:ss sang HH:mm
-    private String formatTime(String time) {
-        if (time != null && time.length() >= 5) {
-            return time.substring(0, 5); // Lấy phần HH:mm từ HH:mm:ss
-        }
-        return time; // Trả về thời gian gốc nếu không đúng định dạng
+        adapter.SetData(movieList);
     }
 }

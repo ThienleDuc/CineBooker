@@ -58,10 +58,16 @@ BEGIN
         P.Tuoi,
         P.DinhDangPhim,
         STRING_AGG(TC.TenTheLoai, ', ') AS TenTheLoai,
-        P.NgayKhoiChieu,
-        P.NgayKetThuc,
+        -- Chuyển đổi NgayKhoiChieu và NgayKetThuc sang định dạng dd/MM/yyyy
+        FORMAT(P.NgayKhoiChieu, 'dd/MM/yyyy') AS NgayKhoiChieu,
+        FORMAT(P.NgayKetThuc, 'dd/MM/yyyy') AS NgayKetThuc,
         P.TrangThaiChieu,
-        P.ThoiLuong
+        -- Chuyển đổi ThoiLuong thành định dạng HH:mm:ss
+        RIGHT('00' + CAST(DATEPART(HOUR, P.ThoiLuong) AS VARCHAR), 2) + ':' +
+        RIGHT('00' + CAST(DATEPART(MINUTE, P.ThoiLuong) AS VARCHAR), 2) + ':' +
+        RIGHT('00' + CAST(DATEPART(SECOND, P.ThoiLuong) AS VARCHAR), 2) AS ThoiLuong,
+        -- Gọi hàm fn_DiemDanhGiaPhimTrungBinh để tính điểm trung bình
+        dbo.fn_DiemDanhGiaPhimTrungBinh(P.MaPhim) AS DiemDanhGiaTrungBinh
     FROM 
         Phim P
     LEFT JOIN 
@@ -81,6 +87,7 @@ BEGIN
         P.TrangThaiChieu, 
         P.ThoiLuong;
 END;
+
 GO
 CREATE PROCEDURE pr_GetRapChieuCon
     @TenTinhThanh NVARCHAR(255)

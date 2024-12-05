@@ -7,11 +7,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
-import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -43,7 +39,7 @@ public class danhSachRap extends AppCompatActivity {
 
         danhSachDiaChiRap();
     }
-
+    // fragment laf getcontex(), Activity: this
     private void danhSachRap () {
         RecyclerView rapChieuRecycleView = findViewById(R.id.danhsachrap_recycle_view);
         rapChieuRecycleView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));

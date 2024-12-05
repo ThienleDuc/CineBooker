@@ -21,8 +21,9 @@ public class caroselDangChieuAdapter extends RecyclerView.Adapter<caroselDangChi
     private List<ent_PhimDangChieu> dangChieulist;
 
     // Constructor
-    public caroselDangChieuAdapter(List<ent_PhimDangChieu> dangChieulist) {
+    public void SetData(List<ent_PhimDangChieu> dangChieulist) {
         this.dangChieulist = dangChieulist;
+        notifyDataSetChanged();
     }
 
     @NonNull

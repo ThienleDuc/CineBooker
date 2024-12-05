@@ -1,9 +1,6 @@
 package com.example.cinebooker.LeDucThien.entity;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-public class ent_PhimDangChieu {
+public class ent_PhimSapChieu {
 
     private int maPhim;
     private String anhPhim;
@@ -15,16 +12,15 @@ public class ent_PhimDangChieu {
     private String ngayKetThuc;    // Ngày kết thúc dưới dạng String
     private String trangThaiChieu;
     private String thoiLuong;      // Thời lượng dưới dạng String (ví dụ: "02:30")
-    private float diemDanhGiaTrungBinh;
 
     // Constructor mặc định
-    public ent_PhimDangChieu() {
+    public ent_PhimSapChieu() {
     }
 
     // Constructor đầy đủ
-    public ent_PhimDangChieu(int maPhim, String anhPhim, String tenPhim, int tuoi, String dinhDangPhim,
-                             String tenTheLoai, String ngayKhoiChieu, String ngayKetThuc, String trangThaiChieu,
-                             String thoiLuong, float diemDanhGiaTrungBinh) {
+    public ent_PhimSapChieu(int maPhim, String anhPhim, String tenPhim, int tuoi, String dinhDangPhim,
+                            String tenTheLoai, String ngayKhoiChieu, String ngayKetThuc, String trangThaiChieu,
+                            String thoiLuong) {
         this.maPhim = maPhim;
         this.anhPhim = anhPhim;
         this.tenPhim = tenPhim;
@@ -35,7 +31,6 @@ public class ent_PhimDangChieu {
         this.ngayKetThuc = ngayKetThuc;
         this.trangThaiChieu = trangThaiChieu;
         this.thoiLuong = thoiLuong;
-        this.diemDanhGiaTrungBinh = diemDanhGiaTrungBinh;
     }
 
     public int getMaPhim() {
@@ -116,13 +111,5 @@ public class ent_PhimDangChieu {
 
     public void setThoiLuong(String thoiLuong) {
         this.thoiLuong = thoiLuong;
-    }
-
-    public float getDiemDanhGiaTrungBinh() {
-        return diemDanhGiaTrungBinh;
-    }
-
-    public void setDiemDanhGiaTrungBinh(float diemDanhGiaTrungBinh) {
-        this.diemDanhGiaTrungBinh = diemDanhGiaTrungBinh;
     }
 }

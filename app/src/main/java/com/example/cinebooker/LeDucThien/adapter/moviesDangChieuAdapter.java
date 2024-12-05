@@ -22,11 +22,13 @@ public class moviesDangChieuAdapter extends RecyclerView.Adapter<moviesDangChieu
 
     public moviesDangChieuAdapter() {
     }
-    
-    public void setData(List<ent_PhimDangChieu> dangChieulist) {
+
+    public void SetData (List<ent_PhimDangChieu> dangChieulist) {
         this.dangChieulist = dangChieulist;
-        notifyDataSetChanged(); // Cập nhật adapter khi có dữ liệu mới
+        notifyDataSetChanged();
     }
+
+
     @NonNull
     @Override
     public moviesDangChieuAdapter.viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
