@@ -12,15 +12,16 @@ import com.example.cinebooker.R;
 import com.example.cinebooker.generalMethod.ConnectionDatabase;
 import com.example.cinebooker.generalMethod.HorizontalSpaceItemDecoration;
 import com.example.cinebooker.generalMethod.SpaceItemDecoration;
+import com.example.cinebooker.generalMethod.ThienDateUtils;
 
 import java.sql.*;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 public class PD_PhimDangChieu {
 
-    private  Connection connection = null;
+    private static final String TAG = "PD_PhimDangChieu"; // Đặt tag cho log
+    private Connection connection = null;
     private CallableStatement callableStatement = null;
     private ResultSet resultSet = null;
 
@@ -32,7 +33,7 @@ public class PD_PhimDangChieu {
             // Mở kết nối đến cơ sở dữ liệu
             connection = new ConnectionDatabase().getConnection();
             if (connection == null) {
-                Log.e("DatabaseError", "Không thể kết nối đến cơ sở dữ liệu.");
+                Log.e(TAG, "Không thể kết nối đến cơ sở dữ liệu.");
                 return phimList; // Nếu kết nối không thành công, trả về danh sách rỗng
             }
 
@@ -50,20 +51,8 @@ public class PD_PhimDangChieu {
                 phim.setTuoi(resultSet.getInt("Tuoi"));
                 phim.setDinhDangPhim(resultSet.getString("DinhDangPhim"));
                 phim.setTenTheLoai(resultSet.getString("TenTheLoai"));
-
-                // Lấy ngày khởi chiếu và ngày kết thúc dưới dạng String
-                java.sql.Date ngayKhoiChieu = resultSet.getDate("NgayKhoiChieu");
-                if (ngayKhoiChieu != null) {
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                    phim.setNgayKhoiChieu(sdf.format(ngayKhoiChieu));
-                }
-
-                java.sql.Date ngayKetThuc = resultSet.getDate("NgayKetThuc");
-                if (ngayKetThuc != null) {
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                    phim.setNgayKetThuc(sdf.format(ngayKetThuc));
-                }
-
+                phim.setNgayKhoiChieu(resultSet.getString("NgayKhoiChieu"));
+                phim.setNgayKetThuc(resultSet.getString("NgayKetThuc"));
                 phim.setTrangThaiChieu(resultSet.getString("TrangThaiChieu"));
                 phim.setThoiLuong(resultSet.getString("ThoiLuong"));
                 phim.setDiemDanhGiaTrungBinh(resultSet.getFloat("DiemDanhGiaTrungBinh"));
@@ -73,22 +62,39 @@ public class PD_PhimDangChieu {
             }
 
         } catch (SQLException e) {
-            Log.e("DatabaseError", "Error when fetching movies data from the database", e);
+            Log.e(TAG, "Error when fetching movies data from the database", e);
         } catch (Exception e) {
+            Log.e(TAG, "Unexpected error occurred", e);
             throw new RuntimeException(e);
         } finally {
-            ConnectionDatabase.closeResultSet(resultSet); // Đóng ResultSet
-            ConnectionDatabase.closeCallableStatement(callableStatement); // Đóng CallableStatement
-            ConnectionDatabase.closeConnection(connection); // Đóng Connection
+            // Đảm bảo rằng các tài nguyên luôn được đóng
+            closeResources();
         }
 
         return phimList;
     }
 
+    // Phương thức đóng các tài nguyên
+    private void closeResources() {
+        try {
+            if (resultSet != null) {
+                resultSet.close();
+            }
+            if (callableStatement != null) {
+                callableStatement.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+        } catch (SQLException e) {
+            Log.e(TAG, "Error closing resources", e);
+        }
+    }
+
     // Phương thức load dữ liệu vào RecyclerView
     public void loadMoviesToRecyclerView(Context context, RecyclerView recyclerView, List<ent_PhimDangChieu> movieList, boolean isHorizontal) {
         if (movieList == null || movieList.isEmpty()) {
-            Log.e("RecyclerViewError", "Danh sách phim trống hoặc không hợp lệ.");
+            Log.e(TAG, "Danh sách phim trống hoặc không hợp lệ.");
             return;
         }
 
@@ -108,5 +114,13 @@ public class PD_PhimDangChieu {
         // Tạo adapter và gán vào RecyclerView
         moviesDangChieuAdapter adapter = new moviesDangChieuAdapter(movieList);
         recyclerView.setAdapter(adapter);
+    }
+
+    // Phương thức chuyển đổi thời gian từ định dạng HH:mm:ss sang HH:mm
+    private String formatTime(String time) {
+        if (time != null && time.length() >= 5) {
+            return time.substring(0, 5); // Lấy phần HH:mm từ HH:mm:ss
+        }
+        return time; // Trả về thời gian gốc nếu không đúng định dạng
     }
 }

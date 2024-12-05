@@ -2,6 +2,8 @@
 GO
 USE dbQuanLyXemPhim
 GO
+SET DATEFORMAT dmy;
+GO
 -- Bảng KhachHang
 CREATE TABLE KhachHang (
     MaKhachHang INT PRIMARY KEY IDENTITY(1,1),

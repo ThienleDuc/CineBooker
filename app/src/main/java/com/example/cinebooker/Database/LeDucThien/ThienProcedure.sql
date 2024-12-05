@@ -16,8 +16,10 @@ BEGIN
         FORMAT(P.NgayKhoiChieu, 'dd/MM/yyyy') AS NgayKhoiChieu,
         FORMAT(P.NgayKetThuc, 'dd/MM/yyyy') AS NgayKetThuc,
         P.TrangThaiChieu,
-        -- Lấy giờ và phút từ ThoiLuong
-        RIGHT('00' + CAST(DATEPART(HOUR, P.ThoiLuong) AS VARCHAR), 2) + ':' + RIGHT('00' + CAST(DATEPART(MINUTE, P.ThoiLuong) AS VARCHAR), 2) AS ThoiLuong,
+        -- Chuyển đổi ThoiLuong thành định dạng HH:mm:ss
+        RIGHT('00' + CAST(DATEPART(HOUR, P.ThoiLuong) AS VARCHAR), 2) + ':' +
+        RIGHT('00' + CAST(DATEPART(MINUTE, P.ThoiLuong) AS VARCHAR), 2) + ':' +
+        RIGHT('00' + CAST(DATEPART(SECOND, P.ThoiLuong) AS VARCHAR), 2) AS ThoiLuong,
         -- Gọi hàm fn_DiemDanhGiaPhimTrungBinh để tính điểm trung bình
         dbo.fn_DiemDanhGiaPhimTrungBinh(P.MaPhim) AS DiemDanhGiaTrungBinh
     FROM 
@@ -39,6 +41,7 @@ BEGIN
         P.TrangThaiChieu, 
         P.ThoiLuong;
 END;
+
 EXEC dbo.pr_LayPhimDangChieu
 
 Select * from Phim Where TrangThaiChieu = N'Đang chiếu'

@@ -21,13 +21,12 @@ public class moviesDangChieuAdapter extends RecyclerView.Adapter<moviesDangChieu
     private List<ent_PhimDangChieu> dangChieulist;
 
     public moviesDangChieuAdapter() {
-
     }
-
-    public moviesDangChieuAdapter(List<ent_PhimDangChieu> dangChieulist) {
+    
+    public void setData(List<ent_PhimDangChieu> dangChieulist) {
         this.dangChieulist = dangChieulist;
+        notifyDataSetChanged(); // Cập nhật adapter khi có dữ liệu mới
     }
-
     @NonNull
     @Override
     public moviesDangChieuAdapter.viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -39,27 +38,37 @@ public class moviesDangChieuAdapter extends RecyclerView.Adapter<moviesDangChieu
     public void onBindViewHolder(@NonNull moviesDangChieuAdapter.viewHolder holder, int position) {
         ent_PhimDangChieu dangChieu = dangChieulist.get(position);
 
-        Picasso.get().load(dangChieu.getAnhPhim()).into(holder.moviePoster);
+        // Load poster movie using Picasso
+        Picasso.get().load(dangChieu.getAnhPhim())
+                .placeholder(R.drawable.placeholder)  // Optional: Add a placeholder image
+                .into(holder.moviePoster);
 
-        holder.age.setText(dangChieu.getTuoi());
-        holder.movieName.setText(dangChieu.getTenPhim());
-        holder.styleMovie.setText(dangChieu.getTenTheLoai());
+        // Set age (convert to String)
+        holder.age.setText(String.valueOf(dangChieu.getTuoi()) + "+");
 
+        // Set movie name with "Chưa cập nhật" if null
+        holder.movieName.setText(dangChieu.getTenPhim() != null ? dangChieu.getTenPhim() : "Chưa cập nhật");
+
+        // Set movie style with "Chưa cập nhật" if null
+        holder.styleMovie.setText(dangChieu.getTenTheLoai() != null ? dangChieu.getTenTheLoai() : "Chưa cập nhật");
+
+        // Set formatted vote
         holder.vote.setText(NumberFormatter.formatNumber(dangChieu.getDiemDanhGiaTrungBinh()));
-
     }
 
     @Override
     public int getItemCount() {
-        return dangChieulist.size();
+        return dangChieulist != null ? dangChieulist.size() : 0;
     }
 
-    public class viewHolder extends RecyclerView.ViewHolder {
+    public static class viewHolder extends RecyclerView.ViewHolder {
         ImageView moviePoster;
         TextView age, movieName, styleMovie, vote;
+
         public viewHolder(@NonNull View itemView) {
             super(itemView);
 
+            // Initialize the views
             moviePoster = itemView.findViewById(R.id.dang_chieu_poster_movie);
             age = itemView.findViewById(R.id.dang_chieu_age);
             movieName = itemView.findViewById(R.id.dang_chieu_movie_name);

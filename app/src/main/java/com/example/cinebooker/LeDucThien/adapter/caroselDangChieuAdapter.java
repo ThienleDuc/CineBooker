@@ -28,7 +28,8 @@ public class caroselDangChieuAdapter extends RecyclerView.Adapter<caroselDangChi
     @NonNull
     @Override
     public viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.iteams_carosel_movie_dangchieu, parent, false);
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.iteams_carosel_movie_dangchieu, parent, false);
         return new viewHolder(view);
     }
 
@@ -41,25 +42,27 @@ public class caroselDangChieuAdapter extends RecyclerView.Adapter<caroselDangChi
                 .placeholder(R.drawable.placeholder)  // Optional: Add a placeholder image
                 .into(holder.moviePoster);
 
-        // Set age (convert to String)
-        holder.age.setText(String.valueOf(dangChieu.getTuoi()));
+        // Set age (check null or invalid data)
+        holder.age.setText(String.valueOf(dangChieu.getTuoi()) + "+");
 
-        // Set movie name, style, and vote
-        holder.movieName.setText(dangChieu.getTenPhim());
-        holder.styleMovie.setText(dangChieu.getTenTheLoai());
+        // Set movie name
+        holder.movieName.setText(dangChieu.getTenPhim() != null ? dangChieu.getTenPhim() : "Chưa cập nhật");
 
-        // Format vote (if NumberFormatter is available)
+        // Set movie style
+        holder.styleMovie.setText(dangChieu.getTenTheLoai() != null ? dangChieu.getTenTheLoai() : "Chưa cập nhật");
+
+        // Format and set vote
         holder.vote.setText(NumberFormatter.formatNumber(dangChieu.getDiemDanhGiaTrungBinh()));
     }
 
     @Override
     public int getItemCount() {
-        return dangChieulist.size();
+        return dangChieulist != null ? dangChieulist.size() : 0;
     }
 
-    public class viewHolder extends RecyclerView.ViewHolder {
+    public static class viewHolder extends RecyclerView.ViewHolder {
         ImageView moviePoster;
-        TextView age, movieName, styleMovie, vote;
+        TextView age, movieName, styleMovie, vote, duration, releaseDate;
 
         public viewHolder(@NonNull View itemView) {
             super(itemView);
