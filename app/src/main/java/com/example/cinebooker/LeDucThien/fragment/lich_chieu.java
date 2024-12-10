@@ -95,7 +95,6 @@ public class lich_chieu extends Fragment {
 
     public void lichChieu(View view) {
         // Khởi tạo TabLayout cho location
-        TabLayout location_tablayout = view.findViewById(R.id.location_tabLayout);
         LinearLayout danhsachrap_open = view.findViewById(R.id.danhsachrap_open);
 
         danhsachrap_open.setOnClickListener(new View.OnClickListener() {
@@ -104,11 +103,6 @@ public class lich_chieu extends Fragment {
                 ActivityOpen.openActivityOnClick(requireActivity(), danhSachRap.class, R.id.danhsachrap_open);
             }
         });
-
-        View tab1 = LayoutInflater.from(getContext()).inflate(R.layout.location_tab1, null);
-        View tab2 = LayoutInflater.from(getContext()).inflate(R.layout.location_tab2, null);
-        location_tablayout.addTab(location_tablayout.newTab().setCustomView(tab1));
-        location_tablayout.addTab(location_tablayout.newTab().setCustomView(tab2));
 
         // Khởi tạo RecyclerView cho lịch chiếu
         RecyclerView calendar_tablayout = view.findViewById(R.id.calendar_tabLayout);

@@ -9,21 +9,24 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.cinebooker.LeDucThien.entity.caroselSapChieuEntity;
 import com.example.cinebooker.R;
+import com.example.cinebooker.LeDucThien.entity.ent_PhimSapChieu;
+import com.example.cinebooker.generalMethod.NumberFormatter;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class moviesSapChieuAdapter extends RecyclerView.Adapter<moviesSapChieuAdapter.viewHolder> {
 
-    private List<caroselSapChieuEntity> dangChieulist;
+    private List<ent_PhimSapChieu> dangChieulist;
 
     public moviesSapChieuAdapter() {
 
     }
 
-    public moviesSapChieuAdapter(List<caroselSapChieuEntity> dangChieulist) {
+    public void SetData(List<ent_PhimSapChieu> dangChieulist) {
         this.dangChieulist = dangChieulist;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -35,13 +38,22 @@ public class moviesSapChieuAdapter extends RecyclerView.Adapter<moviesSapChieuAd
 
     @Override
     public void onBindViewHolder(@NonNull moviesSapChieuAdapter.viewHolder holder, int position) {
-        caroselSapChieuEntity dangChieu = dangChieulist.get(position);
+        ent_PhimSapChieu dangChieu = dangChieulist.get(position);
 
-        holder.moviePoster.setImageResource(dangChieu.getMoviePoster());
+        // Load poster movie using Picasso
+        Picasso.get().load(dangChieu.getAnhPhim())
+                .placeholder(R.drawable.placeholder)  // Optional: Add a placeholder image
+                .into(holder.moviePoster);
 
-        holder.age.setText(dangChieu.getAge());
-        holder.movieName.setText(dangChieu.getMovieName());
-        holder.styleMovie.setText(dangChieu.getStyleMovie());
+        // Set age (check null or invalid data)
+        holder.age.setText(String.valueOf(dangChieu.getTuoi()) + "+");
+
+        // Set movie name
+        holder.movieName.setText(dangChieu.getTenPhim() != null ? dangChieu.getTenPhim() : "Chưa cập nhật");
+
+        // Set movie style
+        holder.styleMovie.setText(dangChieu.getTenTheLoai() != null ? dangChieu.getTenTheLoai() : "Chưa cập nhật");
+
     }
 
     @Override

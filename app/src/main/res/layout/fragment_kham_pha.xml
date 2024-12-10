@@ -138,12 +138,81 @@
                 android:layout_width="match_parent"
                 android:layout_height="10dp"/>
 
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/location_tabLayout"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                app:tabIndicatorHeight="0dp" />
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/open_list_tinh_thanh"
+                    android:layout_width="0dp"
+                    android:layout_weight="6"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:background="@drawable/strock_1_pink_radius_10_transparent"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:id="@+id/icon_location"
+                        android:layout_width="25dp"
+                        android:layout_height="21dp"
+                        android:src="@drawable/location_on"
+                        app:tint="@color/colorSelected" />
+
+                    <Space
+                        android:layout_width="10dp"
+                        android:layout_height="match_parent"/>
+                    <TextView
+                        android:id="@+id/ten_tinh_thanh"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Đà nẵng"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorSelected"
+                        android:textSize="14sp"/>
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/chevron_down"
+                        app:tint="@android:color/darker_gray" />
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="20dp"
+                    android:layout_height="match_parent"/>
+
+                <LinearLayout
+                    android:id="@+id/search_gan_ban"
+                    android:layout_width="0dp"
+                    android:layout_weight="4"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:background="@drawable/strock_1_white_radius_10_transparent"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:id="@+id/icon_location2"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:src="@drawable/location_searching"
+                        app:tint="@color/colorUnSelected" />
+
+                    <Space
+                        android:layout_width="10dp"
+                        android:layout_height="match_parent"/>
+                    <TextView
+                        android:id="@+id/gan_ban"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Gần bạn"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorUnSelected"
+                        android:textSize="14sp"/>
+                </LinearLayout>
+            </LinearLayout>
 
             <Space
                 android:layout_width="match_parent"
@@ -208,9 +277,9 @@
                     android:id="@+id/timRapChieu_more"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/chevron_down"
-                    android:layout_gravity="center_vertical"/>
+                    android:src="@drawable/chevron_down" />
             </LinearLayout>
 
             <Space

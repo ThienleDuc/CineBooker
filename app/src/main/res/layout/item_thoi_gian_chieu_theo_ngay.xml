@@ -5,9 +5,10 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/container_imageview"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:background="@drawable/strock_1_pink_radius_10_white"
+        android:background="@drawable/strock_1_darkgrey_radius_10_transparent"
         android:padding="5dp">
 
         <ImageView

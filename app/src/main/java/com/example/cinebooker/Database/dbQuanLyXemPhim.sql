@@ -138,7 +138,7 @@ CREATE TABLE VePhim (
 CREATE TABLE TinhTrangVe (
     MaTinhTrang INT PRIMARY KEY IDENTITY(1,1),
 	MaVe INT,
-    TinhTrang NVARCHAR(50),
+    TinhTrang NVARCHAR(50),-- đã dùng/ chưa dùng/ đã khứ hồi
     ThoiGian DATETIME2 NOT NULL
 );
 
@@ -323,6 +323,3 @@ FOREIGN KEY (MaDoiTuongApDung) REFERENCES DoiTuongApDung(MaDoiTuongApDung);
 
 ALTER TABLE VoucherUngDung
 ADD CONSTRAINT UQ_VoucherUngDung_TenVoucher UNIQUE (TenVoucher);
-
-
-

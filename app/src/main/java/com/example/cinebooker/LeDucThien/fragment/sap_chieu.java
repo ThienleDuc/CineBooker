@@ -10,10 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.cinebooker.LeDucThien.BussinessLogic.BL_PhimSapChieu;
 import com.example.cinebooker.LeDucThien.adapter.binhLuanNoiBatAdapter;
 import com.example.cinebooker.LeDucThien.adapter.moviesSapChieuAdapter;
 import com.example.cinebooker.LeDucThien.entity.binhLuanNoiBatEntity;
-import com.example.cinebooker.LeDucThien.entity.caroselSapChieuEntity;
 import com.example.cinebooker.R;
 import com.example.cinebooker.generalMethod.SpaceItemDecoration;
 
@@ -79,28 +79,8 @@ public class sap_chieu extends Fragment {
 
     public void sapChieu (View view) {
         RecyclerView sapChieuRecycleView = view.findViewById(R.id.recycleView_sapChieu);
-        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.recycler_view_spacing_5);
-
-        sapChieuRecycleView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-
-        sapChieuRecycleView.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
-
-        List<caroselSapChieuEntity> caroselSapChieuEntityList = new ArrayList<>();
-
-        caroselSapChieuEntityList.add(new caroselSapChieuEntity(R.drawable.camposter, "18+","Cám", "Kinh dị"));
-        caroselSapChieuEntityList.add(new caroselSapChieuEntity(R.drawable.camposter, "18+","Cám", "Kinh dị"));
-        caroselSapChieuEntityList.add(new caroselSapChieuEntity(R.drawable.camposter, "18+","Cám", "Kinh dị"));
-        caroselSapChieuEntityList.add(new caroselSapChieuEntity(R.drawable.camposter, "18+","Cám", "Kinh dị"));
-        caroselSapChieuEntityList.add(new caroselSapChieuEntity(R.drawable.camposter, "18+","Cám", "Kinh dị"));
-        caroselSapChieuEntityList.add(new caroselSapChieuEntity(R.drawable.camposter, "18+","Cám", "Kinh dị"));
-        caroselSapChieuEntityList.add(new caroselSapChieuEntity(R.drawable.camposter, "18+","Cám", "Kinh dị"));
-        caroselSapChieuEntityList.add(new caroselSapChieuEntity(R.drawable.camposter, "18+","Cám", "Kinh dị"));
-        caroselSapChieuEntityList.add(new caroselSapChieuEntity(R.drawable.camposter, "18+","Cám", "Kinh dị"));
-        caroselSapChieuEntityList.add(new caroselSapChieuEntity(R.drawable.camposter, "18+","Cám", "Kinh dị"));
-
-        moviesSapChieuAdapter sapChieuAdapter = new moviesSapChieuAdapter(caroselSapChieuEntityList);
-        sapChieuRecycleView.setAdapter(sapChieuAdapter);
-
+        BL_PhimSapChieu blPhimSapChieu = new BL_PhimSapChieu();
+        blPhimSapChieu.loadSapChieuVertical(getContext(), sapChieuRecycleView);
     }
 
     public void binhluan (View view) {

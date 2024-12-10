@@ -33,12 +33,14 @@ public class danhSachRap extends AppCompatActivity {
 
         ImageView close = findViewById(R.id.danhsachrap_close);
 
-        close.setOnClickListener(v-> onBackPressed());
+        close.setOnClickListener(v-> finish());
 
         danhSachRap();
 
         danhSachDiaChiRap();
     }
+
+
     // fragment laf getcontex(), Activity: this
     private void danhSachRap () {
         RecyclerView rapChieuRecycleView = findViewById(R.id.danhsachrap_recycle_view);

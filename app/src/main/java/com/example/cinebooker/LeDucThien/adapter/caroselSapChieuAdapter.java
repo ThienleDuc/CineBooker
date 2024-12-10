@@ -8,20 +8,23 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.cinebooker.LeDucThien.entity.caroselSapChieuEntity;
+import com.example.cinebooker.LeDucThien.entity.ent_PhimSapChieu;
 import com.example.cinebooker.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class caroselSapChieuAdapter extends RecyclerView.Adapter<caroselSapChieuAdapter.viewHolder> {
-    private List<caroselSapChieuEntity> caroselSapChieuEntityList;
+    private List<ent_PhimSapChieu> sapChieuList;
 
+    // Constructor
     public caroselSapChieuAdapter() {
     }
 
-    public caroselSapChieuAdapter(List<caroselSapChieuEntity> caroselSapChieuEntityList) {
-        this.caroselSapChieuEntityList = caroselSapChieuEntityList;
+    // Set dữ liệu cho adapter
+    public void SetData(List<ent_PhimSapChieu> sapChieuList) {
+        this.sapChieuList = sapChieuList;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -33,28 +36,38 @@ public class caroselSapChieuAdapter extends RecyclerView.Adapter<caroselSapChieu
 
     @NonNull
     @Override
-    public void onBindViewHolder(@NonNull caroselSapChieuAdapter.viewHolder holder, int position) {
-        caroselSapChieuEntity sapChieu = caroselSapChieuEntityList.get(position);
+    public void onBindViewHolder(@NonNull viewHolder holder, int position) {
+        ent_PhimSapChieu sapChieu = sapChieuList.get(position);
 
-        holder.moviePoster.setImageResource(sapChieu.getMoviePoster());
+        // Load ảnh poster phim bằng Picasso
+        Picasso.get().load(sapChieu.getAnhPhim())
+                .placeholder(R.drawable.placeholder)  // Optional: Thêm ảnh placeholder
+                .into(holder.moviePoster);
 
-        holder.age.setText(sapChieu.getAge());
-        holder.movieName.setText(sapChieu.getMovieName());
-        holder.styleMovie.setText(sapChieu.getStyleMovie());
+        // Set thông tin độ tuổi
+        holder.age.setText(String.valueOf(sapChieu.getTuoi()) + "+");
+
+        // Set tên phim
+        holder.movieName.setText(sapChieu.getTenPhim() != null ? sapChieu.getTenPhim() : "Chưa cập nhật");
+
+        // Set thể loại phim
+        holder.styleMovie.setText(sapChieu.getTenTheLoai() != null ? sapChieu.getTenTheLoai() : "Chưa cập nhật");
     }
-
 
     @Override
     public int getItemCount() {
-        return caroselSapChieuEntityList.size();
+        return sapChieuList != null ? sapChieuList.size() : 0;
     }
 
-    public class viewHolder extends RecyclerView.ViewHolder {
+    // ViewHolder
+    public static class viewHolder extends RecyclerView.ViewHolder {
         ImageView moviePoster;
         TextView age, movieName, styleMovie;
+
         public viewHolder(@NonNull View itemView) {
             super(itemView);
 
+            // Khởi tạo các view
             moviePoster = itemView.findViewById(R.id.sapChieu_poster_movie);
             age = itemView.findViewById(R.id.sapChieu_age);
             movieName = itemView.findViewById(R.id.sapChieu_movie_name);
