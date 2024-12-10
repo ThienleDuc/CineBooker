@@ -33,13 +33,13 @@
             android:textSize="30dp" />
 
         <EditText
-            android:id="@+id/username_input"
+            android:id="@+id/email_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:background="@drawable/khung_editview"
             android:hint="Email của bạn"
-            android:inputType="text"
+            android:inputType="textEmailAddress"
             android:padding="15dp"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
@@ -53,7 +53,7 @@
             android:background="@drawable/khung_editview"
             android:drawableEnd="@drawable/baseline_remove_red_eye_24"
             android:hint="Mật khẩu của bạn"
-            android:inputType="text"
+            android:inputType="textPassword"
             android:padding="15dp"
             android:textColor="@color/white"
             android:textColorHint="@color/white"

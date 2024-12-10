@@ -1,3 +1,4 @@
+
 package com.example.cinebooker.PhanCongQuoc.adapter;
 
 import android.content.Context;
@@ -17,6 +18,7 @@ import com.example.cinebooker.PhanCongQuoc.activity.yeu_cau_hoan_tien;
 import com.example.cinebooker.PhanCongQuoc.entity.ticketchuadungMoviesEntity;
 import com.example.cinebooker.R;
 import com.example.cinebooker.generalMethod.ActivityOpen;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -24,10 +26,17 @@ public class Ticket_chuadungAdapter extends RecyclerView.Adapter<Ticket_chuadung
     private List<ticketchuadungMoviesEntity> ticketChuadungMoviesList;
     private int currentItemCount;
 
-    public Ticket_chuadungAdapter(List<ticketchuadungMoviesEntity> ticketChuadungMoviesList) {
+    public void SetData(List<ticketchuadungMoviesEntity> ticketChuadungMoviesList) {
         this.ticketChuadungMoviesList = ticketChuadungMoviesList;
         this.currentItemCount = 10;
+        notifyDataSetChanged();
     }
+
+    public Ticket_chuadungAdapter() {
+
+    }
+
+
 
     public int getCurrentItemCount() {
         return currentItemCount;
@@ -53,42 +62,43 @@ public class Ticket_chuadungAdapter extends RecyclerView.Adapter<Ticket_chuadung
     public void onBindViewHolder(@NonNull Ticket_chuadungAdapter.TicketViewHolder holder, int position) {
         ticketchuadungMoviesEntity ticket = ticketChuadungMoviesList.get(position);
 
-        holder.date_chuadung.setText(ticket.getDate_chuadung());
-        holder.posterMovie_chuadung.setImageResource(ticket.getPoster_chuadung());
-        holder.age_chuadung.setText(ticket.getAge_chuadung());
-        holder.movieName_chuadung.setText(ticket.getName_chuadung());
-        holder.styleMovie_chuadung.setText(ticket.getStyle_chuadung());
+        holder.date_chuadung.setText(ticket.getDate_chuadung() != null ? ticket.getDate_chuadung() : "Ngày không xác định");
+        Picasso.get().load(ticket.getPoster_chuadung())
+                .placeholder(R.drawable.placeholder)  // Optional: Add a placeholder image
+                .into(holder.posterMovie_chuadung);
+        holder.age_chuadung.setText(ticket.getAge_chuadung() > 0 ? String.valueOf(ticket.getAge_chuadung()) : "Tuổi không xác định");
+        holder.movieName_chuadung.setText(ticket.getName_chuadung() != null ? ticket.getName_chuadung() : "Tên phim không xác định");
+        holder.styleMovie_chuadung.setText(ticket.getStyle_chuadung() != null ? ticket.getStyle_chuadung() : "Thể loại không xác định");
+        holder.soluong_chuadung.setText(ticket.getSoluong_chuadung() > 0 ? String.valueOf(ticket.getSoluong_chuadung()) : "0");
+        Picasso.get().load(ticket.getAnhrap())
+                .placeholder(R.drawable.drawn_star)  // Optional: Add a placeholder image
+                .into(holder.anhrap);
+        holder.diachi.setText(ticket.getDiachi_chuadung() != null ? ticket.getDiachi_chuadung() : "Địa chỉ không xác định");
 
-        // Sử dụng context của view để mở Activity
-        holder.btn_chuadung.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Context context = v.getContext();
-                if (context instanceof AppCompatActivity) {
-                    ActivityOpen.openActivityOnClick((AppCompatActivity) context, yeu_cau_hoan_tien.class, R.id.btn_chuadung);
-                }
+// Xử lý sự kiện cho nút
+        holder.btn_chuadung.setOnClickListener(v -> {
+            Context context = v.getContext();
+            if (context instanceof AppCompatActivity) {
+                ActivityOpen.openActivityOnClick((AppCompatActivity) context, yeu_cau_hoan_tien.class, R.id.btn_chuadung);
             }
         });
 
-        holder.btn_chuadung1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Context context = v.getContext();
-                if (context instanceof AppCompatActivity) {
-                    ActivityOpen.openActivityOnClick((AppCompatActivity) context, xuat_ve.class, R.id.btn_chuadung1);
-                }
+        holder.btn_chuadung1.setOnClickListener(v -> {
+            Context context = v.getContext();
+            if (context instanceof AppCompatActivity) {
+                ActivityOpen.openActivityOnClick((AppCompatActivity) context, xuat_ve.class, R.id.btn_chuadung1);
             }
         });
     }
 
-    @Override
+        @Override
     public int getItemCount() {
         return Math.min(currentItemCount, ticketChuadungMoviesList.size());
     }
 
     public class TicketViewHolder extends RecyclerView.ViewHolder {
-        ImageView posterMovie_chuadung;
-        TextView age_chuadung, movieName_chuadung, styleMovie_chuadung, date_chuadung;
+        ImageView posterMovie_chuadung,anhrap;
+        TextView age_chuadung, movieName_chuadung, styleMovie_chuadung, date_chuadung,soluong_chuadung,diachi;
         Button btn_chuadung, btn_chuadung1;
 
         public TicketViewHolder(@NonNull View itemView) {
@@ -98,6 +108,9 @@ public class Ticket_chuadungAdapter extends RecyclerView.Adapter<Ticket_chuadung
             movieName_chuadung = itemView.findViewById(R.id.name_chuadung);
             styleMovie_chuadung = itemView.findViewById(R.id.style_chuadung);
             date_chuadung = itemView.findViewById(R.id.date_chuadung);
+            soluong_chuadung = itemView.findViewById(R.id.soluong_chuadung);
+            anhrap = itemView.findViewById(R.id.icon_CGV);
+            diachi = itemView.findViewById(R.id.diachi_chuadung);
             btn_chuadung = itemView.findViewById(R.id.btn_chuadung);
             btn_chuadung1 = itemView.findViewById(R.id.btn_chuadung1);
         }

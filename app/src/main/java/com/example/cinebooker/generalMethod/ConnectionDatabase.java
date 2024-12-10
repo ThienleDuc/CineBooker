@@ -10,13 +10,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ConnectionDatabase {
-
     // Phương thức mở kết nối đến cơ sở dữ liệu
     public Connection getConnection() {
         Connection connection = null;
         try {
-            String IpInternet = "192.168.1.6";
-            String url = "jdbc:jtds:sqlserver://" + IpInternet + ":1433;databasename=dbQuanLyXemPhim;user=sa;password=12345";
+            String IpInternet = "192.168.0.108";
+            String url = "jdbc:jtds:sqlserver://" + IpInternet + ":1433;databasename=dbQuanLyXemPhim;user=sa;password=123456";
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
             Class.forName("net.sourceforge.jtds.jdbc.Driver");

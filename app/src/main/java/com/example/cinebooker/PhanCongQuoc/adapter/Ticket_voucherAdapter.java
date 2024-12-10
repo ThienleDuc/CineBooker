@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cinebooker.PhanCongQuoc.entity.ticketvoucherMoviesEntity;
 import com.example.cinebooker.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -18,9 +19,10 @@ public class Ticket_voucherAdapter extends RecyclerView.Adapter<Ticket_voucherAd
     private List<ticketvoucherMoviesEntity> ticketvoucherMoviesList;
     private int currentItemCount; // Hiển thị ban đầu 10 mục
 
-    public Ticket_voucherAdapter(List<ticketvoucherMoviesEntity> ticketvoucherMoviesList) {
+    public void SetData(List<ticketvoucherMoviesEntity> ticketvoucherMoviesList) {
         this.ticketvoucherMoviesList = ticketvoucherMoviesList;
         this.currentItemCount = 10;
+        notifyDataSetChanged();
     }
 
     public int getCurrentItemCount() {
@@ -49,7 +51,9 @@ public class Ticket_voucherAdapter extends RecyclerView.Adapter<Ticket_voucherAd
 
         // Gán giá trị từ ticketvoucherMoviesEntity
         holder.namedonvi_voucher.setText(ticket.getNamedonvi_voucher());
-        holder.icondonvi_voucher.setImageResource(ticket.getIcondonvi_voucher());
+        Picasso.get().load(ticket.getIcondonvi_voucher())
+                .placeholder(R.drawable.drawn_star)  // Optional: Add a placeholder image
+                .into(holder.icondonvi_voucher);
         holder.mucgiam_voucher.setText(ticket.getMucgiam_voucher());
         holder.gioihangiam_voucher.setText(ticket.getGioihangiam_voucher());
         holder.date_voucher.setText(ticket.getDate_voucher());

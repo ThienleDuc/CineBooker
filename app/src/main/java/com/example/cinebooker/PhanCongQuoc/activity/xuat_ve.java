@@ -5,10 +5,10 @@ import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.cinebooker.PhanCongQuoc.BussinessLogic.BL_XuatVe;
 import com.example.cinebooker.R;
 
 public class xuat_ve extends AppCompatActivity {
@@ -18,9 +18,25 @@ public class xuat_ve extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_xuat_ve);
-        ImageView back = findViewById(R.id.itemback);
 
+        // Nút quay lại
+        ImageView back = findViewById(R.id.itemback);
         back.setOnClickListener(v -> onBackPressed());
 
+        // Gọi hàm xuất vé
+        xuatve();
     }
+
+    // Trong activity xuat_ve
+    private void xuatve() {
+        // Tìm RecyclerView từ layout
+        RecyclerView xuatRecyclerView = findViewById(R.id.xuatve_recycle_view);
+        int maVe = 2; // Ví dụ mã vé là 3
+
+        // Tạo đối tượng BL_XuatVe và gọi phương thức loadXuatVeVertical
+        BL_XuatVe blXuatVe = new BL_XuatVe();
+        blXuatVe.loadXuatVeVertical(this, xuatRecyclerView, maVe); // Truyền maVe vào
+    }
+
+
 }

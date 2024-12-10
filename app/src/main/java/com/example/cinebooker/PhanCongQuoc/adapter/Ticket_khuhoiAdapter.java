@@ -1,3 +1,4 @@
+
 package com.example.cinebooker.PhanCongQuoc.adapter;
 
 import android.content.Context;
@@ -18,6 +19,7 @@ import com.example.cinebooker.PhanCongQuoc.entity.ticketkhuhoiMoviesEntity;
 import com.example.cinebooker.PhanCongQuoc.fragment.ticket_khuhoiFragment;
 import com.example.cinebooker.R;
 import com.example.cinebooker.generalMethod.ActivityOpen;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -25,9 +27,10 @@ public class Ticket_khuhoiAdapter extends RecyclerView.Adapter<Ticket_khuhoiAdap
     private List<ticketkhuhoiMoviesEntity> ticketkhuhoiMoviesList;
     private int currentItemCount; // Hiển thị ban đầu 10 mục
 
-    public Ticket_khuhoiAdapter(List<ticketkhuhoiMoviesEntity> ticketkhuhoiMoviesList) {
+    public void SetData(List<ticketkhuhoiMoviesEntity> ticketkhuhoiMoviesList) {
         this.ticketkhuhoiMoviesList = ticketkhuhoiMoviesList;
         this.currentItemCount = 10;
+        notifyDataSetChanged();
     }
 
     public int getCurrentItemCount() {
@@ -55,18 +58,21 @@ public class Ticket_khuhoiAdapter extends RecyclerView.Adapter<Ticket_khuhoiAdap
         ticketkhuhoiMoviesEntity ticket = ticketkhuhoiMoviesList.get(position);
 
         // Gán giá trị từ ticketkhuhoiMoviesEntity
-        holder.icon_khuhoi.setImageResource(ticket.getIcon_khuhoi());
         holder.date_khuhoi.setText(ticket.getDate_khuhoi());
-        holder.date_1_khuhoi.setText(ticket.getDate_1_khuhoi());
-        holder.poster_khuhoi.setImageResource(ticket.getPoster_khuhoi());
-        holder.age_khuhoi.setText(ticket.getAge_khuhoi());
+           Picasso.get().load(ticket.getPoster_khuhoi())
+                .placeholder(R.drawable.placeholder)  // Optional: Add a placeholder image
+                .into(holder.poster_khuhoi);
+        holder.age_khuhoi.setText(ticket.getAge_khuhoi() > 0 ? String.valueOf(ticket.getAge_khuhoi()) : "Tuổi không xác định");
         holder.name_khuhoi.setText(ticket.getName_khuhoi());
         holder.style_khuhoi.setText(ticket.getStyle_khuhoi());
-        holder.soluong_khuhoi.setText(String.valueOf(ticket.getSoluong_khuhoi()));
+        holder.soluong_khuhoi.setText(ticket.getSoluong_khuhoi() > 0 ? String.valueOf(ticket.getSoluong_khuhoi()) : "Tuổi không xác định");
+
         holder.diachi_khuhoi.setText(ticket.getDiachi_khuhoi());
-        holder.icon_rap_khuhoi.setImageResource(ticket.getIcon_rap_khuhoi());
+        Picasso.get().load(ticket.getIcon_rap_khuhoi())
+                .placeholder(R.drawable.drawn_star)  // Optional: Add a placeholder image
+                .into(holder.icon_rap_khuhoi);
         // Thiết lập listener cho nút
-        holder.btn_khuhoi   .setOnClickListener(new View.OnClickListener() {
+        holder.btn_khuhoi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Context context = v.getContext();
@@ -85,28 +91,24 @@ public class Ticket_khuhoiAdapter extends RecyclerView.Adapter<Ticket_khuhoiAdap
 
     public class TicketViewHolder extends RecyclerView.ViewHolder {
         TextView date_khuhoi;
-        TextView date_1_khuhoi;
         ImageView poster_khuhoi; // Hình ảnh poster
         TextView age_khuhoi;
         TextView name_khuhoi;
         TextView style_khuhoi;
         TextView soluong_khuhoi;
         TextView diachi_khuhoi;
-        ImageView icon_khuhoi; // Icon của đơn vị
         ImageView icon_rap_khuhoi; // Icon của rạp
         Button btn_khuhoi;
 
         public TicketViewHolder(View itemView) {
             super(itemView);
             date_khuhoi = itemView.findViewById(R.id.date_khuhoi);
-            date_1_khuhoi = itemView.findViewById(R.id.date_1_khuhoi);
-            poster_khuhoi = itemView.findViewById(R.id.poster_khuhoi);
+               poster_khuhoi = itemView.findViewById(R.id.poster_khuhoi);
             age_khuhoi = itemView.findViewById(R.id.age_khuhoi);
             name_khuhoi = itemView.findViewById(R.id.name_khuhoi);
             style_khuhoi = itemView.findViewById(R.id.style_khuhoi);
             soluong_khuhoi = itemView.findViewById(R.id.soluong_khuhoi);
             diachi_khuhoi = itemView.findViewById(R.id.diachi_khuhoi);
-            icon_khuhoi = itemView.findViewById(R.id.icon17_khuhoi);
             icon_rap_khuhoi = itemView.findViewById(R.id.icon_CGV);
             btn_khuhoi = itemView.findViewById(R.id.btn_khuhoi);
 
@@ -114,4 +116,3 @@ public class Ticket_khuhoiAdapter extends RecyclerView.Adapter<Ticket_khuhoiAdap
     }
 
 }
-

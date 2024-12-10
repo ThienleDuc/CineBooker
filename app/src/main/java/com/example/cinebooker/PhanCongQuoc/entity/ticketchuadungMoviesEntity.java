@@ -1,21 +1,24 @@
+
 package com.example.cinebooker.PhanCongQuoc.entity;
 
 public class ticketchuadungMoviesEntity {
 
     private String date_chuadung; // Ngày giờ
-    private int poster_chuadung; // Resource ID cho poster
-    private String age_chuadung; // Độ tuổi
+    private String poster_chuadung; // Resource ID cho poster
+    private int age_chuadung; // Độ tuổi
     private String name_chuadung; // Tên phim
     private String style_chuadung; // Thể loại phim
-    private int soluong_chuadung; // Số lượng vé
+    private int soluong_chuadung;
+    private String anhrap;// Số lượng vé
     private String diachi_chuadung; // Địa chỉ
     ; // Văn bản của nút xuất vé
 
 
 
-
-    // Constructor với tất cả các tham số
-    public ticketchuadungMoviesEntity( String date_chuadung, int poster_chuadung, String age_chuadung, String name_chuadung, String style_chuadung, int soluong_chuadung, String diachi_chuadung) {
+    public ticketchuadungMoviesEntity( )
+    {}
+        // Constructor với tất cả các tham số
+    public ticketchuadungMoviesEntity( String date_chuadung, String poster_chuadung, int age_chuadung, String name_chuadung, String style_chuadung, int soluong_chuadung,String anhrap, String diachi_chuadung) {
 
         this.date_chuadung = date_chuadung;
         this.poster_chuadung = poster_chuadung;
@@ -23,6 +26,7 @@ public class ticketchuadungMoviesEntity {
         this.name_chuadung = name_chuadung;
         this.style_chuadung = style_chuadung;
         this.soluong_chuadung = soluong_chuadung;
+        this.anhrap=anhrap;
         this.diachi_chuadung = diachi_chuadung;
 
     }
@@ -38,19 +42,19 @@ public class ticketchuadungMoviesEntity {
         this.date_chuadung = date_chuadung;
     }
 
-    public int getPoster_chuadung() {
+    public String getPoster_chuadung() {
         return poster_chuadung;
     }
 
-    public void setPoster_chuadung(int poster_chuadung) {
+    public void setPoster_chuadung(String poster_chuadung) {
         this.poster_chuadung = poster_chuadung;
     }
 
-    public String getAge_chuadung() {
+    public int getAge_chuadung() {
         return age_chuadung;
     }
 
-    public void setAge_chuadung(String age_chuadung) {
+    public void setAge_chuadung(int age_chuadung) {
         this.age_chuadung = age_chuadung;
     }
 
@@ -76,6 +80,13 @@ public class ticketchuadungMoviesEntity {
 
     public void setSoluong_chuadung(int soluong_chuadung) {
         this.soluong_chuadung = soluong_chuadung;
+    }
+    public String getAnhrap() {
+        return anhrap;
+    }
+
+    public void setAnhrap(String anhrap) {
+        this.anhrap = anhrap;
     }
 
     public String getDiachi_chuadung() {

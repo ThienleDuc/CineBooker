@@ -44,19 +44,6 @@
                     android:textColor="@color/black"
                     android:textSize="8sp" />
 
-                <TextView
-                    android:id="@+id/date_1_khuhoi"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="13dp"
-                    android:layout_marginTop="5dp"
-                    android:paddingRight="3dp"
-                    android:layout_weight="1"
-                    android:gravity="end|center"
-                    android:text="02/10/2024 18:30"
-                    android:textColor="@color/black"
-                    android:textStyle="bold"
-                    android:textSize="8sp" />
             </LinearLayout>
 
 

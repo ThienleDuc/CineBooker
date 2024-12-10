@@ -1,3 +1,4 @@
+
 package com.example.cinebooker.PhanCongQuoc.fragment;
 
 import android.os.Bundle;
@@ -7,6 +8,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.cinebooker.LeDucThien.BussinessLogic.BL_PhimDangChieu;
+import com.example.cinebooker.PhanCongQuoc.BussinessLogic.BL_ChuaDung;
 import com.example.cinebooker.PhanCongQuoc.adapter.Ticket_chuadungAdapter;
 import com.example.cinebooker.PhanCongQuoc.entity.ticketchuadungMoviesEntity;
 import com.example.cinebooker.R;
@@ -48,74 +52,17 @@ public class ticket_chuadungFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_ticket_chuadung, container, false);
-
-        list_chuadung = view.findViewById(R.id.list_chuadung);
-        list_chuadung.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.recycler_view_spacing_5);
-        list_chuadung.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
-
-        ticketChuadungMoviesList = new ArrayList<>();
-        // Khởi tạo ticketchuadungMoviesEntity theo thứ tự trong TicketViewHolder
-        ticketChuadungMoviesList.add(new ticketchuadungMoviesEntity(
-                "02/09/2024  18:30",         // date_chuadung
-                R.drawable.camposter, // poster
-                "18+",                // age_chuadung
-                "Cám",               // name_chuadung
-                "Kinh dị",           // style_chuadung
-                1,                    // soluong_chuadung
-                "CGV Vincom Plaza Đà Nẵng" // diachi_chuadung
-        ));
-        ticketChuadungMoviesList.add(new ticketchuadungMoviesEntity(
-                "02/09/2024  18:30",         // date_chuadung
-                R.drawable.camposter, // poster
-                "18+",                // age_chuadung
-                "Cám",               // name_chuadung
-                "Kinh dị",           // style_chuadung
-                1,                    // soluong_chuadung
-                "CGV Vincom Plaza Đà Nẵng" // diachi_chuadung
-        ));
-        ticketChuadungMoviesList.add(new ticketchuadungMoviesEntity(
-                "02/09/2024  18:30",         // date_chuadung
-                R.drawable.camposter, // poster
-                "18+",                // age_chuadung
-                "Cám",               // name_chuadung
-                "Kinh dị",           // style_chuadung
-                1,                    // soluong_chuadung
-                "CGV Vincom Plaza Đà Nẵng" // diachi_chuadung
-        ));
-        ticketChuadungMoviesList.add(new ticketchuadungMoviesEntity(
-                "02/09/2024  18:30",         // date_chuadung
-                R.drawable.camposter, // poster
-                "18+",                // age_chuadung
-                "Cám",               // name_chuadung
-                "Kinh dị",           // style_chuadung
-                1,                    // soluong_chuadung
-                "CGV Vincom Plaza Đà Nẵng" // diachi_chuadung
-        ));
-        ticketChuadungMoviesList.add(new ticketchuadungMoviesEntity(
-                "02/09/2024  18:30",         // date_chuadung
-                R.drawable.camposter, // poster
-                "18+",                // age_chuadung
-                "Cám",               // name_chuadung
-                "Kinh dị",           // style_chuadung
-                1,                    // soluong_chuadung
-                "CGV Vincom Plaza Đà Nẵng" // diachi_chuadung
-        ));
-        ticketChuadungMoviesList.add(new ticketchuadungMoviesEntity(
-                "02/09/2024  18:30",         // date_chuadung
-                R.drawable.camposter, // poster
-                "18+",                // age_chuadung
-                "Cám",               // name_chuadung
-                "Kinh dị",           // style_chuadung
-                1,                    // soluong_chuadung
-                "CGV Vincom Plaza Đà Nẵng" // diachi_chuadung
-        ));
-
-
-        ticketChuadungAdapter = new Ticket_chuadungAdapter(ticketChuadungMoviesList);
-        list_chuadung.setAdapter(ticketChuadungAdapter);
-
+        chuadung(view);
         return view;
     }
+
+
+    public void chuadung (View view) {
+
+        RecyclerView chuaRecyclerView = view.findViewById(R.id.list_chuadung);
+
+        BL_ChuaDung blChuaDung = new BL_ChuaDung();
+        blChuaDung.loadChuaDungVertical(getContext(), chuaRecyclerView);
+    }
+
 }
