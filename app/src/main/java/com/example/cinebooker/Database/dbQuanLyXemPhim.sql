@@ -323,6 +323,6 @@ FOREIGN KEY (MaDoiTuongApDung) REFERENCES DoiTuongApDung(MaDoiTuongApDung);
 
 ALTER TABLE VoucherUngDung
 ADD CONSTRAINT UQ_VoucherUngDung_TenVoucher UNIQUE (TenVoucher);
-
-
-
+go
+select *from VoucherUngDung;
+go

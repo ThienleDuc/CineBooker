@@ -5,7 +5,7 @@ CREATE OR ALTER PROCEDURE VePhimChuaDung
 AS
 BEGIN
     SELECT 
-	     VC.MaVe,
+        VC.MaVe,  -- Đưa cột MaVe vào SELECT
         TV.ThoiGian,
         P.AnhPhim,
         P.Tuoi,
@@ -17,7 +17,7 @@ BEGIN
     FROM 
         VePhim VC
     INNER JOIN 
-        LichChieu LC ON VC.MaLichChieu = LC.MaLichChix`eu
+        LichChieu LC ON VC.MaLichChieu = LC.MaLichChieu
     INNER JOIN 
         ChiTietLichChieu CLC ON LC.MaLichChieu = CLC.MaLichChieu
     INNER JOIN 
@@ -37,6 +37,7 @@ BEGIN
     WHERE 
         TV.TinhTrang = N'Chưa sử dụng'
     GROUP BY 
+        VC.MaVe,  -- Thêm MaVe vào GROUP BY
         TV.ThoiGian, 
         P.AnhPhim, 
         P.Tuoi, 
@@ -45,7 +46,8 @@ BEGIN
         RC.AnhRapChieu, 
         DC.DiaChiRapChieu;
 END;
-GO
+
+
 
 GO
 CREATE OR ALTER PROCEDURE VePhimDaDung
@@ -92,7 +94,8 @@ BEGIN
         DC.DiaChiRapChieu;
 END;
 GO
-CREATE PROCEDURE VePhimDaKhuHoi
+
+CREATE  OR ALTER  PROCEDURE VePhimDaKhuHoi
 AS
 BEGIN
     SELECT 
@@ -125,7 +128,7 @@ BEGIN
     INNER JOIN 
         TinhTrangVe TV ON VC.MaVe = TV.MaVe
     WHERE 
-        TV.TinhTrang = N'Đã khứ hồi'
+        TV.TinhTrang = N'Ðã khứ hồi'
     GROUP BY 
          TV.ThoiGian,  
         P.AnhPhim, 
@@ -135,7 +138,6 @@ BEGIN
         RC.AnhRapChieu, 
         DC.DiaChiRapChieu;
 END;
-
 
 GO
 CREATE OR ALTER  PROCEDURE GetVePhimDadung
@@ -156,6 +158,7 @@ BEGIN
         P.AnhPhim,
         P.Tuoi,
         P.TenPhim,
+		STRING_AGG(TLC.TenTheLoai, ', ') AS TenTheLoai, 
         VC.SoLuongVe,
         VC.GheNgoi,
         VC.PhongChieu,
@@ -167,8 +170,7 @@ BEGIN
         P.DinhDangPhim,
         VC.GheNgoi,
         VC.PhongChieu,
-        N'Đã sử dụng' AS TinhTrang, -- Trả về trạng thái đã sử dụng
-        GETDATE() AS ThoiGian -- Trả về thời gian hiện tại
+        N'Đã sử dụng' AS TinhTrang 
     FROM VePhim VC
     JOIN ThanhToan QR ON VC.MaVe = QR.MaVe
     INNER JOIN LichChieu LC ON VC.MaLichChieu = LC.MaLichChieu
@@ -181,13 +183,12 @@ BEGIN
     INNER JOIN RapChieu RC ON RCC.MaRapChieu = RC.MaRapChieu
     INNER JOIN TinhTrangVe TV ON VC.MaVe = TV.MaVe
     WHERE VC.MaVe = @MaVe;
+
 END;
 GO
 
+EXEC GetVePhimDadung @MaVe=1;
 
-
-EXEC VePhimDaKhuHoi
-
-
+EXEC VePhimDaKhuHoi;
 EXEC VePhimChuaDung;
 EXEC VePhimDaDung;
