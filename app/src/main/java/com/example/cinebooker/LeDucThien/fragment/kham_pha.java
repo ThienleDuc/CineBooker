@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,24 +18,25 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.cinebooker.LeDucThien.BussinessLogic.BL_DoiTac;
 import com.example.cinebooker.LeDucThien.BussinessLogic.BL_PhimDangChieu;
 import com.example.cinebooker.LeDucThien.BussinessLogic.BL_PhimSapChieu;
+import com.example.cinebooker.LeDucThien.BussinessLogic.BL_RapChieu;
+import com.example.cinebooker.LeDucThien.BussinessLogic.BL_RapChieuCon;
 import com.example.cinebooker.LeDucThien.BussinessLogic.BL_TinhThanh;
 import com.example.cinebooker.LeDucThien.activity.DanhSachDiaDiemRap;
 import com.example.cinebooker.LeDucThien.activity.danhSachRap;
-import com.example.cinebooker.LeDucThien.adapter.TinhThanhAdapter;
-import com.example.cinebooker.LeDucThien.adapter.heThongRapChieuAdapter;
+import com.example.cinebooker.LeDucThien.adapter.DoiTacAdapter;
 import com.example.cinebooker.LeDucThien.adapter.moviesNgayChieuAdapter;
 import com.example.cinebooker.LeDucThien.adapter.ngayChieuAdapter;
 import com.example.cinebooker.LeDucThien.entity.ent_PhimDangChieu;
-import com.example.cinebooker.LeDucThien.entity.heThongRapChieuEntity;
 import com.example.cinebooker.LeDucThien.entity.moviesNgayChieuEntity;
 import com.example.cinebooker.LeDucThien.entity.ngayChieuEntity;
 
 import com.example.cinebooker.LeDucThien.viewpager.XepHangViewPagerAdapter;
 import com.example.cinebooker.R;
-import com.example.cinebooker.LeDucThien.adapter.caroselDangChieuAdapter;
-import com.example.cinebooker.LeDucThien.adapter.caroselSapChieuAdapter;
+import com.example.cinebooker.LeDucThien.adapter.CaroselDangChieuAdapter;
+import com.example.cinebooker.LeDucThien.adapter.CaroselSapChieuAdapter;
 import com.example.cinebooker.LeDucThien.entity.thoiGianChieuPhimEntity;
 import com.example.cinebooker.generalMethod.ActivityOpen;
 import com.example.cinebooker.generalMethod.HorizontalSpaceItemDecoration;
@@ -64,15 +64,18 @@ public class kham_pha extends Fragment {
     private String mParam2;
 
     private RecyclerView dangChieuRecycleView, sapChieuRecycleView;
-    private caroselDangChieuAdapter dangChieuAdapter;
+    private CaroselDangChieuAdapter caroselDangChieuAdapter;
     private List<ent_PhimDangChieu> movieDangChieuList;
     private TextView dangChieuMoreThan;
-    private caroselSapChieuAdapter sapChieuAdapter;
+    private CaroselSapChieuAdapter caroselSapChieuAdapter;
     private TextView sapChieuMoreThan;
     private TextView calandar_more;
     private TextView rapChieu_more;
     private TextView xephang_more;
     public int MaTinhThanh = -1;
+    public int MaRapChieuCon = -1;
+    public int MaRapChieu = -1;
+    public String _tenTinhThanh = null;
     public kham_pha() {
         // Required empty public constructor
     }
@@ -135,9 +138,8 @@ public class kham_pha extends Fragment {
     public void dangChieu (View view) {
 
         RecyclerView dangChieuRecycleView = view.findViewById(R.id.carosel_recycleView_dangChieu);
-
         BL_PhimDangChieu blPhimDangChieu = new BL_PhimDangChieu();
-        blPhimDangChieu.loadDangChieuHorizontal(getContext(), dangChieuRecycleView);
+        blPhimDangChieu.loadCaroselPhimToRecyclerView(getContext(), dangChieuRecycleView);
 
         dangChieuMoreThan = view.findViewById(R.id.dang_chieu_more);
         dangChieuMoreThan.setOnClickListener(new View.OnClickListener() {
@@ -167,7 +169,7 @@ public class kham_pha extends Fragment {
     public void sapChieu (View view) {
         sapChieuRecycleView = view.findViewById(R.id.carosel_recycleView_sapChieu);
         BL_PhimSapChieu blPhimSapChieu = new BL_PhimSapChieu();
-        blPhimSapChieu.loadSapChieuHorizontal(getContext(), sapChieuRecycleView);
+        blPhimSapChieu.loadCaroselPhimToRecyclerView(getContext(), sapChieuRecycleView);
 
         sapChieuMoreThan = view.findViewById(R.id.sapChieu_more);
         sapChieuMoreThan.setOnClickListener(new View.OnClickListener() {
@@ -197,13 +199,45 @@ public class kham_pha extends Fragment {
 
     public void controllerLichChieu(View view) {
         BL_TinhThanh blTinhThanh = new BL_TinhThanh();
+        BL_RapChieu blRapChieu = new BL_RapChieu();
+        BL_RapChieuCon blRapChieuCon = new BL_RapChieuCon();
 
         TextView TenTinhThanh = view.findViewById(R.id.ten_tinh_thanh);
         SharedPreferences sharedPreferences = getContext().
-                getSharedPreferences("CineBooker", Context.MODE_PRIVATE);
+                getSharedPreferences("LeDucThien", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor;
+
         MaTinhThanh = sharedPreferences.getInt("maTinhThanh", -1);
+        if (MaTinhThanh == -1) {
+            MaTinhThanh = blTinhThanh.loadMinMaTinhThanh();
+            editor = sharedPreferences.edit();
+            editor.putInt("maTinhThanh", MaTinhThanh);
+            editor.apply();
+        }
 
         blTinhThanh.loadTenTinhThanhTheoDieuKien(getContext(), TenTinhThanh, MaTinhThanh);
+
+        ImageView anhRapChieuCon = view.findViewById(R.id.calendar_logo);
+        TextView tenRapChieuCon = view.findViewById(R.id.sapChieu_movie_name);
+        TextView diaChiRapChieuCon = view.findViewById(R.id.sapChieu_movie_style);
+        MaRapChieu = sharedPreferences.getInt("maRapChieu", -1);
+        if (MaRapChieu == -1) {
+            MaRapChieu = blRapChieu.loadMinMaRapChieu();
+            editor = sharedPreferences.edit();
+            editor.putInt("maRapChieu", MaRapChieu);
+            editor.apply();
+        }
+
+        MaRapChieuCon = sharedPreferences.getInt("maRapChieuCon", -1);
+        if (MaRapChieuCon == -1) {
+            MaRapChieuCon = blRapChieuCon.loadMinRapChieuCon(MaTinhThanh, MaRapChieu);
+            editor = sharedPreferences.edit();
+            editor.putInt("maRapChieuCon", MaRapChieuCon);
+            editor.apply();
+        }
+
+        blRapChieuCon.loadThongTinRapChieuCon(getContext(),anhRapChieuCon,
+                tenRapChieuCon, diaChiRapChieuCon, MaRapChieuCon);
 
         // Khởi tạo TabLayout cho location
         LinearLayout danhsachtinhthanh_open = view.findViewById(R.id.open_list_tinh_thanh);
@@ -372,33 +406,10 @@ public class kham_pha extends Fragment {
     public void heThongRapChieu(View view) {
         // Khởi tạo RecyclerView cho hệ thống rạp chiếu
         RecyclerView recyclerView = view.findViewById(R.id.recycleView_heThongRapChieu);
+        BL_DoiTac blDoiTac = new BL_DoiTac();
+        DoiTacAdapter adapter = new DoiTacAdapter();
+        blDoiTac.loadDoiTacToRecyclerView(getContext(), recyclerView, adapter);
 
-        // Lấy khoảng cách giữa các mục từ resources
-        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.recycler_view_spacing_5);
-
-        // Thiết lập LayoutManager cho RecyclerView (dạng dọc)
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-
-        // Thêm khoảng cách giữa các mục trong RecyclerView
-        recyclerView.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
-
-        // Tạo danh sách mẫu cho các hệ thống rạp chiếu
-        List<heThongRapChieuEntity> list = new ArrayList<>();
-
-        // Thêm một số hệ thống rạp chiếu vào danh sách (thay đổi các giá trị này tùy theo dữ liệu thực)
-        list.add(new heThongRapChieuEntity(R.drawable.cgvlogo, "CGV", "KKK", 6.2, 81.0, 10500.0));
-        list.add(new heThongRapChieuEntity(R.drawable.bhd_logo, "BHD Cinema", "Phim hay mỗi ngày", 8.4, 210.0, 25000.0));
-        list.add(new heThongRapChieuEntity(R.drawable.lottelogo, "Lotte Cinema", "Giá ưu đãi", 7.1, 130.0, 17000.0));
-        list.add(new heThongRapChieuEntity(R.drawable.dcine_logo, "DcineCinema", "Giá ưu đãi", 7.1, 130.0, 17000.0));
-        list.add(new heThongRapChieuEntity(R.drawable.mega_logo, "Mega GS", "Giá ưu đãi", 7.1, 130.0, 17000.0));
-        list.add(new heThongRapChieuEntity(R.drawable.galaxy_cinema, "Galaxy Cinema", "Giá ưu đãi", 7.1, 130.0, 17000.0));
-        list.add(new heThongRapChieuEntity(R.drawable.cinerstar, "CinerStar Cinema", "Giá ưu đãi", 7.1, 130.0, 17000.0));
-        list.add(new heThongRapChieuEntity(R.drawable.logo_beta, "Beta Cinema", "Giá ưu đãi", 7.1, 130.0, 17000.0));
-
-
-        // Khởi tạo adapter và gán cho RecyclerView
-        heThongRapChieuAdapter adapter = new heThongRapChieuAdapter(list);
-        recyclerView.setAdapter(adapter);
         rapChieu_more = view.findViewById(R.id.rapChieu_more);
         rapChieu_more.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -33,7 +33,8 @@ public class DanhSachDiaDiemRap extends AppCompatActivity {
 
         // Giả sử dữ liệu đã được load vào adapter
         BL_TinhThanh blTinhThanh = new BL_TinhThanh();
-        blTinhThanh.loadTenTinhThanhToRecyclerView(this, recyclerView);
+        TinhThanhAdapter adapter = new TinhThanhAdapter();
+        blTinhThanh.loadTenTinhThanhToRecyclerView(this, recyclerView, adapter);
 
         ImageView close = findViewById(R.id.danhsachdiadiemrap_close);
         close.setOnClickListener(v->finish());
@@ -44,5 +45,4 @@ public class DanhSachDiaDiemRap extends AppCompatActivity {
     public void dongActivity() {
         finish();
     }
-
 }

@@ -94,7 +94,7 @@ CREATE TABLE DiaChiRapChieuCon (
 	MaRapChieuCon INT,
     MaTinhThanh INT,
     DiaChiRapChieu NVARCHAR(255),
-	map VARCHAR(MAX)
+	map NVARCHAR(MAX)
 );
 
 

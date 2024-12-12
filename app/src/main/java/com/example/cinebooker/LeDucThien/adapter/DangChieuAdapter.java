@@ -16,26 +16,28 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class caroselDangChieuAdapter extends RecyclerView.Adapter<caroselDangChieuAdapter.viewHolder> {
+public class DangChieuAdapter extends RecyclerView.Adapter<DangChieuAdapter.viewHolder> {
 
     private List<ent_PhimDangChieu> dangChieulist;
 
-    // Constructor
-    public void SetData(List<ent_PhimDangChieu> dangChieulist) {
+    public DangChieuAdapter() {
+    }
+
+    public void SetData (List<ent_PhimDangChieu> dangChieulist) {
         this.dangChieulist = dangChieulist;
         notifyDataSetChanged();
     }
 
+
     @NonNull
     @Override
-    public viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.iteams_carosel_movie_dangchieu, parent, false);
+    public DangChieuAdapter.viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_movies_dangchieu, parent, false);
         return new viewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull viewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull DangChieuAdapter.viewHolder holder, int position) {
         ent_PhimDangChieu dangChieu = dangChieulist.get(position);
 
         // Load poster movie using Picasso
@@ -43,16 +45,16 @@ public class caroselDangChieuAdapter extends RecyclerView.Adapter<caroselDangChi
                 .placeholder(R.drawable.placeholder)  // Optional: Add a placeholder image
                 .into(holder.moviePoster);
 
-        // Set age (check null or invalid data)
+        // Set age (convert to String)
         holder.age.setText(String.valueOf(dangChieu.getTuoi()) + "+");
 
-        // Set movie name
+        // Set movie name with "Chưa cập nhật" if null
         holder.movieName.setText(dangChieu.getTenPhim() != null ? dangChieu.getTenPhim() : "Chưa cập nhật");
 
-        // Set movie style
+        // Set movie style with "Chưa cập nhật" if null
         holder.styleMovie.setText(dangChieu.getTenTheLoai() != null ? dangChieu.getTenTheLoai() : "Chưa cập nhật");
 
-        // Format and set vote
+        // Set formatted vote
         holder.vote.setText(NumberFormatter.formatNumber(dangChieu.getDiemDanhGiaTrungBinh()));
     }
 
@@ -63,7 +65,7 @@ public class caroselDangChieuAdapter extends RecyclerView.Adapter<caroselDangChi
 
     public static class viewHolder extends RecyclerView.ViewHolder {
         ImageView moviePoster;
-        TextView age, movieName, styleMovie, vote, duration, releaseDate;
+        TextView age, movieName, styleMovie, vote;
 
         public viewHolder(@NonNull View itemView) {
             super(itemView);

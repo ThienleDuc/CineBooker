@@ -10,45 +10,47 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-import com.example.cinebooker.LeDucThien.entity.heThongRapChieuEntity;
+import com.example.cinebooker.LeDucThien.entity.ent_DoiTac;
+import com.example.cinebooker.LeDucThien.entity.ent_DoiTac;
 import com.example.cinebooker.R;
 import com.example.cinebooker.generalMethod.NumberFormatter;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class heThongRapChieuAdapter extends RecyclerView.Adapter<heThongRapChieuAdapter.viewHolder> {
+public class DoiTacAdapter extends RecyclerView.Adapter<DoiTacAdapter.viewHolder> {
 
-    private List<heThongRapChieuEntity> dangChieulist;
+    private List<ent_DoiTac> dangChieulist;
 
-    public heThongRapChieuAdapter() {
+    public DoiTacAdapter() {
 
     }
 
-    public heThongRapChieuAdapter(List<heThongRapChieuEntity> dangChieulist) {
+    public void SetData (List<ent_DoiTac> dangChieulist) {
         this.dangChieulist = dangChieulist;
+        notifyDataSetChanged();
     }
 
     @NonNull
     @Override
-    public heThongRapChieuAdapter.viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public DoiTacAdapter.viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_hethongrapchieuphim, parent, false);
         return new viewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull heThongRapChieuAdapter.viewHolder holder, int position) {
-        heThongRapChieuEntity controller = dangChieulist.get(position);
+    public void onBindViewHolder(@NonNull DoiTacAdapter.viewHolder holder, int position) {
+        ent_DoiTac controller = dangChieulist.get(position);
 
-        holder.moviePoster.setImageResource(controller.getMoviePoster());
+        Picasso.get().load(controller.getAnhDoiTac())
+                        .placeholder(R.drawable.cgv).into(holder.moviePoster);
+        holder.ten.setText(controller.getTenDoiTac());
+        holder.mota.setText(controller.getMoTaDoiTac());
 
-        holder.ten.setText(controller.getTen());
-        holder.mota.setText(controller.getMoTa());
-
-        holder.vote.setText(NumberFormatter.formatNumber(controller.getVote().doubleValue()));
-        holder.location.setText(NumberFormatter.formatNumber(controller.getLocation().intValue()));
-        holder.comment.setText(NumberFormatter.formatNumber(controller.getComment().doubleValue()));
+        holder.vote.setText(NumberFormatter.formatDoubleValueToString(controller.getDiemDanhGiaDoiTacTrungBinh()));
+        holder.location.setText(NumberFormatter.formatIntValueToString(controller.getTongDiaDiemDoiTac()));
+        holder.comment.setText(NumberFormatter.formatIntValueToString(controller.getTongLuotDanhGia()));
     }
-
 
     @Override
     public int getItemCount() {

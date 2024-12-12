@@ -1,5 +1,7 @@
 package com.example.cinebooker.LeDucThien.adapter;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,40 +13,51 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.cinebooker.LeDucThien.entity.diaChiRapChieuEntity;
+import com.example.cinebooker.LeDucThien.BussinessLogic.BL_RapChieuCon;
+import com.example.cinebooker.LeDucThien.activity.danhSachRap;
+import com.example.cinebooker.LeDucThien.entity.ent_RapChieuCon;
 import com.example.cinebooker.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class diaChiRapChieuAdapter extends RecyclerView.Adapter<diaChiRapChieuAdapter.viewHolder> {
-    private int selectedPosition = 0;
-    private List<diaChiRapChieuEntity> rapChieulist;
-
-    public diaChiRapChieuAdapter() {
-
+public class RapChieuConAdapter extends RecyclerView.Adapter<RapChieuConAdapter.viewHolder> {
+    private List<ent_RapChieuCon> rapChieulist;
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;;
+    private BL_RapChieuCon blRapChieuCon;
+    public RapChieuConAdapter() {
     }
 
-    public diaChiRapChieuAdapter(List<diaChiRapChieuEntity> rapChieulist) {
+    public void SetData(List<ent_RapChieuCon> rapChieulist) {
         this.rapChieulist = rapChieulist;
+        notifyDataSetChanged();
     }
 
     @NonNull
     @Override
-    public diaChiRapChieuAdapter.viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RapChieuConAdapter.viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_diachirapchieu, parent, false);
         return new viewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull diaChiRapChieuAdapter.viewHolder holder, int position) {
-        diaChiRapChieuEntity rapChieu = rapChieulist.get(position);
+    public void onBindViewHolder(@NonNull RapChieuConAdapter.viewHolder holder, int position) {
+        ent_RapChieuCon rapChieu = rapChieulist.get(position);
 
-        holder.cinemaLogor.setImageResource(rapChieu.getCinemalog0());
+        Picasso.get().load(rapChieu.getAnhRapChieu())
+                .placeholder(R.drawable.cgv)
+                .into(holder.cinemaLogor);
 
-        holder.location.setText(rapChieu.getName());
+        holder.location.setText(rapChieu.getTenRapChieuCon());
+
+        int _maRapChieuCon = rapChieu.getMaRapChieuCon();
+        // Lấy giá trị maTinhThanh từ SharedPreferences
+        sharedPreferences = holder.itemView.getContext().getSharedPreferences("LeDucThien", Context.MODE_PRIVATE);
+        int _maRapChieuConPref = sharedPreferences.getInt("maRapChieuCon", -1);
 
         // Đặt background cho item
-        if (position == selectedPosition) {
+        if (_maRapChieuConPref == _maRapChieuCon) {
             holder.container_imageview.setBackgroundResource(R.drawable.strock_1_pink_radius_10_transparent); // Nền khi được chọn
             holder.location.setTextColor(holder.itemView.getContext().getColor(R.color.primary_color));
             holder.location.setTypeface(holder.location.getTypeface(), Typeface.BOLD);
@@ -55,11 +68,16 @@ public class diaChiRapChieuAdapter extends RecyclerView.Adapter<diaChiRapChieuAd
 
         }
 
-
         // Xử lý sự kiện click
         holder.itemView.setOnClickListener(v -> {
-            selectedPosition = position; // Cập nhật vị trí được chọn
+            editor = sharedPreferences.edit();
+            editor.putInt("maRapChieuCon", _maRapChieuCon);
+            editor.apply();  // Lưu thay đổi
+            // Cập nhật lại giao diện của RecyclerView
             notifyDataSetChanged(); // Refresh toàn bộ adapter để áp dụng thay đổi
+            if (holder.itemView.getContext() instanceof danhSachRap) {
+                ((danhSachRap) holder.itemView.getContext()).dongActivity();  // Đóng Activity nếu cần
+            }
         });
     }
 

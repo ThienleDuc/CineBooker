@@ -18,15 +18,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Hệ thống rạp chiếu phim"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textAlignment="center"/>
-
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="10dp"/>
@@ -37,6 +28,7 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
+                    android:id="@+id/open_list_tinh_thanh"
                     android:layout_width="0dp"
                     android:layout_weight="6"
                     android:layout_height="wrap_content"
@@ -45,8 +37,9 @@
                     android:gravity="center_vertical">
 
                     <ImageView
+                        android:id="@+id/icon_location"
                         android:layout_width="25dp"
-                        android:layout_height="25dp"
+                        android:layout_height="21dp"
                         android:src="@drawable/location_on"
                         app:tint="@color/colorSelected" />
 
@@ -54,6 +47,7 @@
                         android:layout_width="10dp"
                         android:layout_height="match_parent"/>
                     <TextView
+                        android:id="@+id/ten_tinh_thanh"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -74,6 +68,7 @@
                     android:layout_height="match_parent"/>
 
                 <LinearLayout
+                    android:id="@+id/search_gan_ban"
                     android:layout_width="0dp"
                     android:layout_weight="4"
                     android:layout_height="wrap_content"
@@ -82,6 +77,7 @@
                     android:gravity="center_vertical">
 
                     <ImageView
+                        android:id="@+id/icon_location2"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:src="@drawable/location_searching"
@@ -91,6 +87,7 @@
                         android:layout_width="10dp"
                         android:layout_height="match_parent"/>
                     <TextView
+                        android:id="@+id/gan_ban"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"

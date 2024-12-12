@@ -13,6 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.cinebooker.LeDucThien.BussinessLogic.BL_TinhThanh;
 import com.example.cinebooker.LeDucThien.activity.DanhSachDiaDiemRap;
 import com.example.cinebooker.LeDucThien.entity.ent_TinhThanh;
 import com.example.cinebooker.R;
@@ -23,7 +24,10 @@ public class TinhThanhAdapter extends RecyclerView.Adapter<TinhThanhAdapter.view
     private List<ent_TinhThanh> listTinhThanh;
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
-    public int maTinhThanh = -1;  // Lưu trữ mã tỉnh thành đã chọn
+    private BL_TinhThanh blTinhThanh;
+
+    public TinhThanhAdapter() {
+    }
 
     // Set dữ liệu cho adapter
     public void SetData(List<ent_TinhThanh> listTinhThanh) {
@@ -45,9 +49,8 @@ public class TinhThanhAdapter extends RecyclerView.Adapter<TinhThanhAdapter.view
         int maTinhThanhItem = ent_list.getMaTinhThanh();
 
         // Lấy giá trị maTinhThanh từ SharedPreferences
-        sharedPreferences = holder.itemView.getContext().getSharedPreferences("CineBooker", Context.MODE_PRIVATE);
+        sharedPreferences = holder.itemView.getContext().getSharedPreferences("LeDucThien", Context.MODE_PRIVATE);
         int maTinhThanhFromPrefs = sharedPreferences.getInt("maTinhThanh", -1);
-
 
         // Đặt background cho item
         if (maTinhThanhFromPrefs == maTinhThanhItem) {
@@ -62,11 +65,9 @@ public class TinhThanhAdapter extends RecyclerView.Adapter<TinhThanhAdapter.view
 
         // Xử lý sự kiện click
         holder.itemView.setOnClickListener(v -> {
-            maTinhThanh = maTinhThanhItem;  // Cập nhật maTinhThanh từ item được chọn
-
-            // Lưu giá trị maTinhThanh vào SharedPreferences
             editor = sharedPreferences.edit();
-            editor.putInt("maTinhThanh", maTinhThanh);  // Lưu giá trị maTinhThanh
+            // Lưu giá trị maTinhThanh vào SharedPreferences
+            editor.putInt("maTinhThanh", maTinhThanhItem);
             editor.apply();  // Lưu thay đổi
             // Cập nhật lại giao diện của RecyclerView
             notifyDataSetChanged();

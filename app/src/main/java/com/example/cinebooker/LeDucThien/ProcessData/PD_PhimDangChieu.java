@@ -6,13 +6,13 @@ import android.util.Log;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.cinebooker.LeDucThien.adapter.moviesDangChieuAdapter;
+import com.example.cinebooker.LeDucThien.adapter.CaroselDangChieuAdapter;
+import com.example.cinebooker.LeDucThien.adapter.DangChieuAdapter;
 import com.example.cinebooker.LeDucThien.entity.ent_PhimDangChieu;
 import com.example.cinebooker.R;
 import com.example.cinebooker.generalMethod.ConnectionDatabase;
 import com.example.cinebooker.generalMethod.HorizontalSpaceItemDecoration;
 import com.example.cinebooker.generalMethod.SpaceItemDecoration;
-import com.example.cinebooker.generalMethod.ThienDateUtils;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -92,7 +92,7 @@ public class PD_PhimDangChieu {
     }
 
     // Phương thức load dữ liệu vào RecyclerView
-    public void loadMoviesToRecyclerView(Context context, RecyclerView recyclerView, List<ent_PhimDangChieu> movieList, boolean isHorizontal) {
+    public void loadMoviesToRecyclerView(Context context, RecyclerView recyclerView, List<ent_PhimDangChieu> movieList) {
         if (movieList == null || movieList.isEmpty()) {
             Log.e(TAG, "Danh sách phim trống hoặc không hợp lệ.");
             return;
@@ -100,19 +100,35 @@ public class PD_PhimDangChieu {
 
         // Thiết lập LayoutManager cho RecyclerView
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
-        layoutManager.setOrientation(isHorizontal ? LinearLayoutManager.HORIZONTAL : LinearLayoutManager.VERTICAL);
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
 
         // Thêm ItemDecoration nếu cần
         int spacingInPixels = context.getResources().getDimensionPixelSize(R.dimen.recycler_view_spacing_5);
-        if (isHorizontal) {
-            recyclerView.addItemDecoration(new HorizontalSpaceItemDecoration(spacingInPixels));
-        } else {
-            recyclerView.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
-        }
+        recyclerView.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
 
         // Tạo adapter và gán vào RecyclerView
-        moviesDangChieuAdapter adapter = new moviesDangChieuAdapter();
+        DangChieuAdapter adapter = new DangChieuAdapter();
+        recyclerView.setAdapter(adapter);
+        adapter.SetData(movieList);
+    }
+
+    public void loadCaroselMoviesToRecyclerView(Context context, RecyclerView recyclerView, List<ent_PhimDangChieu> movieList) {
+        if (movieList == null || movieList.isEmpty()) {
+            Log.e(TAG, "Danh sách phim trống hoặc không hợp lệ.");
+            return;
+        }
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(context);
+        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        recyclerView.setLayoutManager(layoutManager);
+
+        // Thêm ItemDecoration nếu cần
+        int spacingInPixels = context.getResources().getDimensionPixelSize(R.dimen.recycler_view_spacing_7_5);
+        recyclerView.addItemDecoration(new HorizontalSpaceItemDecoration(spacingInPixels));
+
+        // Tạo adapter và gán vào RecyclerView
+        CaroselDangChieuAdapter adapter = new CaroselDangChieuAdapter();
         recyclerView.setAdapter(adapter);
         adapter.SetData(movieList);
     }

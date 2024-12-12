@@ -8,6 +8,7 @@
     android:background="@drawable/strock_1_pink_radius_10_transparent">
 
     <LinearLayout
+        android:id="@+id/container_imageview"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:padding="5dp"

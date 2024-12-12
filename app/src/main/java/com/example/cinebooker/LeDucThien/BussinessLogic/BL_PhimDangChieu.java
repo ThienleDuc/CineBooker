@@ -25,7 +25,7 @@ public class BL_PhimDangChieu {
     }
 
     // Phương thức chung để load phim vào RecyclerView
-    private void loadPhimToRecyclerView(Context context, RecyclerView recyclerView, boolean isHorizontal) {
+    public void loadPhimToRecyclerView(Context context, RecyclerView recyclerView) {
         // Kiểm tra RecyclerView không được null
         if (recyclerView == null) {
             Log.w("BL_PhimDangChieu", "RecyclerView is null. Data will not be loaded.");
@@ -43,7 +43,7 @@ public class BL_PhimDangChieu {
                 if (context instanceof android.app.Activity) {
                     ((android.app.Activity) context).runOnUiThread(() -> {
                         // Gọi phương thức từ PD_PhimDangChieu để load dữ liệu vào RecyclerView
-                        pdPhimDangChieu.loadMoviesToRecyclerView(context, recyclerView, list, isHorizontal);
+                        pdPhimDangChieu.loadMoviesToRecyclerView(context, recyclerView, list);
                     });
                 }
             } catch (Exception e) {
@@ -56,13 +56,34 @@ public class BL_PhimDangChieu {
         });
     }
 
-    // Gọi loadPhimToRecyclerView với kiểu dọc
-    public void loadDangChieuVertical(Context context, RecyclerView recyclerView) {
-        loadPhimToRecyclerView(context, recyclerView, false); // false cho kiểu dọc
-    }
+    public void loadCaroselPhimToRecyclerView(Context context, RecyclerView recyclerView) {
+        // Kiểm tra RecyclerView không được null
+        if (recyclerView == null) {
+            Log.w("BL_PhimDangChieu", "RecyclerView is null. Data will not be loaded.");
+            return;
+        }
 
-    // Gọi loadPhimToRecyclerView với kiểu ngang
-    public void loadDangChieuHorizontal(Context context, RecyclerView recyclerView) {
-        loadPhimToRecyclerView(context, recyclerView, true); // true cho kiểu ngang
+        // Tạo ExecutorService để chạy công việc không đồng bộ
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        executor.execute(() -> {
+            try {
+                // Lấy danh sách phim đang chiếu từ cơ sở dữ liệu
+                List<ent_PhimDangChieu> list = getDanhSachPhimDangChieu();
+
+                // Cập nhật RecyclerView trên UI thread
+                if (context instanceof android.app.Activity) {
+                    ((android.app.Activity) context).runOnUiThread(() -> {
+                        // Gọi phương thức từ PD_PhimDangChieu để load dữ liệu vào RecyclerView
+                        pdPhimDangChieu.loadCaroselMoviesToRecyclerView(context, recyclerView, list);
+                    });
+                }
+            } catch (Exception e) {
+                // Log lỗi nếu có exception xảy ra
+                Log.e("BL_PhimDangChieu", "Error while loading data", e);
+            } finally {
+                // Đảm bảo shutdown ExecutorService để tránh rò rỉ tài nguyên
+                executor.shutdown();
+            }
+        });
     }
 }

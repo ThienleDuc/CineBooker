@@ -11,16 +11,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cinebooker.R;
 import com.example.cinebooker.LeDucThien.entity.ent_PhimSapChieu;
-import com.example.cinebooker.generalMethod.NumberFormatter;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class moviesSapChieuAdapter extends RecyclerView.Adapter<moviesSapChieuAdapter.viewHolder> {
+public class SapChieuAdapter extends RecyclerView.Adapter<SapChieuAdapter.viewHolder> {
 
     private List<ent_PhimSapChieu> dangChieulist;
 
-    public moviesSapChieuAdapter() {
+    public SapChieuAdapter() {
 
     }
 
@@ -31,13 +30,13 @@ public class moviesSapChieuAdapter extends RecyclerView.Adapter<moviesSapChieuAd
 
     @NonNull
     @Override
-    public moviesSapChieuAdapter.viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public SapChieuAdapter.viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_movies_sapchieu, parent, false);
         return new viewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull moviesSapChieuAdapter.viewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull SapChieuAdapter.viewHolder holder, int position) {
         ent_PhimSapChieu dangChieu = dangChieulist.get(position);
 
         // Load poster movie using Picasso

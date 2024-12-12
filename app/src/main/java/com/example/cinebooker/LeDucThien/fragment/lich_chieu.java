@@ -9,10 +9,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.cinebooker.LeDucThien.BussinessLogic.BL_PhimDangChieu;
+import com.example.cinebooker.LeDucThien.activity.DanhSachDiaDiemRap;
 import com.example.cinebooker.LeDucThien.activity.danhSachRap;
 import com.example.cinebooker.LeDucThien.adapter.moviesNgayChieuAdapter;
 import com.example.cinebooker.LeDucThien.adapter.ngayChieuAdapter;
@@ -22,7 +24,6 @@ import com.example.cinebooker.LeDucThien.entity.ngayChieuEntity;
 import com.example.cinebooker.LeDucThien.entity.thoiGianChieuPhimEntity;
 
 import com.example.cinebooker.R;
-import com.example.cinebooker.LeDucThien.adapter.caroselDangChieuAdapter;
 import com.example.cinebooker.generalMethod.ActivityOpen;
 import com.example.cinebooker.generalMethod.HorizontalSpaceItemDecoration;
 import com.example.cinebooker.generalMethod.SpaceItemDecoration;
@@ -86,6 +87,54 @@ public class lich_chieu extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_lich_chieu, container, false);
+
+        TextView TenTinhThanh = view.findViewById(R.id.ten_tinh_thanh);
+
+        LinearLayout danhsachtinhthanh_open = view.findViewById(R.id.open_list_tinh_thanh);
+        LinearLayout danhsachrap_open = view.findViewById(R.id.danhsachrap_open);
+        LinearLayout ganday_search = view.findViewById(R.id.search_gan_ban);
+
+        ImageView icon_location = view.findViewById(R.id.icon_location);
+        ImageView icon_location2 = view.findViewById(R.id.icon_location2);
+        TextView ganban = view.findViewById(R.id.gan_ban);
+
+        // Xử lý sự kiện click để mở Activity
+        danhsachtinhthanh_open.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ActivityOpen.openActivityOnClick(requireActivity(), DanhSachDiaDiemRap.class, R.id.open_list_tinh_thanh);
+
+                ganday_search.setBackgroundResource(R.drawable.strock_1_white_radius_10_transparent);
+                ganban.setTextColor(getContext().getColor(R.color.colorUnSelected));
+                icon_location2.setColorFilter(getContext().getColor(R.color.colorUnSelected));
+
+                danhsachtinhthanh_open.setBackgroundResource(R.drawable.strock_1_pink_radius_10_transparent);
+                TenTinhThanh.setTextColor(getContext().getColor(R.color.colorSelected));
+                icon_location.setColorFilter(getContext().getColor(R.color.colorSelected));
+            }
+
+        });
+
+        ganday_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                ganday_search.setBackgroundResource(R.drawable.strock_1_pink_radius_10_transparent);
+                ganban.setTextColor(getContext().getColor(R.color.colorSelected));
+                icon_location2.setColorFilter(getContext().getColor(R.color.colorSelected));
+
+                danhsachtinhthanh_open.setBackgroundResource(R.drawable.strock_1_white_radius_10_transparent);
+                TenTinhThanh.setTextColor(getContext().getColor(R.color.colorUnSelected));
+                icon_location.setColorFilter(getContext().getColor(R.color.colorUnSelected));
+            }
+        });
+
+        danhsachrap_open.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ActivityOpen.openActivityOnClick(requireActivity(), danhSachRap.class, R.id.danhsachrap_open);
+            }
+        });
 
         lichChieu(view);
         dangChieu(view);
@@ -193,7 +242,7 @@ public class lich_chieu extends Fragment {
         RecyclerView dangChieuRecycleView = view.findViewById(R.id.carosel_recycleView_dangChieu);
 
         BL_PhimDangChieu blPhimDangChieu = new BL_PhimDangChieu();
-        blPhimDangChieu.loadDangChieuHorizontal(getContext(), dangChieuRecycleView);
+        blPhimDangChieu.loadCaroselPhimToRecyclerView(getContext(), dangChieuRecycleView);
 
         TextView dangChieuMoreThan = view.findViewById(R.id.dang_chieu_more);
         dangChieuMoreThan.setOnClickListener(new View.OnClickListener() {

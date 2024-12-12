@@ -1,5 +1,7 @@
 package com.example.cinebooker.LeDucThien.adapter;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,39 +13,52 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-import com.example.cinebooker.LeDucThien.entity.rapChieuEntity;
+import com.example.cinebooker.LeDucThien.BussinessLogic.BL_RapChieu;
+import com.example.cinebooker.LeDucThien.entity.ent_RapChieu;
 import com.example.cinebooker.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class rapChieuAdapter extends RecyclerView.Adapter<rapChieuAdapter.viewHolder> {
-    private int selectedPosition = 0;
-    private List<rapChieuEntity> rapChieulist;
+public class RapChieuAdapter extends RecyclerView.Adapter<RapChieuAdapter.viewHolder> {
+    private List<ent_RapChieu> rapChieulist;
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
+    private BL_RapChieu blRapChieu;
 
-    public rapChieuAdapter() {
+    public RapChieuAdapter() {
 
     }
 
-    public rapChieuAdapter(List<rapChieuEntity> dangChieulist) {
+
+    public void SetData(List<ent_RapChieu> dangChieulist) {
         this.rapChieulist = dangChieulist;
+        notifyDataSetChanged();
     }
 
     @NonNull
     @Override
-    public rapChieuAdapter.viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RapChieuAdapter.viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_thoi_gian_chieu_theo_ngay, parent, false);
         return new viewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull rapChieuAdapter.viewHolder holder, int position) {
-        rapChieuEntity rapChieu = rapChieulist.get(position);
+    public void onBindViewHolder(@NonNull RapChieuAdapter.viewHolder holder, int position) {
+        ent_RapChieu rapChieu = rapChieulist.get(position);
 
-        holder.cinemaLogo.setImageResource(rapChieu.getCinemalog0());
-        holder.name.setText(rapChieu.getName());
+        Picasso.get().load(rapChieu.getAnhRapChieu())
+                .placeholder(R.drawable.cgv)
+                .into(holder.cinemaLogo);
+        holder.name.setText(rapChieu.getTenRapChieu());
 
+        int _maRapChieu = rapChieu.getMaRapChieu();
+
+        // Lấy giá trị maTinhThanh từ SharedPreferences
+        sharedPreferences = holder.itemView.getContext().getSharedPreferences("LeDucThien", Context.MODE_PRIVATE);
+        int _maRapChieuPref = sharedPreferences.getInt("maRapChieu", -1);
         // Đặt background cho item
-        if (position == selectedPosition) {
+        if (_maRapChieuPref  == _maRapChieu) {
             holder.container_imageview.setBackgroundResource(R.drawable.strock_1_pink_radius_10_white); // Nền khi được chọn
             holder.name.setTextColor(holder.itemView.getContext().getColor(R.color.primary_color));
         } else {
@@ -53,7 +68,10 @@ public class rapChieuAdapter extends RecyclerView.Adapter<rapChieuAdapter.viewHo
 
         // Xử lý sự kiện click
         holder.itemView.setOnClickListener(v -> {
-            selectedPosition = position; // Cập nhật vị trí được chọn
+            editor = sharedPreferences.edit();
+            editor.putInt("maRapChieu", _maRapChieu);  // Lưu giá trị maTinhThanh
+            editor.apply();  // Lưu thay đổi
+            // Cập nhật lại giao diện của RecyclerView
             notifyDataSetChanged(); // Refresh toàn bộ adapter để áp dụng thay đổi
         });
     }

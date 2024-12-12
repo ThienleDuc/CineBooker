@@ -10,8 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.cinebooker.LeDucThien.adapter.xepHangAdapter;
-import com.example.cinebooker.LeDucThien.entity.xepHangEntity;
+import com.example.cinebooker.LeDucThien.BussinessLogic.BL_XepHang;
+import com.example.cinebooker.LeDucThien.adapter.XepHangAdapter;
 import com.example.cinebooker.R;
 import com.example.cinebooker.generalMethod.SpaceItemDecoration;
 
@@ -73,30 +73,9 @@ public class xephangngay extends Fragment {
 
         // Khởi tạo RecyclerView cho lịch chiếu
         RecyclerView recyclerview = view.findViewById(R.id.xephangtheongay);
-        LinearLayoutManager moviesLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        recyclerview.setLayoutManager(moviesLayoutManager);
-
-        // Thêm khoảng cách giữa các item
-        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.recycler_view_spacing_5);
-        recyclerview.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
-
-        // Tạo danh sách ngày chiếu
-        List<xepHangEntity> list = new ArrayList<>();
-
-        list.add(new xepHangEntity(R.drawable.camposter, "18+", 6.2, 10500.0, 3200.0,  "Cám", "Kinh dị"));
-        list.add(new xepHangEntity(R.drawable.camposter, "18+", 6.2, 10500.0, 3200.0,  "Cám", "Kinh dị"));
-        list.add(new xepHangEntity(R.drawable.camposter, "18+", 6.2, 10500.0, 3200.0,  "Cám", "Kinh dị"));
-        list.add(new xepHangEntity(R.drawable.camposter, "18+", 6.2, 10500.0, 3200.0,  "Cám", "Kinh dị"));
-        list.add(new xepHangEntity(R.drawable.camposter, "18+", 6.2, 10500.0, 3200.0,  "Cám", "Kinh dị"));
-        list.add(new xepHangEntity(R.drawable.camposter, "18+", 6.2, 10500.0, 3200.0,  "Cám", "Kinh dị"));
-        list.add(new xepHangEntity(R.drawable.camposter, "18+", 6.2, 10500.0, 3200.0,  "Cám", "Kinh dị"));
-        list.add(new xepHangEntity(R.drawable.camposter, "18+", 6.2, 10500.0, 3200.0,  "Cám", "Kinh dị"));
-        list.add(new xepHangEntity(R.drawable.camposter, "18+", 6.2, 10500.0, 3200.0,  "Cám", "Kinh dị"));
-        list.add(new xepHangEntity(R.drawable.camposter, "18+", 6.2, 10500.0, 3200.0,  "Cám", "Kinh dị"));
-
-        // Gán adapter cho RecyclerView
-        xepHangAdapter moviesAdapter = new xepHangAdapter(list);
-        recyclerview.setAdapter(moviesAdapter);
+        BL_XepHang blXepHang = new BL_XepHang();
+        XepHangAdapter adapter = new XepHangAdapter();
+        blXepHang.loadXepHangNgayToRecyclerView(getContext(), recyclerview, adapter);
         return view;
     }
 }

@@ -7,14 +7,18 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
-import com.example.cinebooker.LeDucThien.entity.searchMoviesEntity;
+import com.example.cinebooker.LeDucThien.BussinessLogic.BL_TimKiemPhim;
+import com.example.cinebooker.LeDucThien.entity.ent_PhimDangChieu;
 import com.example.cinebooker.R;
-import com.example.cinebooker.LeDucThien.adapter.SearchAdapter;
+import com.example.cinebooker.LeDucThien.adapter.TimKiemAdapter;
 import com.example.cinebooker.generalMethod.SpaceItemDecoration;
 
 
@@ -38,8 +42,8 @@ public class Search extends Fragment {
     private String mParam2;
 
     private RecyclerView recyclerView;
-    private SearchAdapter searchAdapter;
-    private List<searchMoviesEntity> searchMoviesList;
+    private TimKiemAdapter timKiemAdapter;
+    private List<ent_PhimDangChieu> searchMoviesList;
     private TextView moreThan;
 
     public Search() {
@@ -78,48 +82,43 @@ public class Search extends Fragment {
                              Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_search, container, false);
         // Inflate the layout for this fragment
+        EditText timKiem = view.findViewById(R.id.header_search_input);
 
         recyclerView = view.findViewById(R.id.recycler_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        BL_TimKiemPhim blTimKiemPhim = new BL_TimKiemPhim();
+        TimKiemAdapter adapter = new TimKiemAdapter();
+        blTimKiemPhim.loadPhimToRecyclerView(getContext(), recyclerView, adapter);
 
-        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.recycler_view_spacing_5);
-        recyclerView.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
+        timKiem.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
 
-        searchMoviesList = new ArrayList<>();
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-        searchMoviesList.add(new searchMoviesEntity(R.drawable.camposter, "18+", "Cám", "Kinh dị", 6.2, 15000.0, 3200.0));
-        searchMoviesList.add(new searchMoviesEntity(R.drawable.camposter, "18+", "Cám", "Kinh dị", 6.2, 15000.0, 3200.0));
-        searchMoviesList.add(new searchMoviesEntity(R.drawable.camposter, "18+", "Cám", "Kinh dị", 6.2, 15000.0, 3200.0));
-        searchMoviesList.add(new searchMoviesEntity(R.drawable.camposter, "18+", "Cám", "Kinh dị", 6.2, 15000.0, 3200.0));
-        searchMoviesList.add(new searchMoviesEntity(R.drawable.camposter, "18+", "Cám", "Kinh dị", 6.2, 15000.0, 3200.0));
-        searchMoviesList.add(new searchMoviesEntity(R.drawable.camposter, "18+", "Cám", "Kinh dị", 6.2, 15000.0, 3200.0));
-        searchMoviesList.add(new searchMoviesEntity(R.drawable.camposter, "18+", "Cám", "Kinh dị", 6.2, 15000.0, 3200.0));
-        searchMoviesList.add(new searchMoviesEntity(R.drawable.camposter, "18+", "Cám", "Kinh dị", 6.2, 15000.0, 3200.0));
-        searchMoviesList.add(new searchMoviesEntity(R.drawable.camposter, "18+", "Cám", "Kinh dị", 6.2, 15000.0, 3200.0));
-        searchMoviesList.add(new searchMoviesEntity(R.drawable.camposter, "18+", "Cám", "Kinh dị", 6.2, 15000.0, 3200.0));
+            }
 
+            @Override
+            public void afterTextChanged(Editable editable) {
+                String input = editable.toString().trim();
+                if (!input.isEmpty()) {
+                    blTimKiemPhim.loadPhimToRecyclerViewAfterSearch(getContext(), recyclerView, adapter, input);
+                } else {
+                    blTimKiemPhim.loadPhimToRecyclerView(getContext(), recyclerView, adapter);
+                }
+            }
+        });
 
-        searchAdapter = new SearchAdapter(searchMoviesList);
-        recyclerView.setAdapter(searchAdapter);
 
         moreThan = view.findViewById(R.id.search_more_than);
         moreThan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                loadMoreItems();
+
             }
         });
         return view;
     }
 
-    // Phương thức tải thêm item
-    private void loadMoreItems() {
-        int currentItemCount = searchAdapter.getCurrentItemCount();
-        if (currentItemCount < searchMoviesList.size()) {
-            currentItemCount += 10;
-            searchAdapter.updateItemCount(currentItemCount);
-        } else {
-            moreThan.setVisibility(View.GONE);
-        }
-    }
 }

@@ -27,11 +27,15 @@ public class BL_TinhThanh {
         return pdTinhThanh.getAllTinhThanh();
     }
 
+    public int loadMinMaTinhThanh () {
+        return pdTinhThanh.getMinMaTinhThanh();
+    }
+
     // Phương thức lấy danh sách tỉnh thành theo điều kiện MaTinhThanh
     private List<ent_TinhThanh> getDanhSachTinhThanhTheoDieuKien(int maTinhThanh) {
         // Nếu maTinhThanh chưa xác định, lấy giá trị nhỏ nhất
         if (maTinhThanh == -1) {
-            int minMaTinhThanh = pdTinhThanh.getMinMaTinhThanh();
+            int minMaTinhThanh = loadMinMaTinhThanh();
             if (minMaTinhThanh > 0) { // Chỉ lấy giá trị hợp lệ
                 maTinhThanh = minMaTinhThanh;
             } else {
@@ -46,7 +50,7 @@ public class BL_TinhThanh {
 
 
     // Phương thức chung để load phim vào RecyclerView
-    public void loadTenTinhThanhToRecyclerView(Context context, RecyclerView recyclerView) {
+    public void loadTenTinhThanhToRecyclerView(Context context, RecyclerView recyclerView, TinhThanhAdapter adapter) {
         // Kiểm tra RecyclerView không được null
         if (recyclerView == null) {
             Log.w("BL_PhimSapChieu", "RecyclerView is null. Data will not be loaded.");
@@ -64,7 +68,7 @@ public class BL_TinhThanh {
                 if (context instanceof android.app.Activity) {
                     ((android.app.Activity) context).runOnUiThread(() -> {
                         // Gọi phương thức từ PD_PhimSapChieu để load dữ liệu vào RecyclerView
-                        pdTinhThanh.loadTenTinhThanhToRecyclerView(context, recyclerView, list);
+                        pdTinhThanh.loadTenTinhThanhToRecyclerView(context, recyclerView, list, adapter);
                     });
                 }
             } catch (Exception e) {

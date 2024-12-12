@@ -3,24 +3,16 @@ package com.example.cinebooker.LeDucThien.fragment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.cinebooker.LeDucThien.BussinessLogic.BL_DanhGiaPhim;
 import com.example.cinebooker.LeDucThien.BussinessLogic.BL_PhimDangChieu;
-import com.example.cinebooker.LeDucThien.ProcessData.PD_PhimDangChieu;
-import com.example.cinebooker.LeDucThien.adapter.moviesDangChieuAdapter;
-import com.example.cinebooker.LeDucThien.adapter.binhLuanNoiBatAdapter;
-import com.example.cinebooker.LeDucThien.entity.ent_PhimDangChieu;
-import com.example.cinebooker.LeDucThien.entity.binhLuanNoiBatEntity;
+import com.example.cinebooker.LeDucThien.adapter.DanhGiaPhimAdapter;
 import com.example.cinebooker.R;
-import com.example.cinebooker.generalMethod.SpaceItemDecoration;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -86,42 +78,15 @@ public class dang_chieu extends Fragment {
         RecyclerView dangChieuRecycleView = view.findViewById(R.id.recycleView_dangChieu);
 
         BL_PhimDangChieu blPhimDangChieu = new BL_PhimDangChieu();
-        blPhimDangChieu.loadDangChieuVertical(getContext(), dangChieuRecycleView);
+        blPhimDangChieu.loadPhimToRecyclerView(getContext(), dangChieuRecycleView);
     }
 
     public void binhluan (View view) {
 
         RecyclerView recycleView = view.findViewById(R.id.recycleView_comment);
-        recycleView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-
-        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.recycler_view_spacing_5);
-        recycleView.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
-
-        List<binhLuanNoiBatEntity> movieDangChieuList = new ArrayList<>();
-
-        movieDangChieuList.add(new binhLuanNoiBatEntity(R.drawable.camposter,
-                "18+", "Cám", "Kinh dị",
-                6.2, 10500.0, 32000.0,
-                R.drawable.avatar, "Lê Đức Thiện", "03/10/2024",
-                "TThấy phim OK mà bị mọi người chê dữ, có bám theo truyện nhưng tình tiết bị đảo. Công tâm mà nói thì so với mặt bằng ở Việt Nam thì Cám làm tốt, kỉ xảo đẹp, thoại có nhiều khúc không nghe rõ. Lần này Rima Thanh Vy phải gọi là hợp vai thật sự, một Tấm nhẹ nhàng đằm thắm, luôn yêu thương và suy nghĩ cho em gái. Cám (Thanh Mỹ) xứng đáng đóng chính nhiều phim hơn. Tất cả diễn viên đều làm tốt vai trò. Có lẽ do kết quá nhanh và kết bằng hình vẽ nên gây nhiều tranh cãi. Nhưng với mình thấy như vậy là ổn 7/10."));
-
-        movieDangChieuList.add(new binhLuanNoiBatEntity(R.drawable.camposter,
-                "18+", "Cám", "Kinh dị",
-                6.2, 10500.0, 32000.0,
-                R.drawable.avatar, "Lê Đức Thiện", "03/10/2024",
-                "TThấy phim OK mà bị mọi người chê dữ, có bám theo truyện nhưng tình tiết bị đảo. Công tâm mà nói thì so với mặt bằng ở Việt Nam thì Cám làm tốt, kỉ xảo đẹp, thoại có nhiều khúc không nghe rõ. Lần này Rima Thanh Vy phải gọi là hợp vai thật sự, một Tấm nhẹ nhàng đằm thắm, luôn yêu thương và suy nghĩ cho em gái. Cám (Thanh Mỹ) xứng đáng đóng chính nhiều phim hơn. Tất cả diễn viên đều làm tốt vai trò. Có lẽ do kết quá nhanh và kết bằng hình vẽ nên gây nhiều tranh cãi. Nhưng với mình thấy như vậy là ổn 7/10."));
-
-        movieDangChieuList.add(new binhLuanNoiBatEntity(R.drawable.camposter,
-                "18+", "Cám", "Kinh dị",
-                6.2, 10500.0, 32000.0,
-                R.drawable.avatar, "Lê Đức Thiện", "03/10/2024",
-                "TThấy phim OK mà bị mọi người chê dữ, có bám theo truyện nhưng tình tiết bị đảo. Công tâm mà nói thì so với mặt bằng ở Việt Nam thì Cám làm tốt, kỉ xảo đẹp, thoại có nhiều khúc không nghe rõ. Lần này Rima Thanh Vy phải gọi là hợp vai thật sự, một Tấm nhẹ nhàng đằm thắm, luôn yêu thương và suy nghĩ cho em gái. Cám (Thanh Mỹ) xứng đáng đóng chính nhiều phim hơn. Tất cả diễn viên đều làm tốt vai trò. Có lẽ do kết quá nhanh và kết bằng hình vẽ nên gây nhiều tranh cãi. Nhưng với mình thấy như vậy là ổn 7/10."));
-
-        binhLuanNoiBatAdapter dangChieuAdapter = new binhLuanNoiBatAdapter(movieDangChieuList);
-        recycleView.setAdapter(dangChieuAdapter);
-
-
-
+        DanhGiaPhimAdapter adapter = new DanhGiaPhimAdapter();
+        BL_DanhGiaPhim blDanhGiaPhim = new BL_DanhGiaPhim();
+        blDanhGiaPhim.loadDanhGiaPhimToRecyclerView(getContext(), recycleView, adapter);
     }
 
 }

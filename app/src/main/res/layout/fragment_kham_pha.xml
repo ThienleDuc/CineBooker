@@ -257,7 +257,6 @@
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        android:text="CGV Hùng Vương Plaza"
                         android:textColor="@android:color/white"
                         android:textSize="16dp" />
 
@@ -265,11 +264,10 @@
                         android:id="@+id/sapChieu_movie_style"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Tầng 7 | Hùng vương Plaza 126 Hùng Vươ..."
-                        android:textSize="14dp"
-                        android:textColor="@android:color/darker_gray"
                         android:ellipsize="end"
-                        android:maxLines="1"/>
+                        android:maxLines="1"
+                        android:textColor="@android:color/darker_gray"
+                        android:textSize="14dp" />
 
                 </LinearLayout>
 

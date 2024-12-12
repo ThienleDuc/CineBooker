@@ -4,17 +4,11 @@ import android.content.Context;
 import android.util.Log;
 
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cinebooker.LeDucThien.adapter.TinhThanhAdapter;
-import com.example.cinebooker.LeDucThien.adapter.moviesSapChieuAdapter;
-import com.example.cinebooker.LeDucThien.entity.ent_PhimSapChieu;
 import com.example.cinebooker.LeDucThien.entity.ent_TinhThanh;
-import com.example.cinebooker.R;
 import com.example.cinebooker.generalMethod.ConnectionDatabase;
-import com.example.cinebooker.generalMethod.HorizontalSpaceItemDecoration;
-import com.example.cinebooker.generalMethod.SpaceItemDecoration;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -22,7 +16,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public class PD_TinhThanh {
     private static final String TAG = "PD_TinhThanh"; // Tag để log
@@ -157,16 +150,22 @@ public class PD_TinhThanh {
         return minMaTinhThanh;
     }
 
-    // Phương thức load dữ liệu vào RecyclerView
-    public void loadTenTinhThanhToRecyclerView(Context context, RecyclerView recyclerView, List<ent_TinhThanh> list) {
+    public void loadTenTinhThanhToRecyclerView(Context context, RecyclerView recyclerView, List<ent_TinhThanh> list, TinhThanhAdapter adapter) {
         if (list == null || list.isEmpty()) {
-            Log.e(TAG, "Danh sách phim trống hoặc không hợp lệ.");
+            Log.e(TAG, "Danh sách tỉnh thành trống hoặc không hợp lệ.");
             return;
         }
 
+        // Thiết lập GridLayoutManager cho RecyclerView
         recyclerView.setLayoutManager(new GridLayoutManager(context, 2));
-        TinhThanhAdapter adapter = new TinhThanhAdapter();
-        recyclerView.setAdapter(adapter);
+
+        // Thiết lập Adapter và dữ liệu nếu chưa có adapter
+        if (recyclerView.getAdapter() == null) {
+            recyclerView.setAdapter(adapter);
+        }
+
+        // Cập nhật dữ liệu cho adapter
         adapter.SetData(list);
     }
+
 }
