@@ -90,29 +90,29 @@ public class PD_XuatVe {
         }
     }
 
-    public void loadMoviesToRecyclerView(Context context, RecyclerView recyclerView, List<xuatveEntity> movieList, boolean isHorizontal) {
-        if (movieList == null || movieList.isEmpty()) {
-            Log.e(TAG, "Danh sách phim trống hoặc không hợp lệ.");
+    public void loadPhimToRecyclerView(Context context, RecyclerView recyclerView, List<xuatveEntity> list, XuatVeAdapter adapter) {
+        if (list == null || list.isEmpty()) {
+            Log.e(TAG, "Danh sách rạp chiếu con trống hoặc không hợp lệ.");
             return;
         }
 
         // Thiết lập LayoutManager cho RecyclerView
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
-        layoutManager.setOrientation(isHorizontal ? LinearLayoutManager.HORIZONTAL : LinearLayoutManager.VERTICAL);
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
 
         // Thêm ItemDecoration nếu cần
         int spacingInPixels = context.getResources().getDimensionPixelSize(R.dimen.recycler_view_spacing_5);
-        if (isHorizontal) {
-            recyclerView.addItemDecoration(new HorizontalSpaceItemDecoration(spacingInPixels));
-        } else {
-            recyclerView.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
+        recyclerView.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
+
+        // Thiết lập Adapter và dữ liệu nếu chưa có adapter
+        if (recyclerView.getAdapter() == null) {
+            recyclerView.setAdapter(adapter);
         }
 
-        // Tạo adapter và gán vào RecyclerView
-        XuatVeAdapter adapter = new XuatVeAdapter();
-        recyclerView.setAdapter(adapter);
-        adapter.SetData(movieList); // Đưa danh sách phim vào adapter
+        // Cập nhật dữ liệu cho adapter
+        adapter.SetData(list);
     }
+
 
 }

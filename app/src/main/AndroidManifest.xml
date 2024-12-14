@@ -15,7 +15,7 @@
         android:theme="@style/Theme.AppCompat.NoActionBar"
         tools:targetApi="31">
         <activity
-            android:name=".PhanCongQuoc.activity.login"
+            android:name=".PhanCongQuoc.activity.xuat_ve"
             android:exported="false" />
         <activity
             android:name=".PhanCongQuoc.activity.StartActivity"
@@ -42,7 +42,7 @@
             android:name=".PhanCongQuoc.activity.register"
             android:exported="false" />
         <activity
-            android:name=".PhanCongQuoc.activity.xuat_ve"
+            android:name=".PhanCongQuoc.activity.login"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

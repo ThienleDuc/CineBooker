@@ -1,5 +1,6 @@
 package com.example.cinebooker.PhanCongQuoc.activity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.ImageView;
 
@@ -9,9 +10,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cinebooker.PhanCongQuoc.BussinessLogic.BL_XuatVe;
+import com.example.cinebooker.PhanCongQuoc.adapter.XuatVeAdapter;
 import com.example.cinebooker.R;
 
 public class xuat_ve extends AppCompatActivity {
+    private int maVe = -1;
+
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
+
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,10 +40,14 @@ public class xuat_ve extends AppCompatActivity {
 
     // Trong activity xuat_ve
     private void xuatve() {
-        // Tìm RecyclerView từ layout
         RecyclerView xuatRecyclerView = findViewById(R.id.xuatve_recycle_view);
         BL_XuatVe blXuatVe = new BL_XuatVe();
-        blXuatVe.loadXuatVeVertical(this, xuatRecyclerView); // Truyền maVe vào
+        sharedPreferences = getSharedPreferences("QuocDepTrai", MODE_PRIVATE);
+        maVe = sharedPreferences.getInt("MaVe", -1);
+
+        // Tìm RecyclerView từ layout
+        XuatVeAdapter adapter = new XuatVeAdapter();
+        blXuatVe.loadPhimToRecyclerView(this, xuatRecyclerView,maVe,adapter); // Truyền maVe vào
     }
 
 
