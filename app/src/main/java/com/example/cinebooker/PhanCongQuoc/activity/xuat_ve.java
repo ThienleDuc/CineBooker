@@ -16,6 +16,7 @@ public class xuat_ve extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_xuat_ve);
 
@@ -31,11 +32,8 @@ public class xuat_ve extends AppCompatActivity {
     private void xuatve() {
         // Tìm RecyclerView từ layout
         RecyclerView xuatRecyclerView = findViewById(R.id.xuatve_recycle_view);
-        int maVe = 2; // Ví dụ mã vé là 3
-
-        // Tạo đối tượng BL_XuatVe và gọi phương thức loadXuatVeVertical
         BL_XuatVe blXuatVe = new BL_XuatVe();
-        blXuatVe.loadXuatVeVertical(this, xuatRecyclerView, maVe); // Truyền maVe vào
+        blXuatVe.loadXuatVeVertical(this, xuatRecyclerView); // Truyền maVe vào
     }
 
 

@@ -48,6 +48,7 @@ public class PD_ChuaDung {
             while (resultSet.next()) {
                 // Tạo đối tượng phim
                 ticketchuadungMoviesEntity phim = new ticketchuadungMoviesEntity();
+                phim.setMaVe(resultSet.getInt("MaVe"));
                   phim.setDate_chuadung(resultSet.getString("ThoiGian"));
                   phim.setPoster_chuadung(resultSet.getString("AnhPhim"));
                   phim.setAge_chuadung( resultSet.getInt("Tuoi"));

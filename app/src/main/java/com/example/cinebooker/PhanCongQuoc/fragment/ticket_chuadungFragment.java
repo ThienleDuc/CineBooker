@@ -1,6 +1,8 @@
 
 package com.example.cinebooker.PhanCongQuoc.fragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -24,6 +26,7 @@ public class ticket_chuadungFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1"; // Định nghĩa biến
     private static final String ARG_PARAM2 = "param2"; // Định nghĩa biến
 
+    private int mave=-1;
     private RecyclerView list_chuadung;
     private Ticket_chuadungAdapter ticketChuadungAdapter;
     private List<ticketchuadungMoviesEntity> ticketChuadungMoviesList;
@@ -60,7 +63,9 @@ public class ticket_chuadungFragment extends Fragment {
     public void chuadung (View view) {
 
         RecyclerView chuaRecyclerView = view.findViewById(R.id.list_chuadung);
-
+        SharedPreferences sharedPreferences = getContext().
+                getSharedPreferences("QuocDepTrai", Context.MODE_PRIVATE);
+        mave = sharedPreferences.getInt("MaVe", -1);
         BL_ChuaDung blChuaDung = new BL_ChuaDung();
         blChuaDung.loadChuaDungVertical(getContext(), chuaRecyclerView);
     }

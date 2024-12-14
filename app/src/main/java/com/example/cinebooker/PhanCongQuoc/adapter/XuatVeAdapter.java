@@ -1,6 +1,7 @@
 package com.example.cinebooker.PhanCongQuoc.adapter;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +18,8 @@ public class XuatVeAdapter extends RecyclerView.Adapter<XuatVeAdapter.XuatVeView
 
     private Context context;
     private List<xuatveEntity> xuatVeList;
-
+    private SharedPreferences.Editor editor;
+    private int MaVe=-1;
 
 
 
@@ -40,7 +42,10 @@ public class XuatVeAdapter extends RecyclerView.Adapter<XuatVeAdapter.XuatVeView
     @Override
     public void onBindViewHolder(XuatVeViewHolder holder, int position) {
         xuatveEntity item = xuatVeList.get(position);
-
+        SharedPreferences
+                sharedPreferences = holder.itemView.getContext().getSharedPreferences("QuocDepTrai", Context.MODE_PRIVATE);
+        int mave = sharedPreferences.getInt("MaVe", -1);
+        int maveiem = item.getMaVe();
         // Set data to views
         Picasso.get().load(item.getQrXuatVe())
                 .placeholder(R.drawable.placeholder)  // Optional: Add a placeholder image
@@ -64,6 +69,14 @@ public class XuatVeAdapter extends RecyclerView.Adapter<XuatVeAdapter.XuatVeView
         holder.gheXuatVe.setText(String.valueOf(item.getGheXuatVe()));
         holder.phongXuatVe.setText(String.valueOf(item.getPhongXuatVe()));
         holder.trangThaiXuatVe.setText(item.getTrangThaiXuatVe());
+        holder.itemView.setOnClickListener(v -> {
+            MaVe = maveiem;  // Cập nhật maTinhThanh từ item được chọn
+
+            // Lưu giá trị maTinhThanh vào SharedPreferences
+            editor = sharedPreferences.edit();
+            editor.putInt("MaVe", mave);  // Lưu giá trị maTinhThanh
+            editor.apply();  // Lưu thay đổi
+        });
     }
 
     @Override

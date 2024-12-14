@@ -1,7 +1,10 @@
 
 package com.example.cinebooker.PhanCongQuoc.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +28,9 @@ import java.util.List;
 public class Ticket_chuadungAdapter extends RecyclerView.Adapter<Ticket_chuadungAdapter.TicketViewHolder> {
     private List<ticketchuadungMoviesEntity> ticketChuadungMoviesList;
     private int currentItemCount;
+    private SharedPreferences.Editor editor;
+    private int MaVe=-1;
+ private    SharedPreferences sharedPreferences;
 
     public void SetData(List<ticketchuadungMoviesEntity> ticketChuadungMoviesList) {
         this.ticketChuadungMoviesList = ticketChuadungMoviesList;
@@ -61,11 +67,8 @@ public class Ticket_chuadungAdapter extends RecyclerView.Adapter<Ticket_chuadung
     @Override
     public void onBindViewHolder(@NonNull Ticket_chuadungAdapter.TicketViewHolder holder, int position) {
         ticketchuadungMoviesEntity ticket = ticketChuadungMoviesList.get(position);
-
         holder.date_chuadung.setText(ticket.getDate_chuadung() != null ? ticket.getDate_chuadung() : "Ngày không xác định");
-        Picasso.get().load(ticket.getPoster_chuadung())
-                .placeholder(R.drawable.placeholder)  // Optional: Add a placeholder image
-                .into(holder.posterMovie_chuadung);
+
         holder.age_chuadung.setText(ticket.getAge_chuadung() > 0 ? String.valueOf(ticket.getAge_chuadung()) : "Tuổi không xác định");
         holder.movieName_chuadung.setText(ticket.getName_chuadung() != null ? ticket.getName_chuadung() : "Tên phim không xác định");
         holder.styleMovie_chuadung.setText(ticket.getStyle_chuadung() != null ? ticket.getStyle_chuadung() : "Thể loại không xác định");
@@ -86,9 +89,20 @@ public class Ticket_chuadungAdapter extends RecyclerView.Adapter<Ticket_chuadung
         holder.btn_chuadung1.setOnClickListener(v -> {
             Context context = v.getContext();
             if (context instanceof AppCompatActivity) {
-                ActivityOpen.openActivityOnClick((AppCompatActivity) context, xuat_ve.class, R.id.btn_chuadung1);
+                // Lưu MaVe vào SharedPreferences
+                SharedPreferences sharedPreferences = context.getSharedPreferences("QuocDepTrai", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putInt("MaVe", ticket.getMaVe());
+                editor.apply();
+                // Mở Activity xuat_ve bằng Intent
+                Intent intent = new Intent(context, xuat_ve.class);
+                context.startActivity(intent);
+
+
             }
         });
+
+
     }
 
         @Override

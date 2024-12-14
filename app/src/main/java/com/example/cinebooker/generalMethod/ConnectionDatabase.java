@@ -14,7 +14,7 @@ public class ConnectionDatabase {
     public Connection getConnection() {
         Connection connection = null;
         try {
-            String IpInternet = "192.168.0.108";
+            String IpInternet = "192.168.0.105";
             String url = "jdbc:jtds:sqlserver://" + IpInternet + ":1433;databasename=dbQuanLyXemPhim;user=sa;password=123456";
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);

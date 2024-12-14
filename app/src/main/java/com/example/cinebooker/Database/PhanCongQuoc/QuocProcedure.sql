@@ -140,7 +140,7 @@ BEGIN
 END;
 
 GO
-CREATE OR ALTER  PROCEDURE GetVePhimDadung
+CREATE OR ALTER PROCEDURE GetVePhimDadung
     @MaVe INT
 AS
 BEGIN
@@ -158,7 +158,7 @@ BEGIN
         P.AnhPhim,
         P.Tuoi,
         P.TenPhim,
-		STRING_AGG(TLC.TenTheLoai, ', ') AS TenTheLoai, 
+        STRING_AGG(TLC.TenTheLoai, ', ') AS TenTheLoai, 
         VC.SoLuongVe,
         VC.GheNgoi,
         VC.PhongChieu,
@@ -168,8 +168,6 @@ BEGIN
         CLC.ThoiGianKetThuc AS ThoiGianKetThuc,
         CLC.NgayChieu,
         P.DinhDangPhim,
-        VC.GheNgoi,
-        VC.PhongChieu,
         N'Đã sử dụng' AS TinhTrang 
     FROM VePhim VC
     JOIN ThanhToan QR ON VC.MaVe = QR.MaVe
@@ -182,12 +180,18 @@ BEGIN
     INNER JOIN DiaChiRapChieuCon DC ON RCC.MaRapChieuCon = DC.MaRapChieuCon
     INNER JOIN RapChieu RC ON RCC.MaRapChieu = RC.MaRapChieu
     INNER JOIN TinhTrangVe TV ON VC.MaVe = TV.MaVe
-    WHERE VC.MaVe = @MaVe;
+    WHERE VC.MaVe = @MaVe
+    GROUP BY 
+        VC.MaVe, QR.QRThanhToan, TV.ThoiGian, P.AnhPhim, P.Tuoi, P.TenPhim, 
+        VC.SoLuongVe, VC.GheNgoi, VC.PhongChieu, RC.AnhRapChieu, 
+        DC.DiaChiRapChieu, CLC.ThoiGianBatDau, CLC.ThoiGianKetThuc, 
+        CLC.NgayChieu, P.DinhDangPhim;
 
 END;
+
 GO
 
-EXEC GetVePhimDadung @MaVe=1;
+EXEC GetVePhimDadung @MaVe=2;
 
 EXEC VePhimDaKhuHoi;
 EXEC VePhimChuaDung;

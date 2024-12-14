@@ -29,7 +29,7 @@ public class PD_XuatVe {
     private ResultSet resultSet = null;
 
     // Phương thức lấy danh sách vé chưa sử dụng
-    public List<xuatveEntity> getXuatVe(int maVe) {
+    public List<xuatveEntity> getXuatVe(int MaVe) {
         List<xuatveEntity> phimList = new ArrayList<>();
         try {
             connection = new ConnectionDatabase().getConnection();
@@ -39,13 +39,12 @@ public class PD_XuatVe {
             }
 
             callableStatement = connection.prepareCall("{call GetVePhimDadung(?)}");
-            callableStatement.setInt(1, maVe); // Truyền MaVe vào thủ tục
-
+            callableStatement.setInt(1, MaVe); // Truyền MaVe vào thủ tục
             resultSet = callableStatement.executeQuery();
 
             while (resultSet.next()) {
                 xuatveEntity phim = new xuatveEntity();
-                // Gán giá trị cho các thuộc tính của đối tượng phim
+                // Gán giá trị cho các thuộc tính của đối tượng phi
                 phim.setQrXuatVe(resultSet.getString("QRThanhToan"));
                 phim.setDateXuatVe1(resultSet.getString("ThoiGian"));
                 phim.setPosterXuatVe2(resultSet.getString("AnhPhim"));
