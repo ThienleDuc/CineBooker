@@ -1,13 +1,12 @@
 package com.example.cinebooker.LeDucThien.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.text.Editable;
-import android.text.TextWatcher;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -29,6 +28,7 @@ import java.util.List;
 public class TimKiemAdapter extends RecyclerView.Adapter<TimKiemAdapter.SearchViewHolder> {
     private List<ent_TimKiemPhim> searchMoviesList;
 
+    @SuppressLint("NotifyDataSetChanged")
     public void SetData(List<ent_TimKiemPhim> searchMoviesList) {
         this.searchMoviesList = searchMoviesList;
         notifyDataSetChanged();
@@ -41,13 +41,19 @@ public class TimKiemAdapter extends RecyclerView.Adapter<TimKiemAdapter.SearchVi
         return new SearchViewHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull TimKiemAdapter.SearchViewHolder holder, int position) {
         ent_TimKiemPhim search_movies =  searchMoviesList.get(position);
 
         // Load poster movie using Picasso
-        Picasso.get().load(search_movies.getAnhPhim())
-                .placeholder(R.drawable.camposter)  // Optional: Add a placeholder image
+        String imageName = search_movies.getAnhPhim();
+        Context context = holder.itemView.getContext();
+        @SuppressLint("DiscouragedApi") int resourceId = context.getResources().getIdentifier(imageName, "drawable", context.getPackageName());
+
+        Picasso.get()
+                .load(resourceId)  // Load resource ID
+                .resize(800, 800)// Load resource ID
                 .into(holder.posterMovie);
 
         holder.age.setText(search_movies.getTuoi() + "+");
@@ -78,7 +84,7 @@ public class TimKiemAdapter extends RecyclerView.Adapter<TimKiemAdapter.SearchVi
         return searchMoviesList.size();
     }
 
-    public class SearchViewHolder extends RecyclerView.ViewHolder {
+    public static class SearchViewHolder extends RecyclerView.ViewHolder {
         ImageView posterMovie;
         TextView age, movieName, styleMovie, vote, purchases, comment;
         public SearchViewHolder(@NonNull View itemView) {

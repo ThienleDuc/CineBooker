@@ -1,6 +1,8 @@
 package com.example.cinebooker.LeDucThien.BussinessLogic;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -16,10 +18,12 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class BL_TinhThanh {
-    private PD_TinhThanh pdTinhThanh;
+    private final PD_TinhThanh pdTinhThanh;
+    private final ExecutorService executor;
 
     public BL_TinhThanh() {
         pdTinhThanh = new PD_TinhThanh();
+        executor =  Executors.newSingleThreadExecutor();
     }
 
     // Phương thức lấy danh sách phim sắp chiếu
@@ -27,9 +31,10 @@ public class BL_TinhThanh {
         return pdTinhThanh.getAllTinhThanh();
     }
 
-    public int loadMinMaTinhThanh () {
+    private int loadMinMaTinhThanh () {
         return pdTinhThanh.getMinMaTinhThanh();
     }
+
 
     // Phương thức lấy danh sách tỉnh thành theo điều kiện MaTinhThanh
     private List<ent_TinhThanh> getDanhSachTinhThanhTheoDieuKien(int maTinhThanh) {
@@ -58,7 +63,6 @@ public class BL_TinhThanh {
         }
 
         // Tạo ExecutorService để chạy công việc không đồng bộ
-        ExecutorService executor = Executors.newSingleThreadExecutor();
         executor.execute(() -> {
             try {
                 // Lấy danh sách phim sắp chiếu từ cơ sở dữ liệu
@@ -74,30 +78,28 @@ public class BL_TinhThanh {
             } catch (Exception e) {
                 // Log lỗi nếu có exception xảy ra
                 Log.e("BL_TinhThanh", "Error while loading data", e);
-            } finally {
-                // Đảm bảo shutdown ExecutorService để tránh rò rỉ tài nguyên
-                executor.shutdown();
             }
         });
     }
 
     // Phương thức trả về TextView sau khi load Tên Tỉnh Thành theo MaTinhThanh
-    public void loadTenTinhThanhTheoDieuKien(Context context, TextView textView, int maTinhThanh) {
-        // Kiểm tra TextView không được null
-        if (textView == null) {
-            Log.w("BL_TinhThanh", "TextView is null. Data will not be loaded.");
-            return;
-        }
-
-        // Tạo ExecutorService để chạy công việc không đồng bộ
+    public void loadTenTinhThanhTheoDieuKien(Context context, TextView textView) {
         ExecutorService executor = Executors.newSingleThreadExecutor();
+        // Tạo ExecutorService để chạy công việc không đồng bộ
         executor.execute(() -> {
             try {
-                // Lấy danh sách tỉnh thành theo điều kiện MaTinhThanh
+                SharedPreferences sharedPreferences = context.getSharedPreferences("LeDucThien", Context.MODE_PRIVATE);
+                int maTinhThanh = sharedPreferences.getInt("maTinhThanh", -1);
+                if (maTinhThanh == -1) {
+                    maTinhThanh = loadMinMaTinhThanh();
+                    @SuppressLint("CommitPrefEdits")
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putInt("maTinhThanh", maTinhThanh);
+                    editor.apply();
+                }
                 List<ent_TinhThanh> list = getDanhSachTinhThanhTheoDieuKien(maTinhThanh);
 
                 if (list != null && !list.isEmpty()) {
-                    // Lấy tên tỉnh thành từ danh sách
                     String tenTinhThanh = list.get(0).getTenTinhThanh();
 
                     // Cập nhật TextView trên UI thread
@@ -111,9 +113,30 @@ public class BL_TinhThanh {
             } catch (Exception e) {
                 // Log lỗi nếu có exception xảy ra
                 Log.e("BL_TinhThanh", "Error while loading data with condition", e);
-            } finally {
-                // Đảm bảo shutdown ExecutorService để tránh rò rỉ tài nguyên
-                executor.shutdown();
+            }
+        });
+    }
+
+    private List<ent_TinhThanh> getDanhSachByTenTinhThanh(String input) {
+        return pdTinhThanh.getTinhThanhByTenTinhThanh(input);
+    }
+
+    public void loadTenTinhThanhToRecyclerViewAfterSearch(Context context, RecyclerView recyclerView, TinhThanhAdapter adapter, String input) {
+        if (recyclerView == null) {
+            Log.w("BL_TinhThanh", "RecyclerView is null. Data will not be loaded.");
+            return;
+        }
+
+        executor.execute(() -> {
+            try {
+                List<ent_TinhThanh> list = getDanhSachByTenTinhThanh(input);
+                if (context instanceof android.app.Activity) {
+                    ((android.app.Activity) context).runOnUiThread(() -> {
+                        pdTinhThanh.loadTenTinhThanhToRecyclerView(context, recyclerView, list, adapter);
+                    });
+                }
+            } catch (Exception e) {
+                Log.e("BL_TinhThanh", "Error while loading data", e);
             }
         });
     }

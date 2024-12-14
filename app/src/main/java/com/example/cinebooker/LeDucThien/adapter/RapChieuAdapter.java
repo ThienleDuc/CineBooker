@@ -1,7 +1,9 @@
 package com.example.cinebooker.LeDucThien.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,11 +28,7 @@ public class RapChieuAdapter extends RecyclerView.Adapter<RapChieuAdapter.viewHo
     private SharedPreferences.Editor editor;
     private BL_RapChieu blRapChieu;
 
-    public RapChieuAdapter() {
-
-    }
-
-
+    @SuppressLint("NotifyDataSetChanged")
     public void SetData(List<ent_RapChieu> dangChieulist) {
         this.rapChieulist = dangChieulist;
         notifyDataSetChanged();
@@ -43,12 +41,18 @@ public class RapChieuAdapter extends RecyclerView.Adapter<RapChieuAdapter.viewHo
         return new viewHolder(view);
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     public void onBindViewHolder(@NonNull RapChieuAdapter.viewHolder holder, int position) {
         ent_RapChieu rapChieu = rapChieulist.get(position);
 
-        Picasso.get().load(rapChieu.getAnhRapChieu())
-                .placeholder(R.drawable.cgv)
+        String imageName = rapChieu.getAnhRapChieu();
+        Context context = holder.itemView.getContext();
+        @SuppressLint("DiscouragedApi") int resourceId = context.getResources().getIdentifier(imageName, "drawable", context.getPackageName());
+
+        Picasso.get()
+                .load(resourceId)  // Load resource ID
+                .placeholder(R.drawable.camposter)  // Optional: Placeholder image
                 .into(holder.cinemaLogo);
         holder.name.setText(rapChieu.getTenRapChieu());
 
@@ -61,9 +65,11 @@ public class RapChieuAdapter extends RecyclerView.Adapter<RapChieuAdapter.viewHo
         if (_maRapChieuPref  == _maRapChieu) {
             holder.container_imageview.setBackgroundResource(R.drawable.strock_1_pink_radius_10_white); // Nền khi được chọn
             holder.name.setTextColor(holder.itemView.getContext().getColor(R.color.primary_color));
+            holder.name.setTypeface(holder.name.getTypeface(), Typeface.BOLD);
         } else {
             holder.container_imageview.setBackgroundResource(R.drawable.strock_1_darkergray_radius_10_white); // Nền khi không được chọn
             holder.name.setTextColor(holder.itemView.getContext().getColor(android.R.color.darker_gray));
+            holder.name.setTypeface(holder.name.getTypeface(), Typeface.NORMAL);
         }
 
         // Xử lý sự kiện click
@@ -81,7 +87,7 @@ public class RapChieuAdapter extends RecyclerView.Adapter<RapChieuAdapter.viewHo
         return rapChieulist.size();
     }
 
-    public class viewHolder extends RecyclerView.ViewHolder {
+    public static class viewHolder extends RecyclerView.ViewHolder {
         LinearLayout container_imageview;
         ImageView cinemaLogo;
         TextView name;

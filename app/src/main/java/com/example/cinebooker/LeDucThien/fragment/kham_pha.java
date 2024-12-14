@@ -46,6 +46,7 @@ import com.google.android.material.tabs.TabLayoutMediator;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -59,23 +60,10 @@ public class kham_pha extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    private RecyclerView dangChieuRecycleView, sapChieuRecycleView;
+    private RecyclerView dangChieuRecycleView;
     private CaroselDangChieuAdapter caroselDangChieuAdapter;
     private List<ent_PhimDangChieu> movieDangChieuList;
-    private TextView dangChieuMoreThan;
     private CaroselSapChieuAdapter caroselSapChieuAdapter;
-    private TextView sapChieuMoreThan;
-    private TextView calandar_more;
-    private TextView rapChieu_more;
-    private TextView xephang_more;
-    public int MaTinhThanh = -1;
-    public int MaRapChieuCon = -1;
-    public int MaRapChieu = -1;
-    public String _tenTinhThanh = null;
     public kham_pha() {
         // Required empty public constructor
     }
@@ -102,8 +90,9 @@ public class kham_pha extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            // TODO: Rename and change types of parameters
+            String mParam1 = getArguments().getString(ARG_PARAM1);
+            String mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
@@ -130,18 +119,13 @@ public class kham_pha extends Fragment {
         return view;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        controllerLichChieu(getView());
-    }
     public void dangChieu (View view) {
 
         RecyclerView dangChieuRecycleView = view.findViewById(R.id.carosel_recycleView_dangChieu);
         BL_PhimDangChieu blPhimDangChieu = new BL_PhimDangChieu();
         blPhimDangChieu.loadCaroselPhimToRecyclerView(getContext(), dangChieuRecycleView);
 
-        dangChieuMoreThan = view.findViewById(R.id.dang_chieu_more);
+        TextView dangChieuMoreThan = view.findViewById(R.id.dang_chieu_more);
         dangChieuMoreThan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -155,7 +139,7 @@ public class kham_pha extends Fragment {
                         TabLayout.Tab tab = tabLayout.getTabAt(i);
 
                         if (tab != null && tab.getText() != null) {
-                            if (tab.getText().toString().toUpperCase().equals(tabTitleToSelect.trim().toUpperCase())) {
+                            if (tab.getText().toString().equalsIgnoreCase(tabTitleToSelect.trim())) {
                                 tab.select();
                                 break;
                             }
@@ -167,11 +151,11 @@ public class kham_pha extends Fragment {
     }
 
     public void sapChieu (View view) {
-        sapChieuRecycleView = view.findViewById(R.id.carosel_recycleView_sapChieu);
+        RecyclerView sapChieuRecycleView = view.findViewById(R.id.carosel_recycleView_sapChieu);
         BL_PhimSapChieu blPhimSapChieu = new BL_PhimSapChieu();
         blPhimSapChieu.loadCaroselPhimToRecyclerView(getContext(), sapChieuRecycleView);
 
-        sapChieuMoreThan = view.findViewById(R.id.sapChieu_more);
+        TextView sapChieuMoreThan = view.findViewById(R.id.sapChieu_more);
         sapChieuMoreThan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -185,7 +169,7 @@ public class kham_pha extends Fragment {
                         TabLayout.Tab tab = tabLayout.getTabAt(i);
 
                         if (tab != null && tab.getText() != null) {
-                            if (tab.getText().toString().toUpperCase().equals(tabTitleToSelect.trim().toUpperCase())) {
+                            if (tab.getText().toString().equalsIgnoreCase(tabTitleToSelect.trim())) {
                                 tab.select();
                                 break;
                             }
@@ -203,41 +187,13 @@ public class kham_pha extends Fragment {
         BL_RapChieuCon blRapChieuCon = new BL_RapChieuCon();
 
         TextView TenTinhThanh = view.findViewById(R.id.ten_tinh_thanh);
-        SharedPreferences sharedPreferences = getContext().
-                getSharedPreferences("LeDucThien", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor;
-
-        MaTinhThanh = sharedPreferences.getInt("maTinhThanh", -1);
-        if (MaTinhThanh == -1) {
-            MaTinhThanh = blTinhThanh.loadMinMaTinhThanh();
-            editor = sharedPreferences.edit();
-            editor.putInt("maTinhThanh", MaTinhThanh);
-            editor.apply();
-        }
-
-        blTinhThanh.loadTenTinhThanhTheoDieuKien(getContext(), TenTinhThanh, MaTinhThanh);
+        blTinhThanh.loadTenTinhThanhTheoDieuKien(getContext(), TenTinhThanh);
 
         ImageView anhRapChieuCon = view.findViewById(R.id.calendar_logo);
         TextView tenRapChieuCon = view.findViewById(R.id.sapChieu_movie_name);
         TextView diaChiRapChieuCon = view.findViewById(R.id.sapChieu_movie_style);
-        MaRapChieu = sharedPreferences.getInt("maRapChieu", -1);
-        if (MaRapChieu == -1) {
-            MaRapChieu = blRapChieu.loadMinMaRapChieu();
-            editor = sharedPreferences.edit();
-            editor.putInt("maRapChieu", MaRapChieu);
-            editor.apply();
-        }
 
-        MaRapChieuCon = sharedPreferences.getInt("maRapChieuCon", -1);
-        if (MaRapChieuCon == -1) {
-            MaRapChieuCon = blRapChieuCon.loadMinRapChieuCon(MaTinhThanh, MaRapChieu);
-            editor = sharedPreferences.edit();
-            editor.putInt("maRapChieuCon", MaRapChieuCon);
-            editor.apply();
-        }
 
-        blRapChieuCon.loadThongTinRapChieuCon(getContext(),anhRapChieuCon,
-                tenRapChieuCon, diaChiRapChieuCon, MaRapChieuCon);
 
         // Khởi tạo TabLayout cho location
         LinearLayout danhsachtinhthanh_open = view.findViewById(R.id.open_list_tinh_thanh);
@@ -316,7 +272,7 @@ public class kham_pha extends Fragment {
         ngayChieuAdapter adapter = new ngayChieuAdapter(ngayChieuEntityList);
         calendar_tablayout.setAdapter(adapter);
 
-        calandar_more = view.findViewById(R.id.calandar_more);
+        TextView calandar_more = view.findViewById(R.id.calandar_more);
         calandar_more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -330,7 +286,7 @@ public class kham_pha extends Fragment {
                         TabLayout.Tab tab = tabLayout.getTabAt(i);
 
                         if (tab != null && tab.getText() != null) {
-                            if (tab.getText().toString().toUpperCase().equals(tabTitleToSelect.trim().toUpperCase())) {
+                            if (tab.getText().toString().equalsIgnoreCase(tabTitleToSelect.trim())) {
                                 tab.select();
                                 break;
                             }
@@ -409,8 +365,9 @@ public class kham_pha extends Fragment {
         BL_DoiTac blDoiTac = new BL_DoiTac();
         DoiTacAdapter adapter = new DoiTacAdapter();
         blDoiTac.loadDoiTacToRecyclerView(getContext(), recyclerView, adapter);
+        TextView btnXemThem = view.findViewById(R.id.doitac_more_than);
 
-        rapChieu_more = view.findViewById(R.id.rapChieu_more);
+        TextView rapChieu_more = view.findViewById(R.id.rapChieu_more);
         rapChieu_more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -424,7 +381,7 @@ public class kham_pha extends Fragment {
                         TabLayout.Tab tab = tabLayout.getTabAt(i);
 
                         if (tab != null && tab.getText() != null) {
-                            if (tab.getText().toString().toUpperCase().equals(tabTitleToSelect.trim().toUpperCase())) {
+                            if (tab.getText().toString().equalsIgnoreCase(tabTitleToSelect.trim())) {
                                 tab.select();
                                 break;
                             }
@@ -460,7 +417,7 @@ public class kham_pha extends Fragment {
                 ContextCompat.getColor(getContext(), R.color.colorUnSelected),
                 ContextCompat.getColor(getContext(), R.color.colorSelected)
         );
-        xephang_more = view.findViewById(R.id.xephang_more);
+        TextView xephang_more = view.findViewById(R.id.xephang_more);
         xephang_more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -474,7 +431,7 @@ public class kham_pha extends Fragment {
                         TabLayout.Tab tab = tabLayout.getTabAt(i);
 
                         if (tab != null && tab.getText() != null) {
-                            if (tab.getText().toString().toUpperCase().equals(tabTitleToSelect.trim().toUpperCase())) {
+                            if (tab.getText().toString().equalsIgnoreCase(tabTitleToSelect.trim())) {
                                 tab.select();
                                 break;
                             }

@@ -12,6 +12,7 @@ public class FragmentUtils {
     public static void loadFragment(FragmentActivity activity, Fragment fragment, int containerId) {
         FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
         transaction.replace(containerId, fragment);
+        transaction.addToBackStack(null);
         transaction.commit();
     }
 
@@ -19,7 +20,6 @@ public class FragmentUtils {
     public static void showOverlayFragment(FragmentActivity activity, Fragment fragment, int containerId) {
         FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
         transaction.replace(containerId, fragment);
-//        transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left);
         transaction.addToBackStack(null);
         transaction.commit();
 

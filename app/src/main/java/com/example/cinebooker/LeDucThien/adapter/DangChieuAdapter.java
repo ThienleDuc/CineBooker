@@ -1,5 +1,7 @@
 package com.example.cinebooker.LeDucThien.adapter;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +25,7 @@ public class DangChieuAdapter extends RecyclerView.Adapter<DangChieuAdapter.view
     public DangChieuAdapter() {
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void SetData (List<ent_PhimDangChieu> dangChieulist) {
         this.dangChieulist = dangChieulist;
         notifyDataSetChanged();
@@ -36,13 +39,19 @@ public class DangChieuAdapter extends RecyclerView.Adapter<DangChieuAdapter.view
         return new viewHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull DangChieuAdapter.viewHolder holder, int position) {
         ent_PhimDangChieu dangChieu = dangChieulist.get(position);
 
         // Load poster movie using Picasso
-        Picasso.get().load(dangChieu.getAnhPhim())
-                .placeholder(R.drawable.placeholder)  // Optional: Add a placeholder image
+        String imageName = dangChieu.getAnhPhim();
+        Context context = holder.itemView.getContext();
+        @SuppressLint("DiscouragedApi") int resourceId = context.getResources().getIdentifier(imageName, "drawable", context.getPackageName());
+
+        Picasso.get()
+                .load(resourceId)  // Load resource ID
+                .resize(800, 800)// Load resource ID
                 .into(holder.moviePoster);
 
         // Set age (convert to String)

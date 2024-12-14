@@ -406,6 +406,7 @@ BEGIN
         P.TrangThaiChieu, 
         P.ThoiLuong;
 END;
+SELECT MaTinhThanh, TenTinhThanh FROM TinhThanhPho WHERE TenTinhThanh LIKE N'%Đà%'
 GO
 CREATE PROCEDURE pr_LayTatCaPhim
 AS
@@ -451,9 +452,6 @@ BEGIN
 END;
 GO
 EXEC pr_LayTatCaPhim;
--- END--
-
-
 GO
 CREATE PROCEDURE pr_GetRapChieuCon
     @MaTinhThanh INT,
@@ -461,13 +459,13 @@ CREATE PROCEDURE pr_GetRapChieuCon
 AS
 BEGIN
     SET NOCOUNT ON;
-
     -- Truy vấn dữ liệu với MaTinhThanh và MaRapChieu
     SELECT 
         RCon.MaRapChieuCon,
         RC.AnhRapChieu, 
         RCon.TenRapChieuCon, 
-        DRC.DiaChiRapChieu
+        DRC.DiaChiRapChieu,
+        DRC.map
     FROM 
         TinhThanhPho TTP
     INNER JOIN 
@@ -480,7 +478,10 @@ BEGIN
         TTP.MaTinhThanh = @MaTinhThanh
         AND RCon.MaRapChieu = @MaRapChieu;
 END;
+
 EXEC pr_GetRapChieuCon @MaTinhThanh = 1,  @MaRapChieu = 1;
+
+-- END--
 GO
 CREATE PROCEDURE pr_GetRapChieuConByMaRapChieuCon
     @MaRapChieuCon INT

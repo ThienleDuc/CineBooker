@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -14,7 +15,8 @@
             android:layout_width="70dp"
             android:layout_height="100dp"
             android:scaleType="fitXY"
-            android:src="@drawable/camposter"/>
+            android:src="@drawable/camposter"
+            tools:ignore="ContentDescription" />
 
         <Space
             android:layout_width="10dp"
@@ -32,7 +34,8 @@
                 android:textSize="14sp"
                 android:text="18+"
                 android:textStyle="bold"
-                android:textColor="@android:color/holo_red_dark"/>
+                android:textColor="@android:color/holo_red_dark"
+                tools:ignore="HardcodedText" />
 
             <TextView
                 android:id="@+id/lichChieu_nameMovie"
@@ -43,7 +46,8 @@
                 android:textColor="@android:color/white"
                 android:textStyle="bold"
                 android:maxLines="1"
-                android:ellipsize="end"/>
+                android:ellipsize="end"
+                tools:ignore="HardcodedText" />
 
             <TextView
                 android:id="@+id/lichChieu_styleMovie"
@@ -54,13 +58,15 @@
                 android:textStyle="bold"
                 android:textColor="@android:color/darker_gray"
                 android:maxLines="1"
-                android:ellipsize="end"/>
+                android:ellipsize="end"
+                tools:ignore="HardcodedText" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:gravity="bottom">
+                android:gravity="bottom"
+                tools:ignore="DisableBaselineAlignment">
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -71,7 +77,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:scaleType="fitXY"
-                        android:src="@drawable/drawn_star"/>
+                        android:src="@drawable/drawn_star"
+                        tools:ignore="ContentDescription" />
 
                     <Space
                         android:layout_width="2dp"
@@ -84,7 +91,8 @@
                         android:textSize="14sp"
                         android:textColor="@android:color/white"
                         android:textStyle="bold"
-                        android:text="6.2"/>
+                        android:text="6.2"
+                        tools:ignore="HardcodedText" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -96,7 +104,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:scaleType="fitXY"
-                        android:src="@drawable/shopping_cart"/>
+                        android:src="@drawable/shopping_cart"
+                        tools:ignore="ContentDescription" />
 
                     <Space
                         android:layout_width="2dp"
@@ -109,7 +118,8 @@
                         android:textSize="14sp"
                         android:textColor="@android:color/white"
                         android:textStyle="bold"
-                        android:text="6.2"/>
+                        android:text="6.2"
+                        tools:ignore="HardcodedText" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -121,7 +131,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:scaleType="fitXY"
-                        android:src="@drawable/chat_bubble"/>
+                        android:src="@drawable/chat_bubble"
+                        tools:ignore="ContentDescription" />
 
                     <Space
                         android:layout_width="2dp"
@@ -134,7 +145,8 @@
                         android:textSize="14sp"
                         android:textColor="@android:color/white"
                         android:textStyle="bold"
-                        android:text="6.2"/>
+                        android:text="6.2"
+                        tools:ignore="HardcodedText" />
                 </LinearLayout>
 
             </LinearLayout>

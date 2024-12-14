@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cinebooker.LeDucThien.ProcessData.PD_XepHang;
 import com.example.cinebooker.LeDucThien.adapter.XepHangAdapter;
-import com.example.cinebooker.LeDucThien.entity.ent_TinhThanh;
 import com.example.cinebooker.LeDucThien.entity.ent_XepHang;
 
 import java.util.List;

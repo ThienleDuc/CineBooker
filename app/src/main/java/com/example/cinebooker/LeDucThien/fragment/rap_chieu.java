@@ -1,9 +1,10 @@
 package com.example.cinebooker.LeDucThien.fragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -15,18 +16,19 @@ import android.widget.TextView;
 
 import com.example.cinebooker.LeDucThien.BussinessLogic.BL_DoiTac;
 import com.example.cinebooker.LeDucThien.BussinessLogic.BL_RapChieu;
+import com.example.cinebooker.LeDucThien.BussinessLogic.BL_RapChieuCon;
+import com.example.cinebooker.LeDucThien.BussinessLogic.BL_TinhThanh;
 import com.example.cinebooker.LeDucThien.activity.DanhSachDiaDiemRap;
+import com.example.cinebooker.LeDucThien.activity.danhSachRap;
 import com.example.cinebooker.LeDucThien.adapter.RapChieuAdapter;
-import com.example.cinebooker.LeDucThien.adapter.timDiaChiRapChieuAdapter;
+import com.example.cinebooker.LeDucThien.adapter.DiaChiRapChieuAdapter;
 import com.example.cinebooker.LeDucThien.adapter.DoiTacAdapter;
-import com.example.cinebooker.LeDucThien.entity.timDiaChiRapChieuEntity;
 
 import com.example.cinebooker.R;
 import com.example.cinebooker.generalMethod.ActivityOpen;
-import com.example.cinebooker.generalMethod.SpaceItemDecoration;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Objects;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -39,15 +41,10 @@ public class rap_chieu extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public rap_chieu() {
-        // Required empty public constructor
-    }
-
+    public int MaTinhThanh = -1;
+    public int MaRapChieu = -1;
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -70,8 +67,9 @@ public class rap_chieu extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            // TODO: Rename and change types of parameters
+            String mParam1 = getArguments().getString(ARG_PARAM1);
+            String mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
@@ -81,8 +79,25 @@ public class rap_chieu extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_rap_chieu, container, false);
 
+        controllerLichChieu(view);
+        danhSachRap(view);
+
+        danhSachDiaChiRap(view);
+
+        heThongRapChieu(view);
+        return view;
+    }
+
+    public void controllerLichChieu(View view) {
+        BL_TinhThanh blTinhThanh = new BL_TinhThanh();
+        BL_RapChieu blRapChieu = new BL_RapChieu();
+        BL_RapChieuCon blRapChieuCon = new BL_RapChieuCon();
+
         TextView TenTinhThanh = view.findViewById(R.id.ten_tinh_thanh);
 
+        blTinhThanh.loadTenTinhThanhTheoDieuKien(getContext(), TenTinhThanh);
+
+        // Khởi tạo TabLayout cho location
         LinearLayout danhsachtinhthanh_open = view.findViewById(R.id.open_list_tinh_thanh);
         LinearLayout ganday_search = view.findViewById(R.id.search_gan_ban);
 
@@ -116,17 +131,10 @@ public class rap_chieu extends Fragment {
                 icon_location2.setColorFilter(getContext().getColor(R.color.colorSelected));
 
                 danhsachtinhthanh_open.setBackgroundResource(R.drawable.strock_1_white_radius_10_transparent);
+                TenTinhThanh.setTextColor(getContext().getColor(R.color.colorUnSelected));
                 icon_location.setColorFilter(getContext().getColor(R.color.colorUnSelected));
             }
         });
-
-
-        danhSachRap(view);
-
-        danhSachDiaChiRap(view);
-
-        heThongRapChieu(view);
-        return view;
     }
 
     private void danhSachRap (View view) {
@@ -138,26 +146,11 @@ public class rap_chieu extends Fragment {
 
     private void danhSachDiaChiRap (View view) {
         RecyclerView rapChieuRecycleView = view.findViewById(R.id.diachirap_recyclerview);
-        rapChieuRecycleView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-
-        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.recycler_view_spacing_5);
-        rapChieuRecycleView.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
-
-        List<timDiaChiRapChieuEntity> rapChieuList = new ArrayList<>();
-
-        rapChieuList.add(new timDiaChiRapChieuEntity(R.drawable.cgvlogo, "CGV Hùng Vương Plaza", "Tầng 7 | Hùng Vương Plaza 126 Hùng Vương Quận 5 Tp. Hồ Chí Minh", "https://www.google.com/maps/place/CGV+Hung+Vuong+Plaza"));
-        rapChieuList.add(new timDiaChiRapChieuEntity(R.drawable.cgvlogo, "CGV Hùng Vương Plaza", "Tầng 7 | Hùng Vương Plaza 126 Hùng Vương Quận 5 Tp. Hồ Chí Minh", "https://www.google.com/maps/place/CGV+Hung+Vuong+Plaza"));
-        rapChieuList.add(new timDiaChiRapChieuEntity(R.drawable.cgvlogo, "CGV Hùng Vương Plaza", "Tầng 7 | Hùng Vương Plaza 126 Hùng Vương Quận 5 Tp. Hồ Chí Minh", "https://www.google.com/maps/place/CGV+Hung+Vuong+Plaza"));
-        rapChieuList.add(new timDiaChiRapChieuEntity(R.drawable.cgvlogo, "CGV Hùng Vương Plaza", "Tầng 7 | Hùng Vương Plaza 126 Hùng Vương Quận 5 Tp. Hồ Chí Minh", "https://www.google.com/maps/place/CGV+Hung+Vuong+Plaza"));
-        rapChieuList.add(new timDiaChiRapChieuEntity(R.drawable.cgvlogo, "CGV Hùng Vương Plaza", "Tầng 7 | Hùng Vương Plaza 126 Hùng Vương Quận 5 Tp. Hồ Chí Minh", "https://www.google.com/maps/place/CGV+Hung+Vuong+Plaza"));
-        rapChieuList.add(new timDiaChiRapChieuEntity(R.drawable.cgvlogo, "CGV Hùng Vương Plaza", "Tầng 7 | Hùng Vương Plaza 126 Hùng Vương Quận 5 Tp. Hồ Chí Minh", "https://www.google.com/maps/place/CGV+Hung+Vuong+Plaza"));
-        rapChieuList.add(new timDiaChiRapChieuEntity(R.drawable.cgvlogo, "CGV Hùng Vương Plaza", "Tầng 7 | Hùng Vương Plaza 126 Hùng Vương Quận 5 Tp. Hồ Chí Minh", "https://www.google.com/maps/place/CGV+Hung+Vuong+Plaza"));
-        rapChieuList.add(new timDiaChiRapChieuEntity(R.drawable.cgvlogo, "CGV Hùng Vương Plaza", "Tầng 7 | Hùng Vương Plaza 126 Hùng Vương Quận 5 Tp. Hồ Chí Minh", "https://www.google.com/maps/place/CGV+Hung+Vuong+Plaza"));
-        rapChieuList.add(new timDiaChiRapChieuEntity(R.drawable.cgvlogo, "CGV Hùng Vương Plaza", "Tầng 7 | Hùng Vương Plaza 126 Hùng Vương Quận 5 Tp. Hồ Chí Minh", "https://www.google.com/maps/place/CGV+Hung+Vuong+Plaza"));
-        rapChieuList.add(new timDiaChiRapChieuEntity(R.drawable.cgvlogo, "CGV Hùng Vương Plaza", "Tầng 7 | Hùng Vương Plaza 126 Hùng Vương Quận 5 Tp. Hồ Chí Minh", "https://www.google.com/maps/place/CGV+Hung+Vuong+Plaza"));
-
-        timDiaChiRapChieuAdapter rapChieuAdapter = new timDiaChiRapChieuAdapter(rapChieuList, getContext());
-        rapChieuRecycleView.setAdapter(rapChieuAdapter);
+        BL_RapChieuCon blRapChieuCon = new BL_RapChieuCon();
+        DiaChiRapChieuAdapter adapter = new DiaChiRapChieuAdapter();
+        sharedPreferences = getContext().getSharedPreferences("LeDucThien", Context.MODE_PRIVATE);
+        MaRapChieu = sharedPreferences.getInt("maRapChieu", -1);
+        blRapChieuCon.loadDiaChiRapChieuConToRecyclerView(getContext(), rapChieuRecycleView, MaTinhThanh, MaRapChieu, adapter);
 
     }
 

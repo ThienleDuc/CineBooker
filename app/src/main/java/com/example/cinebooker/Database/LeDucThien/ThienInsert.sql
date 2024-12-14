@@ -11,11 +11,11 @@ GO
 -- Thêm vào bang CapBacChiTieu
 INSERT INTO CapBacChiTieu (AnhCapBac, TenCapBac, HanMucChiTieu) 
 VALUES
-('anhcapbac-1.png', N'đồng', 10000000),
-('anhcapbac-2.png', N'bạc', 20000000),
-('anhcapbac-3.png', N'vàng', 30000000),
-('anhcapbac-4.png', N'bạch kim', 40000000),
-('anhcapbac-5.png', N'kim cương', 50000000);
+('anhcapbac1', N'đồng', 10000000),
+('anhcapbac2', N'bạc', 20000000),
+('anhcapbac3', N'vàng', 30000000),
+('anhcapbac4', N'bạch kim', 40000000),
+('anhcapbac5', N'kim cương', 50000000);
 GO
 -- Thêm vào bảng ChiTietCapBac
 INSERT INTO ChiTietCapBac (MaKhachHang, MaCapBacChiTieu, ThoiHanReset)
@@ -37,51 +37,51 @@ GO
 -- Thêm vào bảng Phim
 INSERT INTO Phim (AnhPhim, TenPhim, Tuoi, DinhDangPhim, NgayKhoiChieu, NgayKetThuc, TrangThaiChieu, ThoiLuong)
 VALUES
-('poster1.png', N'Avengers: Endgame', 13, N'IMAX 3D', '2024-12-01', '2024-12-30', N'Sắp chiếu', '03:01:00'),
-('poster2.png', N'Inception', 16, N'IMAX', '2024-12-02', '2024-12-31', N'Sắp chiếu', '02:28:00'),
-('poster3.png', N'Titanic', 13, N'2D', '2024-12-03', '2024-12-30', N'Sắp chiếu', '03:14:00'),
-('poster4.png', N'Avatar: The Way of Water', 16, N'3D', '2024-12-04', '2024-12-31', N'Sắp chiếu', '03:12:00'),
-('poster5.png', N'Spider-Man: No Way Home', 13, N'IMAX', '2024-12-05', '2024-12-30', N'Sắp chiếu', '02:28:00');
+('poster1', N'Avengers: Endgame', 13, N'IMAX 3D', '2024-12-01', '2024-12-30', N'Sắp chiếu', '03:01:00'),
+('poster2', N'Inception', 16, N'IMAX', '2024-12-02', '2024-12-31', N'Sắp chiếu', '02:28:00'),
+('poster3', N'Titanic', 13, N'2D', '2024-12-03', '2024-12-30', N'Sắp chiếu', '03:14:00'),
+('poster4', N'Avatar: The Way of Water', 16, N'3D', '2024-12-04', '2024-12-31', N'Sắp chiếu', '03:12:00'),
+('poster5', N'Spider-Man: No Way Home', 13, N'IMAX', '2024-12-05', '2024-12-30', N'Sắp chiếu', '02:28:00');
 
 INSERT INTO Phim (AnhPhim, TenPhim, Tuoi, DinhDangPhim, NgayKhoiChieu, NgayKetThuc, TrangThaiChieu, ThoiLuong)
 VALUES
-('poster6.png', N'The Dark Knight', 16, N'IMAX', '2024-12-06', '2024-12-31', N'Sắp chiếu', '02:32:00'),
-('poster7.png', N'Frozen', 6, N'3D', '2024-12-07', '2024-12-31', N'Sắp chiếu', '01:42:00'),
-('poster8.png', N'Toy Story 4', 6, N'2D', '2024-12-08', '2024-12-31', N'Sắp chiếu', '01:40:00'),
-('poster9.png', N'Black Panther', 13, N'IMAX', '2024-12-09', '2024-12-31', N'Sắp chiếu', '02:14:00'),
-('poster10.png', N'Jurassic World: Dominion', 13, N'IMAX', '2024-12-10', '2024-12-31', N'Sắp chiếu', '02:26:00');
+('poster6', N'The Dark Knight', 16, N'IMAX', '2024-12-06', '2024-12-31', N'Sắp chiếu', '02:32:00'),
+('poster7', N'Frozen', 6, N'3D', '2024-12-07', '2024-12-31', N'Sắp chiếu', '01:42:00'),
+('poster8', N'Toy Story 4', 6, N'2D', '2024-12-08', '2024-12-31', N'Sắp chiếu', '01:40:00'),
+('poster9', N'Black Panther', 13, N'IMAX', '2024-12-09', '2024-12-31', N'Sắp chiếu', '02:14:00'),
+('poster10', N'Jurassic World: Dominion', 13, N'IMAX', '2024-12-10', '2024-12-31', N'Sắp chiếu', '02:26:00');
 
 INSERT INTO Phim (AnhPhim, TenPhim, Tuoi, DinhDangPhim, NgayKhoiChieu, NgayKetThuc, TrangThaiChieu, ThoiLuong)
 VALUES
-('poster11.png', N'Guardians of the Galaxy Vol. 3', 13, N'IMAX 3D', '2025-01-01', '2025-01-31', N'Sắp chiếu', '02:30:00'),
-('poster12.png', N'The Lion King', 6, N'2D', '2025-01-02', '2025-01-31', N'Sắp chiếu', '01:29:00'),
-('poster13.png', N'Pirates of the Caribbean: The Curse of the Black Pearl', 13, N'2D', '2025-01-03', '2025-01-31', N'Sắp chiếu', '02:23:00'),
-('poster14.png', N'Dune', 13, N'IMAX', '2025-01-04', '2025-01-31', N'Sắp chiếu', '02:35:00'),
-('poster15.png', N'Shrek', 6, N'3D', '2025-01-05', '2025-01-31', N'Sắp chiếu', '01:30:00');
+('poster11', N'Guardians of the Galaxy Vol. 3', 13, N'IMAX 3D', '2025-01-01', '2025-01-31', N'Sắp chiếu', '02:30:00'),
+('poster12', N'The Lion King', 6, N'2D', '2025-01-02', '2025-01-31', N'Sắp chiếu', '01:29:00'),
+('poster13', N'Pirates of the Caribbean: The Curse of the Black Pearl', 13, N'2D', '2025-01-03', '2025-01-31', N'Sắp chiếu', '02:23:00'),
+('poster14', N'Dune', 13, N'IMAX', '2025-01-04', '2025-01-31', N'Sắp chiếu', '02:35:00'),
+('poster15', N'Shrek', 6, N'3D', '2025-01-05', '2025-01-31', N'Sắp chiếu', '01:30:00');
 
 INSERT INTO Phim (AnhPhim, TenPhim, Tuoi, DinhDangPhim, NgayKhoiChieu, NgayKetThuc, TrangThaiChieu, ThoiLuong)
 VALUES
-('poster16.png', N'Interstellar', 13, N'IMAX', '2025-01-06', '2025-01-31', N'Sắp chiếu', '02:49:00'),
-('poster17.png', N'WALL-E', 6, N'2D', '2025-01-07', '2025-01-31', N'Sắp chiếu', '01:38:00'),
-('poster18.png', N'Dr. Strange in the Multiverse of Madness', 13, N'IMAX 3D', '2025-01-08', '2025-01-31', N'Sắp chiếu', '02:06:00'),
-('poster19.png', N'Coco', 6, N'2D', '2025-01-09', '2025-01-31', N'Sắp chiếu', '01:49:00'),
-('poster20.png', N'Soul', 6, N'3D', '2025-01-10', '2025-01-31', N'Sắp chiếu', '01:40:00');
+('poster16', N'Interstellar', 13, N'IMAX', '2025-01-06', '2025-01-31', N'Sắp chiếu', '02:49:00'),
+('poster17', N'WALL-E', 6, N'2D', '2025-01-07', '2025-01-31', N'Sắp chiếu', '01:38:00'),
+('poster18', N'Dr. Strange in the Multiverse of Madness', 13, N'IMAX 3D', '2025-01-08', '2025-01-31', N'Sắp chiếu', '02:06:00'),
+('poster19', N'Coco', 6, N'2D', '2025-01-09', '2025-01-31', N'Sắp chiếu', '01:49:00'),
+('poster20', N'Soul', 6, N'3D', '2025-01-10', '2025-01-31', N'Sắp chiếu', '01:40:00');
 
 INSERT INTO Phim (AnhPhim, TenPhim, Tuoi, DinhDangPhim, NgayKhoiChieu, NgayKetThuc, TrangThaiChieu, ThoiLuong)
 VALUES
-('poster16.png', N'Interstellar', 13, N'IMAX', '2025-01-06', '2025-01-31', N'Sắp chiếu', '02:49:00'),
-('poster17.png', N'WALL-E', 6, N'2D', '2025-01-07', '2025-01-31', N'Sắp chiếu', '01:38:00'),
-('poster18.png', N'Dr. Strange in the Multiverse of Madness', 13, N'IMAX 3D', '2025-01-08', '2025-01-31', N'Sắp chiếu', '02:06:00'),
-('poster19.png', N'Coco', 6, N'2D', '2025-01-09', '2025-01-31', N'Sắp chiếu', '01:49:00'),
-('poster20.png', N'Soul', 6, N'3D', '2025-01-10', '2025-01-31', N'Sắp chiếu', '01:40:00');
+('poster21', N'The Matrix Resurrections', 13, N'IMAX', '2025-01-06', '2025-01-31', N'Sắp chiếu', '02:49:00'),
+('poster22', N'The Batman', 6, N'2D', '2025-01-07', '2025-01-31', N'Sắp chiếu', '01:38:00'),
+('poster23', N'Tangled', 13, N'IMAX 3D', '2025-01-08', '2025-01-31', N'Sắp chiếu', '02:06:00'),
+('poster24', N'The Secret Life of Pets', 6, N'2D', '2025-01-09', '2025-01-31', N'Sắp chiếu', '01:49:00'),
+('poster25', N'Thor: Ragnarok', 6, N'3D', '2025-01-10', '2025-01-31', N'Sắp chiếu', '01:40:00');
 
 INSERT INTO Phim (AnhPhim, TenPhim, Tuoi, DinhDangPhim, NgayKhoiChieu, NgayKetThuc, TrangThaiChieu, ThoiLuong)
 VALUES
-('poster26.png', N'Aladdin', 6, N'2D', '2025-01-16', '2025-01-31', N'Sắp chiếu', '02:08:00'),
-('poster27.png', N'Moana', 6, N'2D', '2025-01-17', '2025-01-31', N'Sắp chiếu', '01:47:00'),
-('poster28.png', N'Beauty and the Beast', 0, N'2D', '2025-01-18', '2025-01-31', N'Sắp chiếu', '02:10:00'),
-('poster29.png', N'Mulan', 6, N'2D', '2025-01-19', '2025-01-31', N'Sắp chiếu', '01:55:00'),
-('poster30.png', N'Star Wars: The Force Awakens', 13, N'IMAX', '2025-01-20', '2025-01-31', N'Sắp chiếu', '02:18:00');
+('poster26', N'Aladdin', 6, N'2D', '2025-01-16', '2025-01-31', N'Sắp chiếu', '02:08:00'),
+('poster27', N'Moana', 6, N'2D', '2025-01-17', '2025-01-31', N'Sắp chiếu', '01:47:00'),
+('poster28', N'Beauty and the Beast', 0, N'2D', '2025-01-18', '2025-01-31', N'Sắp chiếu', '02:10:00'),
+('poster29', N'Mulan', 6, N'2D', '2025-01-19', '2025-01-31', N'Sắp chiếu', '01:55:00'),
+('poster30', N'Star Wars: The Force Awakens', 13, N'IMAX', '2025-01-20', '2025-01-31', N'Sắp chiếu', '02:18:00');
 GO
 -- Thêm dữ liệu vào bảng TheLoai, mỗi MaPhim có 2 MaTheLoaiCha
 INSERT INTO TheLoai (MaTheLoaiCha, MaPhim)
@@ -309,16 +309,16 @@ VALUES (3, 1, GETDATE(), N'Đánh giá của khách hàng 3 cho phim 1', 8, 0),
        (3, 30, GETDATE(), N'Đánh giá của khách hàng 3 cho phim 30', 7, 0);
 GO
 INSERT INTO RapChieu (AnhRapChieu, TenRapChieu, MoTaRapChieu) 
-VALUES ('rap1.png', N'Rạp Chiếu A', N'Rạp Chiếu hiện đại với các tiện ích cao cấp, không gian thoải mái.'),
-       ('rap2.png', N'Rạp Chiếu B', N'Rạp Chiếu phim với màn hình lớn và âm thanh vòm chất lượng cao.'),
-       ('rap3.png', N'Rạp Chiếu C', N'Rạp Chiếu được thiết kế sang trọng, phục vụ các bộ phim bom tấn.'),
-       ('rap4.png', N'Rạp Chiếu D', N'Rạp Chiếu phim với không gian ấm cúng, thích hợp cho các buổi chiếu nhỏ.'),
-       ('rap5.png', N'Rạp Chiếu E', N'Rạp Chiếu phim mới với các ghế ngồi thoải mái và hệ thống âm thanh hiện đại.'),
-       ('rap6.png', N'Rạp Chiếu F', N'Rạp Chiếu 3D với màn hình cực lớn, mang lại trải nghiệm tuyệt vời.'),
-       ('rap7.png', N'Rạp Chiếu G', N'Rạp Chiếu phục vụ cả phim quốc tế và nội địa với các lựa chọn phòng chiếu đa dạng.'),
-       ('rap8.png', N'Rạp Chiếu H', N'Rạp Chiếu với dịch vụ ăn uống tại chỗ, mang lại sự tiện lợi cho người xem.'),
-       ('rap9.png', N'Rạp Chiếu I', N'Rạp Chiếu công nghệ cao với hệ thống máy chiếu 4K và âm thanh Dolby Atmos.'),
-       ('rap10.png', N'Rạp Chiếu J', N'Rạp Chiếu với không gian hiện đại và đội ngũ nhân viên phục vụ chuyên nghiệp.');
+VALUES ('rap1', N'Rạp Chiếu A', N'Rạp Chiếu hiện đại với các tiện ích cao cấp, không gian thoải mái.'),
+       ('rap2', N'Rạp Chiếu B', N'Rạp Chiếu phim với màn hình lớn và âm thanh vòm chất lượng cao.'),
+       ('rap3', N'Rạp Chiếu C', N'Rạp Chiếu được thiết kế sang trọng, phục vụ các bộ phim bom tấn.'),
+       ('rap4', N'Rạp Chiếu D', N'Rạp Chiếu phim với không gian ấm cúng, thích hợp cho các buổi chiếu nhỏ.'),
+       ('rap5', N'Rạp Chiếu E', N'Rạp Chiếu phim mới với các ghế ngồi thoải mái và hệ thống âm thanh hiện đại.'),
+       ('rap6', N'Rạp Chiếu F', N'Rạp Chiếu 3D với màn hình cực lớn, mang lại trải nghiệm tuyệt vời.'),
+       ('rap7', N'Rạp Chiếu G', N'Rạp Chiếu phục vụ cả phim quốc tế và nội địa với các lựa chọn phòng chiếu đa dạng.'),
+       ('rap8', N'Rạp Chiếu H', N'Rạp Chiếu với dịch vụ ăn uống tại chỗ, mang lại sự tiện lợi cho người xem.'),
+       ('rap9', N'Rạp Chiếu I', N'Rạp Chiếu công nghệ cao với hệ thống máy chiếu 4K và âm thanh Dolby Atmos.'),
+       ('rap10', N'Rạp Chiếu J', N'Rạp Chiếu với không gian hiện đại và đội ngũ nhân viên phục vụ chuyên nghiệp.');
 GO
  -- Thêm 10 rạp chiếu con cho MaRapChieu = 1
 INSERT INTO RapChieuCon (MaRapChieu, TenRapChieuCon)
@@ -981,13 +981,13 @@ VALUES
 Go
 INSERT INTO VoucherUngDung (AnhUngDung, TenVoucher, MaDoiTuongApDung, TrangThaiGiam, MucGiam, HanSuDung, TrangThaiSuDung, SoLuongToiDa)
 VALUES 
-('logo.png', 'VoucherApp1', 1, N'Đã khứ hồi', 10, '2024-12-31', N'Chưa sử dụng', 100),
-('logo.png', 'VoucherApp2', 2, N'Giá tiền', 50000, '2024-12-31', N'Chưa sử dụng', 200),
-('logo.png', 'VoucherApp3', 3, N'Đã khứ hồi', 25, '2024-12-31', N'Chưa sử dụng', 150),
-('logo.png', 'VoucherApp4', 4, N'Giá tiền', 100000, '2024-12-31', N'Chưa sử dụng', 75),
-('logo.png', 'VoucherApp5', 5, N'Đã khứ hồi', 15, '2024-12-31', N'Chưa sử dụng', 200),
-('logo.png', 'VoucherApp6', 1, N'Giá tiền', 20000, '2024-12-31', N'Chưa sử dụng', 250),
-('logo.png', 'VoucherApp7', 2, N'Đã khứ hồi', 30, '2024-12-31', N'Chưa sử dụng', 300),
-('logo.png', 'VoucherApp8', 3, N'Giá tiền', 70000, '2024-12-31', N'Chưa sử dụng', 120),
-('logo.png', 'VoucherApp9', 4, N'Đã khứ hồi', 20, '2024-12-31', N'Chưa sử dụng', 400),
-('logo.png', 'VoucherApp10', 5, N'Giá tiền', 150000, '2024-12-31', N'Chưa sử dụng', 500);
+('logo', 'VoucherApp1', 1, N'Đã khứ hồi', 10, '2024-12-31', N'Chưa sử dụng', 100),
+('logo', 'VoucherApp2', 2, N'Giá tiền', 50000, '2024-12-31', N'Chưa sử dụng', 200),
+('logo', 'VoucherApp3', 3, N'Đã khứ hồi', 25, '2024-12-31', N'Chưa sử dụng', 150),
+('logo', 'VoucherApp4', 4, N'Giá tiền', 100000, '2024-12-31', N'Chưa sử dụng', 75),
+('logo', 'VoucherApp5', 5, N'Đã khứ hồi', 15, '2024-12-31', N'Chưa sử dụng', 200),
+('logo', 'VoucherApp6', 1, N'Giá tiền', 20000, '2024-12-31', N'Chưa sử dụng', 250),
+('logo', 'VoucherApp7', 2, N'Đã khứ hồi', 30, '2024-12-31', N'Chưa sử dụng', 300),
+('logo', 'VoucherApp8', 3, N'Giá tiền', 70000, '2024-12-31', N'Chưa sử dụng', 120),
+('logo', 'VoucherApp9', 4, N'Đã khứ hồi', 20, '2024-12-31', N'Chưa sử dụng', 400),
+('logo', 'VoucherApp10', 5, N'Giá tiền', 150000, '2024-12-31', N'Chưa sử dụng', 500);

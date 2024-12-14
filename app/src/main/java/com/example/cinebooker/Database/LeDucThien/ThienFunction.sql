@@ -1,164 +1,5 @@
 ﻿use dbQuanLyXemPhim
 GO
-CREATE FUNCTION dbo.fn_DiemDanhGiaTrungBinhTheoNgayChieuRapChieuCon (
-    @MaPhim INT,
-    @NgayChieu DATETIME,
-    @TenRapChieuCon NVARCHAR(255)
-)
-RETURNS FLOAT
-AS
-BEGIN
-    DECLARE @DiemTrungBinh FLOAT;
-
-    -- Tính điểm trung bình từ bảng DanhGia cho bộ phim với MaPhim, NgayChieu và TenRapChieuCon tương ứng
-    SELECT @DiemTrungBinh = AVG(DiemDanhGia)
-    FROM DanhGia
-    JOIN LichChieu ON DanhGia.MaPhim = LichChieu.MaPhim
-    JOIN RapChieuCon ON LichChieu.MaRapChieuCon = RapChieuCon.MaRapChieuCon
-    JOIN ChiTietLichChieu ON LichChieu.MaLichChieu = ChiTietLichChieu.MaLichChieu
-    WHERE LichChieu.MaPhim = @MaPhim
-    AND ChiTietLichChieu.NgayChieu = @NgayChieu
-    AND RapChieuCon.TenRapChieuCon = @TenRapChieuCon;
-
-    -- Trả về điểm trung bình
-    RETURN @DiemTrungBinh;
-END;
-GO
-CREATE FUNCTION dbo.fn_TongLuotMuaPhimTrungBinhTheoNgayChieuRapChieuCon (
-    @MaPhim INT,
-    @NgayChieu DATETIME,
-    @TenRapChieuCon NVARCHAR(255)
-)
-RETURNS INT
-AS
-BEGIN
-    DECLARE @TongLuotMua INT;
-
-    -- Tính tổng lượt mua phim trung bình theo NgàyChiếu và TenRapChieuCon
-    SELECT @TongLuotMua = COUNT(DISTINCT VePhim.MaVe)
-    FROM VePhim
-    JOIN PhimDangChieu ON VePhim.MaPhimDangChieu = PhimDangChieu.MaPhimDangChieu
-    JOIN LichChieu ON PhimDangChieu.MaLichChieu = LichChieu.MaLichChieu
-    JOIN RapChieuCon ON LichChieu.MaRapChieuCon = RapChieuCon.MaRapChieuCon
-    JOIN ChiTietLichChieu ON LichChieu.MaLichChieu = ChiTietLichChieu.MaLichChieu
-    WHERE LichChieu.MaPhim = @MaPhim
-    AND ChiTietLichChieu.NgayChieu = @NgayChieu
-    AND RapChieuCon.TenRapChieuCon = @TenRapChieuCon;
-
-    -- Trả về tổng lượt mua
-    RETURN @TongLuotMua;
-END;
-GO
-
-
-GO
-CREATE FUNCTION dbo.fn_TongLuotDanhGiaPhimTheoNgayChieuRapChieuCon (
-    @MaPhim INT,
-    @NgayChieu DATETIME,
-    @TenRapChieuCon NVARCHAR(255)
-)
-RETURNS INT
-AS
-BEGIN
-    DECLARE @TongLuotDanhGia INT;
-
-    -- Tính tổng lượt đánh giá phim theo NgàyChiếu và TenRapChieuCon
-    SELECT @TongLuotDanhGia = COUNT(DISTINCT DanhGia.MaDanhGia)
-    FROM DanhGia
-    JOIN LichChieu ON DanhGia.MaPhim = LichChieu.MaPhim
-    JOIN RapChieuCon ON LichChieu.MaRapChieuCon = RapChieuCon.MaRapChieuCon
-    JOIN ChiTietLichChieu ON LichChieu.MaLichChieu = ChiTietLichChieu.MaLichChieu
-    WHERE DanhGia.MaPhim = @MaPhim
-    AND ChiTietLichChieu.NgayChieu = @NgayChieu
-    AND RapChieuCon.TenRapChieuCon = @TenRapChieuCon;
-
-    -- Trả về tổng lượt đánh giá
-    RETURN @TongLuotDanhGia;
-END;
-GO
-
--- Function tính tổng số lượng VoucherDoiTac
-CREATE FUNCTION dbo.fn_TongSoLuongVoucherDoiTac()
-RETURNS INT
-AS
-BEGIN
-    DECLARE @TongSoLuong INT;
-
-    SELECT @TongSoLuong = SUM(SoLuongToiDa)
-    FROM VoucherDoiTac
-    WHERE TrangThaiSuDung = N'Chưa sử dụng'
-    AND SoLuongToiDa > 0
-    AND HanSuDung > GETDATE();
-
-    RETURN @TongSoLuong;
-END;
-GO
-
--- Function tính tổng số lượng VoucherCuaToi
-CREATE FUNCTION dbo.fn_TongSoLuongVoucherCuaToi()
-RETURNS INT
-AS
-BEGIN
-    DECLARE @TongSoLuong INT;
-
-    SELECT @TongSoLuong = SUM(SoLuongToiDa)
-    FROM VoucherCuaToi
-    WHERE TrangThaiSuDung = N'Chưa sử dụng'
-    AND SoLuongToiDa > 0
-    AND HanSuDung > GETDATE();
-
-    RETURN @TongSoLuong;
-END;
-GO
-
--- Function tính tổng số lượng VoucherUngDung
-CREATE FUNCTION dbo.fn_TongSoLuongVoucherUngDung()
-RETURNS INT
-AS
-BEGIN
-    DECLARE @TongSoLuong INT;
-
-    SELECT @TongSoLuong = SUM(SoLuongToiDa)
-    FROM VoucherUngDung
-    WHERE TrangThaiSuDung = N'Chưa sử dụng'
-    AND SoLuongToiDa > 0
-    AND HanSuDung > GETDATE();
-
-    RETURN @TongSoLuong;
-END;
-GO
-
-CREATE FUNCTION dbo.fn_PhanTramSuDung (@SoLuongToiDa INT)
-RETURNS INT
-AS
-BEGIN
-    DECLARE @PhanTramSuDung INT;
-
-    -- Tính phần trăm đã sử dụng theo công thức: SoLuongToiDa - (SoLuongToiDa / 100)
-    SET @PhanTramSuDung = @SoLuongToiDa - (@SoLuongToiDa / 100);
-
-    -- Trả về kết quả tính toán
-    RETURN @PhanTramSuDung;
-END;
-GO
-CREATE FUNCTION dbo.fn_TongTienThanhToan (
-    @MaKhachHang INT
-)
-RETURNS FLOAT
-AS
-BEGIN
-    DECLARE @TongTien FLOAT;
-
-    -- Tính tổng tiền thanh toán của khách hàng
-    SELECT @TongTien = SUM(TT.TongTien)
-    FROM ThanhToan TT
-    INNER JOIN VePhim VP ON TT.MaVe = VP.MaVe
-    WHERE VP.MaKhachHang = @MaKhachHang;
-
-    -- Trả về tổng tiền
-    RETURN ISNULL(@TongTien, 0);  -- Trả về 0 nếu không có thanh toán nào
-END;
-GO
 
 -- Đã sử dụng
 CREATE FUNCTION dbo.fn_DiemDanhGiaPhimTrungBinhTheoNgay (@MaPhim INT)
@@ -503,3 +344,162 @@ BEGIN
 END;
 GO
 --END--
+CREATE FUNCTION dbo.fn_DiemDanhGiaTrungBinhTheoNgayChieuRapChieuCon (
+    @MaPhim INT,
+    @NgayChieu DATETIME,
+    @TenRapChieuCon NVARCHAR(255)
+)
+RETURNS FLOAT
+AS
+BEGIN
+    DECLARE @DiemTrungBinh FLOAT;
+
+    -- Tính điểm trung bình từ bảng DanhGia cho bộ phim với MaPhim, NgayChieu và TenRapChieuCon tương ứng
+    SELECT @DiemTrungBinh = AVG(DiemDanhGia)
+    FROM DanhGia
+    JOIN LichChieu ON DanhGia.MaPhim = LichChieu.MaPhim
+    JOIN RapChieuCon ON LichChieu.MaRapChieuCon = RapChieuCon.MaRapChieuCon
+    JOIN ChiTietLichChieu ON LichChieu.MaLichChieu = ChiTietLichChieu.MaLichChieu
+    WHERE LichChieu.MaPhim = @MaPhim
+    AND ChiTietLichChieu.NgayChieu = @NgayChieu
+    AND RapChieuCon.TenRapChieuCon = @TenRapChieuCon;
+
+    -- Trả về điểm trung bình
+    RETURN @DiemTrungBinh;
+END;
+GO
+CREATE FUNCTION dbo.fn_TongLuotMuaPhimTrungBinhTheoNgayChieuRapChieuCon (
+    @MaPhim INT,
+    @NgayChieu DATETIME,
+    @TenRapChieuCon NVARCHAR(255)
+)
+RETURNS INT
+AS
+BEGIN
+    DECLARE @TongLuotMua INT;
+
+    -- Tính tổng lượt mua phim trung bình theo NgàyChiếu và TenRapChieuCon
+    SELECT @TongLuotMua = COUNT(DISTINCT VePhim.MaVe)
+    FROM VePhim
+    JOIN PhimDangChieu ON VePhim.MaPhimDangChieu = PhimDangChieu.MaPhimDangChieu
+    JOIN LichChieu ON PhimDangChieu.MaLichChieu = LichChieu.MaLichChieu
+    JOIN RapChieuCon ON LichChieu.MaRapChieuCon = RapChieuCon.MaRapChieuCon
+    JOIN ChiTietLichChieu ON LichChieu.MaLichChieu = ChiTietLichChieu.MaLichChieu
+    WHERE LichChieu.MaPhim = @MaPhim
+    AND ChiTietLichChieu.NgayChieu = @NgayChieu
+    AND RapChieuCon.TenRapChieuCon = @TenRapChieuCon;
+
+    -- Trả về tổng lượt mua
+    RETURN @TongLuotMua;
+END;
+GO
+
+
+GO
+CREATE FUNCTION dbo.fn_TongLuotDanhGiaPhimTheoNgayChieuRapChieuCon (
+    @MaPhim INT,
+    @NgayChieu DATETIME,
+    @TenRapChieuCon NVARCHAR(255)
+)
+RETURNS INT
+AS
+BEGIN
+    DECLARE @TongLuotDanhGia INT;
+
+    -- Tính tổng lượt đánh giá phim theo NgàyChiếu và TenRapChieuCon
+    SELECT @TongLuotDanhGia = COUNT(DISTINCT DanhGia.MaDanhGia)
+    FROM DanhGia
+    JOIN LichChieu ON DanhGia.MaPhim = LichChieu.MaPhim
+    JOIN RapChieuCon ON LichChieu.MaRapChieuCon = RapChieuCon.MaRapChieuCon
+    JOIN ChiTietLichChieu ON LichChieu.MaLichChieu = ChiTietLichChieu.MaLichChieu
+    WHERE DanhGia.MaPhim = @MaPhim
+    AND ChiTietLichChieu.NgayChieu = @NgayChieu
+    AND RapChieuCon.TenRapChieuCon = @TenRapChieuCon;
+
+    -- Trả về tổng lượt đánh giá
+    RETURN @TongLuotDanhGia;
+END;
+GO
+
+-- Function tính tổng số lượng VoucherDoiTac
+CREATE FUNCTION dbo.fn_TongSoLuongVoucherDoiTac()
+RETURNS INT
+AS
+BEGIN
+    DECLARE @TongSoLuong INT;
+
+    SELECT @TongSoLuong = SUM(SoLuongToiDa)
+    FROM VoucherDoiTac
+    WHERE TrangThaiSuDung = N'Chưa sử dụng'
+    AND SoLuongToiDa > 0
+    AND HanSuDung > GETDATE();
+
+    RETURN @TongSoLuong;
+END;
+GO
+
+-- Function tính tổng số lượng VoucherCuaToi
+CREATE FUNCTION dbo.fn_TongSoLuongVoucherCuaToi()
+RETURNS INT
+AS
+BEGIN
+    DECLARE @TongSoLuong INT;
+
+    SELECT @TongSoLuong = SUM(SoLuongToiDa)
+    FROM VoucherCuaToi
+    WHERE TrangThaiSuDung = N'Chưa sử dụng'
+    AND SoLuongToiDa > 0
+    AND HanSuDung > GETDATE();
+
+    RETURN @TongSoLuong;
+END;
+GO
+
+-- Function tính tổng số lượng VoucherUngDung
+CREATE FUNCTION dbo.fn_TongSoLuongVoucherUngDung()
+RETURNS INT
+AS
+BEGIN
+    DECLARE @TongSoLuong INT;
+
+    SELECT @TongSoLuong = SUM(SoLuongToiDa)
+    FROM VoucherUngDung
+    WHERE TrangThaiSuDung = N'Chưa sử dụng'
+    AND SoLuongToiDa > 0
+    AND HanSuDung > GETDATE();
+
+    RETURN @TongSoLuong;
+END;
+GO
+
+CREATE FUNCTION dbo.fn_PhanTramSuDung (@SoLuongToiDa INT)
+RETURNS INT
+AS
+BEGIN
+    DECLARE @PhanTramSuDung INT;
+
+    -- Tính phần trăm đã sử dụng theo công thức: SoLuongToiDa - (SoLuongToiDa / 100)
+    SET @PhanTramSuDung = @SoLuongToiDa - (@SoLuongToiDa / 100);
+
+    -- Trả về kết quả tính toán
+    RETURN @PhanTramSuDung;
+END;
+GO
+CREATE FUNCTION dbo.fn_TongTienThanhToan (
+    @MaKhachHang INT
+)
+RETURNS FLOAT
+AS
+BEGIN
+    DECLARE @TongTien FLOAT;
+
+    -- Tính tổng tiền thanh toán của khách hàng
+    SELECT @TongTien = SUM(TT.TongTien)
+    FROM ThanhToan TT
+    INNER JOIN VePhim VP ON TT.MaVe = VP.MaVe
+    WHERE VP.MaKhachHang = @MaKhachHang;
+
+    -- Trả về tổng tiền
+    RETURN ISNULL(@TongTien, 0);  -- Trả về 0 nếu không có thanh toán nào
+END;
+GO

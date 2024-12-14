@@ -1,5 +1,6 @@
 package com.example.cinebooker.LeDucThien.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.view.LayoutInflater;
@@ -27,6 +28,7 @@ public class CaroselSapChieuAdapter extends RecyclerView.Adapter<CaroselSapChieu
     }
 
     // Set dữ liệu cho adapter
+    @SuppressLint("NotifyDataSetChanged")
     public void SetData(List<ent_PhimSapChieu> sapChieuList) {
         this.sapChieuList = sapChieuList;
         notifyDataSetChanged();
@@ -39,16 +41,20 @@ public class CaroselSapChieuAdapter extends RecyclerView.Adapter<CaroselSapChieu
         return new viewHolder(view);
     }
 
-    @NonNull
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull viewHolder holder, int position) {
         ent_PhimSapChieu sapChieu = sapChieuList.get(position);
 
         // Load ảnh poster phim bằng Picasso
-        Picasso.get().load(sapChieu.getAnhPhim())
-                .placeholder(R.drawable.camposter)  // Optional: Thêm ảnh placeholder
-                .into(holder.moviePoster);
+        String imageName = sapChieu.getAnhPhim();
+        Context context = holder.itemView.getContext();
+        @SuppressLint("DiscouragedApi") int resourceId = context.getResources().getIdentifier(imageName, "drawable", context.getPackageName());
 
+        Picasso.get()
+                .load(resourceId)
+                .resize(800, 800)// Load resource ID
+                .into(holder.moviePoster);
         // Set thông tin độ tuổi
         holder.age.setText(sapChieu.getTuoi() + "+");
 

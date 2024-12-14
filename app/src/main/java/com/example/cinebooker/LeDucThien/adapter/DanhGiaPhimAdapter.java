@@ -1,5 +1,6 @@
 package com.example.cinebooker.LeDucThien.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.view.LayoutInflater;
@@ -29,6 +30,7 @@ public class DanhGiaPhimAdapter extends RecyclerView.Adapter<DanhGiaPhimAdapter.
 
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void SetData(List<ent_DanhGiaPhim> dangChieulist) {
         this.dangChieulist = dangChieulist;
         notifyDataSetChanged();
@@ -41,12 +43,20 @@ public class DanhGiaPhimAdapter extends RecyclerView.Adapter<DanhGiaPhimAdapter.
         return new viewHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull DanhGiaPhimAdapter.viewHolder holder, int position) {
         ent_DanhGiaPhim dangChieu = dangChieulist.get(position);
 
-        Picasso.get().load(dangChieu.getAnhPhim())
-                        .placeholder(R.drawable.camposter).into(holder.moviePoster);
+        String imageName = dangChieu.getAnhPhim();
+        Context context = holder.itemView.getContext();
+        @SuppressLint("DiscouragedApi")
+        int resourceId = context.getResources().getIdentifier(imageName, "drawable", context.getPackageName());
+
+        Picasso.get()
+                .load(resourceId)
+                .resize(800, 800)// Load resource ID
+                .into(holder.moviePoster);
 
         holder.age.setText(dangChieu.getTuoi() + "+");
         holder.movieName.setText(dangChieu.getTenPhim());
@@ -84,7 +94,7 @@ public class DanhGiaPhimAdapter extends RecyclerView.Adapter<DanhGiaPhimAdapter.
         return dangChieulist.size();
     }
 
-    public class viewHolder extends RecyclerView.ViewHolder {
+    public static class viewHolder extends RecyclerView.ViewHolder {
         ImageView moviePoster, avatar;
         TextView age, movieName, styleMovie, vote, shopping, comment, userName, day, userComment;
         TextView xemThem;

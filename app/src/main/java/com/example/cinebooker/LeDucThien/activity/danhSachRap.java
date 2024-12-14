@@ -13,7 +13,6 @@ import com.example.cinebooker.LeDucThien.BussinessLogic.BL_RapChieuCon;
 import com.example.cinebooker.LeDucThien.BussinessLogic.BL_TinhThanh;
 import com.example.cinebooker.LeDucThien.adapter.RapChieuAdapter;
 import com.example.cinebooker.LeDucThien.adapter.RapChieuConAdapter;
-import com.example.cinebooker.LeDucThien.adapter.TinhThanhAdapter;
 import com.example.cinebooker.R;
 
 public class danhSachRap extends AppCompatActivity {
@@ -63,12 +62,6 @@ public class danhSachRap extends AppCompatActivity {
         }
 
         _maTinhThanh = sharedPreferences.getInt("maTinhThanh", -1);
-        if (_maTinhThanh == -1 ) {
-            _maTinhThanh = blTinhThanh.loadMinMaTinhThanh();
-            editor = sharedPreferences.edit();
-            editor.putInt("maTinhThanh", _maTinhThanh);
-            editor.apply();;
-        }
 
         RapChieuConAdapter adapter = new RapChieuConAdapter();
         blRapChieuCon.loadRapChieuConToRecyclerView(this, recyclerView, _maTinhThanh,_maRapChieu, adapter);

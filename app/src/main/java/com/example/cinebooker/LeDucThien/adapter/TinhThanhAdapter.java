@@ -1,9 +1,9 @@
 package com.example.cinebooker.LeDucThien.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +13,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.cinebooker.LeDucThien.BussinessLogic.BL_TinhThanh;
 import com.example.cinebooker.LeDucThien.activity.DanhSachDiaDiemRap;
 import com.example.cinebooker.LeDucThien.entity.ent_TinhThanh;
 import com.example.cinebooker.R;
@@ -24,12 +23,9 @@ public class TinhThanhAdapter extends RecyclerView.Adapter<TinhThanhAdapter.view
     private List<ent_TinhThanh> listTinhThanh;
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
-    private BL_TinhThanh blTinhThanh;
-
-    public TinhThanhAdapter() {
-    }
 
     // Set dữ liệu cho adapter
+    @SuppressLint("NotifyDataSetChanged")
     public void SetData(List<ent_TinhThanh> listTinhThanh) {
         this.listTinhThanh = listTinhThanh;
         notifyDataSetChanged();
@@ -48,7 +44,6 @@ public class TinhThanhAdapter extends RecyclerView.Adapter<TinhThanhAdapter.view
         holder.tenTinhThanh.setText(ent_list.getTenTinhThanh());
         int maTinhThanhItem = ent_list.getMaTinhThanh();
 
-        // Lấy giá trị maTinhThanh từ SharedPreferences
         sharedPreferences = holder.itemView.getContext().getSharedPreferences("LeDucThien", Context.MODE_PRIVATE);
         int maTinhThanhFromPrefs = sharedPreferences.getInt("maTinhThanh", -1);
 
@@ -68,13 +63,12 @@ public class TinhThanhAdapter extends RecyclerView.Adapter<TinhThanhAdapter.view
             editor = sharedPreferences.edit();
             // Lưu giá trị maTinhThanh vào SharedPreferences
             editor.putInt("maTinhThanh", maTinhThanhItem);
-            editor.apply();  // Lưu thay đổi
-            // Cập nhật lại giao diện của RecyclerView
-            notifyDataSetChanged();
+            editor.commit();  // Sử dụng apply thay cho commit để tránh block thread chính
+            notifyItemChanged(position);
 
             // Gọi hàm để thông báo cho fragment hoặc activity (nếu cần)
             if (holder.itemView.getContext() instanceof DanhSachDiaDiemRap) {
-                ((DanhSachDiaDiemRap) holder.itemView.getContext()).dongActivity();  // Đóng Activity nếu cần
+                ((DanhSachDiaDiemRap) holder.itemView.getContext()).dongActivity();
             }
         });
     }
@@ -84,7 +78,7 @@ public class TinhThanhAdapter extends RecyclerView.Adapter<TinhThanhAdapter.view
         return listTinhThanh != null ? listTinhThanh.size() : 0;
     }
 
-    public class viewHolder extends RecyclerView.ViewHolder {
+    public static class viewHolder extends RecyclerView.ViewHolder {
         LinearLayout container_imageview;
         TextView tenTinhThanh;
 

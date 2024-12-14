@@ -1,5 +1,6 @@
 package com.example.cinebooker.LeDucThien.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -12,39 +13,44 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.cinebooker.LeDucThien.entity.timDiaChiRapChieuEntity;
+import com.example.cinebooker.LeDucThien.entity.ent_RapChieuCon;
 import com.example.cinebooker.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class timDiaChiRapChieuAdapter extends RecyclerView.Adapter<timDiaChiRapChieuAdapter.viewHolder> {
+public class DiaChiRapChieuAdapter extends RecyclerView.Adapter<DiaChiRapChieuAdapter.viewHolder> {
 
-    private List<timDiaChiRapChieuEntity> rapChieulist;
+    private List<ent_RapChieuCon> rapChieulist;
     private Context context;
 
-    public timDiaChiRapChieuAdapter() {
-
-    }
-
-    public timDiaChiRapChieuAdapter(List<timDiaChiRapChieuEntity> rapChieulist, Context context) {
+    @SuppressLint("NotifyDataSetChanged")
+    public void SetData(List<ent_RapChieuCon> rapChieulist) {
         this.rapChieulist = rapChieulist;
-        this.context = context;
+        notifyDataSetChanged();
     }
 
     @NonNull
     @Override
-    public timDiaChiRapChieuAdapter.viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public DiaChiRapChieuAdapter.viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_timdiachirapchieu, parent, false);
         return new viewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull timDiaChiRapChieuAdapter.viewHolder holder, int position) {
-        timDiaChiRapChieuEntity rapChieu = rapChieulist.get(position);
+    public void onBindViewHolder(@NonNull DiaChiRapChieuAdapter.viewHolder holder, int position) {
+        ent_RapChieuCon rapChieu = rapChieulist.get(position);
 
-        holder.cinemaLogor.setImageResource(rapChieu.getCinemalog0());
-        holder.name.setText(rapChieu.getName());
-        holder.location.setText(rapChieu.getLocation());
+        String imageName = rapChieu.getAnhRapChieu();
+        Context context = holder.itemView.getContext();
+        @SuppressLint("DiscouragedApi") int resourceId = context.getResources().getIdentifier(imageName, "drawable", context.getPackageName());
+
+        Picasso.get()
+                .load(resourceId)  // Load resource ID
+                .placeholder(R.drawable.camposter)  // Optional: Placeholder image
+                .into(holder.cinemaLogor);
+
+        holder.location.setText(rapChieu.getTenRapChieuCon());
 
         holder.map.setOnClickListener(v -> {
             String map = rapChieu.getMap();
@@ -53,6 +59,7 @@ public class timDiaChiRapChieuAdapter extends RecyclerView.Adapter<timDiaChiRapC
             mapIntent.setPackage("com.google.android.apps.maps");
             context.startActivity(mapIntent);
         });
+
     }
 
     @Override
@@ -60,7 +67,7 @@ public class timDiaChiRapChieuAdapter extends RecyclerView.Adapter<timDiaChiRapC
         return rapChieulist.size();
     }
 
-    public class viewHolder extends RecyclerView.ViewHolder {
+    public static class viewHolder extends RecyclerView.ViewHolder {
         ImageView cinemaLogor, map;
         TextView location, name;
         public viewHolder(@NonNull View itemView) {

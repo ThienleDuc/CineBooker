@@ -174,7 +174,6 @@ public class PD_TimKiemPhim {
             recyclerView.setAdapter(adapter);
         }
 
-        // Cập nhật dữ liệu cho adapter
         adapter.SetData(list);
     }
 

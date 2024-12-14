@@ -61,7 +61,7 @@ public class ngayChieuAdapter extends RecyclerView.Adapter<ngayChieuAdapter.view
     }
 
     // ViewHolder class để ánh xạ các view trong item layout
-    public class viewHolder extends RecyclerView.ViewHolder {
+    public static class viewHolder extends RecyclerView.ViewHolder {
         TextView day, dayName;
 
         public viewHolder(@NonNull View itemView) {

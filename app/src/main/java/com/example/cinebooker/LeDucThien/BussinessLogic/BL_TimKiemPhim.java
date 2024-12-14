@@ -1,7 +1,10 @@
 package com.example.cinebooker.LeDucThien.BussinessLogic;
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,7 +17,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class BL_TimKiemPhim {
-    private PD_TimKiemPhim pdTimKiemPhim;
+    private final PD_TimKiemPhim pdTimKiemPhim;
 
     public BL_TimKiemPhim() {
         pdTimKiemPhim = new PD_TimKiemPhim();
@@ -23,6 +26,7 @@ public class BL_TimKiemPhim {
     private List<ent_TimKiemPhim> getAllPhim() {
         return pdTimKiemPhim.getAllPhim();
     }
+
     // Phương thức tìm kiếm phim theo tên
     private List<ent_TimKiemPhim> timKiemPhim(String tenPhim) {
         return pdTimKiemPhim.getPhimByTen(tenPhim);
@@ -42,8 +46,8 @@ public class BL_TimKiemPhim {
                 List<ent_TimKiemPhim> list = getAllPhim();
 
                 // Cập nhật RecyclerView trên UI thread
-                if (context instanceof android.app.Activity) {
-                    ((android.app.Activity) context).runOnUiThread(() -> {
+                if (context instanceof Activity) {
+                    ((Activity) context).runOnUiThread(() -> {
                         pdTimKiemPhim.loadPhimToRecyclerView(context, recyclerView, list, adapter);
                     });
                 }
@@ -68,8 +72,8 @@ public class BL_TimKiemPhim {
                 List<ent_TimKiemPhim> list = timKiemPhim(tenPhim);
 
                 // Cập nhật RecyclerView trên UI thread
-                if (context instanceof android.app.Activity) {
-                    ((android.app.Activity) context).runOnUiThread(() -> {
+                if (context instanceof Activity) {
+                    ((Activity) context).runOnUiThread(() -> {
                         pdTimKiemPhim.loadPhimToRecyclerView(context, recyclerView, list, adapter);
                     });
                 }

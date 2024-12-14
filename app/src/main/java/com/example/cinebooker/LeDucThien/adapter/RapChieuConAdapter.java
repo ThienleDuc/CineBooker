@@ -1,5 +1,6 @@
 package com.example.cinebooker.LeDucThien.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
@@ -26,9 +27,8 @@ public class RapChieuConAdapter extends RecyclerView.Adapter<RapChieuConAdapter.
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;;
     private BL_RapChieuCon blRapChieuCon;
-    public RapChieuConAdapter() {
-    }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void SetData(List<ent_RapChieuCon> rapChieulist) {
         this.rapChieulist = rapChieulist;
         notifyDataSetChanged();
@@ -41,14 +41,20 @@ public class RapChieuConAdapter extends RecyclerView.Adapter<RapChieuConAdapter.
         return new viewHolder(view);
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     public void onBindViewHolder(@NonNull RapChieuConAdapter.viewHolder holder, int position) {
         ent_RapChieuCon rapChieu = rapChieulist.get(position);
 
-        Picasso.get().load(rapChieu.getAnhRapChieu())
-                .placeholder(R.drawable.cgv)
-                .into(holder.cinemaLogor);
+        String imageName = rapChieu.getAnhRapChieu();
+        Context context = holder.itemView.getContext();
+        @SuppressLint("DiscouragedApi")
+        int resourceId = context.getResources().getIdentifier(imageName, "drawable", context.getPackageName());
 
+        Picasso.get()
+                .load(resourceId)  // Load resource ID
+                .placeholder(R.drawable.camposter)  // Optional: Placeholder image
+                .into(holder.cinemaLogor);
         holder.location.setText(rapChieu.getTenRapChieuCon());
 
         int _maRapChieuCon = rapChieu.getMaRapChieuCon();
@@ -86,7 +92,7 @@ public class RapChieuConAdapter extends RecyclerView.Adapter<RapChieuConAdapter.
         return rapChieulist.size();
     }
 
-    public class viewHolder extends RecyclerView.ViewHolder {
+    public static class viewHolder extends RecyclerView.ViewHolder {
         LinearLayout container_imageview;
         ImageView cinemaLogor;
         TextView location;

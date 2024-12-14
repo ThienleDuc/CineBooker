@@ -116,6 +116,44 @@ public class PD_TinhThanh {
         return tinhThanhList;
     }
 
+    public List<ent_TinhThanh> getTinhThanhByTenTinhThanh(String input) {
+        List<ent_TinhThanh> tinhThanhList = new ArrayList<>();
+
+        try {
+            // Mở kết nối đến cơ sở dữ liệu
+            connection = new ConnectionDatabase().getConnection();
+            if (connection == null) {
+                Log.e(TAG, "Không thể kết nối đến cơ sở dữ liệu.");
+                return tinhThanhList; // Trả về danh sách rỗng nếu kết nối thất bại
+            }
+
+            // Chuẩn bị câu lệnh SQL với điều kiện MaTinhThanh
+            String sql = "SELECT MaTinhThanh, TenTinhThanh FROM TinhThanhPho WHERE TenTinhThanh LIKE N'%' + ? + N'%'";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, input);
+            resultSet = preparedStatement.executeQuery();
+
+            // Duyệt qua kết quả và thêm vào danh sách đối tượng ent_TinhThanh
+            while (resultSet.next()) {
+                int maTinhThanhResult = resultSet.getInt("MaTinhThanh");
+                String tenTinhThanh = resultSet.getString("TenTinhThanh");
+                ent_TinhThanh tinhThanh = new ent_TinhThanh(maTinhThanhResult, tenTinhThanh);
+                tinhThanhList.add(tinhThanh);
+            }
+
+        } catch (SQLException e) {
+            Log.e(TAG, "Error when fetching city data from the database", e);
+        } catch (Exception e) {
+            Log.e(TAG, "Unexpected error occurred", e);
+            throw new RuntimeException(e);
+        } finally {
+            // Đảm bảo đóng các tài nguyên
+            closeResources();
+        }
+
+        return tinhThanhList;
+    }
+
     public int getMinMaTinhThanh() {
         int minMaTinhThanh = -1; // Giá trị mặc định nếu không tìm thấy kết quả
 
@@ -164,7 +202,7 @@ public class PD_TinhThanh {
             recyclerView.setAdapter(adapter);
         }
 
-        // Cập nhật dữ liệu cho adapter
+        // Cập nhật dữ liệu cho adapter và đảm bảo adapter không rỗng
         adapter.SetData(list);
     }
 

@@ -2,6 +2,8 @@ package com.example.cinebooker.LeDucThien.BussinessLogic;
 
 import android.content.Context;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,7 +16,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class BL_DoiTac {
-    private PD_DoiTac pdDoiTac;
+    private final PD_DoiTac pdDoiTac;
 
     public BL_DoiTac() {
         pdDoiTac = new PD_DoiTac();

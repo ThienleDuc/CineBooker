@@ -1,5 +1,7 @@
 package com.example.cinebooker.LeDucThien.adapter;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-import com.example.cinebooker.LeDucThien.entity.ent_DoiTac;
 import com.example.cinebooker.LeDucThien.entity.ent_DoiTac;
 import com.example.cinebooker.R;
 import com.example.cinebooker.generalMethod.NumberFormatter;
@@ -26,6 +27,7 @@ public class DoiTacAdapter extends RecyclerView.Adapter<DoiTacAdapter.viewHolder
 
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void SetData (List<ent_DoiTac> dangChieulist) {
         this.dangChieulist = dangChieulist;
         notifyDataSetChanged();
@@ -42,8 +44,14 @@ public class DoiTacAdapter extends RecyclerView.Adapter<DoiTacAdapter.viewHolder
     public void onBindViewHolder(@NonNull DoiTacAdapter.viewHolder holder, int position) {
         ent_DoiTac controller = dangChieulist.get(position);
 
-        Picasso.get().load(controller.getAnhDoiTac())
-                        .placeholder(R.drawable.cgv).into(holder.moviePoster);
+        String imageName = controller.getAnhDoiTac();
+        Context context = holder.itemView.getContext();
+        @SuppressLint("DiscouragedApi") int resourceId = context.getResources().getIdentifier(imageName, "drawable", context.getPackageName());
+
+        Picasso.get()
+                .load(resourceId)  // Load resource ID
+                .placeholder(R.drawable.camposter)  // Optional: Placeholder image
+                .into(holder.moviePoster);
         holder.ten.setText(controller.getTenDoiTac());
         holder.mota.setText(controller.getMoTaDoiTac());
 
@@ -57,7 +65,7 @@ public class DoiTacAdapter extends RecyclerView.Adapter<DoiTacAdapter.viewHolder
         return dangChieulist.size();
     }
 
-    public class viewHolder extends RecyclerView.ViewHolder {
+    public static class viewHolder extends RecyclerView.ViewHolder {
         ImageView moviePoster;
         TextView ten, mota, vote, location, comment;
 

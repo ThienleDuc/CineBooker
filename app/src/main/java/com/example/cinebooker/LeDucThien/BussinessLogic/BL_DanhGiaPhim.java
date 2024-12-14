@@ -14,7 +14,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class BL_DanhGiaPhim {
-    private PD_DanhGiaPhim pdDanhGiaPhim;
+    private final PD_DanhGiaPhim pdDanhGiaPhim;
 
     public BL_DanhGiaPhim() {
         pdDanhGiaPhim = new PD_DanhGiaPhim();

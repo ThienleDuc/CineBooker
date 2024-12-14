@@ -41,7 +41,8 @@
                         android:layout_width="25dp"
                         android:layout_height="21dp"
                         android:src="@drawable/location_on"
-                        app:tint="@color/colorSelected" />
+                        app:tint="@color/colorSelected"
+                        tools:ignore="ContentDescription" />
 
                     <Space
                         android:layout_width="10dp"
@@ -54,13 +55,15 @@
                         android:text="Đà nẵng"
                         android:textStyle="bold"
                         android:textColor="@color/colorSelected"
-                        android:textSize="14sp"/>
+                        android:textSize="14sp"
+                        tools:ignore="HardcodedText,NestedWeights" />
 
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:src="@drawable/chevron_down"
-                        app:tint="@android:color/darker_gray" />
+                        app:tint="@android:color/darker_gray"
+                        tools:ignore="ContentDescription" />
                 </LinearLayout>
 
                 <Space
@@ -81,7 +84,8 @@
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:src="@drawable/location_searching"
-                        app:tint="@color/colorUnSelected" />
+                        app:tint="@color/colorUnSelected"
+                        tools:ignore="ContentDescription" />
 
                     <Space
                         android:layout_width="10dp"
@@ -94,7 +98,8 @@
                         android:text="Gần bạn"
                         android:textStyle="bold"
                         android:textColor="@color/colorUnSelected"
-                        android:textSize="14sp"/>
+                        android:textSize="14sp"
+                        tools:ignore="HardcodedText,NestedWeights" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -122,7 +127,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    tools:ignore="UselessParent">
 
                     <ImageView
                         android:id="@+id/header_search"
@@ -130,7 +136,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="10dp"
-                        android:src="@drawable/search" />
+                        android:src="@drawable/search"
+                        tools:ignore="ContentDescription" />
 
                     <EditText
                         android:id="@+id/header_search_input"
@@ -143,7 +150,8 @@
                         android:inputType="text"
                         android:padding="10dp"
                         android:textColor="@android:color/darker_gray"
-                        android:textColorHint="@android:color/darker_gray" />
+                        android:textColorHint="@android:color/darker_gray"
+                        tools:ignore="Autofill,HardcodedText" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -175,7 +183,8 @@
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 android:layout_gravity="center"
-                android:background="@drawable/more_bg"/>
+                android:background="@drawable/more_bg"
+                tools:ignore="HardcodedText" />
 
         </LinearLayout>
 
@@ -202,7 +211,8 @@
                     android:textColor="@color/white"
                     android:textSize="16sp"
                     android:textStyle="bold"
-                    android:textAlignment="center"/>
+                    android:textAlignment="center"
+                    tools:ignore="HardcodedText" />
 
             </LinearLayout>
 
@@ -216,7 +226,8 @@
                 android:text="Danh sách hệ thống rạp chiếu phim  lớn có mặt trên khắp cả nước"
                 android:textColor="@color/white"
                 android:textSize="16sp"
-                android:textAlignment="center"/>
+                android:textAlignment="center"
+                tools:ignore="HardcodedText" />
 
             <Space
                 android:layout_width="match_parent"
@@ -226,6 +237,26 @@
                 android:id="@+id/recycleView_heThongRapChieu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="10dp"/>
+
+            <TextView
+                android:id="@+id/doitac_more_than"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Xem thêm"
+                android:textSize="14sp"
+                android:textColor="@color/primary_color"
+                android:textStyle="bold"
+                android:paddingRight="20dp"
+                android:paddingLeft="20dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:layout_gravity="center"
+                android:background="@drawable/more_bg"
+                tools:ignore="HardcodedText" />
 
         </LinearLayout>
     </LinearLayout>

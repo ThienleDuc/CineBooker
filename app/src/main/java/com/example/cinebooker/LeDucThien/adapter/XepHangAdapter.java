@@ -1,5 +1,6 @@
 package com.example.cinebooker.LeDucThien.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.view.LayoutInflater;
@@ -29,6 +30,7 @@ public class XepHangAdapter extends RecyclerView.Adapter<XepHangAdapter.viewHold
 
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void SetData(List<ent_XepHang> dangChieulist) {
         this.dangChieulist = dangChieulist;
         notifyDataSetChanged();
@@ -41,12 +43,19 @@ public class XepHangAdapter extends RecyclerView.Adapter<XepHangAdapter.viewHold
         return new viewHolder(view);
     }
 
+    @SuppressLint({"SetTextI18n", "NotifyDataSetChanged"})
     @Override
     public void onBindViewHolder(@NonNull XepHangAdapter.viewHolder holder, int position) {
         ent_XepHang controller = dangChieulist.get(position);
 
-        Picasso.get().load(controller.getAnhPhim())
-                        .placeholder(R.drawable.camposter).into(holder.moviePoster);
+        String imageName = controller.getAnhPhim();
+        Context context = holder.itemView.getContext();
+        @SuppressLint("DiscouragedApi") int resourceId = context.getResources().getIdentifier(imageName, "drawable", context.getPackageName());
+
+        Picasso.get()
+                .load(resourceId)  // Load resource ID
+                .resize(800, 800)// Load resource ID
+                .into(holder.moviePoster);
 
         holder.age.setText(controller.getTuoi() + "+");
         holder.movieName.setText(controller.getTenPhim());
@@ -58,14 +67,14 @@ public class XepHangAdapter extends RecyclerView.Adapter<XepHangAdapter.viewHold
 
         int maPhim = controller.getMaPhim();
         holder.itemView.setOnClickListener(v -> {
-            Context context = v.getContext();
-            if (context instanceof AppCompatActivity) {
-                SharedPreferences sharedPreferences = context.getSharedPreferences("LeDucThien", Context.MODE_PRIVATE);
+            Context context2 = v.getContext();
+            if (context2 instanceof AppCompatActivity) {
+                SharedPreferences sharedPreferences = context2.getSharedPreferences("LeDucThien", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor;
                 editor = sharedPreferences.edit();
                 editor.putInt("maPhim", maPhim);
                 editor.apply();
-                ActivityOpen.openActivityOnClick((AppCompatActivity) context, XemChiTietPhim.class, R.id.binhluan_xemthem);
+                ActivityOpen.openActivityOnClick((AppCompatActivity) context2, XemChiTietPhim.class, R.id.binhluan_xemthem);
             }
             notifyDataSetChanged();
         });
@@ -76,7 +85,7 @@ public class XepHangAdapter extends RecyclerView.Adapter<XepHangAdapter.viewHold
     public int getItemCount() {
         return dangChieulist.size();
     }
-    public class viewHolder extends RecyclerView.ViewHolder {
+    public static class viewHolder extends RecyclerView.ViewHolder {
         ImageView moviePoster;
         TextView age, movieName, styleMovie, vote, shopping, comment;
 

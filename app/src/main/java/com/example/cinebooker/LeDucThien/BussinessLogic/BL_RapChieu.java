@@ -2,6 +2,7 @@ package com.example.cinebooker.LeDucThien.BussinessLogic;
 
 import android.content.Context;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cinebooker.LeDucThien.ProcessData.PD_RapChieu;
 import com.example.cinebooker.LeDucThien.adapter.RapChieuAdapter;
+import com.example.cinebooker.LeDucThien.adapter.TimKiemAdapter;
 import com.example.cinebooker.LeDucThien.entity.ent_RapChieu;
 import com.example.cinebooker.R;
 import com.squareup.picasso.Picasso;
@@ -18,7 +20,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class BL_RapChieu {
-    private PD_RapChieu pdRapChieu;
+    private final PD_RapChieu pdRapChieu;
 
     public BL_RapChieu() {
         pdRapChieu = new PD_RapChieu();

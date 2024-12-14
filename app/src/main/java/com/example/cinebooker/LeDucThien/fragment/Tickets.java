@@ -13,6 +13,8 @@ import com.example.cinebooker.R;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
+import java.util.Objects;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link Tickets#newInstance} factory method to
@@ -23,12 +25,7 @@ public class Tickets extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    private String mParam1;
-    private String mParam2;
-
     private TabLayout tabLayout;
-    private ViewPager2 viewPager;
-    private TicketsViewPagerAdapter adapter;
 
     public Tickets() {
         // Required empty public constructor
@@ -47,8 +44,8 @@ public class Tickets extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            String mParam1 = getArguments().getString(ARG_PARAM1);
+            String mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
@@ -58,9 +55,9 @@ public class Tickets extends Fragment {
         View view = inflater.inflate(R.layout.fragment_tickets, container, false);
 
         tabLayout = view.findViewById(R.id.tickets_tab_layout);
-        viewPager = view.findViewById(R.id.tickets_view_pager);
+        ViewPager2 viewPager = view.findViewById(R.id.tickets_view_pager);
 
-        adapter = new TicketsViewPagerAdapter(requireActivity());
+        TicketsViewPagerAdapter adapter = new TicketsViewPagerAdapter(requireActivity());
         viewPager.setAdapter(adapter);
 
         String[] tabTitles = new String[] {
@@ -102,7 +99,7 @@ public class Tickets extends Fragment {
                 // Đổi màu nền của tab khi bỏ chọn
                 View unselectedTabView = ((ViewGroup) tabLayout.getChildAt(0)).getChildAt(tab.getPosition());
                 if (unselectedTabView != null) {
-                    unselectedTabView.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorUnSelected));
+                    unselectedTabView.setBackgroundColor(ContextCompat.getColor(Objects.requireNonNull(getContext()), R.color.colorUnSelected));
                 }
             }
 

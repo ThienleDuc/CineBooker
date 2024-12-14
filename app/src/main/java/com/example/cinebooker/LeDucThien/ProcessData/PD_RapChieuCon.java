@@ -6,6 +6,7 @@ import android.util.Log;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.cinebooker.LeDucThien.adapter.DiaChiRapChieuAdapter;
 import com.example.cinebooker.LeDucThien.adapter.RapChieuConAdapter;
 import com.example.cinebooker.LeDucThien.entity.ent_RapChieuCon;
 import com.example.cinebooker.R;
@@ -52,8 +53,9 @@ public class PD_RapChieuCon {
                 String anhRapChieu = resultSet.getString("AnhRapChieu");
                 String tenRapChieuCon = resultSet.getString("TenRapChieuCon");
                 String diaChiRapChieu = resultSet.getString("DiaChiRapChieu");
+                String map = resultSet.getString("map");
 
-                ent_RapChieuCon rapChieuCon = new ent_RapChieuCon(maRapChieuCon, anhRapChieu, tenRapChieuCon, diaChiRapChieu);
+                ent_RapChieuCon rapChieuCon = new ent_RapChieuCon(maRapChieuCon, anhRapChieu, tenRapChieuCon, diaChiRapChieu, map);
                 rapChieuConList.add(rapChieuCon);
             }
 
@@ -97,8 +99,9 @@ public class PD_RapChieuCon {
                 String anhRapChieu = resultSet.getString("AnhRapChieu");
                 String tenRapChieuCon = resultSet.getString("TenRapChieuCon");
                 String diaChiRapChieu = resultSet.getString("DiaChiRapChieu");
+                String map = resultSet.getString("map");
 
-                ent_RapChieuCon rapChieuCon = new ent_RapChieuCon(maRapChieuConResult, anhRapChieu, tenRapChieuCon, diaChiRapChieu);
+                ent_RapChieuCon rapChieuCon = new ent_RapChieuCon(maRapChieuConResult, anhRapChieu, tenRapChieuCon, diaChiRapChieu, map);
                 rapChieuConList.add(rapChieuCon);
             }
 
@@ -192,4 +195,27 @@ public class PD_RapChieuCon {
         adapter.SetData(list);
     }
 
+    public void loadDiaChiRapChieuConToRecyclerView(Context context, RecyclerView recyclerView, List<ent_RapChieuCon> list, DiaChiRapChieuAdapter adapter) {
+        if (list == null || list.isEmpty()) {
+            Log.e(TAG, "Danh sách rạp chiếu con trống hoặc không hợp lệ.");
+            return;
+        }
+
+        // Thiết lập LayoutManager cho RecyclerView
+        LinearLayoutManager layoutManager = new LinearLayoutManager(context);
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(layoutManager);
+
+        // Thêm ItemDecoration nếu cần
+        int spacingInPixels = context.getResources().getDimensionPixelSize(R.dimen.recycler_view_spacing_5);
+        recyclerView.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
+
+        // Thiết lập Adapter và dữ liệu nếu chưa có adapter
+        if (recyclerView.getAdapter() == null) {
+            recyclerView.setAdapter(adapter);
+        }
+
+        // Cập nhật dữ liệu cho adapter
+        adapter.SetData(list);
+    }
 }
