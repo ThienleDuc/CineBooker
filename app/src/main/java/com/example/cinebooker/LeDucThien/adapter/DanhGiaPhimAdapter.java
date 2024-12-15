@@ -2,6 +2,7 @@ package com.example.cinebooker.LeDucThien.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -83,8 +84,8 @@ public class DanhGiaPhimAdapter extends RecyclerView.Adapter<DanhGiaPhimAdapter.
                     editor = sharedPreferences.edit();
                     editor.putInt("maPhim", maPhim);
                     editor.apply();
-                    ActivityOpen.openActivityOnClick((AppCompatActivity) context, XemChiTietPhim.class, R.id.binhluan_xemthem);
-                }
+                    Intent intent = new Intent(context, XemChiTietPhim.class);
+                    context.startActivity(intent);                }
             }
         });
     }

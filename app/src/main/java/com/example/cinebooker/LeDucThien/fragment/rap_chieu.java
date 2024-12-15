@@ -95,7 +95,7 @@ public class rap_chieu extends Fragment {
 
         TextView TenTinhThanh = view.findViewById(R.id.ten_tinh_thanh);
 
-        blTinhThanh.loadTenTinhThanhTheoDieuKien(getContext(), TenTinhThanh);
+        //blTinhThanh.loadTenTinhThanhTheoDieuKien(getContext(), TenTinhThanh);
 
         // Khởi tạo TabLayout cho location
         LinearLayout danhsachtinhthanh_open = view.findViewById(R.id.open_list_tinh_thanh);

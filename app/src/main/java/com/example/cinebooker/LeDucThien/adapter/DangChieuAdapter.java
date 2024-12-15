@@ -2,6 +2,7 @@ package com.example.cinebooker.LeDucThien.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cinebooker.LeDucThien.entity.ent_PhimDangChieu;
 import com.example.cinebooker.R;
+import com.example.cinebooker.TranGiaThai.Activity.XemChiTietPhim;
 import com.example.cinebooker.generalMethod.NumberFormatter;
 import com.squareup.picasso.Picasso;
 
@@ -65,6 +67,14 @@ public class DangChieuAdapter extends RecyclerView.Adapter<DangChieuAdapter.view
 
         // Set formatted vote
         holder.vote.setText(NumberFormatter.formatNumber(dangChieu.getDiemDanhGiaTrungBinh()));
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, XemChiTietPhim.class);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override

@@ -38,12 +38,12 @@ public class TinhThanhAdapter extends RecyclerView.Adapter<TinhThanhAdapter.view
         return new viewHolder(view);
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     public void onBindViewHolder(@NonNull TinhThanhAdapter.viewHolder holder, int position) {
         ent_TinhThanh ent_list = listTinhThanh.get(position);
         holder.tenTinhThanh.setText(ent_list.getTenTinhThanh());
         int maTinhThanhItem = ent_list.getMaTinhThanh();
-
         sharedPreferences = holder.itemView.getContext().getSharedPreferences("LeDucThien", Context.MODE_PRIVATE);
         int maTinhThanhFromPrefs = sharedPreferences.getInt("maTinhThanh", -1);
 
@@ -57,14 +57,13 @@ public class TinhThanhAdapter extends RecyclerView.Adapter<TinhThanhAdapter.view
             holder.tenTinhThanh.setTextColor(holder.itemView.getContext().getColor(android.R.color.darker_gray));
             holder.tenTinhThanh.setTypeface(holder.tenTinhThanh.getTypeface(), Typeface.NORMAL);
         }
-
         // Xử lý sự kiện click
         holder.itemView.setOnClickListener(v -> {
             editor = sharedPreferences.edit();
             // Lưu giá trị maTinhThanh vào SharedPreferences
             editor.putInt("maTinhThanh", maTinhThanhItem);
-            editor.commit();  // Sử dụng apply thay cho commit để tránh block thread chính
-            notifyItemChanged(position);
+            editor.apply();
+            notifyDataSetChanged();
 
             // Gọi hàm để thông báo cho fragment hoặc activity (nếu cần)
             if (holder.itemView.getContext() instanceof DanhSachDiaDiemRap) {

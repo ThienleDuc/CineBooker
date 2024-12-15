@@ -1,5 +1,6 @@
 package com.example.cinebooker.LeDucThien.ProcessData;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
 
@@ -188,6 +189,7 @@ public class PD_TinhThanh {
         return minMaTinhThanh;
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void loadTenTinhThanhToRecyclerView(Context context, RecyclerView recyclerView, List<ent_TinhThanh> list, TinhThanhAdapter adapter) {
         if (list == null || list.isEmpty()) {
             Log.e(TAG, "Danh sách tỉnh thành trống hoặc không hợp lệ.");

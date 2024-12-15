@@ -2,6 +2,7 @@ package com.example.cinebooker.LeDucThien.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cinebooker.R;
 import com.example.cinebooker.LeDucThien.entity.ent_PhimSapChieu;
+import com.example.cinebooker.TranGiaThai.Activity.XemChiTietPhim;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -62,6 +64,13 @@ public class SapChieuAdapter extends RecyclerView.Adapter<SapChieuAdapter.viewHo
         // Set movie style
         holder.styleMovie.setText(dangChieu.getTenTheLoai() != null ? dangChieu.getTenTheLoai() : "Chưa cập nhật");
 
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, XemChiTietPhim.class);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override

@@ -359,7 +359,6 @@ BEGIN
 END;
 GO
 exec pr_BinhLuanNoiBat;
-drop procedure pr_BinhLuanNoiBat;
 GO
 CREATE PROCEDURE pr_TimKiemPhim
     @TenPhim NVARCHAR(255)  -- Đầu vào tên phim cần tìm kiếm

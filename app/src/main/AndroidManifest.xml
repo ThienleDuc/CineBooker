@@ -53,6 +53,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity> <!-- Thêm các hoạt động từ nhánh LeDucThien -->
+
         <activity
             android:name=".LeDucThien.activity.danhSachRap"
             android:exported="false" />
@@ -62,6 +63,23 @@
         <activity
             android:name=".LeDucThien.activity.taiKhoan_BaoMat"
             android:exported="false" />
+
+        <activity
+            android:name=".TranGiaThai.Activity.SecondActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".TranGiaThai.Activity.ThanhToan"
+            android:exported="false" />
+        <activity
+            android:name=".TranGiaThai.Activity.ThucAn"
+            android:exported="false" />
+        <activity
+            android:name=".TranGiaThai.Activity.ChonGhe"
+            android:exported="false" />
+        <activity
+            android:name=".TranGiaThai.Activity.XemChiTietPhim"
+            android:exported="false"/>
+
     </application>
 
 </manifest>

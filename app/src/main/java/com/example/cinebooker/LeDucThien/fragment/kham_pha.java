@@ -33,6 +33,7 @@ import com.example.cinebooker.LeDucThien.entity.ent_PhimDangChieu;
 import com.example.cinebooker.LeDucThien.entity.moviesNgayChieuEntity;
 import com.example.cinebooker.LeDucThien.entity.ngayChieuEntity;
 
+import com.example.cinebooker.LeDucThien.viewModel.SharedViewModel;
 import com.example.cinebooker.LeDucThien.viewpager.XepHangViewPagerAdapter;
 import com.example.cinebooker.R;
 import com.example.cinebooker.LeDucThien.adapter.CaroselDangChieuAdapter;
@@ -46,7 +47,6 @@ import com.google.android.material.tabs.TabLayoutMediator;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -64,6 +64,8 @@ public class kham_pha extends Fragment {
     private CaroselDangChieuAdapter caroselDangChieuAdapter;
     private List<ent_PhimDangChieu> movieDangChieuList;
     private CaroselSapChieuAdapter caroselSapChieuAdapter;
+    private  String mParam1;
+    private String mParam2;
     public kham_pha() {
         // Required empty public constructor
     }
@@ -91,8 +93,8 @@ public class kham_pha extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             // TODO: Rename and change types of parameters
-            String mParam1 = getArguments().getString(ARG_PARAM1);
-            String mParam2 = getArguments().getString(ARG_PARAM2);
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
