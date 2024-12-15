@@ -139,7 +139,7 @@
                             android:shadowRadius="4"
                             android:textColor="@color/pink"
                             android:textStyle="bold"
-                            android:maxLines="1"
+
                             android:ellipsize="end"/>
 
                         <TextView
@@ -150,7 +150,7 @@
                             android:textStyle="bold"
                             android:text="Kinh dị"
                             android:textColor="@color/black"
-                            android:maxLines="1"
+
                             android:ellipsize="end"/>
 
                         <LinearLayout

@@ -1,5 +1,6 @@
 package com.example.cinebooker.PhanCongQuoc.BussinessLogic;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
@@ -23,43 +24,35 @@ public class BL_XuatVe {
 
     // Phương thức lấy danh sách phim xuất vé từ PD_XuatVe
     private List<xuatveEntity> getDanhSachPhimXuatVe(int maVe) {
-        List<xuatveEntity> list = pdXuatVe.getXuatVe(maVe);
-        if (list == null || list.isEmpty()) {
-            Log.w("BL_XuatVe", "Danh sách phim không có dữ liệu hoặc bị lỗi.");
-        }
-        return list;
+        return pdXuatVe.getXuatVe(maVe);
     }
 
     // Phương thức load phim vào RecyclerView
-    public void loadPhimToRecyclerView(Context context, RecyclerView recyclerView, int maVe, XuatVeAdapter adapter) {
+    public void loadPhimToRecyclerView(Context context, RecyclerView recyclerView, XuatVeAdapter adapter, int maVe) {
         if (recyclerView == null) {
             Log.w("BL_XuatVe", "RecyclerView is null. Data will not be loaded.");
             return;
         }
 
-        // Tạo ExecutorService để chạy công việc không đồng bộ
         ExecutorService executor = Executors.newSingleThreadExecutor();
         executor.execute(() -> {
             try {
-                // Lấy danh sách phim sắp chiếu từ cơ sở dữ liệu
+                // Tìm kiếm phim theo tên từ cơ sở dữ liệu
                 List<xuatveEntity> list = getDanhSachPhimXuatVe(maVe);
 
                 // Cập nhật RecyclerView trên UI thread
-                if (context instanceof android.app.Activity) {
-                    ((android.app.Activity) context).runOnUiThread(() -> {
-                        // Gọi phương thức từ PD_XuatVe để load dữ liệu vào RecyclerView
+                if (context instanceof Activity) {
+                    ((Activity) context).runOnUiThread(() -> {
                         pdXuatVe.loadPhimToRecyclerView(context, recyclerView, list, adapter);
                     });
                 }
             } catch (Exception e) {
-                // Log lỗi nếu có exception xảy ra
-                Log.e("BL_XuatVe", "Error while loading data", e);
+                Log.e("BL_TimKiemPhim", "Error while loading data", e);
             } finally {
-                // Đảm bảo shutdown ExecutorService để tránh rò rỉ tài nguyên
                 executor.shutdown();
             }
         });
-    }  
+    }
 
 
 }

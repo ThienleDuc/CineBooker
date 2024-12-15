@@ -1,5 +1,6 @@
 package com.example.cinebooker.PhanCongQuoc.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.view.LayoutInflater;
@@ -22,11 +23,15 @@ public class XuatVeAdapter extends RecyclerView.Adapter<XuatVeAdapter.XuatVeView
     private int MaVe=-1;
 
 
-
-
     public XuatVeAdapter(Context context, List<xuatveEntity> xuatVeList) {
         this.context = context;
         this.xuatVeList = xuatVeList;
+    }
+
+    public void SetData(List<xuatveEntity> movieList) {
+
+        this.xuatVeList = movieList;
+        notifyDataSetChanged();
     }
 
     public XuatVeAdapter() {
@@ -35,12 +40,12 @@ public class XuatVeAdapter extends RecyclerView.Adapter<XuatVeAdapter.XuatVeView
 
     @Override
     public XuatVeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_xuatve, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_xuatve, parent, false);
         return new XuatVeViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(XuatVeViewHolder holder, int position) {
+    public void onBindViewHolder(XuatVeAdapter.XuatVeViewHolder holder, int position) {
         xuatveEntity item = xuatVeList.get(position);
         SharedPreferences
                 sharedPreferences = holder.itemView.getContext().getSharedPreferences("QuocDepTrai", Context.MODE_PRIVATE);
@@ -48,7 +53,7 @@ public class XuatVeAdapter extends RecyclerView.Adapter<XuatVeAdapter.XuatVeView
         int maveiem = item.getMaVe();
         // Set data to views
         Picasso.get().load(item.getQrXuatVe())
-                .placeholder(R.drawable.placeholder)  // Optional: Add a placeholder image
+                .placeholder(R.drawable.sofa)  // Optional: Add a placeholder image
                 .into(holder.qrXuatVe);
         holder.dateXuatVe1.setText(item.getDateXuatVe1());
         Picasso.get().load(item.getPosterXuatVe2())
@@ -59,7 +64,7 @@ public class XuatVeAdapter extends RecyclerView.Adapter<XuatVeAdapter.XuatVeView
         holder.styleXuatVe.setText(item.getStyleXuatVe());
         holder.soLuongXuatVe.setText(String.valueOf(item.getSoLuongXuatVe()));  // SoLuong là kiểu int
         Picasso.get().load(item.getIconRapXuatVe())
-                .placeholder(R.drawable.placeholder)  // Optional: Add a placeholder image
+                .placeholder(R.drawable.drawn_star)  // Optional: Add a placeholder image
                 .into(holder.iconRapXuatVe);
         holder.diaChiXuatVe.setText(item.getDiaChiXuatVe());
         holder.timebd.setText(item.getTime_batdau());
@@ -84,11 +89,7 @@ public class XuatVeAdapter extends RecyclerView.Adapter<XuatVeAdapter.XuatVeView
         return xuatVeList.size();
     }
 
-    public void SetData(List<xuatveEntity> movieList) {
 
-        this.xuatVeList = movieList;
-        notifyDataSetChanged();
-    }
 
     public static class XuatVeViewHolder extends RecyclerView.ViewHolder {
 

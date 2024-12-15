@@ -18,6 +18,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +26,8 @@ public class PD_XuatVe {
 
     private static final String TAG = "PD_XuatVe"; // Đặt tag cho log
     private Connection connection = null;
+    private PreparedStatement preparedStatement = null;
+
     private CallableStatement callableStatement = null;
     private ResultSet resultSet = null;
 
@@ -38,13 +41,14 @@ public class PD_XuatVe {
                 return phimList;
             }
 
-            callableStatement = connection.prepareCall("{call GetVePhimDadung(?)}");
-            callableStatement.setInt(1, MaVe); // Truyền MaVe vào thủ tục
-            resultSet = callableStatement.executeQuery();
+            String sql = "EXEC GetVePhimDadung @MaVe = ?";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, MaVe);
+            resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
                 xuatveEntity phim = new xuatveEntity();
-                // Gán giá trị cho các thuộc tính của đối tượng phi
+               phim.setMaVe(resultSet.getInt("MaVe"));
                 phim.setQrXuatVe(resultSet.getString("QRThanhToan"));
                 phim.setDateXuatVe1(resultSet.getString("ThoiGian"));
                 phim.setPosterXuatVe2(resultSet.getString("AnhPhim"));
@@ -91,26 +95,32 @@ public class PD_XuatVe {
     }
 
     public void loadPhimToRecyclerView(Context context, RecyclerView recyclerView, List<xuatveEntity> list, XuatVeAdapter adapter) {
-        if (list == null || list.isEmpty()) {
-            Log.e(TAG, "Danh sách rạp chiếu con trống hoặc không hợp lệ.");
-            return;
+        // Thiết lập LayoutManager nếu chưa có
+        if (recyclerView.getLayoutManager() == null) {
+            LinearLayoutManager layoutManager = new LinearLayoutManager(context);
+            layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+            recyclerView.setLayoutManager(layoutManager);
         }
 
-        // Thiết lập LayoutManager cho RecyclerView
-        LinearLayoutManager layoutManager = new LinearLayoutManager(context);
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(layoutManager);
+        // Kiểm tra và thêm ItemDecoration nếu chưa được thêm
+        boolean hasItemDecoration = false;
+        for (int i = 0; i < recyclerView.getItemDecorationCount(); i++) {
+            if (recyclerView.getItemDecorationAt(i) instanceof SpaceItemDecoration) {
+                hasItemDecoration = true;
+                break;
+            }
+        }
 
-        // Thêm ItemDecoration nếu cần
-        int spacingInPixels = context.getResources().getDimensionPixelSize(R.dimen.recycler_view_spacing_5);
-        recyclerView.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
+        if (!hasItemDecoration) {
+            int spacingInPixels = context.getResources().getDimensionPixelSize(R.dimen.recycler_view_spacing_5);
+            recyclerView.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
+        }
 
         // Thiết lập Adapter và dữ liệu nếu chưa có adapter
         if (recyclerView.getAdapter() == null) {
             recyclerView.setAdapter(adapter);
         }
 
-        // Cập nhật dữ liệu cho adapter
         adapter.SetData(list);
     }
 

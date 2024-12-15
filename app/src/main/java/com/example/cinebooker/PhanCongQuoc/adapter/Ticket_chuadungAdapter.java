@@ -68,6 +68,10 @@ public class Ticket_chuadungAdapter extends RecyclerView.Adapter<Ticket_chuadung
     public void onBindViewHolder(@NonNull Ticket_chuadungAdapter.TicketViewHolder holder, int position) {
         ticketchuadungMoviesEntity ticket = ticketChuadungMoviesList.get(position);
         holder.date_chuadung.setText(ticket.getDate_chuadung() != null ? ticket.getDate_chuadung() : "Ngày không xác định");
+        Picasso.get().load(ticket.getPoster_chuadung())
+                .placeholder(R.drawable.drawn_star)  // Optional: Add a placeholder image
+                .into(holder.posterMovie_chuadung);// Optional: Add a placeholder image
+
 
         holder.age_chuadung.setText(ticket.getAge_chuadung() > 0 ? String.valueOf(ticket.getAge_chuadung()) : "Tuổi không xác định");
         holder.movieName_chuadung.setText(ticket.getName_chuadung() != null ? ticket.getName_chuadung() : "Tên phim không xác định");

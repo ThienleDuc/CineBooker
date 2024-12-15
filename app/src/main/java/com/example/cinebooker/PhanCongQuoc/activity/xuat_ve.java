@@ -6,12 +6,13 @@ import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cinebooker.PhanCongQuoc.BussinessLogic.BL_XuatVe;
 import com.example.cinebooker.PhanCongQuoc.adapter.XuatVeAdapter;
 import com.example.cinebooker.R;
+
+import java.util.ArrayList;
 
 public class xuat_ve extends AppCompatActivity {
     private int maVe = -1;
@@ -32,7 +33,7 @@ public class xuat_ve extends AppCompatActivity {
 
         // Nút quay lại
         ImageView back = findViewById(R.id.itemback);
-        back.setOnClickListener(v -> onBackPressed());
+        back.setOnClickListener(v -> finish());
 
         // Gọi hàm xuất vé
         xuatve();
@@ -45,10 +46,14 @@ public class xuat_ve extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("QuocDepTrai", MODE_PRIVATE);
         maVe = sharedPreferences.getInt("MaVe", -1);
 
-        // Tìm RecyclerView từ layout
-        XuatVeAdapter adapter = new XuatVeAdapter();
-        blXuatVe.loadPhimToRecyclerView(this, xuatRecyclerView,maVe,adapter); // Truyền maVe vào
+        // Khởi tạo adapter và gắn vào RecyclerView
+        XuatVeAdapter adapter = new XuatVeAdapter(this, new ArrayList<>());  // Truyền dữ liệu trống
+        xuatRecyclerView.setAdapter(adapter);
+
+        // Load dữ liệu
+        blXuatVe.loadPhimToRecyclerView(this, xuatRecyclerView, adapter, maVe);
     }
+
 
 
 }
