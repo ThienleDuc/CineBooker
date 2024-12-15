@@ -5,4 +5,5 @@
     <string name="action_search">Tìm kiếm</string>
     <string name="action_move_ticket">Vé phim</string>
     <string name="action_profile">Tôi</string>
+    <!-- TODO: Remove or change this placeholder text -->
 </resources>

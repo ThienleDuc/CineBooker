@@ -1,25 +1,26 @@
 package com.example.cinebooker.LeDucThien.fragment;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+
 
 import androidx.fragment.app.Fragment;
 
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
-import com.example.cinebooker.LeDucThien.entity.searchMoviesEntity;
+import com.example.cinebooker.LeDucThien.BussinessLogic.BL_TimKiemPhim;
 import com.example.cinebooker.R;
-import com.example.cinebooker.LeDucThien.adapter.SearchAdapter;
-import com.example.cinebooker.generalMethod.SpaceItemDecoration;
+import com.example.cinebooker.LeDucThien.adapter.TimKiemAdapter;
 
 
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,14 +34,13 @@ public class Search extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
     private RecyclerView recyclerView;
-    private SearchAdapter searchAdapter;
-    private List<searchMoviesEntity> searchMoviesList;
-    private TextView moreThan;
+    private BL_TimKiemPhim blTimKiemPhim;
+    private TextView xemthem;
+    private EditText timKiem;
+    private TimKiemAdapter timKiemAdapter;
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
 
     public Search() {
         // Required empty public constructor
@@ -68,8 +68,9 @@ public class Search extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            // TODO: Rename and change types of parameters
+            String mParam1 = getArguments().getString(ARG_PARAM1);
+            String mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
@@ -78,48 +79,52 @@ public class Search extends Fragment {
                              Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_search, container, false);
         // Inflate the layout for this fragment
-
-        recyclerView = view.findViewById(R.id.recycler_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.recycler_view_spacing_5);
-        recyclerView.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
-
-        searchMoviesList = new ArrayList<>();
-
-        searchMoviesList.add(new searchMoviesEntity(R.drawable.camposter, "18+", "Cám", "Kinh dị", 6.2, 15000.0, 3200.0));
-        searchMoviesList.add(new searchMoviesEntity(R.drawable.camposter, "18+", "Cám", "Kinh dị", 6.2, 15000.0, 3200.0));
-        searchMoviesList.add(new searchMoviesEntity(R.drawable.camposter, "18+", "Cám", "Kinh dị", 6.2, 15000.0, 3200.0));
-        searchMoviesList.add(new searchMoviesEntity(R.drawable.camposter, "18+", "Cám", "Kinh dị", 6.2, 15000.0, 3200.0));
-        searchMoviesList.add(new searchMoviesEntity(R.drawable.camposter, "18+", "Cám", "Kinh dị", 6.2, 15000.0, 3200.0));
-        searchMoviesList.add(new searchMoviesEntity(R.drawable.camposter, "18+", "Cám", "Kinh dị", 6.2, 15000.0, 3200.0));
-        searchMoviesList.add(new searchMoviesEntity(R.drawable.camposter, "18+", "Cám", "Kinh dị", 6.2, 15000.0, 3200.0));
-        searchMoviesList.add(new searchMoviesEntity(R.drawable.camposter, "18+", "Cám", "Kinh dị", 6.2, 15000.0, 3200.0));
-        searchMoviesList.add(new searchMoviesEntity(R.drawable.camposter, "18+", "Cám", "Kinh dị", 6.2, 15000.0, 3200.0));
-        searchMoviesList.add(new searchMoviesEntity(R.drawable.camposter, "18+", "Cám", "Kinh dị", 6.2, 15000.0, 3200.0));
-
-
-        searchAdapter = new SearchAdapter(searchMoviesList);
-        recyclerView.setAdapter(searchAdapter);
-
-        moreThan = view.findViewById(R.id.search_more_than);
-        moreThan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                loadMoreItems();
-            }
-        });
+        TimKiem(view);
         return view;
     }
 
-    // Phương thức tải thêm item
-    private void loadMoreItems() {
-        int currentItemCount = searchAdapter.getCurrentItemCount();
-        if (currentItemCount < searchMoviesList.size()) {
-            currentItemCount += 10;
-            searchAdapter.updateItemCount(currentItemCount);
-        } else {
-            moreThan.setVisibility(View.GONE);
-        }
+    @Override
+    public void onResume() {
+        super.onResume();
+        timKiem.setText("");
     }
+
+    private void TimKiem(View view) {
+        recyclerView = view.findViewById(R.id.recycler_view);
+        timKiem = view.findViewById(R.id.header_search_input);
+        xemthem = view.findViewById(R.id.search_more_than);
+        blTimKiemPhim = new BL_TimKiemPhim();
+        timKiemAdapter = new TimKiemAdapter();
+
+
+        // Load dữ liệu ban đầu
+        blTimKiemPhim.loadPhimToRecyclerView(getContext(), recyclerView, timKiemAdapter);
+
+
+        // Lắng nghe sự kiện khi EditText nhận focus
+        timKiem.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) { // Khi người dùng nhấn vào EditText
+                timKiem.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable editable) {
+                        String input = editable.toString().trim();
+                        if (!input.isEmpty()) {
+                            blTimKiemPhim.loadPhimToRecyclerViewAfterSearch(getContext(), recyclerView, timKiemAdapter, input);
+                        } else {
+                            blTimKiemPhim.loadPhimToRecyclerView(getContext(), recyclerView, timKiemAdapter);
+                        }
+                    }
+                });
+            }
+        });
+    }
+
 }

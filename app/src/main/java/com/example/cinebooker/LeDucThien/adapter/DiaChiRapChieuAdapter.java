@@ -1,0 +1,82 @@
+package com.example.cinebooker.LeDucThien.adapter;
+
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.cinebooker.LeDucThien.entity.ent_RapChieuCon;
+import com.example.cinebooker.R;
+import com.squareup.picasso.Picasso;
+
+import java.util.List;
+
+public class DiaChiRapChieuAdapter extends RecyclerView.Adapter<DiaChiRapChieuAdapter.viewHolder> {
+
+    private List<ent_RapChieuCon> rapChieulist;
+    private Context context;
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void SetData(List<ent_RapChieuCon> rapChieulist) {
+        this.rapChieulist = rapChieulist;
+        notifyDataSetChanged();
+    }
+
+    @NonNull
+    @Override
+    public DiaChiRapChieuAdapter.viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_timdiachirapchieu, parent, false);
+        return new viewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull DiaChiRapChieuAdapter.viewHolder holder, int position) {
+        ent_RapChieuCon rapChieu = rapChieulist.get(position);
+
+        String imageName = rapChieu.getAnhRapChieu();
+        Context context = holder.itemView.getContext();
+        @SuppressLint("DiscouragedApi") int resourceId = context.getResources().getIdentifier(imageName, "drawable", context.getPackageName());
+
+        Picasso.get()
+                .load(resourceId)  // Load resource ID
+                .placeholder(R.drawable.camposter)  // Optional: Placeholder image
+                .into(holder.cinemaLogor);
+
+        holder.location.setText(rapChieu.getTenRapChieuCon());
+
+        holder.map.setOnClickListener(v -> {
+            String map = rapChieu.getMap();
+            Uri mapUri = Uri.parse("geo:0,0?q=" + Uri.encode(map));
+            Intent mapIntent = new Intent(Intent.ACTION_VIEW, mapUri);
+            mapIntent.setPackage("com.google.android.apps.maps");
+            context.startActivity(mapIntent);
+        });
+
+    }
+
+    @Override
+    public int getItemCount() {
+        return rapChieulist.size();
+    }
+
+    public static class viewHolder extends RecyclerView.ViewHolder {
+        ImageView cinemaLogor, map;
+        TextView location, name;
+        public viewHolder(@NonNull View itemView) {
+            super(itemView);
+
+            cinemaLogor = itemView.findViewById(R.id.cinema_logo);
+            name = itemView.findViewById(R.id.cinema_name);
+            location = itemView.findViewById(R.id.cinema_location);
+            map = itemView.findViewById(R.id.cinema_map);
+        }
+    }
+}

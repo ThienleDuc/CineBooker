@@ -3,7 +3,6 @@ package com.example.cinebooker.LeDucThien.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -47,7 +46,7 @@ public class thoiGianChieuAdapter extends RecyclerView.Adapter<thoiGianChieuAdap
         return 3;
     }
 
-    public class viewHolder extends RecyclerView.ViewHolder {
+    public static class viewHolder extends RecyclerView.ViewHolder {
         TextView begin, end;
         public viewHolder(@NonNull View itemView) {
             super(itemView);

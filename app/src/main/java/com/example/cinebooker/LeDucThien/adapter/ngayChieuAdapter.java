@@ -44,31 +44,6 @@ public class ngayChieuAdapter extends RecyclerView.Adapter<ngayChieuAdapter.view
         // Cập nhật dữ liệu cho item
         holder.day.setText(String.valueOf(ngayChieu.getDay()));
         holder.dayName.setText(ngayChieu.getDayName());
-
-        // Thay đổi màu nền dựa trên trạng thái được chọn
-        if (position == selectedPosition) {
-//            holder.itemView.setBackgroundResource(R.drawable.selected_tab_background);
-        } else {
-//            holder.itemView.setBackgroundResource(R.drawable.default_tab_background);
-        }
-
-        // Xử lý sự kiện click
-        holder.itemView.setOnClickListener(v -> {
-            int oldPosition = selectedPosition;
-            selectedPosition = position;
-            notifyItemChanged(oldPosition); // Cập nhật lại item cũ
-            notifyItemChanged(selectedPosition); // Cập nhật lại item mới
-
-            // Gọi callback về Fragment/Activity để xử lý cuộn hoặc sự kiện khác
-            if (onItemClickListener != null) {
-                onItemClickListener.onItemClick(position);
-            }
-        });
-
-        List<thoiGianChieuPhimEntity> thoiGianChieuPhim = new ArrayList<>();
-
-        thoiGianChieuPhim.add(new thoiGianChieuPhimEntity("10:40", "12:42"));
-
     }
 
     @Override
@@ -86,7 +61,7 @@ public class ngayChieuAdapter extends RecyclerView.Adapter<ngayChieuAdapter.view
     }
 
     // ViewHolder class để ánh xạ các view trong item layout
-    public class viewHolder extends RecyclerView.ViewHolder {
+    public static class viewHolder extends RecyclerView.ViewHolder {
         TextView day, dayName;
 
         public viewHolder(@NonNull View itemView) {

@@ -87,14 +87,7 @@ public class Movies extends Fragment {
                 "Xếp hạng"
         };
 
-        int[] tabIcons = new int[] {
-                R.drawable.compass,
-                R.drawable.calendar_plus,
-                R.drawable.film_reel,
-                R.drawable.future,
-                R.drawable.colosseum,
-                R.drawable.signal
-        };
+
         new TabLayoutMediator(tabLayout, viewPager, new TabLayoutMediator.TabConfigurationStrategy() {
             @Override
             public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
@@ -107,9 +100,6 @@ public class Movies extends Fragment {
                 ContextCompat.getColor(getContext(), R.color.colorSelected)
         );
 
-        tabLayout.setTabIconTint(
-                ContextCompat.getColorStateList(getContext(), R.color.tab_icon_color)
-        );
 
 
         return view;

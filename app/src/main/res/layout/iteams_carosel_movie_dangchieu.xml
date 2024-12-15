@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -30,17 +31,20 @@
                 android:text="18+"
                 android:textColor="@android:color/holo_red_dark"
                 android:textSize="14sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                tools:ignore="UseCompoundDrawables">
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/drawn_star" />
+                    android:src="@drawable/drawn_star"
+                    tools:ignore="ContentDescription" />
 
                 <TextView
                     android:id="@+id/dang_chieu_vote"
@@ -49,7 +53,8 @@
                     android:text="6.2"
                     android:textColor="@android:color/white"
                     android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    tools:ignore="HardcodedText" />
 
             </LinearLayout>
 
@@ -66,7 +71,8 @@
         android:maxLines="1"
         android:textSize="16dp"
         android:textStyle="bold"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/white"
+        tools:ignore="HardcodedText,SpUsage" />
 
     <Space
         android:layout_width="match_parent"
@@ -78,8 +84,11 @@
         android:layout_height="wrap_content"
         android:text="Kinh dị"
         android:textSize="14dp"
+        android:ellipsize="end"
         android:textStyle="bold"
-        android:textColor="@android:color/darker_gray"/>
+        android:textColor="@android:color/darker_gray"
+        tools:ignore="HardcodedText,SpUsage"
+        />
     <Space
         android:layout_width="match_parent"
         android:layout_height="5dp"/>

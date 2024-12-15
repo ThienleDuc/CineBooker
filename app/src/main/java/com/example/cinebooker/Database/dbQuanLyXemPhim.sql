@@ -2,6 +2,8 @@ CREATE DATABASE dbQuanLyXemPhim
 GO
 USE dbQuanLyXemPhim
 GO
+SET DATEFORMAT dmy;
+GO
 -- Bảng KhachHang
 CREATE TABLE KhachHang (
     MaKhachHang INT PRIMARY KEY IDENTITY(1,1),
@@ -92,7 +94,7 @@ CREATE TABLE DiaChiRapChieuCon (
 	MaRapChieuCon INT,
     MaTinhThanh INT,
     DiaChiRapChieu NVARCHAR(255),
-	map VARCHAR(MAX)
+	map NVARCHAR(MAX)
 );
 
 
@@ -136,7 +138,7 @@ CREATE TABLE VePhim (
 CREATE TABLE TinhTrangVe (
     MaTinhTrang INT PRIMARY KEY IDENTITY(1,1),
 	MaVe INT,
-    TinhTrang NVARCHAR(50),
+    TinhTrang NVARCHAR(50),-- đã dùng/ chưa dùng/ đã khứ hồi
     ThoiGian DATETIME2 NOT NULL
 );
 
@@ -321,6 +323,3 @@ FOREIGN KEY (MaDoiTuongApDung) REFERENCES DoiTuongApDung(MaDoiTuongApDung);
 
 ALTER TABLE VoucherUngDung
 ADD CONSTRAINT UQ_VoucherUngDung_TenVoucher UNIQUE (TenVoucher);
-
-
-

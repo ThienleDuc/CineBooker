@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools" >
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -11,7 +13,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar"
-        tools:targetApi="31">
+        tools:targetApi="31" >
+        <activity
+            android:name=".LeDucThien.activity.DanhSachDiaDiemRap"
+            android:exported="false" />
         <activity
             android:name=".PhanCongQuoc.activity.login"
             android:exported="false" />
@@ -41,22 +46,40 @@
             android:exported="false" />
         <activity
             android:name=".PhanCongQuoc.activity.StartActivity"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity> <!-- Thêm các hoạt động từ nhánh LeDucThien -->
+
         <activity
             android:name=".LeDucThien.activity.danhSachRap"
             android:exported="false" />
         <activity
             android:name=".LeDucThien.activity.home"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".LeDucThien.activity.taiKhoan_BaoMat"
+            android:exported="false" />
+
+        <activity
+            android:name=".TranGiaThai.Activity.SecondActivity"
             android:exported="false"/>
+        <activity
+            android:name=".TranGiaThai.Activity.ThanhToan"
+            android:exported="false" />
+        <activity
+            android:name=".TranGiaThai.Activity.ThucAn"
+            android:exported="false" />
+        <activity
+            android:name=".TranGiaThai.Activity.ChonGhe"
+            android:exported="false" />
+        <activity
+            android:name=".TranGiaThai.Activity.XemChiTietPhim"
+            android:exported="false"/>
+
     </application>
 
 </manifest>

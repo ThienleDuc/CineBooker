@@ -40,10 +40,12 @@ dependencies {
     implementation(libs.activity)
     implementation(libs.constraintlayout)
     implementation(libs.firebase.auth)
+    implementation(files("libs\\jtds-1.3.1.jar"))
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
 
     implementation("com.microsoft.sqlserver:mssql-jdbc:9.4.1.jre8")
+    implementation("com.squareup.picasso:picasso:2.8")
 
 }

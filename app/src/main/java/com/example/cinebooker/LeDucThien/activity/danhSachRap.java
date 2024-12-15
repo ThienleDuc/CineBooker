@@ -1,33 +1,26 @@
 package com.example.cinebooker.LeDucThien.activity;
 
-import static java.security.AccessController.getContext;
-
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
-import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.cinebooker.LeDucThien.adapter.diaChiRapChieuAdapter;
-import com.example.cinebooker.LeDucThien.adapter.rapChieuAdapter;
-import com.example.cinebooker.LeDucThien.entity.diaChiRapChieuEntity;
-import com.example.cinebooker.LeDucThien.entity.rapChieuEntity;
-
+import com.example.cinebooker.LeDucThien.BussinessLogic.BL_RapChieu;
+import com.example.cinebooker.LeDucThien.BussinessLogic.BL_RapChieuCon;
+import com.example.cinebooker.LeDucThien.BussinessLogic.BL_TinhThanh;
+import com.example.cinebooker.LeDucThien.adapter.RapChieuAdapter;
+import com.example.cinebooker.LeDucThien.adapter.RapChieuConAdapter;
 import com.example.cinebooker.R;
-import com.example.cinebooker.generalMethod.HorizontalSpaceItemDecoration;
-import com.example.cinebooker.generalMethod.SpaceItemDecoration;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class danhSachRap extends AppCompatActivity {
+
+    private int _maRapChieu = -1;
+    private int _maTinhThanh = -1;
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,62 +28,47 @@ public class danhSachRap extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_danh_sach_rap);
 
+        // Đóng Activity khi nhấn nút close
         ImageView close = findViewById(R.id.danhsachrap_close);
-
-        close.setOnClickListener(v-> onBackPressed());
+        close.setOnClickListener(v -> finish());
 
         danhSachRap();
-
         danhSachDiaChiRap();
     }
 
-    private void danhSachRap () {
-        RecyclerView rapChieuRecycleView = findViewById(R.id.danhsachrap_recycle_view);
-        rapChieuRecycleView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
-        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.recycler_view_spacing_5);
-        rapChieuRecycleView.addItemDecoration(new HorizontalSpaceItemDecoration(spacingInPixels));
-
-        List<rapChieuEntity> rapChieuList = new ArrayList<>();
-
-        rapChieuList.add(new rapChieuEntity(R.drawable.star, "Tất cả"));
-        rapChieuList.add(new rapChieuEntity(R.drawable.cgvlogo, "CGV"));
-        rapChieuList.add(new rapChieuEntity(R.drawable.lottelogo, "Lotte Cinema"));
-        rapChieuList.add(new rapChieuEntity(R.drawable.bhd_logo, "BHD Cinema"));
-        rapChieuList.add(new rapChieuEntity(R.drawable.logo_beta, "Beta Cinema"));
-        rapChieuList.add(new rapChieuEntity(R.drawable.mega_logo, "Mega GS"));
-        rapChieuList.add(new rapChieuEntity(R.drawable.galaxy_cinema, "Galaxy Cinema"));
-        rapChieuList.add(new rapChieuEntity(R.drawable.cinerstar, "CineStar"));
-        rapChieuList.add(new rapChieuEntity(R.drawable.dcine_logo, "Dcine"));
-
-        rapChieuAdapter rapChieuAdapter = new rapChieuAdapter(rapChieuList);
-        rapChieuRecycleView.setAdapter(rapChieuAdapter);
-
+    private void danhSachRap() {
+        // Hiển thị danh sách các rạp chiếu
+        RecyclerView recyclerView = findViewById(R.id.danhsachrap_recycle_view);
+        BL_RapChieu blRapChieu = new BL_RapChieu();
+        RapChieuAdapter adapter = new RapChieuAdapter();
+        blRapChieu.loadRapChieuToRecyclerView(this, recyclerView, adapter);
     }
 
-    private void danhSachDiaChiRap () {
-        RecyclerView rapChieuRecycleView = findViewById(R.id.diachirap_recyclerview);
-        rapChieuRecycleView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+    private void danhSachDiaChiRap() {
+        // Hiển thị danh sách địa chỉ rạp chiếu
+        RecyclerView recyclerView = findViewById(R.id.diachirap_recyclerview);
+        BL_RapChieuCon blRapChieuCon = new BL_RapChieuCon();
+        BL_TinhThanh blTinhThanh = new BL_TinhThanh();
+        BL_RapChieu blRapChieu = new BL_RapChieu();
 
-        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.recycler_view_spacing_5);
-        rapChieuRecycleView.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
+        sharedPreferences = getSharedPreferences("LeDucThien", MODE_PRIVATE);
+        _maRapChieu = sharedPreferences.getInt("maRapChieu", -1);
+        if (_maRapChieu == -1 ) {
+            _maRapChieu = blRapChieu.loadMinMaRapChieu();
+            editor = sharedPreferences.edit();
+            editor.putInt("maRapChieu", _maRapChieu);
+            editor.apply();;
+        }
 
-        List<diaChiRapChieuEntity> rapChieuList = new ArrayList<>();
+        _maTinhThanh = sharedPreferences.getInt("maTinhThanh", -1);
 
-        rapChieuList.add(new diaChiRapChieuEntity(R.drawable.cgvlogo, "CGV Aeon Bình Tân"));
-        rapChieuList.add(new diaChiRapChieuEntity(R.drawable.cgvlogo, "CGV Aeon Bình Tân"));
-        rapChieuList.add(new diaChiRapChieuEntity(R.drawable.cgvlogo, "CGV Aeon Bình Tân"));
-        rapChieuList.add(new diaChiRapChieuEntity(R.drawable.cgvlogo, "CGV Aeon Bình Tân"));
-        rapChieuList.add(new diaChiRapChieuEntity(R.drawable.cgvlogo, "CGV Aeon Bình Tân"));
-        rapChieuList.add(new diaChiRapChieuEntity(R.drawable.cgvlogo, "CGV Aeon Bình Tân"));
-        rapChieuList.add(new diaChiRapChieuEntity(R.drawable.cgvlogo, "CGV Aeon Bình Tân"));
-        rapChieuList.add(new diaChiRapChieuEntity(R.drawable.cgvlogo, "CGV Aeon Bình Tân"));
-        rapChieuList.add(new diaChiRapChieuEntity(R.drawable.cgvlogo, "CGV Aeon Bình Tân"));
-        rapChieuList.add(new diaChiRapChieuEntity(R.drawable.cgvlogo, "CGV Aeon Bình Tân"));
+        RapChieuConAdapter adapter = new RapChieuConAdapter();
+        blRapChieuCon.loadRapChieuConToRecyclerView(this, recyclerView, _maTinhThanh,_maRapChieu, adapter);
+    }
 
-
-        diaChiRapChieuAdapter rapChieuAdapter = new diaChiRapChieuAdapter(rapChieuList);
-        rapChieuRecycleView.setAdapter(rapChieuAdapter);
-
+    // Phương thức đóng Activity
+    public void dongActivity() {
+        finish();
     }
 }

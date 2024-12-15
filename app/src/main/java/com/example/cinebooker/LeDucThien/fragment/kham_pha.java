@@ -1,5 +1,7 @@
 package com.example.cinebooker.LeDucThien.fragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,24 +14,30 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.cinebooker.LeDucThien.BussinessLogic.BL_DoiTac;
+import com.example.cinebooker.LeDucThien.BussinessLogic.BL_PhimDangChieu;
+import com.example.cinebooker.LeDucThien.BussinessLogic.BL_PhimSapChieu;
+import com.example.cinebooker.LeDucThien.BussinessLogic.BL_RapChieu;
+import com.example.cinebooker.LeDucThien.BussinessLogic.BL_RapChieuCon;
+import com.example.cinebooker.LeDucThien.BussinessLogic.BL_TinhThanh;
+import com.example.cinebooker.LeDucThien.activity.DanhSachDiaDiemRap;
 import com.example.cinebooker.LeDucThien.activity.danhSachRap;
-import com.example.cinebooker.LeDucThien.adapter.heThongRapChieuAdapter;
+import com.example.cinebooker.LeDucThien.adapter.DoiTacAdapter;
 import com.example.cinebooker.LeDucThien.adapter.moviesNgayChieuAdapter;
 import com.example.cinebooker.LeDucThien.adapter.ngayChieuAdapter;
-import com.example.cinebooker.LeDucThien.entity.caroselDangChieuEntity;
-import com.example.cinebooker.LeDucThien.entity.caroselSapChieuEntity;
-import com.example.cinebooker.LeDucThien.entity.heThongRapChieuEntity;
+import com.example.cinebooker.LeDucThien.entity.ent_PhimDangChieu;
 import com.example.cinebooker.LeDucThien.entity.moviesNgayChieuEntity;
 import com.example.cinebooker.LeDucThien.entity.ngayChieuEntity;
 
+import com.example.cinebooker.LeDucThien.viewModel.SharedViewModel;
 import com.example.cinebooker.LeDucThien.viewpager.XepHangViewPagerAdapter;
-import com.example.cinebooker.PhanCongQuoc.activity.register;
 import com.example.cinebooker.R;
-import com.example.cinebooker.LeDucThien.adapter.caroselDangChieuAdapter;
-import com.example.cinebooker.LeDucThien.adapter.caroselSapChieuAdapter;
+import com.example.cinebooker.LeDucThien.adapter.CaroselDangChieuAdapter;
+import com.example.cinebooker.LeDucThien.adapter.CaroselSapChieuAdapter;
 import com.example.cinebooker.LeDucThien.entity.thoiGianChieuPhimEntity;
 import com.example.cinebooker.generalMethod.ActivityOpen;
 import com.example.cinebooker.generalMethod.HorizontalSpaceItemDecoration;
@@ -52,22 +60,12 @@ public class kham_pha extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
+    private RecyclerView dangChieuRecycleView;
+    private CaroselDangChieuAdapter caroselDangChieuAdapter;
+    private List<ent_PhimDangChieu> movieDangChieuList;
+    private CaroselSapChieuAdapter caroselSapChieuAdapter;
+    private  String mParam1;
     private String mParam2;
-
-    private RecyclerView dangChieuRecycleView, sapChieuRecycleView;
-    private caroselDangChieuAdapter dangChieuAdapter;
-    private List<caroselDangChieuEntity> movieDangChieuList;
-    private TextView dangChieuMoreThan;
-    private List<caroselSapChieuEntity> caroselSapChieuEntityList;
-    private caroselSapChieuAdapter sapChieuAdapter;
-    private TextView sapChieuMoreThan;
-    private TextView calandar_more;
-    private TextView rapChieu_more;
-    private TextView xephang_more;
-
-
     public kham_pha() {
         // Required empty public constructor
     }
@@ -94,6 +92,7 @@ public class kham_pha extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
+            // TODO: Rename and change types of parameters
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
@@ -111,6 +110,8 @@ public class kham_pha extends Fragment {
 
         sapChieu(view);
 
+        controllerLichChieu(view);
+
         lichChieu(view);
 
         heThongRapChieu(view);
@@ -122,29 +123,11 @@ public class kham_pha extends Fragment {
 
     public void dangChieu (View view) {
 
-        dangChieuRecycleView = view.findViewById(R.id.carosel_recycleView_dangChieu);
-        dangChieuRecycleView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        RecyclerView dangChieuRecycleView = view.findViewById(R.id.carosel_recycleView_dangChieu);
+        BL_PhimDangChieu blPhimDangChieu = new BL_PhimDangChieu();
+        blPhimDangChieu.loadCaroselPhimToRecyclerView(getContext(), dangChieuRecycleView);
 
-        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.recycler_view_spacing_7_5);
-        dangChieuRecycleView.addItemDecoration(new HorizontalSpaceItemDecoration(spacingInPixels));
-
-        movieDangChieuList = new ArrayList<>();
-
-        movieDangChieuList.add(new caroselDangChieuEntity(R.drawable.camposter, "18+",6.2,"Cám", "Kinh dị"));
-        movieDangChieuList.add(new caroselDangChieuEntity(R.drawable.camposter, "18+",6.2,"Cám", "Kinh dị"));
-        movieDangChieuList.add(new caroselDangChieuEntity(R.drawable.camposter, "18+",6.2,"Cám", "Kinh dị"));
-        movieDangChieuList.add(new caroselDangChieuEntity(R.drawable.camposter, "18+",6.2,"Cám", "Kinh dị"));
-        movieDangChieuList.add(new caroselDangChieuEntity(R.drawable.camposter, "18+",6.2,"Cám", "Kinh dị"));
-        movieDangChieuList.add(new caroselDangChieuEntity(R.drawable.camposter, "18+",6.2,"Cám", "Kinh dị"));
-        movieDangChieuList.add(new caroselDangChieuEntity(R.drawable.camposter, "18+",6.2,"Cám", "Kinh dị"));
-        movieDangChieuList.add(new caroselDangChieuEntity(R.drawable.camposter, "18+",6.2,"Cám", "Kinh dị"));
-        movieDangChieuList.add(new caroselDangChieuEntity(R.drawable.camposter, "18+",6.2,"Cám", "Kinh dị"));
-        movieDangChieuList.add(new caroselDangChieuEntity(R.drawable.camposter, "18+",6.2,"Cám", "Kinh dị"));
-
-        dangChieuAdapter = new caroselDangChieuAdapter(movieDangChieuList);
-        dangChieuRecycleView.setAdapter(dangChieuAdapter);
-
-        dangChieuMoreThan = view.findViewById(R.id.dang_chieu_more);
+        TextView dangChieuMoreThan = view.findViewById(R.id.dang_chieu_more);
         dangChieuMoreThan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -158,7 +141,7 @@ public class kham_pha extends Fragment {
                         TabLayout.Tab tab = tabLayout.getTabAt(i);
 
                         if (tab != null && tab.getText() != null) {
-                            if (tab.getText().toString().toUpperCase().equals(tabTitleToSelect.trim().toUpperCase())) {
+                            if (tab.getText().toString().equalsIgnoreCase(tabTitleToSelect.trim())) {
                                 tab.select();
                                 break;
                             }
@@ -170,30 +153,11 @@ public class kham_pha extends Fragment {
     }
 
     public void sapChieu (View view) {
-        sapChieuRecycleView = view.findViewById(R.id.carosel_recycleView_sapChieu);
-        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.recycler_view_spacing_7_5);
+        RecyclerView sapChieuRecycleView = view.findViewById(R.id.carosel_recycleView_sapChieu);
+        BL_PhimSapChieu blPhimSapChieu = new BL_PhimSapChieu();
+        blPhimSapChieu.loadCaroselPhimToRecyclerView(getContext(), sapChieuRecycleView);
 
-        sapChieuRecycleView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-
-        sapChieuRecycleView.addItemDecoration(new HorizontalSpaceItemDecoration(spacingInPixels));
-
-        caroselSapChieuEntityList = new ArrayList<>();
-
-        caroselSapChieuEntityList.add(new caroselSapChieuEntity(R.drawable.camposter, "18+","Cám", "Kinh dị"));
-        caroselSapChieuEntityList.add(new caroselSapChieuEntity(R.drawable.camposter, "18+","Cám", "Kinh dị"));
-        caroselSapChieuEntityList.add(new caroselSapChieuEntity(R.drawable.camposter, "18+","Cám", "Kinh dị"));
-        caroselSapChieuEntityList.add(new caroselSapChieuEntity(R.drawable.camposter, "18+","Cám", "Kinh dị"));
-        caroselSapChieuEntityList.add(new caroselSapChieuEntity(R.drawable.camposter, "18+","Cám", "Kinh dị"));
-        caroselSapChieuEntityList.add(new caroselSapChieuEntity(R.drawable.camposter, "18+","Cám", "Kinh dị"));
-        caroselSapChieuEntityList.add(new caroselSapChieuEntity(R.drawable.camposter, "18+","Cám", "Kinh dị"));
-        caroselSapChieuEntityList.add(new caroselSapChieuEntity(R.drawable.camposter, "18+","Cám", "Kinh dị"));
-        caroselSapChieuEntityList.add(new caroselSapChieuEntity(R.drawable.camposter, "18+","Cám", "Kinh dị"));
-        caroselSapChieuEntityList.add(new caroselSapChieuEntity(R.drawable.camposter, "18+","Cám", "Kinh dị"));
-
-        sapChieuAdapter = new caroselSapChieuAdapter(caroselSapChieuEntityList);
-        sapChieuRecycleView.setAdapter(sapChieuAdapter);
-
-        sapChieuMoreThan = view.findViewById(R.id.sapChieu_more);
+        TextView sapChieuMoreThan = view.findViewById(R.id.sapChieu_more);
         sapChieuMoreThan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -207,7 +171,7 @@ public class kham_pha extends Fragment {
                         TabLayout.Tab tab = tabLayout.getTabAt(i);
 
                         if (tab != null && tab.getText() != null) {
-                            if (tab.getText().toString().toUpperCase().equals(tabTitleToSelect.trim().toUpperCase())) {
+                            if (tab.getText().toString().equalsIgnoreCase(tabTitleToSelect.trim())) {
                                 tab.select();
                                 break;
                             }
@@ -218,10 +182,60 @@ public class kham_pha extends Fragment {
         });
     }
 
-    public void lichChieu(View view) {
+
+    public void controllerLichChieu(View view) {
+        BL_TinhThanh blTinhThanh = new BL_TinhThanh();
+        BL_RapChieu blRapChieu = new BL_RapChieu();
+        BL_RapChieuCon blRapChieuCon = new BL_RapChieuCon();
+
+        TextView TenTinhThanh = view.findViewById(R.id.ten_tinh_thanh);
+        blTinhThanh.loadTenTinhThanhTheoDieuKien(getContext(), TenTinhThanh);
+
+        ImageView anhRapChieuCon = view.findViewById(R.id.calendar_logo);
+        TextView tenRapChieuCon = view.findViewById(R.id.sapChieu_movie_name);
+        TextView diaChiRapChieuCon = view.findViewById(R.id.sapChieu_movie_style);
+
+
+
         // Khởi tạo TabLayout cho location
-        TabLayout location_tablayout = view.findViewById(R.id.location_tabLayout);
+        LinearLayout danhsachtinhthanh_open = view.findViewById(R.id.open_list_tinh_thanh);
         LinearLayout danhsachrap_open = view.findViewById(R.id.danhsachrap_open);
+        LinearLayout ganday_search = view.findViewById(R.id.search_gan_ban);
+
+        ImageView icon_location = view.findViewById(R.id.icon_location);
+        ImageView icon_location2 = view.findViewById(R.id.icon_location2);
+        TextView ganban = view.findViewById(R.id.gan_ban);
+
+        // Xử lý sự kiện click để mở Activity
+        danhsachtinhthanh_open.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ActivityOpen.openActivityOnClick(requireActivity(), DanhSachDiaDiemRap.class, R.id.open_list_tinh_thanh);
+
+                ganday_search.setBackgroundResource(R.drawable.strock_1_white_radius_10_transparent);
+                ganban.setTextColor(getContext().getColor(R.color.colorUnSelected));
+                icon_location2.setColorFilter(getContext().getColor(R.color.colorUnSelected));
+
+                danhsachtinhthanh_open.setBackgroundResource(R.drawable.strock_1_pink_radius_10_transparent);
+                TenTinhThanh.setTextColor(getContext().getColor(R.color.colorSelected));
+                icon_location.setColorFilter(getContext().getColor(R.color.colorSelected));
+            }
+
+        });
+
+        ganday_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                ganday_search.setBackgroundResource(R.drawable.strock_1_pink_radius_10_transparent);
+                ganban.setTextColor(getContext().getColor(R.color.colorSelected));
+                icon_location2.setColorFilter(getContext().getColor(R.color.colorSelected));
+
+                danhsachtinhthanh_open.setBackgroundResource(R.drawable.strock_1_white_radius_10_transparent);
+                TenTinhThanh.setTextColor(getContext().getColor(R.color.colorUnSelected));
+                icon_location.setColorFilter(getContext().getColor(R.color.colorUnSelected));
+            }
+        });
 
         danhsachrap_open.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -231,10 +245,11 @@ public class kham_pha extends Fragment {
         });
 
 
-        View tab1 = LayoutInflater.from(getContext()).inflate(R.layout.location_tab1, null);
-        View tab2 = LayoutInflater.from(getContext()).inflate(R.layout.location_tab2, null);
-        location_tablayout.addTab(location_tablayout.newTab().setCustomView(tab1));
-        location_tablayout.addTab(location_tablayout.newTab().setCustomView(tab2));
+
+    }
+
+
+    public void lichChieu(View view) {
 
         // Khởi tạo RecyclerView cho lịch chiếu
         RecyclerView calendar_tablayout = view.findViewById(R.id.calendar_tabLayout);
@@ -259,7 +274,7 @@ public class kham_pha extends Fragment {
         ngayChieuAdapter adapter = new ngayChieuAdapter(ngayChieuEntityList);
         calendar_tablayout.setAdapter(adapter);
 
-        calandar_more = view.findViewById(R.id.calandar_more);
+        TextView calandar_more = view.findViewById(R.id.calandar_more);
         calandar_more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -273,7 +288,7 @@ public class kham_pha extends Fragment {
                         TabLayout.Tab tab = tabLayout.getTabAt(i);
 
                         if (tab != null && tab.getText() != null) {
-                            if (tab.getText().toString().toUpperCase().equals(tabTitleToSelect.trim().toUpperCase())) {
+                            if (tab.getText().toString().equalsIgnoreCase(tabTitleToSelect.trim())) {
                                 tab.select();
                                 break;
                             }
@@ -349,34 +364,12 @@ public class kham_pha extends Fragment {
     public void heThongRapChieu(View view) {
         // Khởi tạo RecyclerView cho hệ thống rạp chiếu
         RecyclerView recyclerView = view.findViewById(R.id.recycleView_heThongRapChieu);
+        BL_DoiTac blDoiTac = new BL_DoiTac();
+        DoiTacAdapter adapter = new DoiTacAdapter();
+        blDoiTac.loadDoiTacToRecyclerView(getContext(), recyclerView, adapter);
+        TextView btnXemThem = view.findViewById(R.id.doitac_more_than);
 
-        // Lấy khoảng cách giữa các mục từ resources
-        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.recycler_view_spacing_5);
-
-        // Thiết lập LayoutManager cho RecyclerView (dạng dọc)
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-
-        // Thêm khoảng cách giữa các mục trong RecyclerView
-        recyclerView.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
-
-        // Tạo danh sách mẫu cho các hệ thống rạp chiếu
-        List<heThongRapChieuEntity> list = new ArrayList<>();
-
-        // Thêm một số hệ thống rạp chiếu vào danh sách (thay đổi các giá trị này tùy theo dữ liệu thực)
-        list.add(new heThongRapChieuEntity(R.drawable.cgvlogo, "CGV", "KKK", 6.2, 81.0, 10500.0));
-        list.add(new heThongRapChieuEntity(R.drawable.bhd_logo, "BHD Cinema", "Phim hay mỗi ngày", 8.4, 210.0, 25000.0));
-        list.add(new heThongRapChieuEntity(R.drawable.lottelogo, "Lotte Cinema", "Giá ưu đãi", 7.1, 130.0, 17000.0));
-        list.add(new heThongRapChieuEntity(R.drawable.dcine_logo, "DcineCinema", "Giá ưu đãi", 7.1, 130.0, 17000.0));
-        list.add(new heThongRapChieuEntity(R.drawable.mega_logo, "Mega GS", "Giá ưu đãi", 7.1, 130.0, 17000.0));
-        list.add(new heThongRapChieuEntity(R.drawable.galaxy_cinema, "Galaxy Cinema", "Giá ưu đãi", 7.1, 130.0, 17000.0));
-        list.add(new heThongRapChieuEntity(R.drawable.cinerstar, "CinerStar Cinema", "Giá ưu đãi", 7.1, 130.0, 17000.0));
-        list.add(new heThongRapChieuEntity(R.drawable.logo_beta, "Beta Cinema", "Giá ưu đãi", 7.1, 130.0, 17000.0));
-
-
-        // Khởi tạo adapter và gán cho RecyclerView
-        heThongRapChieuAdapter adapter = new heThongRapChieuAdapter(list);
-        recyclerView.setAdapter(adapter);
-        rapChieu_more = view.findViewById(R.id.rapChieu_more);
+        TextView rapChieu_more = view.findViewById(R.id.rapChieu_more);
         rapChieu_more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -390,7 +383,7 @@ public class kham_pha extends Fragment {
                         TabLayout.Tab tab = tabLayout.getTabAt(i);
 
                         if (tab != null && tab.getText() != null) {
-                            if (tab.getText().toString().toUpperCase().equals(tabTitleToSelect.trim().toUpperCase())) {
+                            if (tab.getText().toString().equalsIgnoreCase(tabTitleToSelect.trim())) {
                                 tab.select();
                                 break;
                             }
@@ -426,7 +419,7 @@ public class kham_pha extends Fragment {
                 ContextCompat.getColor(getContext(), R.color.colorUnSelected),
                 ContextCompat.getColor(getContext(), R.color.colorSelected)
         );
-        xephang_more = view.findViewById(R.id.xephang_more);
+        TextView xephang_more = view.findViewById(R.id.xephang_more);
         xephang_more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -440,7 +433,7 @@ public class kham_pha extends Fragment {
                         TabLayout.Tab tab = tabLayout.getTabAt(i);
 
                         if (tab != null && tab.getText() != null) {
-                            if (tab.getText().toString().toUpperCase().equals(tabTitleToSelect.trim().toUpperCase())) {
+                            if (tab.getText().toString().equalsIgnoreCase(tabTitleToSelect.trim())) {
                                 tab.select();
                                 break;
                             }

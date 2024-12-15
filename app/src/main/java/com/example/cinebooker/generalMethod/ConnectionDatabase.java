@@ -15,8 +15,16 @@ public class ConnectionDatabase {
     public Connection getConnection() {
         Connection connection = null;
         try {
-            String IpInternet = "192.168.1.6";
-            String url = "jdbc:jtds:sqlserver://" + IpInternet + ":1433;databasename=dbQuanLyXemPhim;user=sa;password=12345";
+            //String IpInternet = "database-1.chi0cwy8qdtc.us-east-1.rds.amazonaws.com";
+            String IpInternet = "192.168.1.9";
+            String databaseName = "dbQuanLyXemPhim";
+            String username = "sa";
+            //String password = "leducthien.02092004";
+            String password = "12345";
+
+
+            String url = "jdbc:jtds:sqlserver://" + IpInternet + ":1433;databasename=" + databaseName + ";user=" + username + ";password=" + password;
+
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
             Class.forName("net.sourceforge.jtds.jdbc.Driver");

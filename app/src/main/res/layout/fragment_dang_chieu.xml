@@ -19,25 +19,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                tools:ignore="UselessParent">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="bottom">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Phim đang chiếu"
-                        android:textSize="16sp"
-                        android:textColor="@color/white"
-                        android:textStyle="bold"
-                        android:textAlignment="center"/>
-
-                </LinearLayout>
 
                 <Space
                     android:layout_width="match_parent"
@@ -47,6 +31,26 @@
                     android:id="@+id/recycleView_dangChieu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"/>
+
+                <TextView
+                    android:id="@+id/dangchieu_more_than"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Xem thêm"
+                    android:textSize="14sp"
+                    android:textColor="@color/primary_color"
+                    android:textStyle="bold"
+                    android:paddingRight="20dp"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/more_bg"
+                    tools:ignore="HardcodedText" />
 
             </LinearLayout>
         </LinearLayout>
@@ -67,7 +71,8 @@
                 android:textSize="16sp"
                 android:textColor="@color/white"
                 android:textStyle="bold"
-                android:textAlignment="center"/>
+                android:textAlignment="center"
+                tools:ignore="HardcodedText" />
 
             <Space
                 android:layout_width="match_parent"
@@ -94,7 +99,8 @@
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 android:layout_gravity="center"
-                android:background="@drawable/more_bg"/>
+                android:background="@drawable/more_bg"
+                tools:ignore="HardcodedText" />
         </LinearLayout>
     </LinearLayout>
 </ScrollView>
