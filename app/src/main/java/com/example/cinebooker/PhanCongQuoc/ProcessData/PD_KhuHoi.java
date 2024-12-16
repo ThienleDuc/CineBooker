@@ -47,6 +47,7 @@ public class PD_KhuHoi {
             while (resultSet.next()) {
                 // Tạo đối tượng phim
                 ticketkhuhoiMoviesEntity phim = new ticketkhuhoiMoviesEntity();
+                phim.setMaVe(resultSet.getInt("MaVe"));
                   phim.setDate_khuhoi(resultSet.getString("ThoiGian"));
                   phim.setPoster_khuhoi(resultSet.getString("AnhPhim"));
                   phim.setAge_khuhoi( resultSet.getInt("Tuoi"));

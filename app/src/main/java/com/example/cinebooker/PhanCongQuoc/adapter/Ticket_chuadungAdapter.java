@@ -73,7 +73,10 @@ public class Ticket_chuadungAdapter extends RecyclerView.Adapter<Ticket_chuadung
                 .into(holder.posterMovie_chuadung);// Optional: Add a placeholder image
 
 
-        holder.age_chuadung.setText(ticket.getAge_chuadung() > 0 ? String.valueOf(ticket.getAge_chuadung()) : "Tuổi không xác định");
+        holder.age_chuadung.setText(ticket.getAge_chuadung() > 0
+                ? String.valueOf(ticket.getAge_chuadung()) + "+"
+                : "Tuổi không xác định");
+
         holder.movieName_chuadung.setText(ticket.getName_chuadung() != null ? ticket.getName_chuadung() : "Tên phim không xác định");
         holder.styleMovie_chuadung.setText(ticket.getStyle_chuadung() != null ? ticket.getStyle_chuadung() : "Thể loại không xác định");
         holder.soluong_chuadung.setText(ticket.getSoluong_chuadung() > 0 ? String.valueOf(ticket.getSoluong_chuadung()) : "0");

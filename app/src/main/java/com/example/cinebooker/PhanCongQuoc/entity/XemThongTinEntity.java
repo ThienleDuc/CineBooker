@@ -2,31 +2,31 @@
 package com.example.cinebooker.PhanCongQuoc.entity;
 
 public class XemThongTinEntity {
-    private String dateXemThongTin;       // @id/date_xemthongtin
-    private String date1XemThongTin;     // @id/date_1_xemthongtin
-    private Integer posterXemThongTin;    // @id/poster_xemthongtin (URL hoặc tên tệp hình ảnh)
-    private String ageXemThongTin;       // @id/age_xemthongtin
+    private int MaVe;
+    private  String dateXemThongTin;       // @id/date_xemthongtin
+    private String posterXemThongTin;    // @id/poster_xemthongtin (URL hoặc tên tệp hình ảnh)
+    private int ageXemThongTin;       // @id/age_xemthongtin
     private String nameXemThongTin;      // @id/name_xemthongtin
     private String styleXemThongTin;     // @id/style_xemthongtin
-    private String soLuong;              // @id/soluong_xemthongtin
-    private Integer iconRap;              // @id/iconrap_xemthongtin
+    private int soLuong;              // @id/soluong_xemthongtin
+    private String iconRap;              // @id/iconrap_xemthongtin
     private String diaChi;               // @id/diachi_xemthongtin
     private String time_batdau;
     private String time_ketthuc; //              // @id/time_phim
     private String dateXemThongTin1;     // @id/date_xemthongtin_1
     private String dinhDang;             // @id/dinhdang_xemthongtin
-    private String gheNgoi;              // @id/ghe_xemthongtin
-    private String phongChieu;           // @id/phong_xemthongtin
+    private int gheNgoi;              // @id/ghe_xemthongtin
+    private int phongChieu;           // @id/phong_xemthongtin
     private String trangThai;            // @id/trangthai_xemthongtin
 
     // Constructor
-    public XemThongTinEntity(String dateXemThongTin, String date1XemThongTin, Integer posterXemThongTin,
-                             String ageXemThongTin, String nameXemThongTin, String styleXemThongTin,
-                             String soLuong, Integer iconRap, String diaChi, String time_batdau,String time_ketthuc,
-                             String dateXemThongTin1, String dinhDang, String gheNgoi,
-                             String phongChieu, String trangThai) {
+    public XemThongTinEntity(int MaVe,String dateXemThongTin, String posterXemThongTin,
+                             int ageXemThongTin, String nameXemThongTin, String styleXemThongTin,
+                             int soLuong, String iconRap, String diaChi, String time_batdau,String time_ketthuc,
+                             String dateXemThongTin1, String dinhDang, int gheNgoi,
+                             int phongChieu, String trangThai) {
+        this.MaVe=MaVe;
         this.dateXemThongTin = dateXemThongTin;
-        this.date1XemThongTin = date1XemThongTin;
         this.posterXemThongTin = posterXemThongTin;
         this.ageXemThongTin = ageXemThongTin;
         this.nameXemThongTin = nameXemThongTin;
@@ -43,7 +43,18 @@ public class XemThongTinEntity {
         this.trangThai = trangThai;
     }
 
+    public XemThongTinEntity() {
+
+    }
+
     // Getters and Setters
+    public int getMaVe() {
+        return MaVe;
+    }
+
+    public void setMaVe(int MaVe) {
+        this.MaVe = MaVe;
+    }
     public String getDateXemThongTin() {
         return dateXemThongTin;
     }
@@ -52,27 +63,19 @@ public class XemThongTinEntity {
         this.dateXemThongTin = dateXemThongTin;
     }
 
-    public String getDate1XemThongTin() {
-        return date1XemThongTin;
-    }
-
-    public void setDate1XemThongTin(String date1XemThongTin) {
-        this.date1XemThongTin = date1XemThongTin;
-    }
-
-    public int getPosterXemThongTin() {
+    public String getPosterXemThongTin() {
         return posterXemThongTin;
     }
 
-    public void setPosterXemThongTin(int posterXemThongTin) {
+    public void setPosterXemThongTin(String posterXemThongTin) {
         this.posterXemThongTin = posterXemThongTin;
     }
 
-    public String getAgeXemThongTin() {
+    public int getAgeXemThongTin() {
         return ageXemThongTin;
     }
 
-    public void setAgeXemThongTin(String ageXemThongTin) {
+    public void setAgeXemThongTin(int ageXemThongTin) {
         this.ageXemThongTin = ageXemThongTin;
     }
 
@@ -92,19 +95,19 @@ public class XemThongTinEntity {
         this.styleXemThongTin = styleXemThongTin;
     }
 
-    public String getSoLuong() {
+    public int getSoLuong() {
         return soLuong;
     }
 
-    public void setSoLuong(String soLuong) {
+    public void setSoLuong(int soLuong) {
         this.soLuong = soLuong;
     }
 
-    public int getIconRap() {
+    public String getIconRap() {
         return iconRap;
     }
 
-    public void setIconRap(int iconRap) {
+    public void setIconRap(String iconRap) {
         this.iconRap = iconRap;
     }
 
@@ -147,19 +150,19 @@ public class XemThongTinEntity {
         this.dinhDang = dinhDang;
     }
 
-    public String getGheNgoi() {
+    public int getGheNgoi() {
         return gheNgoi;
     }
 
-    public void setGheNgoi(String gheNgoi) {
+    public void setGheNgoi(int gheNgoi) {
         this.gheNgoi = gheNgoi;
     }
 
-    public String getPhongChieu() {
+    public int getPhongChieu() {
         return phongChieu;
     }
 
-    public void setPhongChieu(String phongChieu) {
+    public void setPhongChieu(int phongChieu) {
         this.phongChieu = phongChieu;
     }
 

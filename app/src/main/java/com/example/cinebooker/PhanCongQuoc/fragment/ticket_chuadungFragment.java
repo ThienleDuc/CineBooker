@@ -61,7 +61,6 @@ public class ticket_chuadungFragment extends Fragment {
 
 
     public void chuadung (View view) {
-
         RecyclerView chuaRecyclerView = view.findViewById(R.id.list_chuadung);
         SharedPreferences sharedPreferences = getContext().
                 getSharedPreferences("QuocDepTrai", Context.MODE_PRIVATE);

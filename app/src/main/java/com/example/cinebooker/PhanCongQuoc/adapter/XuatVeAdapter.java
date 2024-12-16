@@ -59,7 +59,7 @@ public class XuatVeAdapter extends RecyclerView.Adapter<XuatVeAdapter.XuatVeView
         Picasso.get().load(item.getPosterXuatVe2())
                 .placeholder(R.drawable.placeholder)  // Optional: Add a placeholder image
                 .into(holder.posterXuatVe2);
-        holder.ageXuatVe.setText(String.valueOf(item.getAgeXuatVe()));
+        holder.ageXuatVe.setText(String.valueOf(item.getAgeXuatVe())+"+");
         holder.nameXuatVe.setText(item.getNameXuatVe());
         holder.styleXuatVe.setText(item.getStyleXuatVe());
         holder.soLuongXuatVe.setText(String.valueOf(item.getSoLuongXuatVe()));  // SoLuong là kiểu int

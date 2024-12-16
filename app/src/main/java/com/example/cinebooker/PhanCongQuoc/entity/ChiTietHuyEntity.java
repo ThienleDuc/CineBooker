@@ -2,30 +2,31 @@
 package com.example.cinebooker.PhanCongQuoc.entity;
 
 public class ChiTietHuyEntity {
-
+    private int MaVe;
     // Fields
     private String dateChitietHuy;         // @id/date_chitiethuy
-    private int posterChitietHuy;       // @id/poster_chitiethuy
-    private String ageChitietHuy;          // @id/age_chitiethuy
+    private String posterChitietHuy;       // @id/poster_chitiethuy
+    private int ageChitietHuy;          // @id/age_chitiethuy
     private String nameChitietHuy;         // @id/name_chitiethuy
     private String styleChitietHuy;        // @id/style_chitiethuy
-    private String soLuongChitietHuy;      // @id/soluong_chitiethuy
-    private int iconRapChitietHuy;      // @id/iconrap_chitiethuy
+    private int soLuongChitietHuy;      // @id/soluong_chitiethuy
+    private String iconRapChitietHuy;      // @id/iconrap_chitiethuy
     private String diaChiChitietHuy;       // @id/diachi_chitiethuy
     private String time_batdau;
     private String time_ketthuc; //     // @id/time_phim_chitiethuy
     private String dateChitietHuy1;        // @id/date_chitiethuy_1
     private String dinhDangXuatPhim;       // @id/dinhdang_xuatphim
-    private String gheChitietHuy;          // @id/ghe_chitiethuy
-    private String phongChitietHuy;        // @id/phong_chitiethuy
+    private int gheChitietHuy;          // @id/ghe_chitiethuy
+    private int phongChitietHuy;        // @id/phong_chitiethuy
     private String trangThaiChitietHuy;    // @id/trangthai_chitiethuy
 
-    // Constructor
-    public ChiTietHuyEntity(String dateChitietHuy, Integer posterChitietHuy, String ageChitietHuy,
-                            String nameChitietHuy, String styleChitietHuy, String soLuongChitietHuy,
-                            Integer iconRapChitietHuy, String diaChiChitietHuy, String time_batdau,String time_ketthuc,
-                            String dateChitietHuy1, String dinhDangXuatPhim, String gheChitietHuy,
-                            String phongChitietHuy, String trangThaiChitietHuy) {
+
+    public ChiTietHuyEntity(int MaVe,String dateChitietHuy, String posterChitietHuy, int ageChitietHuy,
+                            String nameChitietHuy, String styleChitietHuy, int soLuongChitietHuy,
+                            String iconRapChitietHuy, String diaChiChitietHuy, String time_batdau,String time_ketthuc,
+                            String dateChitietHuy1, String dinhDangXuatPhim, int gheChitietHuy,
+                            int phongChitietHuy, String trangThaiChitietHuy) {
+        this.MaVe=MaVe;
         this.dateChitietHuy = dateChitietHuy;
         this.posterChitietHuy = posterChitietHuy;
         this.ageChitietHuy = ageChitietHuy;
@@ -42,8 +43,15 @@ public class ChiTietHuyEntity {
         this.phongChitietHuy = phongChitietHuy;
         this.trangThaiChitietHuy = trangThaiChitietHuy;
     }
+    public ChiTietHuyEntity(){}
+    public int getMaVe() {
+        return MaVe;
+    }
 
-    // Getters and Setters
+    public void setMaVe(int MaVe) {
+        this.MaVe = MaVe;
+    }
+
     public String getDateChitietHuy() {
         return dateChitietHuy;
     }
@@ -52,19 +60,19 @@ public class ChiTietHuyEntity {
         this.dateChitietHuy = dateChitietHuy;
     }
 
-    public int getPosterChitietHuy() {
+    public String getPosterChitietHuy() {
         return posterChitietHuy;
     }
 
-    public void setPosterChitietHuy(Integer posterChitietHuy) {
+    public void setPosterChitietHuy(String posterChitietHuy) {
         this.posterChitietHuy = posterChitietHuy;
     }
 
-    public String getAgeChitietHuy() {
+    public int getAgeChitietHuy() {
         return ageChitietHuy;
     }
 
-    public void setAgeChitietHuy(String ageChitietHuy) {
+    public void setAgeChitietHuy(int ageChitietHuy) {
         this.ageChitietHuy = ageChitietHuy;
     }
 
@@ -84,19 +92,19 @@ public class ChiTietHuyEntity {
         this.styleChitietHuy = styleChitietHuy;
     }
 
-    public String getSoLuongChitietHuy() {
+    public int getSoLuongChitietHuy() {
         return soLuongChitietHuy;
     }
 
-    public void setSoLuongChitietHuy(String soLuongChitietHuy) {
+    public void setSoLuongChitietHuy(int soLuongChitietHuy) {
         this.soLuongChitietHuy = soLuongChitietHuy;
     }
 
-    public int getIconRapChitietHuy() {
+    public String getIconRapChitietHuy() {
         return iconRapChitietHuy;
     }
 
-    public void setIconRapChitietHuy(Integer iconRapChitietHuy) {
+    public void setIconRapChitietHuy(String iconRapChitietHuy) {
         this.iconRapChitietHuy = iconRapChitietHuy;
     }
 
@@ -138,19 +146,19 @@ public class ChiTietHuyEntity {
         this.dinhDangXuatPhim = dinhDangXuatPhim;
     }
 
-    public String getGheChitietHuy() {
+    public int getGheChitietHuy() {
         return gheChitietHuy;
     }
 
-    public void setGheChitietHuy(String gheChitietHuy) {
+    public void setGheChitietHuy(int gheChitietHuy) {
         this.gheChitietHuy = gheChitietHuy;
     }
 
-    public String getPhongChitietHuy() {
+    public int getPhongChitietHuy() {
         return phongChitietHuy;
     }
 
-    public void setPhongChitietHuy(String phongChitietHuy) {
+    public void setPhongChitietHuy(int phongChitietHuy) {
         this.phongChitietHuy = phongChitietHuy;
     }
 

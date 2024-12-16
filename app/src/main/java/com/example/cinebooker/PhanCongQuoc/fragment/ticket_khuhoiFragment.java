@@ -1,5 +1,7 @@
 package com.example.cinebooker.PhanCongQuoc.fragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,10 +26,15 @@ public class ticket_khuhoiFragment extends Fragment {
 
     private static final String ARG_PARAM1 = "param1"; // Định nghĩa biến
     private static final String ARG_PARAM2 = "param2"; // Định nghĩa biến
-
+    private int mave=-1;
     private RecyclerView list_khuhoi;
     private Ticket_khuhoiAdapter ticketkhuhoiAdapter;
     private List<ticketkhuhoiMoviesEntity> ticketkhuhoiMoviesList;
+
+
+    private String mParam1;
+    private String mParam2;
+
 
     public ticket_khuhoiFragment() {
         // Required empty public constructor
@@ -46,7 +53,8 @@ public class ticket_khuhoiFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            // Xử lý tham số nếu cần
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
@@ -58,8 +66,10 @@ public class ticket_khuhoiFragment extends Fragment {
         return view;
     }
     public void khuhoi (View view) {
-
         RecyclerView hoiRecyclerView = view.findViewById(R.id.list_khuhoi);
+        SharedPreferences sharedPreferences = getContext().
+                getSharedPreferences("QuocDepTrai", Context.MODE_PRIVATE);
+        mave = sharedPreferences.getInt("MaVe", -1);
         BL_KhuHoi blKhuHoi = new BL_KhuHoi();
         blKhuHoi.loadKhuHoiVertical(getContext(), hoiRecyclerView);
 

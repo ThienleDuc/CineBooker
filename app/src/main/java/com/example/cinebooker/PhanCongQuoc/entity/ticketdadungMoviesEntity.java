@@ -2,7 +2,7 @@
 package com.example.cinebooker.PhanCongQuoc.entity;
 
 public class ticketdadungMoviesEntity {
-
+    private int MaVe;
     private String date_dadung; // Ngày giờ
     private String poster_dadung; // Resource ID cho poster
     private int age_dadung; // Độ tuổi
@@ -16,7 +16,8 @@ public class ticketdadungMoviesEntity {
     public ticketdadungMoviesEntity()
     {}
     // Constructor với tất cả các tham số
-    public ticketdadungMoviesEntity(String date_dadung, String poster_dadung, int age_dadung, String name_dadung, String style_dadung, int soluong_dadung,String anhrap_dadung, String diachi_dadung) {
+    public ticketdadungMoviesEntity(int MaVe,String date_dadung, String poster_dadung, int age_dadung, String name_dadung, String style_dadung, int soluong_dadung,String anhrap_dadung, String diachi_dadung) {
+        this.MaVe = MaVe;
         this.date_dadung = date_dadung;
         this.poster_dadung = poster_dadung;
         this.age_dadung = age_dadung;
@@ -26,7 +27,13 @@ public class ticketdadungMoviesEntity {
         this.anhrap_dadung=anhrap_dadung;
         this.diachi_dadung = diachi_dadung;
     }
+    public int getMaVe() {
+        return MaVe;
+    }
 
+    public void setMaVe(int MaVe) {
+        this.MaVe = MaVe;
+    }
     // Getter và Setter cho tất cả các trường
     public String getDate_dadung() {
         return date_dadung;

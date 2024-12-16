@@ -1,6 +1,8 @@
 
 package com.example.cinebooker.PhanCongQuoc.fragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -34,7 +36,7 @@ public class ticket_da_dungFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-
+    private int mave=-1;
 
     private RecyclerView list_dadung;
     private Ticket_dadungAdapter ticketdadungAdapter;
@@ -84,9 +86,10 @@ public class ticket_da_dungFragment extends Fragment {
         dadung(view);
         return view;   }
     public void dadung (View view) {
-
         RecyclerView daRecyclerView = view.findViewById(R.id.list_dadung);
-
+        SharedPreferences sharedPreferences = getContext().
+                getSharedPreferences("QuocDepTrai", Context.MODE_PRIVATE);
+        mave = sharedPreferences.getInt("MaVe", -1);
         BL_DaDung blChuaDung = new BL_DaDung();
         blChuaDung.loadDaDungVertical(getContext(), daRecyclerView);
     }

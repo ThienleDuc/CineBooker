@@ -47,6 +47,7 @@ public class PD_DaDung {
             while (resultSet.next()) {
                 // Tạo đối tượng phim
                 ticketdadungMoviesEntity phim = new ticketdadungMoviesEntity();
+                phim.setMaVe(resultSet.getInt("MaVe"));
                   phim.setDate_dadung(resultSet.getString("ThoiGian"));
                   phim.setPoster_dadung(resultSet.getString("AnhPhim"));
                   phim.setAge_dadung( resultSet.getInt("Tuoi"));
