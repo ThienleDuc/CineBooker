@@ -69,4 +69,6 @@ public class ticket_chuadungFragment extends Fragment {
         blChuaDung.loadChuaDungVertical(getContext(), chuaRecyclerView);
     }
 
+
+
 }

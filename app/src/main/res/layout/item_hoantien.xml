@@ -87,7 +87,7 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/time_batdau"
+                            android:id="@+id/time_batdau_trh"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="19:00 "
@@ -103,7 +103,7 @@
                             android:textSize="8dp"
                             android:textStyle="bold" />
                         <TextView
-                            android:id="@+id/time_ketthuc"
+                            android:id="@+id/time_ketthuc_trh"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text=" 21:00"
@@ -243,6 +243,14 @@
                         android:textColor="@color/black"
                         android:textSize="12dp"
                         android:textStyle="bold" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="end|center"
+                        android:text="Phương án *"
+                        android:textColor="@color/black"
+                        android:textSize="12dp"
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
@@ -305,30 +313,11 @@
                         android:layout_height="match_parent"
                         android:layout_weight="0.2"
                         android:gravity="center|end"
-                        android:text=" Số dư TK 17 "
+                        android:text=" Tài khoản ngân hàng liên kết "
                         android:textColor="@color/black"
                         android:textSize="12dp"
                         android:textStyle="bold" />
-                    <TextView
-                        android:id="@+id/sodu_trhang"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0.2"
-                        android:gravity="center|end"
-                        android:text="100.000"
-                        android:textColor="@color/black"
-                        android:textSize="12dp"
-                        android:textStyle="bold" />
-                    <TextView
 
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0.2"
-                        android:gravity="center|end"
-                        android:text="VND "
-                        android:textColor="@color/black"
-                        android:textSize="12dp"
-                        android:textStyle="bold" />
                 </LinearLayout>
 
 
@@ -345,7 +334,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="180dp"
-                android:text="Gửi yêu cầu" />
+                android:text="Xác nhận hoàn vé" />
 
         </LinearLayout>
     </LinearLayout>

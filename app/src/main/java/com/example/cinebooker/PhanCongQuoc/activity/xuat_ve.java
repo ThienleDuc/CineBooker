@@ -33,9 +33,9 @@ public class xuat_ve extends AppCompatActivity {
 
         // Nút quay lại
         ImageView back = findViewById(R.id.itemback);
-        back.setOnClickListener(v -> finish());
+        back.setOnClickListener(v-> onBackPressed());
 
-        // Gọi hàm xuất vé
+
         xuatve();
     }
 
@@ -53,6 +53,7 @@ public class xuat_ve extends AppCompatActivity {
         // Load dữ liệu
         blXuatVe.loadPhimToRecyclerView(this, xuatRecyclerView, adapter, maVe);
     }
+
 
 
 

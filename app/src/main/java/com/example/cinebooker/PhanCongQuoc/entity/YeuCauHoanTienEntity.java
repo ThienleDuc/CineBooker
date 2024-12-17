@@ -5,23 +5,25 @@ package com.example.cinebooker.PhanCongQuoc.entity;
 
 
 public class YeuCauHoanTienEntity {
-    private Integer posterTrHang; // @id/poster_trhang
+    private int MaVe;
+    private String posterTrHang; // @id/poster_trhang
     private String namePhimTrHang; // @id/namephim_trhang
     private String dateTrHang; // @id/date_trhang
     private String time_batdau;
     private String time_ketthuc; // @id/time_trhang
-    private String soLuongTrHang; // @id/soluong_trhang
-    private Integer iconTrHang; // @id/icon_trhang
+    private int soLuongTrHang; // @id/soluong_trhang
+    private String iconTrHang; // @id/icon_trhang
     private String diaChiTrHang; // @id/diachi_trhang
 
     private int soTienHoanTrHang; // @id/sotienhoan_trhang
-    private int soDuTrHang; // @id/sodu_trhang
 
+    public YeuCauHoanTienEntity(){}
     // Constructor
-    public YeuCauHoanTienEntity(Integer posterTrHang, String namePhimTrHang, String dateTrHang,
-                                String time_batdau,String time_ketthuc, String soLuongTrHang, Integer iconTrHang,
+    public YeuCauHoanTienEntity(int MaVe,String posterTrHang, String namePhimTrHang, String dateTrHang,
+                                String time_batdau,String time_ketthuc, int soLuongTrHang, String iconTrHang,
                                 String diaChiTrHang,
-                                int soTienHoanTrHang, int soDuTrHang) {
+                                int soTienHoanTrHang) {
+        this.MaVe = MaVe;
         this.posterTrHang = posterTrHang;
         this.namePhimTrHang = namePhimTrHang;
         this.dateTrHang = dateTrHang;
@@ -31,15 +33,22 @@ public class YeuCauHoanTienEntity {
         this.iconTrHang = iconTrHang;
         this.diaChiTrHang = diaChiTrHang;
         this.soTienHoanTrHang = soTienHoanTrHang;
-        this.soDuTrHang = soDuTrHang;
+
+    }
+    public int getMaVe() {
+        return MaVe;
+    }
+
+    public void setMaVe(int MaVe) {
+        this.MaVe = MaVe;
     }
 
     // Getters and Setters
-    public Integer getPosterTrHang() {
+    public String getPosterTrHang() {
         return posterTrHang;
     }
 
-    public void setPosterTrHang(Integer posterTrHang) {
+    public void setPosterTrHang(String posterTrHang) {
         this.posterTrHang = posterTrHang;
     }
 
@@ -74,19 +83,19 @@ public class YeuCauHoanTienEntity {
         this.time_ketthuc = ketthuc;
     }
 
-    public String getSoLuongTrHang() {
+    public int getSoLuongTrHang() {
         return soLuongTrHang;
     }
 
-    public void setSoLuongTrHang(String soLuongTrHang) {
+    public void setSoLuongTrHang(int soLuongTrHang) {
         this.soLuongTrHang = soLuongTrHang;
     }
 
-    public Integer getIconTrHang() {
+    public String getIconTrHang() {
         return iconTrHang;
     }
 
-    public void setIconTrHang(Integer iconTrHang) {
+    public void setIconTrHang(String iconTrHang) {
         this.iconTrHang = iconTrHang;
     }
 
@@ -108,11 +117,5 @@ public class YeuCauHoanTienEntity {
         this.soTienHoanTrHang = soTienHoanTrHang;
     }
 
-    public int getSoDuTrHang() {
-        return soDuTrHang;
-    }
 
-    public void setSoDuTrHang(int soDuTrHang) {
-        this.soDuTrHang = soDuTrHang;
-    }
 }

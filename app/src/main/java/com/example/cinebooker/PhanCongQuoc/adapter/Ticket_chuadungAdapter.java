@@ -23,6 +23,7 @@ import com.example.cinebooker.R;
 import com.example.cinebooker.generalMethod.ActivityOpen;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Ticket_chuadungAdapter extends RecyclerView.Adapter<Ticket_chuadungAdapter.TicketViewHolder> {
@@ -33,10 +34,17 @@ public class Ticket_chuadungAdapter extends RecyclerView.Adapter<Ticket_chuadung
  private    SharedPreferences sharedPreferences;
 
     public void SetData(List<ticketchuadungMoviesEntity> ticketChuadungMoviesList) {
-        this.ticketChuadungMoviesList = ticketChuadungMoviesList;
-        this.currentItemCount = 10;
-        notifyDataSetChanged();
+        if (this.ticketChuadungMoviesList == null) {
+            this.ticketChuadungMoviesList = new ArrayList<>();
+        }
+
+        int startPosition = this.ticketChuadungMoviesList.size();
+        this.ticketChuadungMoviesList.addAll(ticketChuadungMoviesList);
+
+        // Thay vì notifyDataSetChanged, sử dụng notifyItemRangeInserted
+        notifyItemRangeInserted(startPosition, ticketChuadungMoviesList.size() - startPosition);
     }
+
 
     public Ticket_chuadungAdapter() {
 
@@ -89,7 +97,15 @@ public class Ticket_chuadungAdapter extends RecyclerView.Adapter<Ticket_chuadung
         holder.btn_chuadung.setOnClickListener(v -> {
             Context context = v.getContext();
             if (context instanceof AppCompatActivity) {
-                ActivityOpen.openActivityOnClick((AppCompatActivity) context, yeu_cau_hoan_tien.class, R.id.btn_chuadung);
+                // Lưu MaVe vào SharedPreferences
+                SharedPreferences sharedPreferences = context.getSharedPreferences("QuocDepTrai", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putInt("MaVe", ticket.getMaVe());
+                editor.apply();
+                // Mở Activity xuat_ve bằng Intent
+                Intent intent = new Intent(context, yeu_cau_hoan_tien.class);
+                context.startActivity(intent);
+
             }
         });
 
@@ -105,17 +121,17 @@ public class Ticket_chuadungAdapter extends RecyclerView.Adapter<Ticket_chuadung
                 Intent intent = new Intent(context, xuat_ve.class);
                 context.startActivity(intent);
 
-
             }
         });
 
 
     }
 
-        @Override
+    @Override
     public int getItemCount() {
-        return Math.min(currentItemCount, ticketChuadungMoviesList.size());
+        return ticketChuadungMoviesList.size();  // Trả về toàn bộ số lượng item trong danh sách
     }
+
 
     public class TicketViewHolder extends RecyclerView.ViewHolder {
         ImageView posterMovie_chuadung,anhrap;

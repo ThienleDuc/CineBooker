@@ -91,9 +91,9 @@ public class Ticket_dadungAdapter extends RecyclerView.Adapter<Ticket_dadungAdap
         });
     }
 
-        @Override
+    @Override
     public int getItemCount() {
-        return Math.min(currentItemCount, ticketdadungMoviesList.size());
+        return ticketdadungMoviesList.size();  // Trả về toàn bộ số lượng item trong danh sách
     }
 
     public class TicketViewHolder extends RecyclerView.ViewHolder {

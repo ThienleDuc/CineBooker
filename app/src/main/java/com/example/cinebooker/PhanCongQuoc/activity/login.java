@@ -1,10 +1,10 @@
 package com.example.cinebooker.PhanCongQuoc.activity;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -16,8 +16,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.cinebooker.LeDucThien.activity.home;
 import com.example.cinebooker.R;
+import com.example.cinebooker.generalMethod.ConnectionDatabase;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class login extends AppCompatActivity {
+
+    private static final String TAG = "LoginActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +34,7 @@ public class login extends AppCompatActivity {
         TextView dangKy = findViewById(R.id.register_lg);
         Button dangNhap = findViewById(R.id.login_btn);
 
+        // Chuyển sang màn hình đăng ký
         dangKy.setOnClickListener(v -> {
             Intent intent = new Intent(login.this, register.class);
             startActivity(intent);
@@ -38,25 +46,31 @@ public class login extends AppCompatActivity {
         // Xử lý hiển thị/ẩn mật khẩu
         passwordInput.setOnTouchListener((v, event) -> togglePasswordVisibility(v, event, passwordInput, isPasswordVisible));
 
+        // Xử lý sự kiện nhấn nút "Đăng nhập"
         dangNhap.setOnClickListener(v -> {
             EditText emailInput = findViewById(R.id.email_input);
-            String enteredEmail = emailInput.getText().toString();
-            String enteredPassword = passwordInput.getText().toString();
+            String enteredEmail = emailInput.getText().toString().trim();
+            String enteredPassword = passwordInput.getText().toString().trim();
 
-            // Lấy thông tin đã lưu trong SharedPreferences
-            SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
-            String savedEmail = sharedPreferences.getString("email", "");
-            String savedPassword = sharedPreferences.getString("password", "");
-
-            // Kiểm tra thông tin đăng nhập
-            if (enteredEmail.equals(savedEmail) && enteredPassword.equals(savedPassword)) {
-                Toast.makeText(this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(login.this, home.class);
-                startActivity(intent);
-                finish();
-            } else {
-                Toast.makeText(this, "Email hoặc mật khẩu không đúng!", Toast.LENGTH_SHORT).show();
+            if (enteredEmail.isEmpty() || enteredPassword.isEmpty()) {
+                Toast.makeText(this, "Vui lòng nhập đầy đủ email và mật khẩu!", Toast.LENGTH_SHORT).show();
+                return;
             }
+
+            // Kiểm tra thông tin trong cơ sở dữ liệu
+            new Thread(() -> {
+                boolean isValid = checkUserCredentials(enteredEmail, enteredPassword);
+                runOnUiThread(() -> {
+                    if (isValid) {
+                        Toast.makeText(this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(login.this, home.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        Toast.makeText(this, "Email hoặc mật khẩu không đúng!", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }).start();
         });
     }
 
@@ -71,6 +85,42 @@ public class login extends AppCompatActivity {
                 isPasswordVisible[0] = !isPasswordVisible[0];
                 editText.setSelection(editText.getText().length());
                 return true;
+            }
+        }
+        return false;
+    }
+
+    // Phương thức kiểm tra thông tin đăng nhập từ cơ sở dữ liệu
+    private boolean checkUserCredentials(String email, String password) {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = new ConnectionDatabase().getConnection();
+            if (connection == null) {
+                Log.e(TAG, "Không thể kết nối đến cơ sở dữ liệu.");
+                return false;
+            }
+
+            String sql = "SELECT COUNT(*) FROM KhachHang WHERE Email = ? AND MatKhau = ?";
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, email);
+            statement.setString(2, password);
+
+            resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt(1) > 0; // Đúng nếu có người dùng phù hợp
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Lỗi khi kiểm tra thông tin đăng nhập: ", e);
+        } finally {
+            try {
+                if (resultSet != null) resultSet.close();
+                if (statement != null) statement.close();
+                if (connection != null) connection.close();
+            } catch (Exception e) {
+                Log.e(TAG, "Lỗi khi đóng kết nối: ", e);
             }
         }
         return false;

@@ -103,8 +103,9 @@ public class Ticket_khuhoiAdapter extends RecyclerView.Adapter<Ticket_khuhoiAdap
     }
 
     @Override
+
     public int getItemCount() {
-        return Math.min(currentItemCount, ticketkhuhoiMoviesList.size());
+        return ticketkhuhoiMoviesList.size();  // Trả về toàn bộ số lượng item trong danh sách
     }
 
     public class TicketViewHolder extends RecyclerView.ViewHolder {
