@@ -205,7 +205,7 @@ public class PD_TinhThanh {
         }
 
         // Cập nhật dữ liệu cho adapter và đảm bảo adapter không rỗng
-        adapter.SetData(list);
+        adapter.setData(list);
     }
 
 }

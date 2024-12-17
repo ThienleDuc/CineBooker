@@ -20,7 +20,6 @@ BEGIN
     UPDATE Phim
     SET TrangThaiChieu = N'Sắp chiếu'
     WHERE GETDATE() < NgayKhoiChieu 
-      OR MaPhim NOT IN (SELECT MaPhim FROM LichChieu);
 END;
 GO
 CREATE TRIGGER trg_CheckAndInsertChiTietCapBac

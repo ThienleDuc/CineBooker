@@ -37,6 +37,7 @@ public class DiaChiRapChieuAdapter extends RecyclerView.Adapter<DiaChiRapChieuAd
         return new viewHolder(view);
     }
 
+    @SuppressLint("QueryPermissionsNeeded")
     @Override
     public void onBindViewHolder(@NonNull DiaChiRapChieuAdapter.viewHolder holder, int position) {
         ent_RapChieuCon rapChieu = rapChieulist.get(position);
@@ -57,8 +58,19 @@ public class DiaChiRapChieuAdapter extends RecyclerView.Adapter<DiaChiRapChieuAd
             Uri mapUri = Uri.parse("geo:0,0?q=" + Uri.encode(map));
             Intent mapIntent = new Intent(Intent.ACTION_VIEW, mapUri);
             mapIntent.setPackage("com.google.android.apps.maps");
-            context.startActivity(mapIntent);
+
+            // Kiểm tra xem Google Maps có sẵn trên thiết bị không
+            if (mapIntent.resolveActivity(context.getPackageManager()) != null) {
+                // Nếu có, mở Google Maps
+                context.startActivity(mapIntent);
+            } else {
+                // Nếu không có Google Maps, mở trên trình duyệt
+                Uri webUri = Uri.parse("https://maps.google.com/?q=" + Uri.encode(map));
+                Intent webIntent = new Intent(Intent.ACTION_VIEW, webUri);
+                context.startActivity(webIntent);
+            }
         });
+
 
     }
 

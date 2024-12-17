@@ -1,7 +1,7 @@
 package com.example.cinebooker.LeDucThien.BussinessLogic;
 
+import android.app.Activity;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -13,15 +13,14 @@ import com.example.cinebooker.LeDucThien.entity.ent_TinhThanh;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class BL_TinhThanh {
     private final PD_TinhThanh pdTinhThanh;
-    private final ExecutorService executor;
     public BL_TinhThanh() {
         pdTinhThanh = new PD_TinhThanh();
-        executor = Executors.newSingleThreadExecutor();
     }
 
     // Phương thức lấy danh sách phim sắp chiếu
@@ -55,11 +54,12 @@ public class BL_TinhThanh {
             Log.w("BL_PhimSapChieu", "RecyclerView is null. Data will not be loaded.");
             return;
         }
+        ExecutorService executor = Executors.newSingleThreadExecutor();
         executor.execute(() -> {
             try {
                 List<ent_TinhThanh> list = getDanhSachTenTinhThanh();
-                if (context instanceof android.app.Activity) {
-                    ((android.app.Activity) context).runOnUiThread(() -> {
+                if (context instanceof Activity) {
+                    ((Activity) context).runOnUiThread(() -> {
                         pdTinhThanh.loadTenTinhThanhToRecyclerView(context, recyclerView, list, adapter);
                     });
                 }
@@ -71,25 +71,18 @@ public class BL_TinhThanh {
     }
 
     // Phương thức trả về TextView sau khi load Tên Tỉnh Thành theo MaTinhThanh
-    public void loadTenTinhThanhTheoDieuKien(Context context, TextView textView) {
+    public void loadTenTinhThanhTheoDieuKien(Context context, TextView textView, int maTinhThanh) {
+        ExecutorService executor = Executors.newSingleThreadExecutor();
         executor.execute(() -> {
             try {
-                SharedPreferences sharedPreferences = context.getSharedPreferences("LeDucThien", Context.MODE_PRIVATE);
-                int maTinhThanhPerf = sharedPreferences.getInt("maTinhThanh",-1);
-                if (maTinhThanhPerf == -1) {
-                    maTinhThanhPerf = loadMinMaTinhThanh();
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putInt("maTinhThanh", maTinhThanhPerf);
-                    editor.apply();
-                }
-                List<ent_TinhThanh> list = getDanhSachTinhThanhTheoDieuKien(maTinhThanhPerf);
+                List<ent_TinhThanh> list = getDanhSachTinhThanhTheoDieuKien(maTinhThanh);
 
                 if (list != null && !list.isEmpty()) {
                     String tenTinhThanh = list.get(0).getTenTinhThanh();
 
                     // Cập nhật TextView trên UI thread
-                    if (context instanceof android.app.Activity) {
-                        ((android.app.Activity) context).runOnUiThread(() -> {
+                    if (context instanceof Activity) {
+                        ((Activity) context).runOnUiThread(() -> {
                             // Cập nhật TextView với tên tỉnh thành tìm được
                             textView.setText(tenTinhThanh);
                         });
@@ -110,12 +103,12 @@ public class BL_TinhThanh {
             Log.w("BL_TinhThanh", "RecyclerView is null. Data will not be loaded.");
             return;
         }
-
+        ExecutorService executor = Executors.newSingleThreadExecutor();
         executor.execute(() -> {
             try {
                 List<ent_TinhThanh> list = getDanhSachByTenTinhThanh(input);
-                if (context instanceof android.app.Activity) {
-                    ((android.app.Activity) context).runOnUiThread(() -> {
+                if (context instanceof Activity) {
+                    ((Activity) context).runOnUiThread(() -> {
                         pdTinhThanh.loadTenTinhThanhToRecyclerView(context, recyclerView, list, adapter);
                     });
                 }

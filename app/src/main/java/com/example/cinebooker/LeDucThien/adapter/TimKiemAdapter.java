@@ -62,8 +62,8 @@ public class TimKiemAdapter extends RecyclerView.Adapter<TimKiemAdapter.SearchVi
         holder.styleMovie.setText(search_movies.getTenTheLoai() != null ? search_movies.getTenTheLoai() : "Chưa cập nhật");
         holder.vote.setText(NumberFormatter.formatNumber(search_movies.getDiemDanhGiaTrungBinh()));
 
-        int maPhim = search_movies.getMaPhim();
         holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onClick(View view) {
                 Context context = view.getContext();
@@ -71,8 +71,9 @@ public class TimKiemAdapter extends RecyclerView.Adapter<TimKiemAdapter.SearchVi
                     SharedPreferences sharedPreferences = context.getSharedPreferences("LeDucThien", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor;
                     editor = sharedPreferences.edit();
-                    editor.putInt("maPhim", maPhim);
+                    editor.putInt("maPhim", search_movies.getMaPhim());
                     editor.apply();
+                    notifyDataSetChanged();
                     Intent intent = new Intent(context, XemChiTietPhim.class);
                     context.startActivity(intent);                }
             }

@@ -44,11 +44,6 @@ public class PD_XepHang {
              PreparedStatement preparedStatement = connection.prepareStatement("EXEC " + procedureName);
              ResultSet resultSet = preparedStatement.executeQuery()) {
 
-            if (connection == null) {
-                Log.e(TAG, "Không thể kết nối đến cơ sở dữ liệu.");
-                return phimXepHangList;
-            }
-
             while (resultSet.next()) {
                 ent_XepHang phim = new ent_XepHang(
                         resultSet.getInt("MaPhim"),

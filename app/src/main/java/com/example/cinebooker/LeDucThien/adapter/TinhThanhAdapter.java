@@ -19,55 +19,65 @@ import com.example.cinebooker.R;
 
 import java.util.List;
 
-public class TinhThanhAdapter extends RecyclerView.Adapter<TinhThanhAdapter.viewHolder> {
+public class TinhThanhAdapter extends RecyclerView.Adapter<TinhThanhAdapter.ViewHolder> {
     private List<ent_TinhThanh> listTinhThanh;
-    private SharedPreferences sharedPreferences;
-    private SharedPreferences.Editor editor;
+    private final SharedPreferences.Editor editor;
+    private final Context context;
+    private int selectedMaTinhThanh;
 
-    // Set dữ liệu cho adapter
+    // Constructor
     @SuppressLint("NotifyDataSetChanged")
-    public void SetData(List<ent_TinhThanh> listTinhThanh) {
+    public TinhThanhAdapter(Context context) {
+        this.context = context;
+        SharedPreferences sharedPreferences = context.getSharedPreferences("LeDucThien", Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+        selectedMaTinhThanh = sharedPreferences.getInt("maTinhThanh", -1);
+    }
+
+    // Set dữ liệu cho Adapter
+    @SuppressLint("NotifyDataSetChanged")
+    public void setData(List<ent_TinhThanh> listTinhThanh) {
         this.listTinhThanh = listTinhThanh;
         notifyDataSetChanged();
     }
 
     @NonNull
     @Override
-    public TinhThanhAdapter.viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list_tinh_thanh, parent, false);
-        return new viewHolder(view);
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_list_tinh_thanh, parent, false);
+        return new ViewHolder(view);
     }
 
     @SuppressLint("NotifyDataSetChanged")
     @Override
-    public void onBindViewHolder(@NonNull TinhThanhAdapter.viewHolder holder, int position) {
-        ent_TinhThanh ent_list = listTinhThanh.get(position);
-        holder.tenTinhThanh.setText(ent_list.getTenTinhThanh());
-        int maTinhThanhItem = ent_list.getMaTinhThanh();
-        sharedPreferences = holder.itemView.getContext().getSharedPreferences("LeDucThien", Context.MODE_PRIVATE);
-        int maTinhThanhFromPrefs = sharedPreferences.getInt("maTinhThanh", -1);
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        ent_TinhThanh tinhThanh = listTinhThanh.get(position);
+        int maTinhThanhItem = tinhThanh.getMaTinhThanh();
 
-        // Đặt background cho item
-        if (maTinhThanhFromPrefs == maTinhThanhItem) {
+        // Hiển thị tên tỉnh thành
+        holder.tenTinhThanh.setText(tinhThanh.getTenTinhThanh());
+
+        // Highlight item được chọn
+        if (maTinhThanhItem == selectedMaTinhThanh) {
             holder.container_imageview.setBackgroundResource(R.drawable.strock_1_pink_radius_10_transparent);
-            holder.tenTinhThanh.setTextColor(holder.itemView.getContext().getColor(R.color.primary_color));
-            holder.tenTinhThanh.setTypeface(holder.tenTinhThanh.getTypeface(), Typeface.BOLD);
+            holder.tenTinhThanh.setTextColor(context.getColor(R.color.primary_color));
+            holder.tenTinhThanh.setTypeface(Typeface.DEFAULT_BOLD);
         } else {
             holder.container_imageview.setBackgroundResource(R.drawable.strock_1_white_radius_10_transparent);
-            holder.tenTinhThanh.setTextColor(holder.itemView.getContext().getColor(android.R.color.darker_gray));
-            holder.tenTinhThanh.setTypeface(holder.tenTinhThanh.getTypeface(), Typeface.NORMAL);
+            holder.tenTinhThanh.setTextColor(context.getColor(android.R.color.darker_gray));
+            holder.tenTinhThanh.setTypeface(Typeface.DEFAULT);
         }
+
         // Xử lý sự kiện click
         holder.itemView.setOnClickListener(v -> {
-            editor = sharedPreferences.edit();
-            // Lưu giá trị maTinhThanh vào SharedPreferences
-            editor.putInt("maTinhThanh", maTinhThanhItem);
+            editor.putInt("maTinhThanh", tinhThanh.getMaTinhThanh());
             editor.apply();
-            notifyDataSetChanged();
+            notifyDataSetChanged(); // Refresh danh sách
 
-            // Gọi hàm để thông báo cho fragment hoặc activity (nếu cần)
-            if (holder.itemView.getContext() instanceof DanhSachDiaDiemRap) {
-                ((DanhSachDiaDiemRap) holder.itemView.getContext()).dongActivity();
+            // Đóng Activity nếu cần
+            if (context instanceof DanhSachDiaDiemRap) {
+                ((DanhSachDiaDiemRap) context).dongActivity();
             }
         });
     }
@@ -77,11 +87,12 @@ public class TinhThanhAdapter extends RecyclerView.Adapter<TinhThanhAdapter.view
         return listTinhThanh != null ? listTinhThanh.size() : 0;
     }
 
-    public static class viewHolder extends RecyclerView.ViewHolder {
+    // ViewHolder
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         LinearLayout container_imageview;
         TextView tenTinhThanh;
 
-        public viewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
             container_imageview = itemView.findViewById(R.id.container_imageview);
             tenTinhThanh = itemView.findViewById(R.id.ten_tinh_thanh);

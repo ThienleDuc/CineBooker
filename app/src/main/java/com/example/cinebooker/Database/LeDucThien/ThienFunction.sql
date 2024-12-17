@@ -63,9 +63,10 @@ BEGIN
     FROM VePhim
     JOIN LichChieu ON VePhim.MaLichChieu = LichChieu.MaLichChieu
     JOIN ChiTietLichChieu ON LichChieu.MaLichChieu = ChiTietLichChieu.MaLichChieu
+	JOIN ThoiGianChieu ON ThoiGianChieu.MaThoiGianChieu = ChiTietLichChieu.MaThoiGianChieu
     JOIN Phim ON Phim.MaPhim = LichChieu.MaPhim  -- Thêm JOIN với bảng Phim
     WHERE LichChieu.MaPhim = @MaPhim
-    AND CAST(ChiTietLichChieu.NgayChieu AS DATE) = CAST(GETDATE() AS DATE)  -- Sử dụng ngày hiện tại
+    AND CAST(ThoiGianChieu.NgayChieu AS DATE) = CAST(GETDATE() AS DATE)  -- Sử dụng ngày hiện tại
     AND Phim.TrangThaiChieu = N'Đang chiếu';  -- Điều kiện phim đang chiếu
 
     RETURN @TongLuotMua;
@@ -82,10 +83,11 @@ BEGIN
     FROM VePhim
     JOIN LichChieu ON VePhim.MaLichChieu = LichChieu.MaLichChieu
     JOIN ChiTietLichChieu ON LichChieu.MaLichChieu = ChiTietLichChieu.MaLichChieu
+	JOIN ThoiGianChieu ON ThoiGianChieu.MaThoiGianChieu = ChiTietLichChieu.MaThoiGianChieu
     JOIN Phim ON Phim.MaPhim = LichChieu.MaPhim  -- Thêm JOIN với bảng Phim
     WHERE LichChieu.MaPhim = @MaPhim
-    AND DATEPART(ISO_WEEK, ChiTietLichChieu.NgayChieu) = DATEPART(ISO_WEEK, GETDATE())  -- So sánh tuần hiện tại
-    AND YEAR(ChiTietLichChieu.NgayChieu) = YEAR(GETDATE())  -- Đảm bảo năm trùng với năm hiện tại
+    AND DATEPART(ISO_WEEK, ThoiGianChieu.NgayChieu) = DATEPART(ISO_WEEK, GETDATE())  -- So sánh tuần hiện tại
+    AND YEAR(ThoiGianChieu.NgayChieu) = YEAR(GETDATE())  -- Đảm bảo năm trùng với năm hiện tại
     AND Phim.TrangThaiChieu = N'Đang chiếu';  -- Điều kiện phim đang chiếu
 
     RETURN @TongLuotMua;
@@ -103,10 +105,11 @@ BEGIN
     FROM VePhim
     JOIN LichChieu ON VePhim.MaLichChieu = LichChieu.MaLichChieu
     JOIN ChiTietLichChieu ON LichChieu.MaLichChieu = ChiTietLichChieu.MaLichChieu
+	JOIN ThoiGianChieu ON ThoiGianChieu.MaThoiGianChieu = ChiTietLichChieu.MaThoiGianChieu
     JOIN Phim ON Phim.MaPhim = LichChieu.MaPhim  -- Thêm JOIN với bảng Phim
     WHERE LichChieu.MaPhim = @MaPhim
-    AND MONTH(ChiTietLichChieu.NgayChieu) = MONTH(GETDATE())  -- So sánh tháng hiện tại
-    AND YEAR(ChiTietLichChieu.NgayChieu) = YEAR(GETDATE())  -- Đảm bảo năm trùng với năm hiện tại
+    AND MONTH(ThoiGianChieu.NgayChieu) = MONTH(GETDATE())  -- So sánh tháng hiện tại
+    AND YEAR(ThoiGianChieu.NgayChieu) = YEAR(GETDATE())  -- Đảm bảo năm trùng với năm hiện tại
     AND Phim.TrangThaiChieu = N'Đang chiếu';  -- Điều kiện phim đang chiếu
 
     RETURN @TongLuotMua;
@@ -343,11 +346,10 @@ BEGIN
     RETURN @TongLuotDanhGia;
 END;
 GO
---END--
 CREATE FUNCTION dbo.fn_DiemDanhGiaTrungBinhTheoNgayChieuRapChieuCon (
     @MaPhim INT,
-    @NgayChieu DATETIME,
-    @TenRapChieuCon NVARCHAR(255)
+    @NgayChieu VARCHAR(10),
+    @MaRapChieuCon INT
 )
 RETURNS FLOAT
 AS
@@ -355,51 +357,24 @@ BEGIN
     DECLARE @DiemTrungBinh FLOAT;
 
     -- Tính điểm trung bình từ bảng DanhGia cho bộ phim với MaPhim, NgayChieu và TenRapChieuCon tương ứng
-    SELECT @DiemTrungBinh = AVG(DiemDanhGia)
+    SELECT @DiemTrungBinh = ISNULL(AVG(DiemDanhGia), 0)
     FROM DanhGia
     JOIN LichChieu ON DanhGia.MaPhim = LichChieu.MaPhim
     JOIN RapChieuCon ON LichChieu.MaRapChieuCon = RapChieuCon.MaRapChieuCon
     JOIN ChiTietLichChieu ON LichChieu.MaLichChieu = ChiTietLichChieu.MaLichChieu
+	JOIN ThoiGianChieu ON ThoiGianChieu.MaThoiGianChieu = ChiTietLichChieu.MaThoiGianChieu
     WHERE LichChieu.MaPhim = @MaPhim
-    AND ChiTietLichChieu.NgayChieu = @NgayChieu
-    AND RapChieuCon.TenRapChieuCon = @TenRapChieuCon;
+      AND CONVERT(VARCHAR(10), ThoiGianChieu.NgayChieu, 103) = @NgayChieu
+      AND RapChieuCon.MaRapChieu = @MaRapChieuCon;
 
     -- Trả về điểm trung bình
     RETURN @DiemTrungBinh;
 END;
 GO
-CREATE FUNCTION dbo.fn_TongLuotMuaPhimTrungBinhTheoNgayChieuRapChieuCon (
-    @MaPhim INT,
-    @NgayChieu DATETIME,
-    @TenRapChieuCon NVARCHAR(255)
-)
-RETURNS INT
-AS
-BEGIN
-    DECLARE @TongLuotMua INT;
-
-    -- Tính tổng lượt mua phim trung bình theo NgàyChiếu và TenRapChieuCon
-    SELECT @TongLuotMua = COUNT(DISTINCT VePhim.MaVe)
-    FROM VePhim
-    JOIN PhimDangChieu ON VePhim.MaPhimDangChieu = PhimDangChieu.MaPhimDangChieu
-    JOIN LichChieu ON PhimDangChieu.MaLichChieu = LichChieu.MaLichChieu
-    JOIN RapChieuCon ON LichChieu.MaRapChieuCon = RapChieuCon.MaRapChieuCon
-    JOIN ChiTietLichChieu ON LichChieu.MaLichChieu = ChiTietLichChieu.MaLichChieu
-    WHERE LichChieu.MaPhim = @MaPhim
-    AND ChiTietLichChieu.NgayChieu = @NgayChieu
-    AND RapChieuCon.TenRapChieuCon = @TenRapChieuCon;
-
-    -- Trả về tổng lượt mua
-    RETURN @TongLuotMua;
-END;
-GO
-
-
-GO
 CREATE FUNCTION dbo.fn_TongLuotDanhGiaPhimTheoNgayChieuRapChieuCon (
     @MaPhim INT,
-    @NgayChieu DATETIME,
-    @TenRapChieuCon NVARCHAR(255)
+    @NgayChieu VARCHAR(10),
+    @MaRapChieuCon INT
 )
 RETURNS INT
 AS
@@ -412,15 +387,44 @@ BEGIN
     JOIN LichChieu ON DanhGia.MaPhim = LichChieu.MaPhim
     JOIN RapChieuCon ON LichChieu.MaRapChieuCon = RapChieuCon.MaRapChieuCon
     JOIN ChiTietLichChieu ON LichChieu.MaLichChieu = ChiTietLichChieu.MaLichChieu
+	JOIN ThoiGianChieu ON ThoiGianChieu.MaThoiGianChieu = ChiTietLichChieu.MaThoiGianChieu
     WHERE DanhGia.MaPhim = @MaPhim
-    AND ChiTietLichChieu.NgayChieu = @NgayChieu
-    AND RapChieuCon.TenRapChieuCon = @TenRapChieuCon;
+    AND CONVERT(VARCHAR(10), ThoiGianChieu.NgayChieu, 103) = @NgayChieu
+    AND RapChieuCon.MaRapChieu = @MaRapChieuCon;
+
 
     -- Trả về tổng lượt đánh giá
     RETURN @TongLuotDanhGia;
 END;
 GO
+CREATE FUNCTION dbo.fn_TongLuotMuaPhimTheoNgayRapChieuCon (
+    @MaPhim INT,
+    @NgayChieu VARCHAR(10),
+	@MaRapChieuCon INT
+)
+RETURNS INT
+AS
+BEGIN
+    DECLARE @TongLuotMua INT;
 
+    -- Tính tổng số lượt mua cho bộ phim tại rạp chiếu con vào ngày cụ thể
+    SELECT @TongLuotMua = COUNT(DISTINCT VePhim.MaVe)
+    FROM VePhim
+    JOIN LichChieu ON VePhim.MaLichChieu = LichChieu.MaLichChieu
+    JOIN ChiTietLichChieu ON LichChieu.MaLichChieu = ChiTietLichChieu.MaLichChieu
+	JOIN ThoiGianChieu ON ThoiGianChieu.MaThoiGianChieu = ChiTietLichChieu.MaThoiGianChieu
+    JOIN RapChieuCon ON LichChieu.MaRapChieuCon = RapChieuCon.MaRapChieuCon
+    JOIN Phim ON Phim.MaPhim = LichChieu.MaPhim
+    WHERE LichChieu.MaPhim = @MaPhim
+      AND RapChieuCon.MaRapChieuCon = @MaRapChieuCon
+      AND CONVERT(VARCHAR(10), ThoiGianChieu.NgayChieu, 103) = @NgayChieu  
+      AND Phim.TrangThaiChieu = N'Đang chiếu';  -- Điều kiện phim đang chiếu
+
+    RETURN @TongLuotMua;
+END;
+GO
+
+--END--
 -- Function tính tổng số lượng VoucherDoiTac
 CREATE FUNCTION dbo.fn_TongSoLuongVoucherDoiTac()
 RETURNS INT
@@ -494,7 +498,7 @@ BEGIN
     DECLARE @TongTien FLOAT;
 
     -- Tính tổng tiền thanh toán của khách hàng
-    SELECT @TongTien = SUM(TT.TongTien)
+    SELECT @TongTien = SUM(TT.TongTien)s
     FROM ThanhToan TT
     INNER JOIN VePhim VP ON TT.MaVe = VP.MaVe
     WHERE VP.MaKhachHang = @MaKhachHang;
@@ -502,4 +506,21 @@ BEGIN
     -- Trả về tổng tiền
     RETURN ISNULL(@TongTien, 0);  -- Trả về 0 nếu không có thanh toán nào
 END;
+GO
+CREATE FUNCTION fn_LayMaThoiGianChieu_HienTai()
+RETURNS INT
+AS
+BEGIN
+    DECLARE @MaThoiGianChieu INT;
+
+    -- Truy vấn lấy MaThoiGianChieu của ngày hiện tại
+    SELECT @MaThoiGianChieu = MaThoiGianChieu
+    FROM ThoiGianChieu
+    WHERE CONVERT(DATE, NgayChieu) = CONVERT(DATE, GETDATE());
+
+    -- Trả về MaThoiGianChieu nếu có, nếu không trả về NULL
+    RETURN @MaThoiGianChieu;
+END;
+
+SELECT dbo.fn_LayMaThoiGianChieu_HienTai();
 GO

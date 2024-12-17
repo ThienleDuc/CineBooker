@@ -73,8 +73,8 @@ public class DanhGiaPhimAdapter extends RecyclerView.Adapter<DanhGiaPhimAdapter.
         holder.day.setText(dangChieu.getNgayDanhGia());
         holder.userComment.setText(dangChieu.getDanhGia());
 
-        int maPhim = dangChieu.getMaPhim();
         holder.xemThem.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onClick(View view) {
                 Context context = view.getContext();
@@ -82,8 +82,9 @@ public class DanhGiaPhimAdapter extends RecyclerView.Adapter<DanhGiaPhimAdapter.
                     SharedPreferences sharedPreferences = context.getSharedPreferences("LeDucThien", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor;
                     editor = sharedPreferences.edit();
-                    editor.putInt("maPhim", maPhim);
+                    editor.putInt("maPhim", dangChieu.getMaPhim());
                     editor.apply();
+                    notifyDataSetChanged();
                     Intent intent = new Intent(context, XemChiTietPhim.class);
                     context.startActivity(intent);                }
             }

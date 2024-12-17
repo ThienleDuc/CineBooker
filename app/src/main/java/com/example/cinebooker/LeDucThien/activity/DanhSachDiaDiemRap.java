@@ -1,8 +1,10 @@
 package com.example.cinebooker.LeDucThien.activity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,28 +23,30 @@ public class DanhSachDiaDiemRap extends AppCompatActivity {
     private TinhThanhAdapter tinhThanhAdapter;
     private RecyclerView recyclerView;
     private String previousSearch = ""; // Lưu lại tìm kiếm trước đó
-    private SharedViewModel sharedViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_danh_sach_dia_diem_rap);
 
-        recyclerView = findViewById(R.id.diachirap_recyclerview);
-        editText = findViewById(R.id.header_search_input);
-        ImageView close = findViewById(R.id.danhsachdiadiemrap_close);
-
         // Bảo vệ RecyclerView null
+        recyclerView = findViewById(R.id.diachirap_recyclerview);
         if (recyclerView == null) {
             throw new IllegalStateException("RecyclerView is null. Check the layout file.");
         }
 
-        // Khởi tạo Adapter
+        // Khởi tạo SharedViewModel và BL_TinhThanh
         blTinhThanh = new BL_TinhThanh();
-        tinhThanhAdapter = new TinhThanhAdapter();
+        // Khởi tạo Adapter
+        tinhThanhAdapter = new TinhThanhAdapter(this);
 
-        // Load dữ liệu ban đầu
+        // Load dữ liệu ban đầu và thêm Log để kiểm tra dữ liệu
+        Log.d("BL_TinhThanh", "Loading initial data for RecyclerView...");
         blTinhThanh.loadTenTinhThanhToRecyclerView(this, recyclerView, tinhThanhAdapter);
+
+        // Khởi tạo các view khác
+        editText = findViewById(R.id.header_search_input);
+        ImageView close = findViewById(R.id.danhsachdiadiemrap_close);
 
         // TextWatcher để xử lý tìm kiếm
         textWatcher = new TextWatcher() {
@@ -65,6 +69,7 @@ public class DanhSachDiaDiemRap extends AppCompatActivity {
                     previousSearch = input;
 
                     if (!input.isEmpty()) {
+                        Log.d("Search", "Searching for: " + input);  // Log tìm kiếm
                         blTinhThanh.loadTenTinhThanhToRecyclerViewAfterSearch(
                                 DanhSachDiaDiemRap.this,
                                 recyclerView,
@@ -72,6 +77,7 @@ public class DanhSachDiaDiemRap extends AppCompatActivity {
                                 input
                         );
                     } else {
+                        Log.d("Search", "Clearing search input");
                         blTinhThanh.loadTenTinhThanhToRecyclerView(DanhSachDiaDiemRap.this, recyclerView, tinhThanhAdapter);
                     }
                 }
@@ -88,8 +94,12 @@ public class DanhSachDiaDiemRap extends AppCompatActivity {
         });
 
         // Sự kiện đóng Activity
-        close.setOnClickListener(v -> finish());
+        close.setOnClickListener(v -> {
+            Log.d("Activity", "Closing the activity");  // Log đóng activity
+            finish();
+        });
     }
+
 
     @Override
     protected void onResume() {

@@ -33,7 +33,8 @@ public class Search extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    private String mParam1;
+    private String mParam2;
     private RecyclerView recyclerView;
     private BL_TimKiemPhim blTimKiemPhim;
     private TextView xemthem;
@@ -69,8 +70,8 @@ public class Search extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             // TODO: Rename and change types of parameters
-            String mParam1 = getArguments().getString(ARG_PARAM1);
-            String mParam2 = getArguments().getString(ARG_PARAM2);
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 

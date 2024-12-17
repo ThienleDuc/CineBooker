@@ -77,7 +77,7 @@ public class RapChieuConAdapter extends RecyclerView.Adapter<RapChieuConAdapter.
         // Xử lý sự kiện click
         holder.itemView.setOnClickListener(v -> {
             editor = sharedPreferences.edit();
-            editor.putInt("maRapChieuCon", _maRapChieuCon);
+            editor.putInt("maRapChieuCon", rapChieu.getMaRapChieuCon());
             editor.apply();  // Lưu thay đổi
             // Cập nhật lại giao diện của RecyclerView
             notifyDataSetChanged(); // Refresh toàn bộ adapter để áp dụng thay đổi

@@ -66,6 +66,7 @@ public class CaroselSapChieuAdapter extends RecyclerView.Adapter<CaroselSapChieu
         holder.styleMovie.setText(sapChieu.getTenTheLoai() != null ? sapChieu.getTenTheLoai() : "Chưa cập nhật");
         int maPhim = sapChieu.getMaPhim();
         holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onClick(View view) {
                 Context context = view.getContext();
@@ -73,8 +74,9 @@ public class CaroselSapChieuAdapter extends RecyclerView.Adapter<CaroselSapChieu
                     SharedPreferences sharedPreferences = context.getSharedPreferences("LeDucThien", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor;
                     editor = sharedPreferences.edit();
-                    editor.putInt("maPhim", maPhim);
+                    editor.putInt("maPhim", sapChieu.getMaPhim());
                     editor.apply();
+                    notifyDataSetChanged();
                     Intent intent = new Intent(context, XemChiTietPhim.class);
                     context.startActivity(intent);                }
             }

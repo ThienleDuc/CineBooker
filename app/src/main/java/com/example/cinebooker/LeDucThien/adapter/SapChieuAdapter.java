@@ -3,6 +3,7 @@ package com.example.cinebooker.LeDucThien.adapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,10 +64,13 @@ public class SapChieuAdapter extends RecyclerView.Adapter<SapChieuAdapter.viewHo
 
         // Set movie style
         holder.styleMovie.setText(dangChieu.getTenTheLoai() != null ? dangChieu.getTenTheLoai() : "Chưa cập nhật");
-
+        SharedPreferences sharedPreferences = holder.itemView.getContext().getSharedPreferences("LeDucThien", Context.MODE_PRIVATE);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onClick(View view) {
+                sharedPreferences.edit().putInt("maPhim", dangChieu.getMaPhim()).apply();
+                notifyDataSetChanged();
                 Intent intent = new Intent(context, XemChiTietPhim.class);
                 context.startActivity(intent);
             }

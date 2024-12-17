@@ -186,8 +186,9 @@ BEGIN
             SELECT 1 
             FROM LichChieu
             JOIN ChiTietLichChieu ON LichChieu.MaLichChieu = ChiTietLichChieu.MaLichChieu
+			JOIN ThoiGianChieu ON ThoiGianChieu.MaThoiGianChieu = ChiTietLichChieu.MaThoiGianChieu
             WHERE LichChieu.MaPhim = Phim.MaPhim
-            AND CAST(ChiTietLichChieu.NgayChieu AS DATE) = CAST(GETDATE() AS DATE)
+            AND CAST(ThoiGianChieu.NgayChieu AS DATE) = CAST(GETDATE() AS DATE)
         )
     GROUP BY 
         Phim.AnhPhim,
@@ -231,9 +232,10 @@ BEGIN
             SELECT 1 
             FROM LichChieu
             JOIN ChiTietLichChieu ON LichChieu.MaLichChieu = ChiTietLichChieu.MaLichChieu
+			JOIN ThoiGianChieu ON ThoiGianChieu.MaThoiGianChieu = ChiTietLichChieu.MaThoiGianChieu
             WHERE LichChieu.MaPhim = Phim.MaPhim
-            AND DATEPART(ISO_WEEK, ChiTietLichChieu.NgayChieu) = DATEPART(ISO_WEEK, GETDATE())
-            AND YEAR(ChiTietLichChieu.NgayChieu) = YEAR(GETDATE())
+            AND DATEPART(ISO_WEEK, ThoiGianChieu.NgayChieu) = DATEPART(ISO_WEEK, GETDATE())
+            AND YEAR(ThoiGianChieu.NgayChieu) = YEAR(GETDATE())
         )
     AND Phim.TrangThaiChieu = N'Đang chiếu'  -- Chỉ lấy phim đang chiếu
     GROUP BY 
@@ -277,9 +279,10 @@ BEGIN
             SELECT 1 
             FROM LichChieu
             JOIN ChiTietLichChieu ON LichChieu.MaLichChieu = ChiTietLichChieu.MaLichChieu
+			JOIN ThoiGianChieu ON ThoiGianChieu.MaThoiGianChieu = ChiTietLichChieu.MaThoiGianChieu
             WHERE LichChieu.MaPhim = Phim.MaPhim
-            AND MONTH(ChiTietLichChieu.NgayChieu) = MONTH(GETDATE())
-            AND YEAR(ChiTietLichChieu.NgayChieu) = YEAR(GETDATE())
+            AND MONTH(ThoiGianChieu.NgayChieu) = MONTH(GETDATE())
+            AND YEAR(ThoiGianChieu.NgayChieu) = YEAR(GETDATE())
         )
     AND Phim.TrangThaiChieu = N'Đang chiếu'  -- Chỉ lấy phim đang chiếu
     GROUP BY 
@@ -479,9 +482,23 @@ BEGIN
 END;
 
 EXEC pr_GetRapChieuCon @MaTinhThanh = 1,  @MaRapChieu = 1;
-
--- END--
 GO
+CREATE PROCEDURE pr_Get7NgayChieuFromToday
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT TOP 7 
+		MaThoiGianChieu,
+        KieuNgay, 
+        FORMAT(NgayChieu, 'dd') AS NgayChieu -- Định dạng ngày thành kiểu VARCHAR
+    FROM ThoiGianChieu
+    WHERE NgayChieu >= CAST(GETDATE() AS DATE) -- Lấy từ ngày hôm nay trở đi
+    GROUP BY MaThoiGianChieu, KieuNgay, FORMAT(NgayChieu, 'dd') -- Nhóm theo KieuNgay và NgàyChieu đã định dạng
+    ORDER BY NgayChieu ASC; -- Sắp xếp tăng dần theo ngày
+END;
+EXEC pr_Get7NgayChieuFromToday
+Go
 CREATE PROCEDURE pr_GetRapChieuConByMaRapChieuCon
     @MaRapChieuCon INT
 AS
@@ -493,7 +510,8 @@ BEGIN
         RCon.MaRapChieuCon,
         RC.AnhRapChieu, 
         RCon.TenRapChieuCon, 
-        DRC.DiaChiRapChieu
+        DRC.DiaChiRapChieu,
+		DRC.map
     FROM 
         DiaChiRapChieuCon DRC
     INNER JOIN 
@@ -507,78 +525,91 @@ END;
 EXEC pr_GetRapChieuConByMaRapChieuCon 1;
 GO
 CREATE PROCEDURE pr_LayThongTinPhimTheoNgayChieuRapChieuCon
-    @TenRapChieuCon NVARCHAR(255)
+    @MaRapChieuCon INT,
+    @MaThoiGianChieu INT
 AS
 BEGIN
     SET NOCOUNT ON;
+	DECLARE @NgayChieu VARCHAR(10);
 
-    -- Tạo một cursor hoặc bảng tạm để lấy tất cả các MaPhim và NgayChieu từ bảng ChiTietLichChieu
-    DECLARE @MaPhim INT;
-    DECLARE @NgayChieu DATETIME;
-
-    DECLARE PhimCursor CURSOR FOR
-    SELECT DISTINCT LichChieu.MaPhim, ChiTietLichChieu.NgayChieu
-    FROM LichChieu
-    JOIN ChiTietLichChieu ON LichChieu.MaLichChieu = ChiTietLichChieu.MaLichChieu
-    JOIN RapChieuCon ON LichChieu.MaRapChieuCon = RapChieuCon.MaRapChieuCon
-    WHERE RapChieuCon.TenRapChieuCon = @TenRapChieuCon;
-
-    OPEN PhimCursor;
-    FETCH NEXT FROM PhimCursor INTO @MaPhim, @NgayChieu;
-
-    -- Duyệt qua từng MaPhim và lấy thông tin phim
-    WHILE @@FETCH_STATUS = 0
-    BEGIN
-        -- Truy vấn thông tin cho từng MaPhim
-        SELECT 
-            Phim.AnhPhim,
-            Phim.TenPhim,
-            Phim.Tuoi,
-            STRING_AGG(TheLoai.TenTheLoai, ', ') AS TenTheLoai, -- Kết hợp tên thể loại với dấu phẩy
-            Phim.DinhDangPhim,
-            dbo.fn_DiemDanhGiaTrungBinhTheoNgayChieuRapChieuCon(@MaPhim, @NgayChieu, @TenRapChieuCon) AS DiemDanhGiaTrungBinh,
-            dbo.fn_TongLuotMuaPhimTrungBinhTheoNgayChieuRapChieuCon(@MaPhim, @NgayChieu, @TenRapChieuCon) AS TongLuotMuaPhim,
-            dbo.fn_TongLuotDanhGiaPhimTheoNgayChieuRapChieuCon(@MaPhim, @NgayChieu, @TenRapChieuCon) AS TongDanhGiaPhim
-        FROM 
-            Phim
-        JOIN 
-            TheLoai ON Phim.MaTheLoai = TheLoai.MaTheLoai
-        WHERE 
-            Phim.MaPhim = @MaPhim
-        GROUP BY 
-            Phim.AnhPhim,
-            Phim.TenPhim,
-            Phim.Tuoi,
-            Phim.DinhDangPhim;
-
-        FETCH NEXT FROM PhimCursor INTO @MaPhim, @NgayChieu;
-    END
-
-    CLOSE PhimCursor;
-    DEALLOCATE PhimCursor;
-END;
-
-GO
-CREATE PROCEDURE pr_LayThoiGianChieuPhim
-    @MaPhim INT,
-    @NgayChieu DATETIME,
-    @TenRapChieuCon NVARCHAR(255)
-AS
-BEGIN
-    SET NOCOUNT ON;
-
+	SELECT @NgayChieu = CONVERT(VARCHAR(10), ThoiGianChieu.NgayChieu, 103) FROM ThoiGianChieu;
+	
+    -- Truy vấn thông tin phim trực tiếp mà không cần dùng Cursor
     SELECT 
-        ChiTietLichChieu.ThoiGianBatDau,
-        ChiTietLichChieu.ThoiGianKetThuc
+		Phim.MaPhim,
+        Phim.AnhPhim,
+        Phim.TenPhim,
+        Phim.Tuoi,
+        STUFF((
+            SELECT '; ' + TheLoaiCha.TenTheLoai
+            FROM TheLoai
+            JOIN TheLoaiCha ON TheLoai.MaTheLoaiCha = TheLoaiCha.MaTheLoaiCha
+            WHERE TheLoai.MaPhim = Phim.MaPhim
+            FOR XML PATH('')
+        ), 1, 2, '') AS TenTheLoai, 
+        Phim.DinhDangPhim,
+        dbo.fn_DiemDanhGiaTrungBinhTheoNgayChieuRapChieuCon(Phim.MaPhim, @NgayChieu, @MaRapChieuCon) AS DiemDanhGiaTrungBinh,
+        dbo.fn_TongLuotMuaPhimTheoNgayRapChieuCon(Phim.MaPhim, @NgayChieu, @MaRapChieuCon) AS TongLuotMuaPhim,
+        dbo.fn_TongLuotDanhGiaPhimTheoNgayChieuRapChieuCon(Phim.MaPhim, @NgayChieu, @MaRapChieuCon) AS TongDanhGiaPhim,
+		 -- Tính điểm tổng hợp xếp hạng: ưu tiên điểm đánh giá và lượt mua
+        ISNULL(dbo.fn_DiemDanhGiaTrungBinhTheoNgayChieuRapChieuCon(Phim.MaPhim, @NgayChieu, @MaRapChieuCon), 0) * 0.7 +
+        ISNULL(dbo.fn_TongLuotMuaPhimTheoNgayRapChieuCon(Phim.MaPhim, @NgayChieu, @MaRapChieuCon), 0) * 0.3 AS DiemXepHang
+
+    FROM 
+        Phim
+    JOIN 
+        TheLoai ON Phim.MaPhim = TheLoai.MaPhim
+    JOIN 
+        TheLoaiCha ON TheLoaiCha.MaTheLoaiCha = TheLoai.MaTheLoaiCha
+    JOIN 
+        LichChieu ON LichChieu.MaPhim = Phim.MaPhim
+    JOIN 
+        ChiTietLichChieu ON LichChieu.MaLichChieu = ChiTietLichChieu.MaLichChieu
+	JOIN 
+		ThoiGianChieu ON ThoiGianChieu.MaThoiGianChieu = ChiTietLichChieu.MaThoiGianChieu
+    JOIN 
+
+        RapChieuCon ON LichChieu.MaRapChieuCon = RapChieuCon.MaRapChieuCon
+    WHERE 
+        RapChieuCon.MaRapChieuCon = @MaRapChieuCon
+		AND ChiTietLichChieu.MaThoiGianChieu = @MaThoiGianChieu
+    GROUP BY 
+		Phim.MaPhim,
+        Phim.AnhPhim,
+        Phim.TenPhim,
+        Phim.Tuoi,
+        Phim.DinhDangPhim
+	ORDER BY 
+        DiemXepHang DESC;
+END;
+EXEC pr_LayThongTinPhimTheoNgayChieuRapChieuCon @MaRapChieuCon = 1, @MaThoiGianChieu = 1;
+GO
+CREATE PROCEDURE pr_LayThoiGianBatDauKetThucTheoMaPhimVaRapChieuCon
+    @MaPhim INT,
+    @MaRapChieuCon INT,
+	@MaThoiGianChieu INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Truy vấn lấy MaPhim, ThoiGianBatDau và ThoiGianKetThuc theo MaPhim và MaRapChieuCon với định dạng HH:mm
+    SELECT 
+        LichChieu.MaPhim,
+        CONVERT(VARCHAR(5), ChiTietLichChieu.ThoiGianBatDau, 108) AS ThoiGianBatDau, -- Định dạng HH:mm
+        CONVERT(VARCHAR(5), ChiTietLichChieu.ThoiGianKetThuc, 108) AS ThoiGianKetThuc -- Định dạng HH:mm
     FROM 
         ChiTietLichChieu
     JOIN 
         LichChieu ON ChiTietLichChieu.MaLichChieu = LichChieu.MaLichChieu
+	JOIN ThoiGianChieu ON ChiTietLichChieu.MaThoiGianChieu = ThoiGianChieu.MaThoiGianChieu
     JOIN 
         RapChieuCon ON LichChieu.MaRapChieuCon = RapChieuCon.MaRapChieuCon
     WHERE 
         LichChieu.MaPhim = @MaPhim
-        AND ChiTietLichChieu.NgayChieu = @NgayChieu
-        AND RapChieuCon.TenRapChieuCon = @TenRapChieuCon;
+        AND LichChieu.MaRapChieuCon = @MaRapChieuCon
+		AND ChiTietLichChieu.MaThoiGianChieu = @MaThoiGianChieu;
 END;
-GO
+
+EXEC pr_LayThoiGianBatDauKetThucTheoMaPhimVaRapChieuCon @MaPhim = 1, @MaRapChieuCon = 1, @MaThoiGianChieu = 1;
+
+-- END--

@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.cinebooker.LeDucThien.entity.ent_PhimDangChieu;
 import com.example.cinebooker.R;
 import com.example.cinebooker.TranGiaThai.Activity.XemChiTietPhim;
-import com.example.cinebooker.generalMethod.ActivityOpen;
 import com.example.cinebooker.generalMethod.NumberFormatter;
 import com.squareup.picasso.Picasso;
 
@@ -71,6 +70,7 @@ public class CaroselDangChieuAdapter extends RecyclerView.Adapter<CaroselDangChi
 
         int maPhim = dangChieu.getMaPhim();
         holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onClick(View view) {
                 Context context = view.getContext();
@@ -78,8 +78,9 @@ public class CaroselDangChieuAdapter extends RecyclerView.Adapter<CaroselDangChi
                     SharedPreferences sharedPreferences = context.getSharedPreferences("LeDucThien", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor;
                     editor = sharedPreferences.edit();
-                    editor.putInt("maPhim", maPhim);
+                    editor.putInt("maPhim", dangChieu.getMaPhim());
                     editor.apply();
+                    notifyDataSetChanged();
                     Intent intent = new Intent(context, XemChiTietPhim.class);
                     context.startActivity(intent);
                 }

@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -19,15 +20,15 @@ import com.example.cinebooker.LeDucThien.BussinessLogic.BL_RapChieu;
 import com.example.cinebooker.LeDucThien.BussinessLogic.BL_RapChieuCon;
 import com.example.cinebooker.LeDucThien.BussinessLogic.BL_TinhThanh;
 import com.example.cinebooker.LeDucThien.activity.DanhSachDiaDiemRap;
-import com.example.cinebooker.LeDucThien.activity.danhSachRap;
-import com.example.cinebooker.LeDucThien.adapter.RapChieuAdapter;
 import com.example.cinebooker.LeDucThien.adapter.DiaChiRapChieuAdapter;
+import com.example.cinebooker.LeDucThien.adapter.RapChieuAdapter;
 import com.example.cinebooker.LeDucThien.adapter.DoiTacAdapter;
 
+import com.example.cinebooker.LeDucThien.adapter.RapChieuConAdapter;
+import com.example.cinebooker.LeDucThien.viewModel.SharedViewModel;
 import com.example.cinebooker.R;
 import com.example.cinebooker.generalMethod.ActivityOpen;
 
-import java.util.Objects;
 
 
 /**
@@ -41,8 +42,10 @@ public class rap_chieu extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    public int MaTinhThanh = -1;
-    public int MaRapChieu = -1;
+    private String mParam1;
+    private String mParam2;
+    public int _maTinhThanh;
+    public int _maRapChieu;
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
     /**
@@ -68,8 +71,8 @@ public class rap_chieu extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             // TODO: Rename and change types of parameters
-            String mParam1 = getArguments().getString(ARG_PARAM1);
-            String mParam2 = getArguments().getString(ARG_PARAM2);
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
@@ -94,8 +97,6 @@ public class rap_chieu extends Fragment {
         BL_RapChieuCon blRapChieuCon = new BL_RapChieuCon();
 
         TextView TenTinhThanh = view.findViewById(R.id.ten_tinh_thanh);
-
-        //blTinhThanh.loadTenTinhThanhTheoDieuKien(getContext(), TenTinhThanh);
 
         // Khởi tạo TabLayout cho location
         LinearLayout danhsachtinhthanh_open = view.findViewById(R.id.open_list_tinh_thanh);
@@ -144,22 +145,35 @@ public class rap_chieu extends Fragment {
         blRapChieu.loadRapChieuToRecyclerView(getContext(), recyclerView, adapter);
     }
 
-    private void danhSachDiaChiRap (View view) {
-        RecyclerView rapChieuRecycleView = view.findViewById(R.id.diachirap_recyclerview);
+    private void danhSachDiaChiRap(View view) {
+        RecyclerView recyclerView = view.findViewById(R.id.diachirap_recyclerview);
         BL_RapChieuCon blRapChieuCon = new BL_RapChieuCon();
-        DiaChiRapChieuAdapter adapter = new DiaChiRapChieuAdapter();
-        sharedPreferences = getContext().getSharedPreferences("LeDucThien", Context.MODE_PRIVATE);
-        MaRapChieu = sharedPreferences.getInt("maRapChieu", -1);
-        blRapChieuCon.loadDiaChiRapChieuConToRecyclerView(getContext(), rapChieuRecycleView, MaTinhThanh, MaRapChieu, adapter);
+        BL_RapChieu blRapChieu = new BL_RapChieu();
 
+        // Lấy SharedPreferences để lấy giá trị maRapChieu, maTinhThanh
+        sharedPreferences = requireContext().getSharedPreferences("LeDucThien", Context.MODE_PRIVATE);
+
+        // Lấy giá trị maRapChieu từ SharedPreferences, nếu không có, lấy maRapChieu nhỏ nhất từ BL_RapChieu
+        _maRapChieu = sharedPreferences.getInt("maRapChieu", -1);
+        if (_maRapChieu == -1) {
+            _maRapChieu = blRapChieu.loadMinMaRapChieu();
+            blRapChieu.updateSharedPreferences(getContext(), _maRapChieu);
+        }
+
+        // Lấy giá trị maTinhThanh từ SharedPreferences
+        _maTinhThanh = sharedPreferences.getInt("maTinhThanh", -1);
+
+        // Tạo adapter và gọi BL_RapChieuCon để load dữ liệu vào RecyclerView
+        DiaChiRapChieuAdapter adapter = new DiaChiRapChieuAdapter();
+        blRapChieuCon.loadDiaChiRapChieuConToRecyclerView(getContext(), recyclerView, _maTinhThanh, _maRapChieu, adapter);
     }
+
 
     public void heThongRapChieu(View view) {
         RecyclerView recyclerView = view.findViewById(R.id.recycleView_heThongRapChieu);
         BL_DoiTac blDoiTac = new BL_DoiTac();
         DoiTacAdapter adapter = new DoiTacAdapter();
         blDoiTac.loadDoiTacToRecyclerView(getContext(), recyclerView, adapter);
-
     }
 
 }

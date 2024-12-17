@@ -1,6 +1,7 @@
 package com.example.cinebooker.LeDucThien.BussinessLogic;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -10,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cinebooker.LeDucThien.ProcessData.PD_RapChieu;
 import com.example.cinebooker.LeDucThien.adapter.RapChieuAdapter;
-import com.example.cinebooker.LeDucThien.adapter.TimKiemAdapter;
 import com.example.cinebooker.LeDucThien.entity.ent_RapChieu;
 import com.example.cinebooker.R;
 import com.squareup.picasso.Picasso;
@@ -98,6 +98,34 @@ public class BL_RapChieu {
                 }
             } catch (Exception e) {
                 Log.e("BL_RapChieu", "Error while loading data", e);
+            } finally {
+                executor.shutdown();
+            }
+        });
+    }
+
+    // Phương thức cập nhật SharedPreferences và đồng bộ dữ liệu
+    public void updateSharedPreferences(Context context, int maRapChieu) {
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        executor.execute(() -> {
+            try {
+                // Lấy SharedPreferences
+                SharedPreferences sharedPreferences = context.getSharedPreferences("LeDucThien", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putInt("maRapChieu", maRapChieu);
+
+                // Thực hiện apply() không chặn UI
+                editor.apply();
+
+                // Cập nhật UI sau khi lưu thành công
+                if (context instanceof android.app.Activity) {
+                    ((android.app.Activity) context).runOnUiThread(() -> {
+                        // Bạn có thể thêm các hành động làm mới UI ở đây sau khi cập nhật SharedPreferences
+                        Log.d("BL_RapChieu", "SharedPreferences updated successfully!");
+                    });
+                }
+            } catch (Exception e) {
+                Log.e("BL_RapChieu", "Error while updating SharedPreferences", e);
             } finally {
                 executor.shutdown();
             }

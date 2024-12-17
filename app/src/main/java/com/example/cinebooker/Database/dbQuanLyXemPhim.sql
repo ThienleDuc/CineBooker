@@ -77,9 +77,16 @@ CREATE TABLE LichChieu (
 CREATE TABLE ChiTietLichChieu (
     MaChiTietLichChieu INT PRIMARY KEY IDENTITY(1,1),
     MaLichChieu INT,
-    NgayChieu DATETIME2 NOT NULL,
+    MaThoiGianChieu INT,
     ThoiGianBatDau TIME NOT NULL,
     ThoiGianKetThuc TIME NOT NULL
+);
+
+-- Bảng ThoiGianChieu
+CREATE TABLE ThoiGianChieu (
+	MaThoiGianChieu INT PRIMARY KEY IDENTITY(1,1),
+	KieuNgay NVARCHAR(20),
+	NgayChieu DATETIME2
 );
 
 -- Bảng TinhThanhPho
@@ -264,6 +271,11 @@ ON DELETE CASCADE;  -- Xóa các địa chỉ nếu RapChieuCon bị xóa
 ALTER TABLE ChiTietLichChieu
 ADD CONSTRAINT FK_ChiTietLichChieu_LichChieu
 FOREIGN KEY (MaLichChieu) REFERENCES LichChieu(MaLichChieu);
+
+ALTER TABLE ChiTietLichChieu
+ADD CONSTRAINT FK_ChiTietLichChieu_ThoiGianChieu
+FOREIGN KEY (MaThoiGianChieu) REFERENCES ThoiGianChieu(MaThoiGianChieu);
+
 
 -- Ràng buộc khóa ngoại cho bảng DanhGia
 ALTER TABLE DanhGia

@@ -1,5 +1,7 @@
 package com.example.cinebooker.LeDucThien.fragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -13,23 +15,22 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.cinebooker.LeDucThien.BussinessLogic.BL_NgayChieu;
 import com.example.cinebooker.LeDucThien.BussinessLogic.BL_PhimDangChieu;
+import com.example.cinebooker.LeDucThien.BussinessLogic.BL_PhimTheoLichChieu;
+import com.example.cinebooker.LeDucThien.BussinessLogic.BL_RapChieu;
+import com.example.cinebooker.LeDucThien.BussinessLogic.BL_RapChieuCon;
+import com.example.cinebooker.LeDucThien.BussinessLogic.BL_TinhThanh;
 import com.example.cinebooker.LeDucThien.activity.DanhSachDiaDiemRap;
 import com.example.cinebooker.LeDucThien.activity.danhSachRap;
-import com.example.cinebooker.LeDucThien.adapter.moviesNgayChieuAdapter;
-import com.example.cinebooker.LeDucThien.adapter.ngayChieuAdapter;
+import com.example.cinebooker.LeDucThien.adapter.LichChieuAdapter;
+import com.example.cinebooker.LeDucThien.adapter.PhimTheoLichChieuAdapter;
 import com.example.cinebooker.LeDucThien.entity.ent_PhimDangChieu;
-import com.example.cinebooker.LeDucThien.entity.moviesNgayChieuEntity;
-import com.example.cinebooker.LeDucThien.entity.ngayChieuEntity;
-import com.example.cinebooker.LeDucThien.entity.thoiGianChieuPhimEntity;
 
 import com.example.cinebooker.R;
 import com.example.cinebooker.generalMethod.ActivityOpen;
-import com.example.cinebooker.generalMethod.HorizontalSpaceItemDecoration;
-import com.example.cinebooker.generalMethod.SpaceItemDecoration;
 import com.google.android.material.tabs.TabLayout;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -88,8 +89,56 @@ public class lich_chieu extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_lich_chieu, container, false);
 
-        TextView TenTinhThanh = view.findViewById(R.id.ten_tinh_thanh);
+        controllerLichChieu(view);
+        lichChieu(view);
+        dangChieu(view);
 
+        return view;
+    }
+
+    public void controllerLichChieu(View view) {
+        BL_TinhThanh blTinhThanh = new BL_TinhThanh();
+        BL_RapChieu blRapChieu = new BL_RapChieu();
+        BL_RapChieuCon blRapChieuCon = new BL_RapChieuCon();
+
+        TextView TenTinhThanh = view.findViewById(R.id.ten_tinh_thanh);
+        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("LeDucThien", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor;
+
+        int _maTinhThanh = sharedPreferences.getInt("maTinhThanh", -1);
+        if (_maTinhThanh == -1) {
+            _maTinhThanh = blTinhThanh.loadMinMaTinhThanh();
+            editor = sharedPreferences.edit();
+            editor.putInt("maTinhThanh", _maTinhThanh);
+            editor.apply();
+        }
+
+        blTinhThanh.loadTenTinhThanhTheoDieuKien(requireContext(), TenTinhThanh, _maTinhThanh);
+
+        int _maRapChieu = sharedPreferences.getInt("maRapChieu", -1);
+        if (_maRapChieu == -1) {
+            _maRapChieu = blRapChieu.loadMinMaRapChieu();
+            editor = sharedPreferences.edit();
+            editor.putInt("maRapChieu", _maRapChieu);
+            editor.apply();
+        }
+
+        ImageView anhRapChieuCon = view.findViewById(R.id.calendar_logo);
+        TextView tenRapChieuCon = view.findViewById(R.id.sapChieu_movie_name);
+        TextView diaChiRapChieuCon = view.findViewById(R.id.sapChieu_movie_style);
+
+        int _maRapChieuCon = sharedPreferences.getInt("maRapChieuCon", -1);
+        if (_maRapChieuCon == -1) {
+            _maRapChieuCon = blRapChieuCon.loadMinRapChieuCon(_maTinhThanh, _maRapChieu);
+            editor = sharedPreferences.edit();
+            editor.putInt("maRapChieuCon", _maRapChieuCon);
+            editor.apply();
+        }
+
+        blRapChieuCon.loadThongTinRapChieuCon(requireContext(), anhRapChieuCon,
+                tenRapChieuCon, diaChiRapChieuCon, _maRapChieuCon);
+
+        // Khởi tạo TabLayout cho location
         LinearLayout danhsachtinhthanh_open = view.findViewById(R.id.open_list_tinh_thanh);
         LinearLayout danhsachrap_open = view.findViewById(R.id.danhsachrap_open);
         LinearLayout ganday_search = view.findViewById(R.id.search_gan_ban);
@@ -105,12 +154,12 @@ public class lich_chieu extends Fragment {
                 ActivityOpen.openActivityOnClick(requireActivity(), DanhSachDiaDiemRap.class, R.id.open_list_tinh_thanh);
 
                 ganday_search.setBackgroundResource(R.drawable.strock_1_white_radius_10_transparent);
-                ganban.setTextColor(getContext().getColor(R.color.colorUnSelected));
-                icon_location2.setColorFilter(getContext().getColor(R.color.colorUnSelected));
+                ganban.setTextColor(view.getContext().getColor(R.color.colorUnSelected));
+                icon_location2.setColorFilter(view.getContext().getColor(R.color.colorUnSelected));
 
                 danhsachtinhthanh_open.setBackgroundResource(R.drawable.strock_1_pink_radius_10_transparent);
-                TenTinhThanh.setTextColor(getContext().getColor(R.color.colorSelected));
-                icon_location.setColorFilter(getContext().getColor(R.color.colorSelected));
+                TenTinhThanh.setTextColor(view.getContext().getColor(R.color.colorSelected));
+                icon_location.setColorFilter(view.getContext().getColor(R.color.colorSelected));
             }
 
         });
@@ -120,12 +169,12 @@ public class lich_chieu extends Fragment {
             public void onClick(View view) {
 
                 ganday_search.setBackgroundResource(R.drawable.strock_1_pink_radius_10_transparent);
-                ganban.setTextColor(getContext().getColor(R.color.colorSelected));
-                icon_location2.setColorFilter(getContext().getColor(R.color.colorSelected));
+                ganban.setTextColor(view.getContext().getColor(R.color.colorSelected));
+                icon_location2.setColorFilter(view.getContext().getColor(R.color.colorSelected));
 
                 danhsachtinhthanh_open.setBackgroundResource(R.drawable.strock_1_white_radius_10_transparent);
-                TenTinhThanh.setTextColor(getContext().getColor(R.color.colorUnSelected));
-                icon_location.setColorFilter(getContext().getColor(R.color.colorUnSelected));
+                TenTinhThanh.setTextColor(view.getContext().getColor(R.color.colorUnSelected));
+                icon_location.setColorFilter(view.getContext().getColor(R.color.colorUnSelected));
             }
         });
 
@@ -135,107 +184,36 @@ public class lich_chieu extends Fragment {
                 ActivityOpen.openActivityOnClick(requireActivity(), danhSachRap.class, R.id.danhsachrap_open);
             }
         });
-
-        lichChieu(view);
-        dangChieu(view);
-
-        return view;
     }
+
 
     public void lichChieu(View view) {
-        // Khởi tạo TabLayout cho location
-        LinearLayout danhsachrap_open = view.findViewById(R.id.danhsachrap_open);
-
-        danhsachrap_open.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ActivityOpen.openActivityOnClick(requireActivity(), danhSachRap.class, R.id.danhsachrap_open);
-            }
-        });
 
         // Khởi tạo RecyclerView cho lịch chiếu
-        RecyclerView calendar_tablayout = view.findViewById(R.id.calendar_tabLayout);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        calendar_tablayout.setLayoutManager(layoutManager);
+        RecyclerView recyclerView = view.findViewById(R.id.calendar_tabLayout);
+        BL_NgayChieu blNgayChieu = new BL_NgayChieu();
+        LichChieuAdapter adapter = new LichChieuAdapter();
 
-        // Thêm khoảng cách giữa các item
-        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.recycler_view_spacing_5);
-        calendar_tablayout.addItemDecoration(new HorizontalSpaceItemDecoration(spacingInPixels));
+        blNgayChieu.loadNgayChieuToRecyclerView(getContext(), recyclerView, adapter);
 
-        // Tạo danh sách ngày chiếu
-        List<ngayChieuEntity> ngayChieuEntityList = new ArrayList<>();
-        ngayChieuEntityList.add(new ngayChieuEntity(22, "Thứ 4"));
-        ngayChieuEntityList.add(new ngayChieuEntity(23, "Thứ 5"));
-        ngayChieuEntityList.add(new ngayChieuEntity(24, "Thứ 6"));
-        ngayChieuEntityList.add(new ngayChieuEntity(25, "Thứ 7"));
-        ngayChieuEntityList.add(new ngayChieuEntity(26, "C.Nhật"));
-        ngayChieuEntityList.add(new ngayChieuEntity(27, "Thứ 2"));
-        ngayChieuEntityList.add(new ngayChieuEntity(28, "Thứ 3"));
+        BL_PhimTheoLichChieu blPhimTheoLichChieu = new BL_PhimTheoLichChieu();
+        RecyclerView recyclerView1 = view.findViewById(R.id.calendar_recyclerview);
 
-        // Gán adapter cho RecyclerView
-        ngayChieuAdapter adapter = new ngayChieuAdapter(ngayChieuEntityList);
-        calendar_tablayout.setAdapter(adapter);
+        PhimTheoLichChieuAdapter phimTheoLichChieuAdapter = new PhimTheoLichChieuAdapter(requireContext());
 
-        // Lắng nghe sự kiện click trên item của RecyclerView
-        adapter.setOnItemClickListener(new ngayChieuAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(int position) {
-                // Cuộn mượt mà đến vị trí được chọn và căn giữa item
-                smoothScrollToCenter(calendar_tablayout, layoutManager, position);
-            }
-        });
-
-        // Khởi tạo RecyclerView cho lịch chiếu
-        RecyclerView movieCalendarRecyclerview = view.findViewById(R.id.calendar_recyclerview);
-        LinearLayoutManager moviesLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        movieCalendarRecyclerview.setLayoutManager(moviesLayoutManager);
-
-        // Thêm khoảng cách giữa các item
-        movieCalendarRecyclerview.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
-
-        // Tạo danh sách thời gian chiếu
-        List<thoiGianChieuPhimEntity> thoiGianChieuPhimList1 = new ArrayList<>();
-        thoiGianChieuPhimList1.add(new thoiGianChieuPhimEntity("10:40", "12:42"));
-        thoiGianChieuPhimList1.add(new thoiGianChieuPhimEntity("14:00", "16:00"));
-        thoiGianChieuPhimList1.add(new thoiGianChieuPhimEntity("14:00", "16:00"));
-        thoiGianChieuPhimList1.add(new thoiGianChieuPhimEntity("14:00", "16:00"));
-        thoiGianChieuPhimList1.add(new thoiGianChieuPhimEntity("14:00", "16:00"));
-        thoiGianChieuPhimList1.add(new thoiGianChieuPhimEntity("14:00", "16:00"));
-        thoiGianChieuPhimList1.add(new thoiGianChieuPhimEntity("14:00", "16:00"));
-        thoiGianChieuPhimList1.add(new thoiGianChieuPhimEntity("14:00", "16:00"));
-        thoiGianChieuPhimList1.add(new thoiGianChieuPhimEntity("14:00", "16:00"));
-
-        // Tạo danh sách ngày chiếu
-        List<moviesNgayChieuEntity> moviesList = new ArrayList<>();
-
-        moviesList.add(new moviesNgayChieuEntity(R.drawable.camposter, "18+", 6.2, 10500.0, 3200.0,  "Cám", "Kinh dị", thoiGianChieuPhimList1));
-        moviesList.add(new moviesNgayChieuEntity(R.drawable.camposter, "18+", 6.2, 10500.0, 3200.0,  "Cám", "Kinh dị", thoiGianChieuPhimList1));
-        moviesList.add(new moviesNgayChieuEntity(R.drawable.camposter, "18+", 6.2, 10500.0, 3200.0,  "Cám", "Kinh dị", thoiGianChieuPhimList1));
-        moviesList.add(new moviesNgayChieuEntity(R.drawable.camposter, "18+", 6.2, 10500.0, 3200.0,  "Cám", "Kinh dị", thoiGianChieuPhimList1));
-        moviesList.add(new moviesNgayChieuEntity(R.drawable.camposter, "18+", 6.2, 10500.0, 3200.0,  "Cám", "Kinh dị", thoiGianChieuPhimList1));
-        moviesList.add(new moviesNgayChieuEntity(R.drawable.camposter, "18+", 6.2, 10500.0, 3200.0,  "Cám", "Kinh dị", thoiGianChieuPhimList1));
-        moviesList.add(new moviesNgayChieuEntity(R.drawable.camposter, "18+", 6.2, 10500.0, 3200.0,  "Cám", "Kinh dị", thoiGianChieuPhimList1));
-        moviesList.add(new moviesNgayChieuEntity(R.drawable.camposter, "18+", 6.2, 10500.0, 3200.0,  "Cám", "Kinh dị", thoiGianChieuPhimList1));
-        moviesList.add(new moviesNgayChieuEntity(R.drawable.camposter, "18+", 6.2, 10500.0, 3200.0,  "Cám", "Kinh dị", thoiGianChieuPhimList1));
-        moviesList.add(new moviesNgayChieuEntity(R.drawable.camposter, "18+", 6.2, 10500.0, 3200.0,  "Cám", "Kinh dị", thoiGianChieuPhimList1));
-
-
-        // Gán adapter cho RecyclerView
-        moviesNgayChieuAdapter moviesAdapter = new moviesNgayChieuAdapter(moviesList);
-        movieCalendarRecyclerview.setAdapter(moviesAdapter);
-    }
-
-    private void smoothScrollToCenter(RecyclerView recyclerView, LinearLayoutManager layoutManager, int position) {
-        View viewAtPosition = layoutManager.findViewByPosition(position);
-        if (viewAtPosition == null || recyclerView.getLayoutManager() == null) {
-            recyclerView.smoothScrollToPosition(position);
-        } else {
-            int itemWidth = viewAtPosition.getWidth();
-            int screenWidth = recyclerView.getWidth();
-            int scrollOffset = (screenWidth - itemWidth) / 2 - viewAtPosition.getLeft();
-            recyclerView.smoothScrollBy(scrollOffset, 0);
+        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("LeDucThien", Context.MODE_PRIVATE);
+        int _maThoiGianChieu = sharedPreferences.getInt("maThoiGianChieu", -1);
+        if (_maThoiGianChieu == -1) {
+            _maThoiGianChieu = blPhimTheoLichChieu.getNowThoiGianChieu();
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putInt("maThoiGianChieu", _maThoiGianChieu);
+            editor.apply();
         }
+        int _maRapChieuCon = sharedPreferences.getInt("maRapChieuCon", -1);
+        blPhimTheoLichChieu.loadPhimTheoLichChieuToRecyclerView(requireContext(), recyclerView1,
+                phimTheoLichChieuAdapter,_maRapChieuCon, _maThoiGianChieu);
     }
+
 
     public void dangChieu (View view) {
 

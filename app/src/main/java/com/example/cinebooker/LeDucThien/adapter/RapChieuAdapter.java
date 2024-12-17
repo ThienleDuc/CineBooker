@@ -14,8 +14,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-
-import com.example.cinebooker.LeDucThien.BussinessLogic.BL_RapChieu;
 import com.example.cinebooker.LeDucThien.entity.ent_RapChieu;
 import com.example.cinebooker.R;
 import com.squareup.picasso.Picasso;
@@ -26,7 +24,6 @@ public class RapChieuAdapter extends RecyclerView.Adapter<RapChieuAdapter.viewHo
     private List<ent_RapChieu> rapChieulist;
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
-    private BL_RapChieu blRapChieu;
 
     @SuppressLint("NotifyDataSetChanged")
     public void SetData(List<ent_RapChieu> dangChieulist) {
@@ -58,11 +55,12 @@ public class RapChieuAdapter extends RecyclerView.Adapter<RapChieuAdapter.viewHo
 
         int _maRapChieu = rapChieu.getMaRapChieu();
 
-        // Lấy giá trị maTinhThanh từ SharedPreferences
+        // Lấy giá trị maRapChieu từ SharedPreferences
         sharedPreferences = holder.itemView.getContext().getSharedPreferences("LeDucThien", Context.MODE_PRIVATE);
         int _maRapChieuPref = sharedPreferences.getInt("maRapChieu", -1);
+
         // Đặt background cho item
-        if (_maRapChieuPref  == _maRapChieu) {
+        if (_maRapChieuPref == _maRapChieu) {
             holder.container_imageview.setBackgroundResource(R.drawable.strock_1_pink_radius_10_white); // Nền khi được chọn
             holder.name.setTextColor(holder.itemView.getContext().getColor(R.color.primary_color));
             holder.name.setTypeface(holder.name.getTypeface(), Typeface.BOLD);
@@ -74,11 +72,11 @@ public class RapChieuAdapter extends RecyclerView.Adapter<RapChieuAdapter.viewHo
 
         // Xử lý sự kiện click
         holder.itemView.setOnClickListener(v -> {
+            // Lưu giá trị maRapChieu vào SharedPreferences một cách đồng bộ
             editor = sharedPreferences.edit();
-            editor.putInt("maRapChieu", _maRapChieu);  // Lưu giá trị maTinhThanh
-            editor.apply();  // Lưu thay đổi
-            // Cập nhật lại giao diện của RecyclerView
-            notifyDataSetChanged(); // Refresh toàn bộ adapter để áp dụng thay đổi
+            editor.putInt("maRapChieu", rapChieu.getMaRapChieu()); // Lưu giá trị maRapChieu
+            editor.apply();
+            notifyDataSetChanged();
         });
     }
 
