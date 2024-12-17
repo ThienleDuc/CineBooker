@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
 
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -68,16 +69,15 @@ public class PD_ThoiGianChieu {
             return;
         }
 
-        // Thiết lập LayoutManager cho RecyclerView
-        recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
+        // Thiết lập GridLayoutManager cho RecyclerView
+        recyclerView.setLayoutManager(new GridLayoutManager(context, 3));
 
-        // Thêm ItemDecoration nếu cần
-        int spacingInPixels = context.getResources().getDimensionPixelSize(R.dimen.recycler_view_spacing_5);
-        recyclerView.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
-
+        // Thiết lập Adapter và dữ liệu nếu chưa có adapter
         if (recyclerView.getAdapter() == null) {
             recyclerView.setAdapter(adapter);
         }
+
+        // Cập nhật dữ liệu cho adapter và đảm bảo adapter không rỗng
         adapter.setData(list);
     }
 }

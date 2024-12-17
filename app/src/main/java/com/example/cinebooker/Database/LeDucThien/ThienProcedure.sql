@@ -610,6 +610,6 @@ BEGIN
 		AND ChiTietLichChieu.MaThoiGianChieu = @MaThoiGianChieu;
 END;
 
-EXEC pr_LayThoiGianBatDauKetThucTheoMaPhimVaRapChieuCon @MaPhim = 1, @MaRapChieuCon = 1, @MaThoiGianChieu = 1;
+EXEC pr_LayThoiGianBatDauKetThucTheoMaPhimVaRapChieuCon @MaPhim = 2, @MaRapChieuCon = 1, @MaThoiGianChieu = 1;
 
 -- END--
