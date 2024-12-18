@@ -55,7 +55,8 @@ public class ChiTietHuyAdapter extends RecyclerView.Adapter<ChiTietHuyAdapter.Vi
 
         holder.dateChitiethuy.setText(item.getDateChitietHuy());
         Picasso.get().load(item.getPosterChitietHuy())
-                .placeholder(R.drawable.placeholder)  // Optional: Add a placeholder image
+                .placeholder(R.drawable.placeholder)
+                .resize(800, 800) // Optional: Add a placeholder image
                 .into(holder.posterChitiethuy);
         holder.ageChitiethuy.setText(String.valueOf(item.getAgeChitietHuy())+"+");
         holder.nameChitiethuy.setText(item.getNameChitietHuy());

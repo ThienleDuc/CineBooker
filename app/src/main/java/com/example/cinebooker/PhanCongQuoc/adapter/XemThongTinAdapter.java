@@ -56,7 +56,8 @@ public class XemThongTinAdapter extends RecyclerView.Adapter<XemThongTinAdapter.
         // Set values in the UI elements
         holder.dateXemThongTin.setText(item.getDateXemThongTin());
         Picasso.get().load(item.getPosterXemThongTin())
-                .placeholder(R.drawable.placeholder)  // Optional: Add a placeholder image
+                .placeholder(R.drawable.placeholder)
+                .resize(800, 800) // Optional: Add a placeholder image
                 .into(holder.posterXemThongTin);
         holder.ageXemThongTin.setText(String.valueOf(item.getAgeXemThongTin())+"+");
         holder.nameXemThongTin.setText(item.getNameXemThongTin());

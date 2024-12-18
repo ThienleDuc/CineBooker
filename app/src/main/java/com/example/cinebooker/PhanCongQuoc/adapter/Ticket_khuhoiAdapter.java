@@ -66,7 +66,8 @@ public class Ticket_khuhoiAdapter extends RecyclerView.Adapter<Ticket_khuhoiAdap
         // Gán giá trị từ ticketkhuhoiMoviesEntity
         holder.date_khuhoi.setText(ticket.getDate_khuhoi());
            Picasso.get().load(ticket.getPoster_khuhoi())
-                .placeholder(R.drawable.placeholder)  // Optional: Add a placeholder image
+                .placeholder(R.drawable.placeholder)
+                   .resize(800, 800) // Optional: Add a placeholder image
                 .into(holder.poster_khuhoi);
         holder.age_khuhoi.setText(ticket.getAge_khuhoi() > 0 ? String.valueOf(ticket.getAge_khuhoi())+ "+" : "Tuổi không xác định");
         holder.name_khuhoi.setText(ticket.getName_khuhoi());

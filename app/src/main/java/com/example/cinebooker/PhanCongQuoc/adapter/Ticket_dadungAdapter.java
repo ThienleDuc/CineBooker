@@ -63,7 +63,8 @@ public class Ticket_dadungAdapter extends RecyclerView.Adapter<Ticket_dadungAdap
 
         holder.date_dadung.setText(ticket.getDate_dadung() != null ? ticket.getDate_dadung() : "Ngày không xác định");
          Picasso.get().load(ticket.getPoster_dadung())
-                .placeholder(R.drawable.placeholder)  // Optional: Add a placeholder image
+                .placeholder(R.drawable.placeholder)
+                 .resize(800, 800) // Optional: Add a placeholder image
                 .into(holder.posterMovie_dadung);
         holder.age_dadung.setText(ticket.getAge_dadung() > 0 ? String.valueOf(ticket.getAge_dadung())+ "+" : "Tuổi không xác định");
         holder.movieName_dadung.setText(ticket.getName_dadung() != null ? ticket.getName_dadung() : "Tên phim không xác định");

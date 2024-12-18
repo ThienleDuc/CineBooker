@@ -20,6 +20,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import android.os.Handler;
 
 public class PD_ChuaDung {
 
@@ -27,6 +28,7 @@ public class PD_ChuaDung {
     private Connection connection = null;
     private CallableStatement callableStatement = null;
     private ResultSet resultSet = null;
+    private Handler handler = new Handler();
 
     // Phương thức lấy danh sách vé chưa sử dụng
     public List<ticketchuadungMoviesEntity> getChuaDung() {
@@ -115,5 +117,16 @@ public class PD_ChuaDung {
         Ticket_chuadungAdapter adapter = new Ticket_chuadungAdapter();
         recyclerView.setAdapter(adapter);
         adapter.SetData(movieList); // Đưa danh sách phim vào adapter
+        // Đặt một Runnable để cập nhật dữ liệu sau mỗi 5 giây
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                List<ticketchuadungMoviesEntity> newMovieList = getChuaDung();
+                adapter.SetData(newMovieList);
+                adapter.notifyDataSetChanged(); // Thêm dòng này để đảm bảo RecyclerView được làm mới
+                handler.postDelayed(this, 5000);
+            }
+        }, 5000);
+
     }
 }

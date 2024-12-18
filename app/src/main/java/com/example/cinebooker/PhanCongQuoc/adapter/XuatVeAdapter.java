@@ -53,11 +53,13 @@ public class XuatVeAdapter extends RecyclerView.Adapter<XuatVeAdapter.XuatVeView
         int maveiem = item.getMaVe();
         // Set data to views
         Picasso.get().load(item.getQrXuatVe())
-                .placeholder(R.drawable.sofa)  // Optional: Add a placeholder image
+                .placeholder(R.drawable.sofa)
+                .resize(800, 800) // Optional: Add a placeholder image
                 .into(holder.qrXuatVe);
         holder.dateXuatVe1.setText(item.getDateXuatVe1());
         Picasso.get().load(item.getPosterXuatVe2())
-                .placeholder(R.drawable.placeholder)  // Optional: Add a placeholder image
+                .placeholder(R.drawable.placeholder)
+                .resize(800, 800) // Optional: Add a placeholder image
                 .into(holder.posterXuatVe2);
         holder.ageXuatVe.setText(String.valueOf(item.getAgeXuatVe())+"+");
         holder.nameXuatVe.setText(item.getNameXuatVe());
@@ -74,6 +76,7 @@ public class XuatVeAdapter extends RecyclerView.Adapter<XuatVeAdapter.XuatVeView
         holder.gheXuatVe.setText(String.valueOf(item.getGheXuatVe()));
         holder.phongXuatVe.setText(String.valueOf(item.getPhongXuatVe()));
         holder.trangThaiXuatVe.setText(item.getTrangThaiXuatVe());
+
         holder.itemView.setOnClickListener(v -> {
             MaVe = maveiem;  // Cập nhật maTinhThanh từ item được chọn
 
