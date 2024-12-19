@@ -37,6 +37,10 @@ public class BL_RapChieuCon {
         return pdRapChieuCon.getRapChieuConByMaRapChieuCon(maRapChieuCon);
     }
 
+    private List<ent_RapChieuCon> getDanhSachRapChieuConTheoTenRapChieuCon(int maTinhThanh, int maRapChieu, String TenRapChieuCon) {
+        return pdRapChieuCon.getRapChieuConByTenRapChieuCon(maTinhThanh, maRapChieu, TenRapChieuCon);
+    }
+
     public int loadMinRapChieuCon (int maTinhThanh, int maRapChieu) {
         return pdRapChieuCon.getMinMaRapChieuCon(maTinhThanh, maRapChieu);
     }
@@ -119,6 +123,37 @@ public class BL_RapChieuCon {
         });
     }
 
+    public void loadRapChieuConToRecyclerViewAfterSearch(Context context, RecyclerView recyclerView, int maTinhThanh, int maRapChieu, String TenRapChieuCon, RapChieuConAdapter adapter) {
+        // Kiểm tra RecyclerView không được null
+        if (recyclerView == null) {
+            Log.w("BL_RapChieuCon", "RecyclerView is null. Data will not be loaded.");
+            return;
+        }
+
+        // Tạo ExecutorService để chạy công việc không đồng bộ
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        executor.execute(() -> {
+            try {
+                // Lấy danh sách phim sắp chiếu từ cơ sở dữ liệu
+                List<ent_RapChieuCon> list = getDanhSachRapChieuConTheoTenRapChieuCon(maTinhThanh, maRapChieu, TenRapChieuCon);
+
+                // Cập nhật RecyclerView trên UI thread
+                if (context instanceof android.app.Activity) {
+                    ((android.app.Activity) context).runOnUiThread(() -> {
+                        // Gọi phương thức từ PD_RapChieuCon để load dữ liệu vào RecyclerView
+                        pdRapChieuCon.loadRapChieuConToRecyclerView(context, recyclerView, list, adapter);
+                    });
+                }
+            } catch (Exception e) {
+                // Log lỗi nếu có exception xảy ra
+                Log.e("BL_RapChieuCon", "Error while loading data", e);
+            } finally {
+                // Đảm bảo shutdown ExecutorService để tránh rò rỉ tài nguyên
+                executor.shutdown();
+            }
+        });
+    }
+
     public void loadDiaChiRapChieuConToRecyclerView(Context context, RecyclerView recyclerView, int maTinhThanh, int maRapChieu, DiaChiRapChieuAdapter adapter) {
         // Kiểm tra RecyclerView không được null
         if (recyclerView == null) {
@@ -132,6 +167,37 @@ public class BL_RapChieuCon {
             try {
                 // Lấy danh sách phim sắp chiếu từ cơ sở dữ liệu
                 List<ent_RapChieuCon> list = getDanhSachRapChieuConTheoDieuKien(maTinhThanh, maRapChieu);
+
+                // Cập nhật RecyclerView trên UI thread
+                if (context instanceof android.app.Activity) {
+                    ((android.app.Activity) context).runOnUiThread(() -> {
+                        // Gọi phương thức từ PD_RapChieuCon để load dữ liệu vào RecyclerView
+                        pdRapChieuCon.loadDiaChiRapChieuConToRecyclerView(context, recyclerView, list, adapter);
+                    });
+                }
+            } catch (Exception e) {
+                // Log lỗi nếu có exception xảy ra
+                Log.e("BL_RapChieuCon", "Error while loading data", e);
+            } finally {
+                // Đảm bảo shutdown ExecutorService để tránh rò rỉ tài nguyên
+                executor.shutdown();
+            }
+        });
+    }
+
+    public void loadDiaChiRapChieuConToRecyclerViewAfterSearch(Context context, RecyclerView recyclerView, int maTinhThanh, int maRapChieu, String TenRapChieuCon, DiaChiRapChieuAdapter adapter) {
+        // Kiểm tra RecyclerView không được null
+        if (recyclerView == null) {
+            Log.w("BL_RapChieuCon", "RecyclerView is null. Data will not be loaded.");
+            return;
+        }
+
+        // Tạo ExecutorService để chạy công việc không đồng bộ
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        executor.execute(() -> {
+            try {
+                // Lấy danh sách phim sắp chiếu từ cơ sở dữ liệu
+                List<ent_RapChieuCon> list = getDanhSachRapChieuConTheoTenRapChieuCon(maTinhThanh, maRapChieu, TenRapChieuCon);
 
                 // Cập nhật RecyclerView trên UI thread
                 if (context instanceof android.app.Activity) {

@@ -66,22 +66,6 @@ public class PD_PhimTheoLichChieu {
         return phimList;
     }
 
-    // Phương thức lấy mã thời gian chiếu hiện tại
-    public int getMaThoiGianChieuHienTai() {
-        String sql = "SELECT dbo.fn_LayMaThoiGianChieu_HienTai() AS MaThoiGianChieu";
-        try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-             ResultSet resultSet = preparedStatement.executeQuery()) {
-
-            if (resultSet.next()) {
-                return resultSet.getInt("MaThoiGianChieu");
-            }
-        } catch (SQLException e) {
-            Log.e(TAG, "Lỗi khi truy vấn hàm fn_LayMaThoiGianChieu_HienTai", e);
-        }
-        return -1; // Trả về -1 nếu không tìm thấy
-    }
-
     @SuppressLint("NotifyDataSetChanged")
     public void loadPhimToRecyclerView(Context context, RecyclerView recyclerView, List<ent_XepHang> list, PhimTheoLichChieuAdapter adapter) {
         if (list == null || list.isEmpty()) {

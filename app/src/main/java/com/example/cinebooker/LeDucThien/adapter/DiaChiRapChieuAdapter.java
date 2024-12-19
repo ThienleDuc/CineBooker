@@ -51,7 +51,8 @@ public class DiaChiRapChieuAdapter extends RecyclerView.Adapter<DiaChiRapChieuAd
                 .placeholder(R.drawable.camposter)  // Optional: Placeholder image
                 .into(holder.cinemaLogor);
 
-        holder.location.setText(rapChieu.getTenRapChieuCon());
+        holder.name.setText(rapChieu.getTenRapChieuCon());
+        holder.location.setText(rapChieu.getDiaChiRapChieu());
 
         holder.map.setOnClickListener(v -> {
             String map = rapChieu.getMap();

@@ -24,6 +24,11 @@ public class BL_NgayChieu {
         return pdNgayChieu.get7NgayChieuFromToday();
     }
 
+    // Phương thức lấy danh sách ngày chiếu
+    public int getMinNgayChieu() {
+        return pdNgayChieu.getMinNgayChieu();
+    }
+
     // Phương thức chung để load danh sách ngày chiếu vào RecyclerView
     public void loadNgayChieuToRecyclerView(Context context, RecyclerView recyclerView, LichChieuAdapter adapter) {
         if (recyclerView == null) {

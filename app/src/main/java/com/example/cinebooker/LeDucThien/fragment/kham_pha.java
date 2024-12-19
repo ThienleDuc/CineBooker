@@ -282,7 +282,7 @@ public class kham_pha extends Fragment {
         SharedPreferences sharedPreferences = requireContext().getSharedPreferences("LeDucThien", Context.MODE_PRIVATE);
         int _maThoiGianChieu = sharedPreferences.getInt("maThoiGianChieu", -1);
         if (_maThoiGianChieu == -1) {
-            _maThoiGianChieu = blPhimTheoLichChieu.getNowThoiGianChieu();
+            _maThoiGianChieu = blNgayChieu.getMinNgayChieu();
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putInt("maThoiGianChieu", _maThoiGianChieu);
             editor.apply();

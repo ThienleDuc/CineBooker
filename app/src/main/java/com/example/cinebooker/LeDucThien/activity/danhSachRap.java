@@ -2,6 +2,10 @@ package com.example.cinebooker.LeDucThien.activity;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
@@ -21,6 +25,9 @@ public class danhSachRap extends AppCompatActivity {
     private int _maTinhThanh = -1;
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
+    private EditText editText;
+    private TextWatcher textWatcher;
+    private String previousSearch = ""; // Lưu lại tìm kiếm trước đó
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +56,6 @@ public class danhSachRap extends AppCompatActivity {
         // Hiển thị danh sách địa chỉ rạp chiếu
         RecyclerView recyclerView = findViewById(R.id.diachirap_recyclerview);
         BL_RapChieuCon blRapChieuCon = new BL_RapChieuCon();
-        BL_TinhThanh blTinhThanh = new BL_TinhThanh();
         BL_RapChieu blRapChieu = new BL_RapChieu();
 
         sharedPreferences = getSharedPreferences("LeDucThien", MODE_PRIVATE);
@@ -65,6 +71,53 @@ public class danhSachRap extends AppCompatActivity {
 
         RapChieuConAdapter adapter = new RapChieuConAdapter();
         blRapChieuCon.loadRapChieuConToRecyclerView(this, recyclerView, _maTinhThanh,_maRapChieu, adapter);
+
+        editText = findViewById(R.id.header_search_input);
+
+        // TextWatcher để xử lý tìm kiếm
+        textWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int start, int before, int count) {
+                // Không cần xử lý
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+                // Không cần xử lý
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                String input = editable.toString().trim();
+
+                // Cập nhật dữ liệu chỉ khi từ khóa tìm kiếm thay đổi
+                if (!input.equals(previousSearch)) {
+                    previousSearch = input;
+
+                    if (!input.isEmpty()) {
+                        Log.d("Search", "Searching for: " + input);  // Log tìm kiếm
+                        blRapChieuCon.loadRapChieuConToRecyclerViewAfterSearch(
+                                danhSachRap.this,
+                                recyclerView,
+                                _maTinhThanh,
+                                _maRapChieu,
+                                input,
+                                adapter);
+                    } else {
+                        Log.d("Search", "Clearing search input");
+                    }
+                }
+            }
+        };
+
+        // Xử lý sự kiện focus của EditText
+        editText.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {
+                editText.addTextChangedListener(textWatcher);
+            } else {
+                editText.removeTextChangedListener(textWatcher);
+            }
+        });
     }
 
     // Phương thức đóng Activity

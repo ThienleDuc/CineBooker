@@ -25,11 +25,6 @@ public class BL_PhimTheoLichChieu {
         return pdPhimTheoLichChieu.getPhimTheoNgayChieuRapChieuCon(maRapChieuCon, maThoiGianChieu);
     }
 
-    // Phương thức lấy danh sách phim theo ngày chiếu và rạp chiếu con
-    public int getNowThoiGianChieu() {
-        return pdPhimTheoLichChieu.getMaThoiGianChieuHienTai();
-    }
-
     // Phương thức chung để load danh sách phim vào RecyclerView
     public void loadPhimTheoLichChieuToRecyclerView(Context context, RecyclerView recyclerView, PhimTheoLichChieuAdapter adapter, int maRapChieuCon, int maThoiGianChieu) {
         if (recyclerView == null) {

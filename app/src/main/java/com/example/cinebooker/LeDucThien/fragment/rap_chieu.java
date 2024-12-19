@@ -8,9 +8,13 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -20,12 +24,11 @@ import com.example.cinebooker.LeDucThien.BussinessLogic.BL_RapChieu;
 import com.example.cinebooker.LeDucThien.BussinessLogic.BL_RapChieuCon;
 import com.example.cinebooker.LeDucThien.BussinessLogic.BL_TinhThanh;
 import com.example.cinebooker.LeDucThien.activity.DanhSachDiaDiemRap;
+import com.example.cinebooker.LeDucThien.activity.danhSachRap;
 import com.example.cinebooker.LeDucThien.adapter.DiaChiRapChieuAdapter;
 import com.example.cinebooker.LeDucThien.adapter.RapChieuAdapter;
 import com.example.cinebooker.LeDucThien.adapter.DoiTacAdapter;
 
-import com.example.cinebooker.LeDucThien.adapter.RapChieuConAdapter;
-import com.example.cinebooker.LeDucThien.viewModel.SharedViewModel;
 import com.example.cinebooker.R;
 import com.example.cinebooker.generalMethod.ActivityOpen;
 
@@ -48,6 +51,8 @@ public class rap_chieu extends Fragment {
     public int _maRapChieu;
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
+    String previousSearch = " ";
+
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -92,10 +97,6 @@ public class rap_chieu extends Fragment {
     }
 
     public void controllerLichChieu(View view) {
-        BL_TinhThanh blTinhThanh = new BL_TinhThanh();
-        BL_RapChieu blRapChieu = new BL_RapChieu();
-        BL_RapChieuCon blRapChieuCon = new BL_RapChieuCon();
-
         TextView TenTinhThanh = view.findViewById(R.id.ten_tinh_thanh);
 
         // Khởi tạo TabLayout cho location
@@ -166,6 +167,52 @@ public class rap_chieu extends Fragment {
         // Tạo adapter và gọi BL_RapChieuCon để load dữ liệu vào RecyclerView
         DiaChiRapChieuAdapter adapter = new DiaChiRapChieuAdapter();
         blRapChieuCon.loadDiaChiRapChieuConToRecyclerView(getContext(), recyclerView, _maTinhThanh, _maRapChieu, adapter);
+
+        EditText editText = view.findViewById(R.id.header_search_input);
+        // TextWatcher để xử lý tìm kiếm
+        TextWatcher textWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int start, int before, int count) {
+                // Không cần xử lý
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+                // Không cần xử lý
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                String input = editable.toString().trim();
+
+                // Cập nhật dữ liệu chỉ khi từ khóa tìm kiếm thay đổi
+                if (!input.equals(previousSearch)) {
+                    previousSearch = input;
+
+                    if (!input.isEmpty()) {
+                        Log.d("Search", "Searching for: " + input);  // Log tìm kiếm
+                        blRapChieuCon.loadDiaChiRapChieuConToRecyclerViewAfterSearch(
+                                requireContext(),
+                                recyclerView,
+                                _maTinhThanh,
+                                _maRapChieu,
+                                input,
+                                adapter);
+                    } else {
+                        Log.d("Search", "Clearing search input");
+                    }
+                }
+            }
+        };
+
+        // Xử lý sự kiện focus của EditText
+        editText.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {
+                editText.addTextChangedListener(textWatcher);
+            } else {
+                editText.removeTextChangedListener(textWatcher);
+            }
+        });
     }
 
 

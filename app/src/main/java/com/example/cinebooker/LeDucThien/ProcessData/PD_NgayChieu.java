@@ -71,9 +71,41 @@ public class PD_NgayChieu {
         return ngayChieuList;
     }
 
+    public int getMinNgayChieu() {
+        int minNgayChieu = -1; // Giá trị mặc định nếu không tìm thấy kết quả
 
+        try {
+            // Mở kết nối đến cơ sở dữ liệu
+            connection = new ConnectionDatabase().getConnection();
+            if (connection == null) {
+                Log.e(TAG, "Không thể kết nối đến cơ sở dữ liệu.");
+                return minNgayChieu;
+            }
 
+            // Chuẩn bị câu lệnh SQL để lấy giá trị nhỏ nhất của MaTinhThanh
+            String sql = "SELECT MIN(MaThoiGianChieu) AS minThoiGianChieu FROM ThoiGianChieu \n" +
+                    "WHERE CONVERT(VARCHAR(10), NgayChieu, 103) = CONVERT(VARCHAR(10), GETDATE(), 103)";
+            preparedStatement = connection.prepareStatement(sql);
+            resultSet = preparedStatement.executeQuery();
 
+            // Lấy giá trị nhỏ nhất từ kết quả truy vấn
+            if (resultSet.next()) {
+                minNgayChieu = resultSet.getInt("minThoiGianChieu");
+            }
+
+        } catch (SQLException e) {
+            Log.e(TAG, "Error when fetching minimum MaTinhThanh from the database", e);
+        } catch (Exception e) {
+            Log.e(TAG, "Unexpected error occurred", e);
+            throw new RuntimeException(e);
+        } finally {
+            // Đảm bảo đóng các tài nguyên
+            closeResources();
+        }
+
+        return minNgayChieu;
+    }
+    
     // Phương thức đóng các tài nguyên
     private void closeResources() {
         try {

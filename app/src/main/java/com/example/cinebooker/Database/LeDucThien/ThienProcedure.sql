@@ -483,6 +483,37 @@ END;
 
 EXEC pr_GetRapChieuCon @MaTinhThanh = 1,  @MaRapChieu = 1;
 GO
+CREATE OR ALTER PROCEDURE pr_GetRapChieuConByTenRapChieu
+    @MaTinhThanh INT,
+	@MaRapChieu INT,
+    @TenRapChieuCon NVARCHAR(255)
+AS
+BEGIN
+    SET NOCOUNT ON;
+    -- Truy vấn dữ liệu với MaTinhThanh và MaRapChieu
+    SELECT 
+        RCon.MaRapChieuCon,
+        RC.AnhRapChieu, 
+        RCon.TenRapChieuCon, 
+        DRC.DiaChiRapChieu,
+        DRC.map
+    FROM 
+        TinhThanhPho TTP
+    INNER JOIN 
+        DiaChiRapChieuCon DRC ON TTP.MaTinhThanh = DRC.MaTinhThanh
+    INNER JOIN 
+        RapChieuCon RCon ON DRC.MaRapChieuCon = RCon.MaRapChieuCon
+    INNER JOIN 
+        RapChieu RC ON RCon.MaRapChieu = RC.MaRapChieu
+    WHERE 
+        TTP.MaTinhThanh = @MaTinhThanh
+		AND RCon.MaRapChieu = @MaRapChieu
+        AND RCon.TenRapChieuCon LIKE N'%' + @TenRapChieuCon + N'%';
+END;
+EXEC pr_GetRapChieuConByTenRapChieu @MaTinhThanh = 1,  @MaRapChieu = 1, @TenRapChieuCon = N'Rạp Chiếu';
+SELECT MIN(MaThoiGianChieu) AS minThoiGianChieu FROM ThoiGianChieu 
+WHERE CONVERT(VARCHAR(10), NgayChieu, 103) = CONVERT(VARCHAR(10), GETDATE(), 103)
+GO
 CREATE PROCEDURE pr_Get7NgayChieuFromToday
 AS
 BEGIN

@@ -119,6 +119,53 @@ public class PD_RapChieuCon {
     }
 
 
+    public List<ent_RapChieuCon> getRapChieuConByTenRapChieuCon(int maTinhThanh, int maRapChieu, String TenRapChieuCon) {
+        List<ent_RapChieuCon> rapChieuConList = new ArrayList<>();
+
+        try {
+            // Mở kết nối đến cơ sở dữ liệu
+            connection = new ConnectionDatabase().getConnection();
+            if (connection == null) {
+                Log.e(TAG, "Không thể kết nối đến cơ sở dữ liệu.");
+                return rapChieuConList;
+            }
+
+            // Chuẩn bị câu lệnh SQL gọi procedure với tham số MaRapChieuCon
+            String sql = "EXEC pr_GetRapChieuConByTenRapChieu @MaTinhThanh = ?,  @MaRapChieu = ?, @TenRapChieuCon = ?";
+            preparedStatement = connection.prepareStatement(sql);
+
+            // Thiết lập giá trị tham số MaRapChieuCon
+            preparedStatement.setInt(1, maTinhThanh);
+            preparedStatement.setInt(2, maRapChieu);
+            preparedStatement.setString(3, TenRapChieuCon);
+
+            resultSet = preparedStatement.executeQuery();
+
+            // Duyệt qua kết quả và thêm vào danh sách đối tượng ent_RapChieuCon
+            while (resultSet.next()) {
+                int maRapChieuConResult = resultSet.getInt("MaRapChieuCon");
+                String anhRapChieu = resultSet.getString("AnhRapChieu");
+                String tenRapChieuCon = resultSet.getString("TenRapChieuCon");
+                String diaChiRapChieu = resultSet.getString("DiaChiRapChieu");
+                String map = resultSet.getString("map");
+
+                ent_RapChieuCon rapChieuCon = new ent_RapChieuCon(maRapChieuConResult, anhRapChieu, tenRapChieuCon, diaChiRapChieu, map);
+                rapChieuConList.add(rapChieuCon);
+            }
+
+        } catch (SQLException e) {
+            Log.e(TAG, "Error when fetching cinema data by cinema sub ID from the database", e);
+        } catch (Exception e) {
+            Log.e(TAG, "Unexpected error occurred", e);
+            throw new RuntimeException(e);
+        } finally {
+            // Đảm bảo đóng các tài nguyên
+            closeResources();
+        }
+
+        return rapChieuConList;
+    }
+
     public int getMinMaRapChieuCon(int maRapChieu, int maTinhThanh) {
         int minMaRapChieuCon = -1;
 
@@ -172,50 +219,61 @@ public class PD_RapChieuCon {
     }
 
     public void loadRapChieuConToRecyclerView(Context context, RecyclerView recyclerView, List<ent_RapChieuCon> list, RapChieuConAdapter adapter) {
-        if (list == null || list.isEmpty()) {
-            Log.e(TAG, "Danh sách rạp chiếu con trống hoặc không hợp lệ.");
-            return;
+        if (recyclerView.getLayoutManager() == null) {
+            LinearLayoutManager layoutManager = new LinearLayoutManager(context);
+            layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+            recyclerView.setLayoutManager(layoutManager);
         }
 
-        // Thiết lập LayoutManager cho RecyclerView
-        LinearLayoutManager layoutManager = new LinearLayoutManager(context);
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(layoutManager);
+        // Kiểm tra và thêm ItemDecoration nếu chưa được thêm
+        boolean hasItemDecoration = false;
+        for (int i = 0; i < recyclerView.getItemDecorationCount(); i++) {
+            if (recyclerView.getItemDecorationAt(i) instanceof SpaceItemDecoration) {
+                hasItemDecoration = true;
+                break;
+            }
+        }
 
-        // Thêm ItemDecoration nếu cần
-        int spacingInPixels = context.getResources().getDimensionPixelSize(R.dimen.recycler_view_spacing_5);
-        recyclerView.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
+        if (!hasItemDecoration) {
+            int spacingInPixels = context.getResources().getDimensionPixelSize(R.dimen.recycler_view_spacing_5);
+            recyclerView.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
+        }
 
         // Thiết lập Adapter và dữ liệu nếu chưa có adapter
         if (recyclerView.getAdapter() == null) {
             recyclerView.setAdapter(adapter);
         }
 
-        // Cập nhật dữ liệu cho adapter
         adapter.SetData(list);
     }
 
     public void loadDiaChiRapChieuConToRecyclerView(Context context, RecyclerView recyclerView, List<ent_RapChieuCon> list, DiaChiRapChieuAdapter adapter) {
-        if (list == null || list.isEmpty()) {
-            Log.e(TAG, "Danh sách rạp chiếu con trống hoặc không hợp lệ.");
-            return;
+        if (recyclerView.getLayoutManager() == null) {
+            LinearLayoutManager layoutManager = new LinearLayoutManager(context);
+            layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+            recyclerView.setLayoutManager(layoutManager);
         }
 
-        // Thiết lập LayoutManager cho RecyclerView
-        LinearLayoutManager layoutManager = new LinearLayoutManager(context);
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(layoutManager);
+        // Kiểm tra và thêm ItemDecoration nếu chưa được thêm
+        boolean hasItemDecoration = false;
+        for (int i = 0; i < recyclerView.getItemDecorationCount(); i++) {
+            if (recyclerView.getItemDecorationAt(i) instanceof SpaceItemDecoration) {
+                hasItemDecoration = true;
+                break;
+            }
+        }
 
-        // Thêm ItemDecoration nếu cần
-        int spacingInPixels = context.getResources().getDimensionPixelSize(R.dimen.recycler_view_spacing_5);
-        recyclerView.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
+        if (!hasItemDecoration) {
+            int spacingInPixels = context.getResources().getDimensionPixelSize(R.dimen.recycler_view_spacing_5);
+            recyclerView.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
+        }
 
         // Thiết lập Adapter và dữ liệu nếu chưa có adapter
         if (recyclerView.getAdapter() == null) {
             recyclerView.setAdapter(adapter);
         }
 
-        // Cập nhật dữ liệu cho adapter
         adapter.SetData(list);
     }
+
 }

@@ -16,7 +16,7 @@ public class ConnectionDatabase {
         Connection connection = null;
         try {
             //String IpInternet = "database-1.chi0cwy8qdtc.us-east-1.rds.amazonaws.com";
-            String IpInternet = "192.168.1.4";
+            String IpInternet = "192.168.1.6";
             String databaseName = "dbQuanLyXemPhim";
             String username = "sa";
             //String password = "leducthien.02092004";

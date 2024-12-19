@@ -103,37 +103,16 @@ public class lich_chieu extends Fragment {
 
         TextView TenTinhThanh = view.findViewById(R.id.ten_tinh_thanh);
         SharedPreferences sharedPreferences = requireContext().getSharedPreferences("LeDucThien", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor;
 
         int _maTinhThanh = sharedPreferences.getInt("maTinhThanh", -1);
-        if (_maTinhThanh == -1) {
-            _maTinhThanh = blTinhThanh.loadMinMaTinhThanh();
-            editor = sharedPreferences.edit();
-            editor.putInt("maTinhThanh", _maTinhThanh);
-            editor.apply();
-        }
 
         blTinhThanh.loadTenTinhThanhTheoDieuKien(requireContext(), TenTinhThanh, _maTinhThanh);
-
-        int _maRapChieu = sharedPreferences.getInt("maRapChieu", -1);
-        if (_maRapChieu == -1) {
-            _maRapChieu = blRapChieu.loadMinMaRapChieu();
-            editor = sharedPreferences.edit();
-            editor.putInt("maRapChieu", _maRapChieu);
-            editor.apply();
-        }
 
         ImageView anhRapChieuCon = view.findViewById(R.id.calendar_logo);
         TextView tenRapChieuCon = view.findViewById(R.id.sapChieu_movie_name);
         TextView diaChiRapChieuCon = view.findViewById(R.id.sapChieu_movie_style);
 
         int _maRapChieuCon = sharedPreferences.getInt("maRapChieuCon", -1);
-        if (_maRapChieuCon == -1) {
-            _maRapChieuCon = blRapChieuCon.loadMinRapChieuCon(_maTinhThanh, _maRapChieu);
-            editor = sharedPreferences.edit();
-            editor.putInt("maRapChieuCon", _maRapChieuCon);
-            editor.apply();
-        }
 
         blRapChieuCon.loadThongTinRapChieuCon(requireContext(), anhRapChieuCon,
                 tenRapChieuCon, diaChiRapChieuCon, _maRapChieuCon);
@@ -203,12 +182,6 @@ public class lich_chieu extends Fragment {
 
         SharedPreferences sharedPreferences = requireContext().getSharedPreferences("LeDucThien", Context.MODE_PRIVATE);
         int _maThoiGianChieu = sharedPreferences.getInt("maThoiGianChieu", -1);
-        if (_maThoiGianChieu == -1) {
-            _maThoiGianChieu = blPhimTheoLichChieu.getNowThoiGianChieu();
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putInt("maThoiGianChieu", _maThoiGianChieu);
-            editor.apply();
-        }
         int _maRapChieuCon = sharedPreferences.getInt("maRapChieuCon", -1);
         blPhimTheoLichChieu.loadPhimTheoLichChieuToRecyclerView(requireContext(), recyclerView1,
                 phimTheoLichChieuAdapter,_maRapChieuCon, _maThoiGianChieu);

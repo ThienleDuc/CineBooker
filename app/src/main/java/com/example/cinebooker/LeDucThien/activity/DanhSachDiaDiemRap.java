@@ -45,8 +45,8 @@ public class DanhSachDiaDiemRap extends AppCompatActivity {
         blTinhThanh.loadTenTinhThanhToRecyclerView(this, recyclerView, tinhThanhAdapter);
 
         // Khởi tạo các view khác
-        editText = findViewById(R.id.header_search_input);
         ImageView close = findViewById(R.id.danhsachdiadiemrap_close);
+        editText = findViewById(R.id.header_search_input);
 
         // TextWatcher để xử lý tìm kiếm
         textWatcher = new TextWatcher() {
