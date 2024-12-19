@@ -32,47 +32,6 @@ public class voucher extends AppCompatActivity {
         list_voucher = findViewById(R.id.list_voucher);
         list_voucher.setLayoutManager(new LinearLayoutManager(this));
 
-        // Thêm khoảng cách giữa các item trong RecyclerView
-        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.recycler_view_spacing_5);
-        list_voucher.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
 
-        // Khởi tạo danh sách và thêm các phần tử
-        ticketvoucherMoviesList = new ArrayList<>();
-        ticketvoucherMoviesList.add(new ticketvoucherMoviesEntity(
-                "TEAM 17",
-                R.drawable.icon17_itemvoucher,
-                "Giảm 10% giảm tối đa 20%",
-                "Đơn tối thiểu 80k",
-                "05/10/2024",
-                "75%"
-        ));
-        ticketvoucherMoviesList.add(new ticketvoucherMoviesEntity(
-                "TEAM 17",
-                R.drawable.icon17_itemvoucher,
-                "Giảm 10% giảm tối đa 20%",
-                "Đơn tối thiểu 80k",
-                "05/10/2024",
-                "75%"
-        ));
-        ticketvoucherMoviesList.add(new ticketvoucherMoviesEntity(
-                "TEAM 17",
-                R.drawable.icon17_itemvoucher,
-                "Giảm 10% giảm tối đa 20%",
-                "Đơn tối thiểu 80k",
-                "05/10/2024",
-                "75%"
-        ));
-        ticketvoucherMoviesList.add(new ticketvoucherMoviesEntity(
-                "TEAM 17",
-                R.drawable.icon17_itemvoucher,
-                "Giảm 10% giảm tối đa 20%",
-                "Đơn tối thiểu 80k",
-                "05/10/2024",
-                "75%"
-        ));
-
-        // Thiết lập adapter và gắn vào RecyclerView
-        ticketvoucherAdapter = new Ticket_voucherAdapter(ticketvoucherMoviesList);
-        list_voucher.setAdapter(ticketvoucherAdapter);
     }
 }

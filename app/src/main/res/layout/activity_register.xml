@@ -53,7 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:background="@drawable/khung_editview"
-            android:hint="Họ tên *"
+            android:hint="Tên tài khoản *"
             android:inputType="text"
             android:padding="15dp"
             android:textColor="@color/white"
@@ -67,7 +67,7 @@
             android:layout_marginTop="16dp"
             android:background="@drawable/khung_editview"
             android:hint="Email *"
-            android:inputType="text"
+            android:inputType="textEmailAddress"
             android:padding="15dp"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
@@ -80,7 +80,7 @@
             android:layout_marginTop="16dp"
             android:background="@drawable/khung_editview"
             android:hint="Mật khẩu *"
-            android:inputType="text"
+            android:inputType="textPassword"
             android:drawableEnd="@drawable/baseline_remove_red_eye_24"
             android:padding="15dp"
             android:textColor="@color/white"
@@ -94,41 +94,21 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/date_input"
+                android:id="@+id/reenter_password_input"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
                 android:background="@drawable/khung_editview"
-                android:drawableEnd="@drawable/baseline_arrow_drop_down_24"
-                android:hint="Ngày sinh *"
-                android:inputType="none"
-                android:focusable="false"
-                android:focusableInTouchMode="false"
+                android:drawableEnd="@drawable/baseline_remove_red_eye_24"
+                android:hint="Nhập lại mật khẩu *"
+                android:inputType="textPassword"
                 android:padding="15dp"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
                 android:textSize="15sp" />
 
 
-            <RadioGroup
-                android:layout_width="wrap_content"
-                android:layout_height="55dp"
-                android:layout_marginLeft="10dp"
-                >
-
-                <RadioButton
-                    android:id="@+id/radioButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="  Nam" />
-
-                <RadioButton
-                    android:id="@+id/radioButton2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="  Nữ" />
-            </RadioGroup>
         </LinearLayout>
 
 

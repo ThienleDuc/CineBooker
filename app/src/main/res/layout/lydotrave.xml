@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingRight="20dp"
+    android:paddingLeft="20dp"
+    android:paddingBottom="20dp"
+    android:background="@drawable/khung_doimatkhau"
+    android:orientation="vertical">
+
+    <TextView
+        android:text="LÝ DO TRẢ VÉ PHIM"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:layout_marginTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <!-- Nhóm các lý do trả vé với RadioButton -->
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp">
+
+        <!-- Lý do trả vé 1 -->
+        <RadioButton
+            android:id="@+id/radio_lid_ve_loi"
+            android:text="Vé bị lỗi"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <!-- Lý do trả vé 2 -->
+        <RadioButton
+            android:id="@+id/radio_khong_thoi_gian"
+            android:text="Không có thời gian đi xem"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <!-- Lý do trả vé 3 -->
+        <RadioButton
+            android:id="@+id/radio_ly_do_khac"
+            android:text="Lý do khác"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </RadioGroup>
+
+    <!-- Nút xác nhận -->
+    <Button
+        android:id="@+id/confirm_button"
+        android:text="Xác nhận lý do"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"/>
+
+</LinearLayout>

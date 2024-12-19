@@ -1,6 +1,9 @@
+
 package com.example.cinebooker.PhanCongQuoc.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,19 +17,24 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cinebooker.PhanCongQuoc.activity.xem_thong_tin_ve;
 import com.example.cinebooker.PhanCongQuoc.activity.xuat_ve;
+import com.example.cinebooker.PhanCongQuoc.activity.yeu_cau_hoan_tien;
 import com.example.cinebooker.PhanCongQuoc.entity.ticketdadungMoviesEntity;
 import com.example.cinebooker.R;
 import com.example.cinebooker.generalMethod.ActivityOpen;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class Ticket_dadungAdapter extends RecyclerView.Adapter<Ticket_dadungAdapter.TicketViewHolder> {
-        private List<ticketdadungMoviesEntity> ticketdadungMoviesList;
-    private int currentItemCount; // Hiển thị ban đầu 10 mục
+    private List<ticketdadungMoviesEntity> ticketdadungMoviesList;
+    private int currentItemCount;
+    private SharedPreferences.Editor editor;
+    private int MaVe=-1;// Hiển thị ban đầu 10 mục
 
-    public Ticket_dadungAdapter(List<ticketdadungMoviesEntity> ticketdadungMoviesList) {
+    public void SetData(List<ticketdadungMoviesEntity> ticketdadungMoviesList) {
         this.ticketdadungMoviesList = ticketdadungMoviesList;
         this.currentItemCount = 10;
+        notifyDataSetChanged();
     }
 
     public int getCurrentItemCount() {
@@ -53,43 +61,57 @@ public class Ticket_dadungAdapter extends RecyclerView.Adapter<Ticket_dadungAdap
     public void onBindViewHolder(@NonNull Ticket_dadungAdapter.TicketViewHolder holder, int position) {
         ticketdadungMoviesEntity ticket = ticketdadungMoviesList.get(position);
 
-        holder.date_dadung.setText(ticket.getDate_dadung());
-        holder.date_1_dadung.setText(ticket.getDate_1_dadung());
-        holder.posterMovie_dadung.setImageResource(ticket.getPoster_dadung());
-        holder.age_dadung.setText(ticket.getAge_dadung());
-        holder.movieName_dadung.setText(ticket.getName_dadung());
-        holder.styleMovie_dadung.setText(ticket.getStyle_dadung());
-        // Thiết lập listener cho nút
-        holder.btn_dadung.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Context context = v.getContext();
-                if (context instanceof AppCompatActivity) {
-                    ActivityOpen.openActivityOnClick((AppCompatActivity) context, xem_thong_tin_ve.class, R.id.btn_dadung);
-                }
+        holder.date_dadung.setText(ticket.getDate_dadung() != null ? ticket.getDate_dadung() : "Ngày không xác định");
+         Picasso.get().load(ticket.getPoster_dadung())
+                .placeholder(R.drawable.placeholder)
+                 .resize(800, 800) // Optional: Add a placeholder image
+                .into(holder.posterMovie_dadung);
+        holder.age_dadung.setText(ticket.getAge_dadung() > 0 ? String.valueOf(ticket.getAge_dadung())+ "+" : "Tuổi không xác định");
+        holder.movieName_dadung.setText(ticket.getName_dadung() != null ? ticket.getName_dadung() : "Tên phim không xác định");
+        holder.styleMovie_dadung.setText(ticket.getStyle_dadung() != null ? ticket.getStyle_dadung() : "Thể loại không xác định");
+        holder.soluong_dadung.setText(ticket.getSoluong_dadung() > 0 ? String.valueOf(ticket.getSoluong_dadung()) : "0");
+        Picasso.get().load(ticket.getAnhrap_dadung())
+                .placeholder(R.drawable.drawn_star)  // Optional: Add a placeholder image
+                .into(holder.anhrap);
+        holder.diachi.setText(ticket.getDiachi_dadung() != null ? ticket.getDiachi_dadung() : "Địa chỉ không xác định");
+
+        holder.btn_dadung.setOnClickListener(v -> {
+            Context context = v.getContext();
+            if (context instanceof AppCompatActivity) {
+                // Lưu MaVe vào SharedPreferences
+                SharedPreferences sharedPreferences = context.getSharedPreferences("QuocDepTrai", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putInt("MaVe", ticket.getMaVe());
+                editor.apply();
+                // Mở Activity xuat_ve bằng Intent
+                Intent intent = new Intent(context, xem_thong_tin_ve.class);
+                context.startActivity(intent);
+
+
             }
         });
-
-
     }
 
     @Override
     public int getItemCount() {
-        return Math.min(currentItemCount, ticketdadungMoviesList.size());
+        return ticketdadungMoviesList.size();  // Trả về toàn bộ số lượng item trong danh sách
     }
 
     public class TicketViewHolder extends RecyclerView.ViewHolder {
-        ImageView posterMovie_dadung;
-        TextView age_dadung, movieName_dadung, styleMovie_dadung, date_dadung,date_1_dadung;
+        ImageView posterMovie_dadung,anhrap;
+        TextView age_dadung, movieName_dadung, styleMovie_dadung, date_dadung,soluong_dadung,diachi;
         Button btn_dadung;
         public TicketViewHolder(@NonNull View itemView) {
             super(itemView);
+            date_dadung = itemView.findViewById(R.id.date_dadung);
+
             posterMovie_dadung = itemView.findViewById(R.id.poster_dadung);
             age_dadung = itemView.findViewById(R.id.age_dadung);
             movieName_dadung = itemView.findViewById(R.id.name_dadung);
             styleMovie_dadung = itemView.findViewById(R.id.style_dadung);
-            date_dadung = itemView.findViewById(R.id.date_dadung);
-            date_1_dadung = itemView.findViewById(R.id.date_1_dadung);
+            soluong_dadung = itemView.findViewById(R.id.soluong_dadung);
+            anhrap = itemView.findViewById(R.id.icon_CGV);
+            diachi = itemView.findViewById(R.id.diachi_dadung);
             btn_dadung = itemView.findViewById(R.id.btn_dadung);
         }
     }

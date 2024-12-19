@@ -141,10 +141,10 @@
                 </LinearLayout>
 
                 <ImageView
+                    android:id="@+id/doimatkhau"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/more"
-                    />
+                    android:src="@drawable/more" />
             </LinearLayout>
 
             <Space

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingRight="20dp"
+    android:paddingLeft="20dp"
+    android:paddingBottom="20dp"
+    android:background="@drawable/khung_doimatkhau"
+    android:orientation="vertical">
+    <TextView
+        android:text="ĐỔI MẬT KHẨU"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:layout_marginTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:id="@+id/pass_cu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/khung_editview"
+        android:hint="Mật khẩu cũ"
+        android:padding="15dp"
+        android:textSize="10dp" />
+
+    <EditText
+        android:id="@+id/pass_moi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Mật khẩu mới"
+        android:layout_marginTop="10dp"
+        android:textSize="10dp"
+        android:padding="15dp"
+        android:background="@drawable/khung_editview"/>
+    <EditText
+        android:id="@+id/pass_confin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nhập lại mật khẩu mới "
+        android:layout_marginTop="10dp"
+        android:textSize="10dp"
+        android:padding="15dp"
+        android:background="@drawable/khung_editview"/>
+
+
+</LinearLayout>
