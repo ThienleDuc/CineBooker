@@ -32,7 +32,7 @@ public class yeu_cau_hoan_tien extends AppCompatActivity {
         ImageView back = findViewById(R.id.itemback);
 
         back.setOnClickListener(v -> onBackPressed());
-
+        ImageView lydohuy = findViewById(R.id.doimatkhau);
 
         HoanTien();
 

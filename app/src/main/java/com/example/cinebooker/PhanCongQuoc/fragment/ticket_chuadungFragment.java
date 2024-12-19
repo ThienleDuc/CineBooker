@@ -30,8 +30,6 @@ public class ticket_chuadungFragment extends Fragment {
     private List<ticketchuadungMoviesEntity> ticketChuadungMoviesList;
 
     // Handler để làm mới dữ liệu mỗi giây
-    private Handler handler = new Handler();
-    private Runnable refreshRunnable;
 
     public ticket_chuadungFragment() {
         // Required empty public constructor
@@ -56,16 +54,11 @@ public class ticket_chuadungFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_ticket_chuadung, container, false);
         chuadung(view);
-        startDataRefresh();  // Bắt đầu làm mới dữ liệu
+
         return view;
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        // Dừng việc làm mới khi fragment bị hủy
-        stopDataRefresh();
-    }
+
 
     private void chuadung(View view) {
         RecyclerView chuaRecyclerView = view.findViewById(R.id.list_chuadung);
@@ -77,31 +70,15 @@ public class ticket_chuadungFragment extends Fragment {
         // Tải lại dữ liệu mà không thay đổi cấu trúc RecyclerView hoặc Adapter
         blChuaDung.loadChuaDungVertical(getContext(), chuaRecyclerView);
 
-        // Nếu bạn cần làm mới adapter mà không làm giãn item, chỉ cần thông báo cập nhật dữ liệu
-        if (ticketChuadungAdapter != null) {
-            ticketChuadungAdapter.notifyItemRangeChanged(0, ticketChuadungMoviesList.size()); // Cập nhật chỉ các item thay đổi
+
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+            chuadung(getView());
         }
-    }
 
 
-    // Phương thức làm mới dữ liệu mỗi 1 giây
-    private void startDataRefresh() {
-        refreshRunnable = new Runnable() {
-            @Override
-            public void run() {
-                chuadung(getView());  // Gọi lại phương thức làm mới dữ liệu
-                handler.postDelayed(this, 1000);  // Gọi lại sau 1 giây
-            }
-        };
 
-        // Chạy lần đầu tiên
-        handler.post(refreshRunnable);
-    }
 
-    // Dừng việc làm mới dữ liệu khi không còn cần thiết (ví dụ: khi fragment bị hủy)
-    private void stopDataRefresh() {
-        if (handler != null && refreshRunnable != null) {
-            handler.removeCallbacks(refreshRunnable); // Dừng việc làm mới dữ liệu
-        }
-    }
 }

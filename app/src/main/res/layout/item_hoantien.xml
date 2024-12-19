@@ -70,21 +70,33 @@
                             android:textStyle="bold" />
 
                     </LinearLayout>
-
-
                     <TextView
-                        android:id="@+id/date_trhang"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/style_hoantien"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Thứ 4, 02/10/2024"
-                        android:textColor="@color/colorIconNavigation"
-                        android:textSize="8dp"
-                        android:textStyle="bold" />
+                        android:textSize="10sp"
+                        android:textStyle="bold"
+                        android:text="Kinh dị"
+                        android:textColor="@color/black"
+                        android:maxLines="1"
+                        android:ellipsize="end"/>
+
+
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
+
                         android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/date_trhang"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="02/10/2024"
+                            android:textColor="@color/colorIconNavigation"
+                            android:textSize="8dp"
+                            android:layout_marginRight="10dp"
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/time_batdau_trh"
@@ -115,7 +127,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
+                        android:layout_marginTop="10dp"
                         android:orientation="horizontal">
 
                         <ImageView
@@ -205,6 +217,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/phuongan"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="0.05"
@@ -216,6 +229,7 @@
                         android:textStyle="bold" />
 
                     <ImageView
+                        android:id="@+id/lydo"
                         android:layout_width="15dp"
                         android:layout_height="15dp"
                         android:layout_weight="0.05"
@@ -244,10 +258,12 @@
                         android:textSize="12dp"
                         android:textStyle="bold" />
                     <TextView
+
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="end|center"
-                        android:text="Phương án *"
+                        android:text="Hoàn tiền"
+                        android:layout_marginRight="15dp"
                         android:textColor="@color/black"
                         android:textSize="12dp"
                         android:textStyle="bold" />

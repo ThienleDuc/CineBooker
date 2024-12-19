@@ -7,7 +7,8 @@ package com.example.cinebooker.PhanCongQuoc.entity;
 public class YeuCauHoanTienEntity {
     private int MaVe;
     private String posterTrHang; // @id/poster_trhang
-    private String namePhimTrHang; // @id/namephim_trhang
+    private String namePhimTrHang;
+    private String stylehoantien;// @id/namephim_trhang
     private String dateTrHang; // @id/date_trhang
     private String time_batdau;
     private String time_ketthuc; // @id/time_trhang
@@ -19,13 +20,14 @@ public class YeuCauHoanTienEntity {
 
     public YeuCauHoanTienEntity(){}
     // Constructor
-    public YeuCauHoanTienEntity(int MaVe,String posterTrHang, String namePhimTrHang, String dateTrHang,
+    public YeuCauHoanTienEntity(int MaVe,String posterTrHang, String namePhimTrHang,String stylehoantien, String dateTrHang,
                                 String time_batdau,String time_ketthuc, int soLuongTrHang, String iconTrHang,
                                 String diaChiTrHang,
                                 int soTienHoanTrHang) {
         this.MaVe = MaVe;
         this.posterTrHang = posterTrHang;
         this.namePhimTrHang = namePhimTrHang;
+        this.stylehoantien=stylehoantien;
         this.dateTrHang = dateTrHang;
         this.time_batdau = time_batdau;
         this.time_ketthuc = time_ketthuc;
@@ -58,6 +60,14 @@ public class YeuCauHoanTienEntity {
 
     public void setNamePhimTrHang(String namePhimTrHang) {
         this.namePhimTrHang = namePhimTrHang;
+    }
+
+    public String getStylehoantien() {
+        return stylehoantien;
+    }
+
+    public void setStylehoantien(String stylehoantien) {
+        this.stylehoantien = stylehoantien;
     }
 
     public String getDateTrHang() {

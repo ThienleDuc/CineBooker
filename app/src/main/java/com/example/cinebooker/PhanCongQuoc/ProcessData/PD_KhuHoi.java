@@ -1,7 +1,9 @@
 package com.example.cinebooker.PhanCongQuoc.ProcessData;
 
 import android.content.Context;
+import android.graphics.Rect;
 import android.util.Log;
+import android.view.View;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -97,18 +99,29 @@ public class PD_KhuHoi {
             return;
         }
 
-        // Thiết lập LayoutManager cho RecyclerView
+        // Thiết lập LayoutManager
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
         layoutManager.setOrientation(isHorizontal ? LinearLayoutManager.HORIZONTAL : LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
 
-        // Thêm ItemDecoration nếu cần
-        int spacingInPixels = context.getResources().getDimensionPixelSize(R.dimen.recycler_view_spacing_5);
-        if (isHorizontal) {
-            recyclerView.addItemDecoration(new HorizontalSpaceItemDecoration(spacingInPixels));
-        } else {
-            recyclerView.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
+        // Xóa tất cả các ItemDecoration cũ trước khi thêm mới (tránh cộng dồn)
+        while (recyclerView.getItemDecorationCount() > 0) {
+            recyclerView.removeItemDecorationAt(0);
         }
+
+        // Tạo khoảng cách giữa các item (chỉ trên và dưới)
+        int spacing = 16; // Khoảng cách cố định (pixel), có thể tùy chỉnh
+        recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
+            @Override
+            public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+                int position = parent.getChildAdapterPosition(view);
+                if (position != RecyclerView.NO_POSITION) {
+                    outRect.top = spacing; // Khoảng cách trên
+                    outRect.bottom = spacing; // Khoảng cách dưới
+                }
+            }
+        });
+
 
         // Tạo adapter và gán vào RecyclerView
         Ticket_khuhoiAdapter adapter = new Ticket_khuhoiAdapter();

@@ -1,6 +1,7 @@
 package com.example.cinebooker.PhanCongQuoc.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
@@ -62,6 +63,12 @@ public class login extends AppCompatActivity {
                 boolean isValid = checkUserCredentials(enteredEmail, enteredPassword);
                 runOnUiThread(() -> {
                     if (isValid) {
+                        // Lưu MaKhachHang vào SharedPreferences
+                        SharedPreferences sharedPreferences = getSharedPreferences("QuocDepTrai", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putInt("user_id", getMaKhachHangFromDatabase(enteredEmail));  // Lưu MaKhachHang
+                        editor.apply();
+
                         Toast.makeText(this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(login.this, home.class);
                         startActivity(intent);
@@ -123,6 +130,48 @@ public class login extends AppCompatActivity {
                 Log.e(TAG, "Lỗi khi đóng kết nối: ", e);
             }
         }
-        return false;
+        return false; // Đăng nhập thất bại
+    }
+
+    // Phương thức lấy MaKhachHang từ cơ sở dữ liệu
+    private int getMaKhachHangFromDatabase(String email) {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        int maKhachHang = -1;
+
+        try {
+            connection = new ConnectionDatabase().getConnection();
+            if (connection == null) {
+                Log.e(TAG, "Không thể kết nối đến cơ sở dữ liệu.");
+                return maKhachHang;
+            }
+
+            String sql = "SELECT MaKhachHang FROM KhachHang WHERE Email = ?";
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, email);
+
+            resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                maKhachHang = resultSet.getInt("MaKhachHang");
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Lỗi khi lấy MaKhachHang: ", e);
+        } finally {
+            try {
+                if (resultSet != null) resultSet.close();
+                if (statement != null) statement.close();
+                if (connection != null) connection.close();
+            } catch (Exception e) {
+                Log.e(TAG, "Lỗi khi đóng kết nối: ", e);
+            }
+        }
+        return maKhachHang;
+    }
+
+    // Method to retrieve the stored MaKhachHang from SharedPreferences
+    public int getStoredUserId() {
+        SharedPreferences sharedPreferences = getSharedPreferences("QuocDepTrai", MODE_PRIVATE);
+        return sharedPreferences.getInt("user_id", -1);  // Default to -1 if user_id is not found
     }
 }

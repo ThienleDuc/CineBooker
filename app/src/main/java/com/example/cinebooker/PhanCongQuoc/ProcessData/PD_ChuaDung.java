@@ -1,18 +1,17 @@
 package com.example.cinebooker.PhanCongQuoc.ProcessData;
 
 import android.content.Context;
+import android.graphics.Rect;
+import android.os.Handler;
 import android.util.Log;
+import android.view.View;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.cinebooker.LeDucThien.adapter.moviesDangChieuAdapter;
 import com.example.cinebooker.PhanCongQuoc.adapter.Ticket_chuadungAdapter;
 import com.example.cinebooker.PhanCongQuoc.entity.ticketchuadungMoviesEntity;
-import com.example.cinebooker.R;
 import com.example.cinebooker.generalMethod.ConnectionDatabase;
-import com.example.cinebooker.generalMethod.HorizontalSpaceItemDecoration;
-import com.example.cinebooker.generalMethod.SpaceItemDecoration;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -20,7 +19,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import android.os.Handler;
 
 public class PD_ChuaDung {
 
@@ -51,14 +49,15 @@ public class PD_ChuaDung {
                 // Tạo đối tượng phim
                 ticketchuadungMoviesEntity phim = new ticketchuadungMoviesEntity();
                 phim.setMaVe(resultSet.getInt("MaVe"));
-                  phim.setDate_chuadung(resultSet.getString("ThoiGian"));
-                  phim.setPoster_chuadung(resultSet.getString("AnhPhim"));
-                  phim.setAge_chuadung( resultSet.getInt("Tuoi"));
-                  phim.setName_chuadung( resultSet.getString("TenPhim"));
-                  phim.setStyle_chuadung( resultSet.getString("TenTheLoai"));
-                  phim.setSoluong_chuadung( resultSet.getInt("SoLuongVe"));
-                  phim.setAnhrap(resultSet.getString("AnhRapChieu"));
-                  phim.setDiachi_chuadung( resultSet.getString("DiaChiRapChieu"));
+                phim.setDate_chuadung(resultSet.getString("ThoiGian"));
+                phim.setPoster_chuadung(resultSet.getString("AnhPhim"));
+                phim.setAge_chuadung(resultSet.getInt("Tuoi"));
+                phim.setName_chuadung(resultSet.getString("TenPhim"));
+                phim.setStyle_chuadung(resultSet.getString("TenTheLoai"));
+                phim.setSoluong_chuadung(resultSet.getInt("SoLuongVe"));
+                phim.setAnhrap(resultSet.getString("AnhRapChieu"));
+                phim.setDiachi_chuadung(resultSet.getString("DiaChiRapChieu"));
+
                 // Thêm đối tượng phim vào danh sách
                 phimList.add(phim);
             }
@@ -100,33 +99,43 @@ public class PD_ChuaDung {
             return;
         }
 
-        // Thiết lập LayoutManager cho RecyclerView
+        // Thiết lập LayoutManager
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
         layoutManager.setOrientation(isHorizontal ? LinearLayoutManager.HORIZONTAL : LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
 
-        // Thêm ItemDecoration nếu cần
-        int spacingInPixels = context.getResources().getDimensionPixelSize(R.dimen.recycler_view_spacing_5);
-        if (isHorizontal) {
-            recyclerView.addItemDecoration(new HorizontalSpaceItemDecoration(spacingInPixels));
-        } else {
-            recyclerView.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
+        // Xóa tất cả các ItemDecoration cũ trước khi thêm mới (tránh cộng dồn)
+        while (recyclerView.getItemDecorationCount() > 0) {
+            recyclerView.removeItemDecorationAt(0);
         }
 
-        // Tạo adapter và gán vào RecyclerView
+        // Tạo khoảng cách giữa các item (chỉ trên và dưới)
+        int spacing = 16; // Khoảng cách cố định (pixel), có thể tùy chỉnh
+        recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
+            @Override
+            public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+                int position = parent.getChildAdapterPosition(view);
+                if (position != RecyclerView.NO_POSITION) {
+                    outRect.top = spacing; // Khoảng cách trên
+                    outRect.bottom = spacing; // Khoảng cách dưới
+                }
+            }
+        });
+
+        // Thiết lập adapter
         Ticket_chuadungAdapter adapter = new Ticket_chuadungAdapter();
         recyclerView.setAdapter(adapter);
-        adapter.SetData(movieList); // Đưa danh sách phim vào adapter
-        // Đặt một Runnable để cập nhật dữ liệu sau mỗi 5 giây
+        adapter.SetData(movieList);
+
+        // Đặt Runnable để tự động cập nhật sau mỗi 5 giây
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 List<ticketchuadungMoviesEntity> newMovieList = getChuaDung();
                 adapter.SetData(newMovieList);
-                adapter.notifyDataSetChanged(); // Thêm dòng này để đảm bảo RecyclerView được làm mới
+                adapter.notifyDataSetChanged(); // Làm mới RecyclerView
                 handler.postDelayed(this, 5000);
             }
         }, 5000);
-
     }
 }

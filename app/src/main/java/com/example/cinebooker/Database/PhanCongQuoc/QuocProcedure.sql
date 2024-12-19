@@ -246,10 +246,41 @@ BEGIN
         TG.NgayChieu, P.DinhDangPhim;
 END;
 GO
-INSERT INTO ThanhToan (MaVe, QRThanhToan, TongTien)
-VALUES (1, 'QR_SAMPLE_CODE', 150000);
-go
-select *from ThanhToan;
-EXEC GetVePhimDadung @MaVe = 3;
+CREATE OR ALTER PROCEDURE GetChuaDung
+    @MaVe INT
+AS
+BEGIN
+    -- Trả về thông tin chi tiết của vé chưa sử dụng dựa trên MaVe
+    SELECT 
+        VC.MaVe,
+        P.AnhPhim,  -- Ảnh phim
+        P.TenPhim,  -- Tên phim
+        FORMAT(TG.NgayChieu, 'dd-MM-yyyy') AS NgayChieu,  -- Ngày chiếu
+        CONVERT(VARCHAR(5), CLC.ThoiGianBatDau, 108) AS ThoiGianBatDau,  -- Thời gian bắt đầu (HH:mm)
+        CONVERT(VARCHAR(5), CLC.ThoiGianKetThuc, 108) AS ThoiGianKetThuc,  -- Thời gian kết thúc (HH:mm)
+        VC.SoLuongVe,  -- Số lượng vé
+        RC.AnhRapChieu AS IconRap,  -- Icon rạp
+        DC.DiaChiRapChieu AS DiaChi,  -- Địa chỉ rạp
+        TT.TongTien AS TienHoan,  -- Tiền hoàn trả
+        MAX(TLC.TenTheLoai) AS TenTheLoai  -- Tên thể loại phim
+    FROM VePhim VC
+    INNER JOIN LichChieu LC ON VC.MaLichChieu = LC.MaLichChieu
+    INNER JOIN ChiTietLichChieu CLC ON LC.MaLichChieu = CLC.MaLichChieu
+    INNER JOIN ThoiGianChieu TG ON TG.MaThoiGianChieu = CLC.MaThoiGianChieu
+    INNER JOIN Phim P ON LC.MaPhim = P.MaPhim
+    INNER JOIN TheLoai TL ON P.MaPhim = TL.MaPhim
+    INNER JOIN TheLoaiCha TLC ON TL.MaTheLoaiCha = TLC.MaTheLoaiCha
+    INNER JOIN RapChieuCon RCC ON LC.MaRapChieuCon = RCC.MaRapChieuCon
+    INNER JOIN DiaChiRapChieuCon DC ON RCC.MaRapChieuCon = DC.MaRapChieuCon
+    INNER JOIN RapChieu RC ON RCC.MaRapChieu = RC.MaRapChieu
+    INNER JOIN ThanhToan TT ON VC.MaVe = TT.MaVe  -- Tiền hoàn trả từ bảng ThanhToan
+    WHERE VC.MaVe = @MaVe
+    GROUP BY 
+        VC.MaVe, P.AnhPhim, P.TenPhim, TG.NgayChieu, CLC.ThoiGianBatDau, CLC.ThoiGianKetThuc, 
+        VC.SoLuongVe, RC.AnhRapChieu, DC.DiaChiRapChieu, TT.TongTien;
+END;
+GO
+
+EXEC GetChuaDung @MaVe = 3;
 
 

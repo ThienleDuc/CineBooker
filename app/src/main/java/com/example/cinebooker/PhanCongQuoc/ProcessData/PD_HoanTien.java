@@ -52,6 +52,7 @@ public class PD_HoanTien {
 
                 phim.setPosterTrHang(resultSet.getString("AnhPhim"));
                 phim.setNamePhimTrHang(resultSet.getString("TenPhim"));
+                phim.setStylehoantien(resultSet.getString("TenTheLoai"));
                 phim.setDateTrHang(resultSet.getString("NgayChieu"));
                 phim.setTime_batdau(resultSet.getString("ThoiGianBatDau"));
                 phim.setTime_ketthuc(resultSet.getString("ThoiGianKetThuc"));

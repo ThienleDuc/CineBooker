@@ -73,4 +73,9 @@ public class ticket_khuhoiFragment extends Fragment {
         BL_KhuHoi blKhuHoi = new BL_KhuHoi();
         blKhuHoi.loadKhuHoiVertical(getContext(), hoiRecyclerView);
 
-}}
+}
+    @Override
+    public void onResume() {
+        super.onResume();
+        khuhoi(getView());
+    }}

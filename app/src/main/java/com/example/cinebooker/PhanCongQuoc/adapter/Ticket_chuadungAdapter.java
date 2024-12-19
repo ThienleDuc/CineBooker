@@ -105,11 +105,7 @@ public class Ticket_chuadungAdapter extends RecyclerView.Adapter<Ticket_chuadung
 
         holder.btn_chuadung1.setOnClickListener(v -> {
             Context context = v.getContext();
-            ticketChuadungMoviesList.remove(position);
-            notifyItemRemoved(position);
-            notifyItemRangeChanged(position, ticketChuadungMoviesList.size());
-
-            if (context instanceof AppCompatActivity) {
+                  if (context instanceof AppCompatActivity) {
                 // Lưu MaVe vào SharedPreferences
                 SharedPreferences sharedPreferences = context.getSharedPreferences("QuocDepTrai", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();

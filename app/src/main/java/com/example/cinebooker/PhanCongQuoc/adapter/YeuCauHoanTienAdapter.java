@@ -57,6 +57,7 @@ public class YeuCauHoanTienAdapter extends RecyclerView.Adapter<YeuCauHoanTienAd
                 .resize(800, 800) // Ảnh chờ nếu không tải được
                 .into(holder.posterTrHang);
         holder.namePhimTrHang.setText(item.getNamePhimTrHang());
+        holder.stylehoantien.setText(item.getStylehoantien());
         holder.dateTrHang.setText(item.getDateTrHang());
         holder.timebd.setText(item.getTime_batdau());
         holder.timekt.setText(item.getTime_ketthuc());
@@ -78,6 +79,22 @@ public class YeuCauHoanTienAdapter extends RecyclerView.Adapter<YeuCauHoanTienAd
 
             // Quay lại fragment trước đó
             ((AppCompatActivity) context).onBackPressed(); // Quay lại fragment trước đó
+        });
+        // Show a dialog with 3 reasons when the "lydo" button is clicked
+        holder.lydo.setOnClickListener(v -> {
+            // Show dialog with the reasons
+            String[] reasons = {"Vé bị lỗi", "Không có thời gian xem", "Lý do khác"};
+            new android.app.AlertDialog.Builder(context)
+                    .setTitle("Chọn lý do")
+                    .setItems(reasons, (dialog, which) -> {
+                        // Get the selected reason
+                        String selectedReason = reasons[which];
+
+                        // Display the selected reason in a TextView
+                        holder.phuongan.setText(selectedReason); // Display the reason in the TextView
+                    })
+                    .setCancelable(true)
+                    .show();
         });
 
     }
@@ -112,8 +129,8 @@ public class YeuCauHoanTienAdapter extends RecyclerView.Adapter<YeuCauHoanTienAd
 
     // Lớp ViewHolder
     public static class YeuCauHoanTienViewHolder extends RecyclerView.ViewHolder {
-        ImageView posterTrHang, iconTrHang;
-        TextView namePhimTrHang, dateTrHang, timebd, timekt, soLuongTrHang, diaChiTrHang, soTienHoanTrHang;
+        ImageView posterTrHang, iconTrHang,lydo;
+        TextView namePhimTrHang,stylehoantien, dateTrHang, timebd, timekt, soLuongTrHang, diaChiTrHang, soTienHoanTrHang,phuongan;
         Button btn_ht;
 
         public YeuCauHoanTienViewHolder(View itemView) {
@@ -121,6 +138,7 @@ public class YeuCauHoanTienAdapter extends RecyclerView.Adapter<YeuCauHoanTienAd
             // Ánh xạ các View
             posterTrHang = itemView.findViewById(R.id.poster_trhang);
             namePhimTrHang = itemView.findViewById(R.id.namephim_trhang);
+            stylehoantien = itemView.findViewById(R.id.style_hoantien);
             dateTrHang = itemView.findViewById(R.id.date_trhang);
             timebd = itemView.findViewById(R.id.time_batdau_trh);
             timekt = itemView.findViewById(R.id.time_ketthuc_trh);
@@ -129,6 +147,8 @@ public class YeuCauHoanTienAdapter extends RecyclerView.Adapter<YeuCauHoanTienAd
             diaChiTrHang = itemView.findViewById(R.id.diachi_trhang);
             soTienHoanTrHang = itemView.findViewById(R.id.sotienhoan_trhang);
             btn_ht = itemView.findViewById(R.id.btn_ht);
+            lydo = itemView.findViewById(R.id.lydo);
+            phuongan = itemView.findViewById(R.id.phuongan);
         }
     }
 }

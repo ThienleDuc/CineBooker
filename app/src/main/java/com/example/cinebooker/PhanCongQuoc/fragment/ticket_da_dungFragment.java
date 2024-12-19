@@ -93,4 +93,9 @@ public class ticket_da_dungFragment extends Fragment {
         BL_DaDung blChuaDung = new BL_DaDung();
         blChuaDung.loadDaDungVertical(getContext(), daRecyclerView);
     }
+    @Override
+    public void onResume() {
+        super.onResume();
+        dadung(getView());
+    }
 }

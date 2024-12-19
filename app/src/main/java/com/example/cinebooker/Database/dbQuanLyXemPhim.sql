@@ -77,9 +77,16 @@ CREATE TABLE LichChieu (
 CREATE TABLE ChiTietLichChieu (
     MaChiTietLichChieu INT PRIMARY KEY IDENTITY(1,1),
     MaLichChieu INT,
-    NgayChieu DATETIME2 NOT NULL,
+    MaThoiGianChieu INT,
     ThoiGianBatDau TIME NOT NULL,
     ThoiGianKetThuc TIME NOT NULL
+);
+
+-- Bảng ThoiGianChieu
+CREATE TABLE ThoiGianChieu (
+	MaThoiGianChieu INT PRIMARY KEY IDENTITY(1,1),
+	KieuNgay NVARCHAR(20),
+	NgayChieu DATETIME2
 );
 
 -- Bảng TinhThanhPho
@@ -94,7 +101,7 @@ CREATE TABLE DiaChiRapChieuCon (
 	MaRapChieuCon INT,
     MaTinhThanh INT,
     DiaChiRapChieu NVARCHAR(255),
-	map VARCHAR(MAX)
+	map NVARCHAR(MAX)
 );
 
 
@@ -138,7 +145,7 @@ CREATE TABLE VePhim (
 CREATE TABLE TinhTrangVe (
     MaTinhTrang INT PRIMARY KEY IDENTITY(1,1),
 	MaVe INT,
-    TinhTrang NVARCHAR(50),
+    TinhTrang NVARCHAR(50),-- đã dùng/ chưa dùng/ đã khứ hồi
     ThoiGian DATETIME2 NOT NULL
 );
 
@@ -265,6 +272,11 @@ ALTER TABLE ChiTietLichChieu
 ADD CONSTRAINT FK_ChiTietLichChieu_LichChieu
 FOREIGN KEY (MaLichChieu) REFERENCES LichChieu(MaLichChieu);
 
+ALTER TABLE ChiTietLichChieu
+ADD CONSTRAINT FK_ChiTietLichChieu_ThoiGianChieu
+FOREIGN KEY (MaThoiGianChieu) REFERENCES ThoiGianChieu(MaThoiGianChieu);
+
+
 -- Ràng buộc khóa ngoại cho bảng DanhGia
 ALTER TABLE DanhGia
 ADD CONSTRAINT FK_DanhGia_KhachHang
@@ -323,7 +335,3 @@ FOREIGN KEY (MaDoiTuongApDung) REFERENCES DoiTuongApDung(MaDoiTuongApDung);
 
 ALTER TABLE VoucherUngDung
 ADD CONSTRAINT UQ_VoucherUngDung_TenVoucher UNIQUE (TenVoucher);
-
-go
-select *from KhachHang;
-go
