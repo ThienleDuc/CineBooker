@@ -13,6 +13,7 @@
         android:orientation="vertical"
         android:padding="10dp">
         <TextView
+            android:id="@+id/loai_capbac"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Đặc quyền cấp bậc"
@@ -25,7 +26,7 @@
             android:layout_gravity="start">
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="horizontal">
@@ -42,13 +43,36 @@
                     android:id="@+id/namedonvi_capbac"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Kim cương"
+                    android:text="TEAM 17"
                     android:textSize="20sp"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="10dp"
                     android:textColor="@color/pink" />
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="end|center"
+                android:orientation="horizontal">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Đã dùng:"
+                    android:textSize="15sp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="20dp"
+                    android:textColor="@color/red" />
+
+                <TextView
+                    android:id="@+id/dadung_capbac"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0%"
+                    android:textColor="@color/red"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="5dp" />
+            </LinearLayout>
         </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
@@ -59,7 +83,7 @@
                 android:id="@+id/mucgiam_capbac"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Giảm 10% giảm tối đa 20%"
+                android:text="Giảm 10% giảm tối đa  20K"
                 android:textColor="@color/black"/>
             <TextView
                 android:id="@+id/gioihangiam_capbac"
@@ -78,14 +102,14 @@
             android:orientation="horizontal">
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:text="Hạn sử dụng"
                     android:textSize="8sp"
                     android:textColor="@color/button"/>
@@ -93,23 +117,28 @@
                 <TextView
                     android:id="@+id/date_capbac"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="1 ngày"
+                    android:layout_height="wrap_content"
+                    android:text="05/10/2024"
                     android:layout_marginLeft="15dp"
                     android:textSize="8sp"
                     android:textColor="@color/button"/>
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Điều kiện"
+                    android:layout_marginLeft="15dp"
+                    android:textSize="8sp"
+                    android:textColor="@color/blue"/>
             </LinearLayout>
 
             <Button
                 android:id="@+id/btn_capbac"
-                android:layout_weight="1"
-                android:layout_gravity="end"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:layout_marginLeft="15dp"
                 android:background="@drawable/khung_button3"
-                android:text="Lưu "
+                android:text="Dùng ngay"
                 android:textColor="@color/white"
                 android:textSize="8sp" />
         </LinearLayout>
@@ -117,6 +146,6 @@
 
 
 
-        </LinearLayout>
     </LinearLayout>
+</LinearLayout>
 

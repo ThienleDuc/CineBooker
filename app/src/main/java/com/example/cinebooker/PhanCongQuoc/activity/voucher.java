@@ -86,7 +86,6 @@ public class voucher extends AppCompatActivity {
 
             // Truy vấn tổng số voucher từ ba bảng
             String sql = "SELECT " +
-                    "(SELECT COUNT(*) FROM VoucherCuaToi) + " +
                     "(SELECT COUNT(*) FROM VoucherDoiTac) + " +
                     "(SELECT COUNT(*) FROM VoucherUngDung) AS TotalVoucherCount";
             statement = connection.prepareStatement(sql);

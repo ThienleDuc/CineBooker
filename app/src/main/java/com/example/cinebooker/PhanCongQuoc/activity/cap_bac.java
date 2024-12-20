@@ -7,7 +7,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.cinebooker.PhanCongQuoc.BussinessLogic.BL_CapBac;
 import com.example.cinebooker.R;
 import com.example.cinebooker.generalMethod.ConnectionDatabase;
 
@@ -26,7 +28,7 @@ public class cap_bac extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cap_bac);
-
+          capbac();
         // Khởi tạo các TextView để hiển thị thông tin khách hàng
         tenKhachHangTextView = findViewById(R.id.username);
         capBacTextView = findViewById(R.id.capbac);
@@ -75,7 +77,7 @@ public class cap_bac extends AppCompatActivity {
                 if (resultSet.next()) {
                     String tenKhachHang = resultSet.getString("TenKhachHang");
                     String tenCapBac = resultSet.getString("TenCapBac");
-                    double hanMucChiTieu = resultSet.getDouble("HanMucChiTieu");
+                    int hanMucChiTieu = resultSet.getInt("HanMucChiTieu");
                     String thoiHanReset = resultSet.getString("ThoiHanReset");
 
                     // Cập nhật giao diện người dùng
@@ -107,5 +109,12 @@ public class cap_bac extends AppCompatActivity {
                 }
             }
         }).start();
+    }
+    private void capbac() {
+        RecyclerView capbacRecyclerView = findViewById(R.id.list_capbac);
+        BL_CapBac blCapBac = new BL_CapBac();
+
+        // Load dữ liệu từ BL_CapBac
+        blCapBac.loadCapBacVertical(this, capbacRecyclerView);
     }
 }

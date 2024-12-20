@@ -312,20 +312,7 @@ BEGIN
         VoucherUngDung.AnhUngDung AS Icon
     FROM VoucherUngDung
 
-    UNION ALL
 
-    SELECT 
-        N'Voucher Của Tôi' AS LoaiVoucher,
-        VoucherCuaToi.TenVoucher,
-        VoucherCuaToi.MaDoiTuongApDung,
-        VoucherCuaToi.TrangThaiGiam,
-        VoucherCuaToi.MucGiam,
-        CONVERT(DATE, VoucherCuaToi.HanSuDung, 103) AS HanSuDung, -- Lấy ngày tháng năm, không lấy giờ
-        VoucherCuaToi.TrangThaiSuDung,
-        VoucherCuaToi.SoLuongToiDa,
-        VoucherCuaToi.SoLuongSuDung, -- Lấy trực tiếp từ cột SoLuongDaDung
-        NULL AS Icon -- Không có icon cho loại voucher này
-    FROM VoucherCuaToi;
 END;
 go
 CREATE OR ALTER PROCEDURE GetCustomerDetailsByMaKhachHang
@@ -348,9 +335,25 @@ BEGIN
 END;
 GO
 
-
-
-EXEC GetCustomerDetailsByMaKhachHang @MaKhachHang=3;
+CREATE OR ALTER PROCEDURE sp_GetVouchercapbacList
+AS
+BEGIN
+    SELECT 
+    
+        N'Voucher Của Tôi' AS LoaiVoucher,
+        VoucherCuaToi.TenVoucher,
+        VoucherCuaToi.MaDoiTuongApDung,
+        VoucherCuaToi.TrangThaiGiam,
+        VoucherCuaToi.MucGiam,
+        CONVERT(DATE, VoucherCuaToi.HanSuDung, 103) AS HanSuDung, -- Lấy ngày tháng năm, không lấy giờ
+        VoucherCuaToi.TrangThaiSuDung,
+        VoucherCuaToi.SoLuongToiDa,
+        VoucherCuaToi.SoLuongSuDung, -- Lấy trực tiếp từ cột SoLuongDaDung
+        NULL AS Icon -- Không có icon cho loại voucher này
+    FROM VoucherCuaToi;
+	END;
+	go
+EXEC sp_GetVouchercapbacList;
 
 
 
