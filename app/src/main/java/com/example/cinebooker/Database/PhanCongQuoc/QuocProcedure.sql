@@ -280,8 +280,79 @@
 					VC.SoLuongVe, RC.AnhRapChieu, DC.DiaChiRapChieu, TT.TongTien;
 			END;	
 			GO
+CREATE OR ALTER PROCEDURE sp_GetVoucherList
+AS
+BEGIN
+    SELECT 
+        N'Voucher Đối Tác' AS LoaiVoucher,
+        VoucherDoiTac.TenVoucher,
+        VoucherDoiTac.MaDoiTuongApDung,
+        VoucherDoiTac.TrangThaiGiam,
+        VoucherDoiTac.MucGiam,
+        CONVERT(DATE, VoucherDoiTac.HanSuDung, 103) AS HanSuDung, -- Lấy ngày tháng năm, không lấy giờ
+        VoucherDoiTac.TrangThaiSuDung,
+        VoucherDoiTac.SoLuongToiDa,
+        VoucherDoiTac.SoLuongSuDung, -- Lấy trực tiếp từ cột SoLuongDaDung
+        RapChieu.AnhRapChieu AS Icon
+    FROM VoucherDoiTac
+    INNER JOIN RapChieu ON VoucherDoiTac.MaRapChieu = RapChieu.MaRapChieu
+
+    UNION ALL
+
+    SELECT 
+       N'Voucher Ứng Dụng' AS LoaiVoucher,
+        VoucherUngDung.TenVoucher,
+        VoucherUngDung.MaDoiTuongApDung,
+        VoucherUngDung.TrangThaiGiam,
+        VoucherUngDung.MucGiam,
+        CONVERT(DATE, VoucherUngDung.HanSuDung, 103) AS HanSuDung, -- Lấy ngày tháng năm, không lấy giờ
+        VoucherUngDung.TrangThaiSuDung,
+        VoucherUngDung.SoLuongToiDa,
+        VoucherUngDung.SoLuongSuDung, -- Lấy trực tiếp từ cột SoLuongDaDung
+        VoucherUngDung.AnhUngDung AS Icon
+    FROM VoucherUngDung
+
+    UNION ALL
+
+    SELECT 
+        N'Voucher Của Tôi' AS LoaiVoucher,
+        VoucherCuaToi.TenVoucher,
+        VoucherCuaToi.MaDoiTuongApDung,
+        VoucherCuaToi.TrangThaiGiam,
+        VoucherCuaToi.MucGiam,
+        CONVERT(DATE, VoucherCuaToi.HanSuDung, 103) AS HanSuDung, -- Lấy ngày tháng năm, không lấy giờ
+        VoucherCuaToi.TrangThaiSuDung,
+        VoucherCuaToi.SoLuongToiDa,
+        VoucherCuaToi.SoLuongSuDung, -- Lấy trực tiếp từ cột SoLuongDaDung
+        NULL AS Icon -- Không có icon cho loại voucher này
+    FROM VoucherCuaToi;
+END;
+go
+CREATE OR ALTER PROCEDURE GetCustomerDetailsByMaKhachHang
+    @MaKhachHang INT
+AS
+BEGIN
+    SELECT 
+        k.TenKhachHang,
+        c.TenCapBac,
+        c.HanMucChiTieu,
+         CONVERT(DATE, cb.ThoiHanReset, 103) AS ThoiHanReset 
+    FROM 
+        KhachHang k
+    JOIN 
+        ChiTietCapBac cb ON k.MaKhachHang = cb.MaKhachHang
+    JOIN 
+        CapBacChiTieu c ON cb.MaCapBacChiTieu = c.MaCapBacChiTieu
+    WHERE 
+        k.MaKhachHang = @MaKhachHang;
+END;
+GO
 
 
-			select *from VoucherUngDung;
+
+EXEC GetCustomerDetailsByMaKhachHang @MaKhachHang=3;
+
+
+
 
 

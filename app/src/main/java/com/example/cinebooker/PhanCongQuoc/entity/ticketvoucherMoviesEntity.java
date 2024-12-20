@@ -1,7 +1,7 @@
 package com.example.cinebooker.PhanCongQuoc.entity;
 
 public class ticketvoucherMoviesEntity {
-
+    private String loai_voucher;
     private String namedonvi_voucher; // Tên đơn vị
     private String icondonvi_voucher; // Resource ID cho icon
     private String mucgiam_voucher; // Nội dung giảm giá
@@ -10,8 +10,9 @@ public class ticketvoucherMoviesEntity {
     private String dadung_voucher; // Đã dùng
     public ticketvoucherMoviesEntity(){}
     // Constructor với tất cả các tham số (không có btn_voucher)
-    public ticketvoucherMoviesEntity(String namedonvi_voucher, String icondonvi_voucher, String mucgiam_voucher,
+    public ticketvoucherMoviesEntity(String loai_voucher,String namedonvi_voucher, String icondonvi_voucher, String mucgiam_voucher,
                                      String gioihangiam_voucher, String date_voucher, String dadung_voucher) {
+       this.loai_voucher=loai_voucher;
         this.namedonvi_voucher = namedonvi_voucher;
         this.icondonvi_voucher = icondonvi_voucher;
         this.mucgiam_voucher = mucgiam_voucher;
@@ -21,7 +22,13 @@ public class ticketvoucherMoviesEntity {
     }
 
     // Getter và Setter
+    public String getLoai_voucher() {
+        return loai_voucher;
+    }
 
+    public void setLoai_voucher(String loai_voucher) {
+        this.loai_voucher = loai_voucher;
+    }
     public String getNamedonvi_voucher() {
         return namedonvi_voucher;
     }

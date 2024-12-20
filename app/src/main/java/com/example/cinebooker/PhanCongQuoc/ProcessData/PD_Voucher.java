@@ -41,21 +41,18 @@ public class PD_Voucher {
             }
 
             // Tạo CallableStatement và ResultSet
-            String query = "SELECT MaVoucherUngDung, AnhUngDung, TenVoucher, MaDoiTuongApDung, TrangThaiGiam, " +
-                    "MucGiam, HanSuDung, TrangThaiSuDung, SoLuongToiDa FROM VoucherUngDung";
-            callableStatement = connection.prepareCall(query);
+            callableStatement = connection.prepareCall("{call sp_GetVoucherList}"); // Giả sử thủ tục lưu trữ tên là VePhimDaDung
             resultSet = callableStatement.executeQuery();
-
             // Duyệt qua kết quả trả về và lưu vào List<ticketvoucherMoviesEntity>
             while (resultSet.next()) {
                 // Tạo đối tượng voucher
                 ticketvoucherMoviesEntity voucher = new ticketvoucherMoviesEntity();
 
                 // Gán giá trị từ ResultSet vào đối tượng voucher
-
-                voucher.setIcondonvi_voucher(resultSet.getString("AnhUngDung")); // Lấy ảnh ứng dụng
+                voucher.setLoai_voucher(resultSet.getString("LoaiVoucher"));
+                voucher.setIcondonvi_voucher(resultSet.getString("Icon")); // Lấy ảnh ứng dụng
                 voucher.setNamedonvi_voucher(resultSet.getString("TenVoucher")); // Lấy tên voucher
-                voucher.setDadung_voucher(resultSet.getString("TrangThaiGiam")); // Trạng thái giảm
+                voucher.setDadung_voucher(resultSet.getString("SoLuongSuDung")); // Trạng thái giảm
                 voucher.setMucgiam_voucher(resultSet.getString("MucGiam")); // Lấy mức giảm
                 voucher.setDate_voucher(resultSet.getString("HanSuDung")); // Lấy hạn sử dụng
                 voucher.setGioihangiam_voucher(resultSet.getString("SoLuongToiDa")); // Lấy số lượng tối đa

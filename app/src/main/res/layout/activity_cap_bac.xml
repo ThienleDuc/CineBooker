@@ -132,7 +132,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="0.5"
                         android:textColor="@color/pink"
-                        android:text="53.520.000"
+                        android:text="0"
                         android:paddingLeft="25dp"
 
                         android:textSize="10dp"

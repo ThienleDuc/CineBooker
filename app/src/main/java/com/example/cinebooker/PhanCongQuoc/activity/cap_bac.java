@@ -1,90 +1,111 @@
 package com.example.cinebooker.PhanCongQuoc.activity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.cinebooker.PhanCongQuoc.adapter.Ticket_capbacAdapter;
-import com.example.cinebooker.PhanCongQuoc.adapter.Ticket_capbacAdapter;
-import com.example.cinebooker.PhanCongQuoc.entity.ticketcapbacMoviesEntity;
-import com.example.cinebooker.PhanCongQuoc.entity.ticketcapbacMoviesEntity;
 import com.example.cinebooker.R;
-import com.example.cinebooker.generalMethod.SpaceItemDecoration;
+import com.example.cinebooker.generalMethod.ConnectionDatabase;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class cap_bac extends AppCompatActivity {
-    private RecyclerView list_capbac;
-    private Ticket_capbacAdapter ticketcapbacAdapter;
-    private List<ticketcapbacMoviesEntity> ticketcapbacMoviesList;
+
+    private TextView tenKhachHangTextView;
+    private TextView capBacTextView;
+    private TextView hanMucTextView;
+    private TextView thoiHanResetTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_cap_bac);
 
+        // Khởi tạo các TextView để hiển thị thông tin khách hàng
+        tenKhachHangTextView = findViewById(R.id.username);
+        capBacTextView = findViewById(R.id.capbac);
+        hanMucTextView = findViewById(R.id.chitieu1);
+        thoiHanResetTextView = findViewById(R.id.date_capbac);
+
+        // Xử lý sự kiện quay lại
         ImageView back = findViewById(R.id.level_back);
         back.setOnClickListener(v -> onBackPressed());
 
-        // Khởi tạo RecyclerView và thiết lập layout manager
-        list_capbac = findViewById(R.id.list_capbac);
-        list_capbac.setLayoutManager(new LinearLayoutManager(this));
+        // Lấy MaKhachHang từ SharedPreferences
+        SharedPreferences sharedPreferences = getSharedPreferences("QuocDepTrai", MODE_PRIVATE);
+        int maKhachHang = sharedPreferences.getInt("user_id", -1);  // Mặc định là -1 nếu không tìm thấy
 
-        // Thêm khoảng cách giữa các item trong RecyclerView
-        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.recycler_view_spacing_5);
-        list_capbac.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
+        if (maKhachHang != -1) {
+            // Gọi phương thức để lấy thông tin khách hàng
+            getCustomerDetails(maKhachHang);
+        } else {
+            Toast.makeText(this, "Không tìm thấy thông tin khách hàng", Toast.LENGTH_SHORT).show();
+        }
+    }
 
-        // Khởi tạo danh sách và thêm các phần tử
-        ticketcapbacMoviesList = new ArrayList<>();
-        ticketcapbacMoviesList.add(new ticketcapbacMoviesEntity(
+    // Phương thức gọi stored procedure và lấy thông tin khách hàng
+    private void getCustomerDetails(int maKhachHang) {
+        new Thread(() -> {
+            Connection connection = null;
+            PreparedStatement statement = null;
+            ResultSet resultSet = null;
 
-                "KIM CƯƠNG",
-                R.drawable.icon17_itemvoucher,
-                "Giảm 10% giảm tối đa 20%",
-                "Đơn tối thiểu 80k",
-                "05/10/2024"
+            try {
+                // Kết nối tới cơ sở dữ liệu
+                connection = new ConnectionDatabase().getConnection();
+                if (connection == null) {
+                    runOnUiThread(() -> Toast.makeText(getApplicationContext(), "Không thể kết nối đến cơ sở dữ liệu", Toast.LENGTH_SHORT).show());
+                    return;
+                }
 
-        ));
-        ticketcapbacMoviesList.add(new ticketcapbacMoviesEntity(
+                // Gọi stored procedure
+                String sql = "EXEC GetCustomerDetailsByMaKhachHang ?";
+                statement = connection.prepareStatement(sql);
+                statement.setInt(1, maKhachHang);
 
-                "KIM CƯƠNG",
-                R.drawable.icon17_itemvoucher,
-                "Giảm 10% giảm tối đa 20%",
-                "Đơn tối thiểu 80k",
-                "05/10/2024"
+                resultSet = statement.executeQuery();
 
-        ));
-        ticketcapbacMoviesList.add(new ticketcapbacMoviesEntity(
+                // Xử lý kết quả
+                if (resultSet.next()) {
+                    String tenKhachHang = resultSet.getString("TenKhachHang");
+                    String tenCapBac = resultSet.getString("TenCapBac");
+                    double hanMucChiTieu = resultSet.getDouble("HanMucChiTieu");
+                    String thoiHanReset = resultSet.getString("ThoiHanReset");
 
-                "KIM CƯƠNG",
-                R.drawable.icon17_itemvoucher,
-                "Giảm 10% giảm tối đa 20%",
-                "Đơn tối thiểu 80k",
-                "05/10/2024"
+                    // Cập nhật giao diện người dùng
+                    runOnUiThread(() -> {
+                        tenKhachHangTextView.setText(tenKhachHang);
+                        capBacTextView.setText(tenCapBac);
+                        hanMucTextView.setText(String.valueOf(hanMucChiTieu));
+                        thoiHanResetTextView.setText(thoiHanReset);
+                    });
 
-        ));
-        ticketcapbacMoviesList.add(new ticketcapbacMoviesEntity(
+                } else {
+                    runOnUiThread(() -> {
+                        Toast.makeText(getApplicationContext(), "Không tìm thấy thông tin khách hàng", Toast.LENGTH_SHORT).show();
+                    });
+                }
 
-                "KIM CƯƠNG",
-                R.drawable.icon17_itemvoucher,
-                "Giảm 10% giảm tối đa 20%",
-                "Đơn tối thiểu 80k",
-                "05/10/2024"
-
-        ));
-
-
-        // Thiết lập adapter và gắn vào RecyclerView
-        ticketcapbacAdapter = new Ticket_capbacAdapter(ticketcapbacMoviesList);
-        list_capbac.setAdapter(ticketcapbacAdapter);
+            } catch (Exception e) {
+                e.printStackTrace();
+                runOnUiThread(() -> {
+                    Toast.makeText(getApplicationContext(), "Lỗi khi truy vấn dữ liệu", Toast.LENGTH_SHORT).show();
+                });
+            } finally {
+                try {
+                    if (resultSet != null) resultSet.close();
+                    if (statement != null) statement.close();
+                    if (connection != null) connection.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 }

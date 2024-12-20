@@ -21,7 +21,7 @@ public class Ticket_voucherAdapter extends RecyclerView.Adapter<Ticket_voucherAd
 
     public void SetData(List<ticketvoucherMoviesEntity> ticketvoucherMoviesList) {
         this.ticketvoucherMoviesList = ticketvoucherMoviesList;
-        this.currentItemCount = 10;
+        this.currentItemCount = 30;
         notifyDataSetChanged();
     }
 
@@ -50,16 +50,45 @@ public class Ticket_voucherAdapter extends RecyclerView.Adapter<Ticket_voucherAd
         ticketvoucherMoviesEntity ticket = ticketvoucherMoviesList.get(position);
 
         // Gán giá trị từ ticketvoucherMoviesEntity
+        holder.loai_voucher.setText(ticket.getLoai_voucher());
         holder.namedonvi_voucher.setText(ticket.getNamedonvi_voucher());
         Picasso.get().load(ticket.getIcondonvi_voucher())
-                .placeholder(R.drawable.drawn_star)  // Optional: Add a placeholder image
+                .placeholder(R.drawable.drawn_star)
+                .resize(800, 800)// Optional: Add a placeholder image
                 .into(holder.icondonvi_voucher);
-        holder.mucgiam_voucher.setText(ticket.getMucgiam_voucher());
-        holder.gioihangiam_voucher.setText(ticket.getGioihangiam_voucher());
         holder.date_voucher.setText(ticket.getDate_voucher());
-        holder.dadung_voucher.setText(ticket.getDadung_voucher());
-        // Không cần gán btn_voucher nữa
+        holder.dadung_voucher.setText(ticket.getDadung_voucher()+" lượt");
+
+        // Cập nhật mức giảm
+        String mucgiam = ticket.getMucgiam_voucher(); // Lấy mức giảm
+        if (mucgiam != null) {
+            // Kiểm tra nếu mức giảm có 2 ký tự
+            if (mucgiam.length() == 2) {
+                // Nếu có 2 ký tự thì hiển thị "Giảm [Mức giảm]%"
+                holder.mucgiam_voucher.setText("Giảm " + mucgiam + "%");
+            } else if (mucgiam.length() > 2) {
+                // Nếu có hơn 2 ký tự, thêm "K" vào mức giảm và hiển thị số lượng tối đa
+                holder.mucgiam_voucher.setText("Giảm " + mucgiam + "VND");
+            } else {
+                // Nếu không có mức giảm hợp lệ, có thể để trống hoặc hiển thị một thông báo khác
+                holder.mucgiam_voucher.setText("Không có giảm giá");
+            }
+        } else {
+            // Nếu không có mức giảm
+            holder.mucgiam_voucher.setText("Không có giảm giá");
+        }
+
+        // Hiển thị số lượng tối đa
+        String gioihangiam = ticket.getGioihangiam_voucher();
+        if (gioihangiam != null) {
+            // Hiển thị số lượng tối đa
+            holder.gioihangiam_voucher.setText("Số lượng tối đa: " + gioihangiam +" lượt");
+        } else {
+            // Nếu không có số lượng tối đa
+            holder.gioihangiam_voucher.setText("Số lượng tối đa: N/A");
+        }
     }
+
 
     @Override
     public int getItemCount() {
@@ -67,7 +96,8 @@ public class Ticket_voucherAdapter extends RecyclerView.Adapter<Ticket_voucherAd
     }
 
     public class TicketViewHolder extends RecyclerView.ViewHolder {
-        TextView namedonvi_voucher;
+        TextView namedonvi_voucher,loai_voucher;
+
         ImageView icondonvi_voucher; // Giả sử poster là một icon
         TextView mucgiam_voucher;
         TextView gioihangiam_voucher;
@@ -76,6 +106,7 @@ public class Ticket_voucherAdapter extends RecyclerView.Adapter<Ticket_voucherAd
 
         public TicketViewHolder(View itemView) {
             super(itemView);
+            loai_voucher = itemView.findViewById(R.id.loai_voucher);
             namedonvi_voucher = itemView.findViewById(R.id.namedonvi_voucher);
             icondonvi_voucher = itemView.findViewById(R.id.icondonvi_voucher);
             mucgiam_voucher = itemView.findViewById(R.id.mucgiam_voucher);
