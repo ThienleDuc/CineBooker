@@ -45,7 +45,27 @@ public class login extends AppCompatActivity {
         final boolean[] isPasswordVisible = {false};
 
         // Xử lý hiển thị/ẩn mật khẩu
-        passwordInput.setOnTouchListener((v, event) -> togglePasswordVisibility(v, event, passwordInput, isPasswordVisible));
+        // Xử lý hiển thị/ẩn mật khẩu
+        passwordInput.setOnTouchListener((v, event) -> {
+            if (event.getAction() == MotionEvent.ACTION_UP) {
+                // Kiểm tra nếu người dùng nhấn vào drawableEnd
+                if (event.getRawX() >= (passwordInput.getRight() - passwordInput.getCompoundDrawables()[2].getBounds().width())) {
+                    if (isPasswordVisible[0]) {
+                        // Đổi sang trạng thái ẩn mật khẩu
+                        passwordInput.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                        passwordInput.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.mat_dong, 0); // Biểu tượng hiển thị
+                    } else {
+                        // Đổi sang trạng thái hiển thị mật khẩubaseline_remove_red_eye_24
+                        passwordInput.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                        passwordInput.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.baseline_remove_red_eye_24, 0); // Biểu tượng ẩn
+                    }
+                    isPasswordVisible[0] = !isPasswordVisible[0];
+                    passwordInput.setSelection(passwordInput.getText().length()); // Đặt lại con trỏ văn bản
+                    return true;
+                }
+            }
+            return false;
+        });
 
         // Xử lý sự kiện nhấn nút "Đăng nhập"
         dangNhap.setOnClickListener(v -> {
@@ -81,21 +101,7 @@ public class login extends AppCompatActivity {
         });
     }
 
-    private boolean togglePasswordVisibility(View v, MotionEvent event, EditText editText, boolean[] isPasswordVisible) {
-        if (event.getAction() == MotionEvent.ACTION_UP) {
-            if (event.getRawX() >= (editText.getRight() - editText.getPaddingRight())) {
-                if (isPasswordVisible[0]) {
-                    editText.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                } else {
-                    editText.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                }
-                isPasswordVisible[0] = !isPasswordVisible[0];
-                editText.setSelection(editText.getText().length());
-                return true;
-            }
-        }
-        return false;
-    }
+
 
     // Phương thức kiểm tra thông tin đăng nhập từ cơ sở dữ liệu
     private boolean checkUserCredentials(String email, String password) {

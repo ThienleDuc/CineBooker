@@ -51,7 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:background="@drawable/khung_editview"
-            android:drawableEnd="@drawable/baseline_remove_red_eye_24"
+            android:drawableEnd="@drawable/mat_dong"
             android:hint="Mật khẩu của bạn"
             android:inputType="textPassword"
             android:padding="15dp"

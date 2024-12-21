@@ -35,9 +35,47 @@ public class register extends AppCompatActivity {
 
         final boolean[] isPasswordVisible = {false}; // Biến theo dõi trạng thái hiển thị mật khẩu
         // Xử lý hiển thị/ẩn mật khẩu
-        passwordInput.setOnTouchListener((v, event) -> togglePasswordVisibility(v, event, passwordInput, isPasswordVisible));
-        confirmPasswordInput.setOnTouchListener((v, event) -> togglePasswordVisibility(v, event, confirmPasswordInput, isPasswordVisible));
 
+        passwordInput.setOnTouchListener((v, event) -> {
+            if (event.getAction() == MotionEvent.ACTION_UP) {
+                // Kiểm tra nếu người dùng nhấn vào drawableEnd
+                if (event.getRawX() >= (passwordInput.getRight() - passwordInput.getCompoundDrawables()[2].getBounds().width())) {
+                    if (isPasswordVisible[0]) {
+                        // Đổi sang trạng thái ẩn mật khẩu
+                        passwordInput.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                        passwordInput.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.mat_dong, 0); // Biểu tượng hiển thị
+                    } else {
+                        // Đổi sang trạng thái hiển thị mật khẩu
+                        passwordInput.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                        passwordInput.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.baseline_remove_red_eye_24, 0); // Biểu tượng ẩn
+                    }
+                    isPasswordVisible[0] = !isPasswordVisible[0];
+                    passwordInput.setSelection(passwordInput.getText().length()); // Đặt lại con trỏ văn bản
+                    return true;
+                }
+            }
+            return false;
+        });
+        confirmPasswordInput.setOnTouchListener((v, event) -> {
+            if (event.getAction() == MotionEvent.ACTION_UP) {
+                // Kiểm tra nếu người dùng nhấn vào drawableEnd
+                if (event.getRawX() >= (confirmPasswordInput.getRight() - confirmPasswordInput.getCompoundDrawables()[2].getBounds().width())) {
+                    if (isPasswordVisible[0]) {
+                        // Đổi sang trạng thái ẩn mật khẩu
+                        confirmPasswordInput.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                        confirmPasswordInput.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.mat_dong, 0); // Biểu tượng hiển thị
+                    } else {
+                        // Đổi sang trạng thái hiển thị mật khẩu
+                        confirmPasswordInput.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                        confirmPasswordInput.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.baseline_remove_red_eye_24, 0); // Biểu tượng ẩn
+                    }
+                    isPasswordVisible[0] = !isPasswordVisible[0];
+                    confirmPasswordInput.setSelection(confirmPasswordInput.getText().length()); // Đặt lại con trỏ văn bản
+                    return true;
+                }
+            }
+            return false;
+        });
         registerButton.setOnClickListener(v -> {
             String username = usernameInput.getText().toString().trim();
             String email = emailInput.getText().toString().trim();
@@ -142,19 +180,5 @@ public class register extends AppCompatActivity {
         }
         return false;
     }
-    private boolean togglePasswordVisibility(View v, MotionEvent event, EditText editText, boolean[] isPasswordVisible) {
-        if (event.getAction() == MotionEvent.ACTION_UP) {
-            if (event.getRawX() >= (editText.getRight() - editText.getPaddingRight())) {
-                if (isPasswordVisible[0]) {
-                    editText.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                } else {
-                    editText.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                }
-                isPasswordVisible[0] = !isPasswordVisible[0];
-                editText.setSelection(editText.getText().length());
-                return true;
-            }
-        }
-        return false;
-    }
+
 }
