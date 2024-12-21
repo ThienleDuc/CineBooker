@@ -39,7 +39,7 @@ public class PD_XemThongTin {
                 return phimList;
             }
 
-            String sql = "EXEC GetThongTinVePhim @MaVe = ?";
+            String sql = "EXEC GetVePhimDadung @MaVe = ?";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, MaVe);
             resultSet = preparedStatement.executeQuery();
