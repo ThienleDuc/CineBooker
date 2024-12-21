@@ -45,29 +45,47 @@ public class XuatVeAdapter extends RecyclerView.Adapter<XuatVeAdapter.XuatVeView
     }
 
     @Override
-    public void onBindViewHolder(XuatVeAdapter.XuatVeViewHolder holder, int position) {
+    public void onBindViewHolder(XuatVeViewHolder holder, int position) {
         xuatveEntity item = xuatVeList.get(position);
         SharedPreferences
                 sharedPreferences = holder.itemView.getContext().getSharedPreferences("QuocDepTrai", Context.MODE_PRIVATE);
         int mave = sharedPreferences.getInt("MaVe", -1);
         int maveiem = item.getMaVe();
-        // Set data to views
-        Picasso.get().load(item.getQrXuatVe())
-                .placeholder(R.drawable.sofa)
-                .resize(800, 800) // Optional: Add a placeholder image
+
+        String imageName = item.getQrXuatVe();
+        Context context = holder.itemView.getContext();
+        @SuppressLint("DiscouragedApi") int resourceId = context.getResources().getIdentifier(imageName, "drawable", context.getPackageName());
+
+        Picasso.get()
+                .load(resourceId)
+                .resize(800, 800)// Load resource ID
                 .into(holder.qrXuatVe);
-        holder.dateXuatVe1.setText(item.getDateXuatVe1());
-        Picasso.get().load(item.getPosterXuatVe2())
-                .placeholder(R.drawable.placeholder)
-                .resize(800, 800) // Optional: Add a placeholder image
+
+
+        String imageName1 = item.getPosterXuatVe2();
+
+        @SuppressLint("DiscouragedApi") int resourceId1 = context.getResources().getIdentifier(imageName1, "drawable", context.getPackageName());
+
+        Picasso.get()
+                .load(resourceId1)
+                .resize(800, 800)// Load resource ID
                 .into(holder.posterXuatVe2);
+        String imageName2 = item.getIconRapXuatVe();
+
+        @SuppressLint("DiscouragedApi") int resourceId2 = context.getResources().getIdentifier(imageName2, "drawable", context.getPackageName());
+
+        Picasso.get()
+                .load(resourceId2)
+                .resize(800, 800)// Load resource ID
+                .into(holder.iconRapXuatVe);
+
+
+
         holder.ageXuatVe.setText(String.valueOf(item.getAgeXuatVe())+"+");
         holder.nameXuatVe.setText(item.getNameXuatVe());
         holder.styleXuatVe.setText(item.getStyleXuatVe());
         holder.soLuongXuatVe.setText(String.valueOf(item.getSoLuongXuatVe()));  // SoLuong là kiểu int
-        Picasso.get().load(item.getIconRapXuatVe())
-                .placeholder(R.drawable.drawn_star)  // Optional: Add a placeholder image
-                .into(holder.iconRapXuatVe);
+
         holder.diaChiXuatVe.setText(item.getDiaChiXuatVe());
         holder.timebd.setText(item.getTime_batdau());
         holder.timekt.setText(item.getTime_ketthuc());

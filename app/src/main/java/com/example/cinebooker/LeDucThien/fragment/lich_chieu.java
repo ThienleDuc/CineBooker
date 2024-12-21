@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
+
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 
 import com.example.cinebooker.LeDucThien.BussinessLogic.BL_NgayChieu;
 import com.example.cinebooker.LeDucThien.BussinessLogic.BL_PhimDangChieu;
@@ -25,13 +26,11 @@ import com.example.cinebooker.LeDucThien.activity.DanhSachDiaDiemRap;
 import com.example.cinebooker.LeDucThien.activity.danhSachRap;
 import com.example.cinebooker.LeDucThien.adapter.LichChieuAdapter;
 import com.example.cinebooker.LeDucThien.adapter.PhimTheoLichChieuAdapter;
-import com.example.cinebooker.LeDucThien.entity.ent_PhimDangChieu;
-
 import com.example.cinebooker.R;
 import com.example.cinebooker.generalMethod.ActivityOpen;
 import com.google.android.material.tabs.TabLayout;
 
-import java.util.List;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -48,9 +47,6 @@ public class lich_chieu extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
-    private List<ent_PhimDangChieu> movieDangChieuList;
-
 
     public lich_chieu() {
         // Required empty public constructor
@@ -88,11 +84,9 @@ public class lich_chieu extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_lich_chieu, container, false);
-
         controllerLichChieu(view);
         lichChieu(view);
         dangChieu(view);
-
         return view;
     }
 
@@ -209,7 +203,7 @@ public class lich_chieu extends Fragment {
                         TabLayout.Tab tab = tabLayout.getTabAt(i);
 
                         if (tab != null && tab.getText() != null) {
-                            if (tab.getText().toString().toUpperCase().equals(tabTitleToSelect.trim().toUpperCase())) {
+                            if (tab.getText().toString().equalsIgnoreCase(tabTitleToSelect.trim())) {
                                 tab.select();
                                 break;
                             }

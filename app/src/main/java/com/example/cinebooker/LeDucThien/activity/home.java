@@ -7,10 +7,9 @@ import android.view.MenuItem;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+
 import androidx.fragment.app.Fragment;
+
 
 import com.example.cinebooker.LeDucThien.fragment.Movies;
 import com.example.cinebooker.LeDucThien.fragment.Profile;

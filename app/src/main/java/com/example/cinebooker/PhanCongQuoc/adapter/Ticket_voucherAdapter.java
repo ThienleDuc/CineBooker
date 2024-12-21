@@ -1,5 +1,7 @@
 package com.example.cinebooker.PhanCongQuoc.adapter;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,6 +47,7 @@ public class Ticket_voucherAdapter extends RecyclerView.Adapter<Ticket_voucherAd
         return new TicketViewHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull TicketViewHolder holder, int position) {
         ticketvoucherMoviesEntity ticket = ticketvoucherMoviesList.get(position);
@@ -52,11 +55,19 @@ public class Ticket_voucherAdapter extends RecyclerView.Adapter<Ticket_voucherAd
         // Gán giá trị từ ticketvoucherMoviesEntity
         holder.loai_voucher.setText(ticket.getLoai_voucher());
         holder.namedonvi_voucher.setText(ticket.getNamedonvi_voucher());
-        Picasso.get().load(ticket.getIcondonvi_voucher())
-                .placeholder(R.drawable.drawn_star)
-                .resize(800, 800)// Optional: Add a placeholder image
+
+        String imageName = ticket.getIcondonvi_voucher();
+        Context context = holder.itemView.getContext();
+        @SuppressLint("DiscouragedApi") int resourceId = context.getResources().getIdentifier(imageName, "drawable", context.getPackageName());
+
+        Picasso.get()
+                .load(resourceId)
+                .resize(800, 800)// Load resource ID
                 .into(holder.icondonvi_voucher);
+
         holder.date_voucher.setText(ticket.getDate_voucher());
+
+
         holder.dadung_voucher.setText(ticket.getDadung_voucher()+" lượt");
 
         // Cập nhật mức giảm

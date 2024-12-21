@@ -5,8 +5,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.example.cinebooker.LeDucThien.fragment.xephangngay;
-import com.example.cinebooker.LeDucThien.fragment.xephangtuan;
+
 import com.example.cinebooker.PhanCongQuoc.fragment.ticket_chuadungFragment;
 import com.example.cinebooker.PhanCongQuoc.fragment.ticket_da_dungFragment;
 import com.example.cinebooker.PhanCongQuoc.fragment.ticket_khuhoiFragment;

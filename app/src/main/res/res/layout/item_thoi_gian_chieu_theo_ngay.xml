@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/container_imageview"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/strock_1_darkgrey_radius_10_transparent"
+        android:padding="5dp">
+
+        <ImageView
+            android:id="@+id/cinema_logo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/cinema_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="14sp"/>
+
+</LinearLayout>

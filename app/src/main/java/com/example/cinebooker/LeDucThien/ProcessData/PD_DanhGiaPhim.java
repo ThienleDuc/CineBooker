@@ -6,6 +6,7 @@ import android.util.Log;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+
 import com.example.cinebooker.LeDucThien.adapter.DanhGiaPhimAdapter;
 import com.example.cinebooker.LeDucThien.entity.ent_DanhGiaPhim;
 import com.example.cinebooker.R;

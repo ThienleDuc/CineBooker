@@ -1,5 +1,7 @@
 package com.example.cinebooker.PhanCongQuoc.adapter;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,15 +48,22 @@ public class Ticket_capbacAdapter extends RecyclerView.Adapter<Ticket_capbacAdap
         return new TicketViewHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull TicketViewHolder holder, int position) {
         ticketcapbacMoviesEntity ticket = ticketcapbacMoviesList.get(position);
 
         holder.namedonvi_capbac.setText(ticket.getNamedonvi_capbac());
-        Picasso.get().load(ticket.getIcondonvi_capbac())
-                .placeholder(R.drawable.drawn_star)
-                .resize(800, 800)// Optional: Add a placeholder image
+
+        String imageName = ticket.getIcondonvi_capbac();
+        Context context = holder.itemView.getContext();
+        @SuppressLint("DiscouragedApi") int resourceId = context.getResources().getIdentifier(imageName, "drawable", context.getPackageName());
+
+        Picasso.get()
+                .load(resourceId)
+                .resize(800, 800)// Load resource ID
                 .into(holder.icondonvi_capbac);
+
         holder.date_capbac.setText(ticket.getDate_capbac());
         holder.dadung_capbac.setText(ticket.getDadung_capbac()+" lượt");
 

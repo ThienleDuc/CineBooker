@@ -11,7 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.cinebooker.LeDucThien.activity.DanhSachDiaDiemRap;
+
+
 import com.example.cinebooker.LeDucThien.entity.ent_ThoiGianChieu;
 import com.example.cinebooker.R;
 
@@ -39,14 +40,14 @@ public class ThoiGianChieuAdapter extends RecyclerView.Adapter<ThoiGianChieuAdap
 
     @NonNull
     @Override
-    public ThoiGianChieuAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // Inflate the layout for the item
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_thoi_gian_chieu_phim, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ThoiGianChieuAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         // Get the data for this item
         ent_ThoiGianChieu thoiGianChieu = thoiGianChieuList.get(position);
 

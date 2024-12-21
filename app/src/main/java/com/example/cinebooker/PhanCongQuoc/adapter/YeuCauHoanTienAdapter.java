@@ -1,5 +1,6 @@
 package com.example.cinebooker.PhanCongQuoc.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.view.LayoutInflater;
@@ -50,21 +51,32 @@ public class YeuCauHoanTienAdapter extends RecyclerView.Adapter<YeuCauHoanTienAd
     @Override
     public void onBindViewHolder(YeuCauHoanTienViewHolder holder, int position) {
         YeuCauHoanTienEntity item = yeuCauHoanTienList.get(position);
+        String imageName = item.getPosterTrHang();
+        Context context = holder.itemView.getContext();
+        @SuppressLint("DiscouragedApi") int resourceId = context.getResources().getIdentifier(imageName, "drawable", context.getPackageName());
 
-        // Set dữ liệu cho các View
-        Picasso.get().load(item.getPosterTrHang())
-                .placeholder(R.drawable.placeholder)
-                .resize(800, 800) // Ảnh chờ nếu không tải được
+        Picasso.get()
+                .load(resourceId)
+                .resize(800, 800)// Load resource ID
                 .into(holder.posterTrHang);
+
+
+        String imageName1 = item.getIconTrHang();
+
+        @SuppressLint("DiscouragedApi") int resourceId1 = context.getResources().getIdentifier(imageName1, "drawable", context.getPackageName());
+
+        Picasso.get()
+                .load(resourceId1)
+                .resize(800, 800)// Load resource ID
+                .into(holder.iconTrHang);
+        // Set dữ liệu cho các View
         holder.namePhimTrHang.setText(item.getNamePhimTrHang());
         holder.stylehoantien.setText(item.getStylehoantien());
         holder.dateTrHang.setText(item.getDateTrHang());
         holder.timebd.setText(item.getTime_batdau());
         holder.timekt.setText(item.getTime_ketthuc());
         holder.soLuongTrHang.setText(String.valueOf(item.getSoLuongTrHang()));
-        Picasso.get().load(item.getIconTrHang())
-                .placeholder(R.drawable.drawn_star)  // Ảnh chờ cho biểu tượng
-                .into(holder.iconTrHang);
+
         holder.diaChiTrHang.setText(item.getDiaChiTrHang());
         holder.soTienHoanTrHang.setText(String.valueOf(item.getSoTienHoanTrHang()));
 

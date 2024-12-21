@@ -339,7 +339,6 @@ CREATE OR ALTER PROCEDURE sp_GetVouchercapbacList
 AS
 BEGIN
     SELECT 
-    
         N'Voucher Của Tôi' AS LoaiVoucher,
         VoucherCuaToi.TenVoucher,
         VoucherCuaToi.MaDoiTuongApDung,
@@ -348,14 +347,18 @@ BEGIN
         CONVERT(DATE, VoucherCuaToi.HanSuDung, 103) AS HanSuDung, -- Lấy ngày tháng năm, không lấy giờ
         VoucherCuaToi.TrangThaiSuDung,
         VoucherCuaToi.SoLuongToiDa,
-        VoucherCuaToi.SoLuongSuDung, -- Lấy trực tiếp từ cột SoLuongDaDung
-        NULL AS Icon -- Không có icon cho loại voucher này
-    FROM VoucherCuaToi;
-	END;
-	go
+        VoucherCuaToi.SoLuongSuDung AS SoLuongSuDung, -- Nếu SoLuongSuDung không tồn tại, có thể thay thế hoặc loại bỏ dòng này
+        CapBacChiTieu.AnhCapBac AS Icon -- Lấy icon từ cột AnhCapBac trong CapBacChiTieu
+    FROM VoucherCuaToi
+    JOIN ChiTietCapBac 
+        ON VoucherCuaToi.MaKhachHang = ChiTietCapBac.MaKhachHang
+    JOIN CapBacChiTieu
+        ON ChiTietCapBac.MaCapBacChiTieu = CapBacChiTieu.MaCapBacChiTieu;
+END;
+GO
+
+-- Thực thi thủ tục để kiểm tra
 EXEC sp_GetVouchercapbacList;
-
-
 
 
 

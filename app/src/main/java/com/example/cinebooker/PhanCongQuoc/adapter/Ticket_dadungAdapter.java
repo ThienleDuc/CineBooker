@@ -1,6 +1,7 @@
 
 package com.example.cinebooker.PhanCongQuoc.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -52,40 +53,53 @@ public class Ticket_dadungAdapter extends RecyclerView.Adapter<Ticket_dadungAdap
 
     @NonNull
     @Override
-    public Ticket_dadungAdapter.TicketViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public TicketViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_ticket_da_dung, parent, false);
         return new TicketViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull Ticket_dadungAdapter.TicketViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull TicketViewHolder holder, int position) {
         ticketdadungMoviesEntity ticket = ticketdadungMoviesList.get(position);
 
         holder.date_dadung.setText(ticket.getDate_dadung() != null ? ticket.getDate_dadung() : "Ngày không xác định");
-         Picasso.get().load(ticket.getPoster_dadung())
-                .placeholder(R.drawable.placeholder)
-                 .resize(800, 800) // Optional: Add a placeholder image
+        String imageName = ticket.getPoster_dadung();
+        Context context = holder.itemView.getContext();
+        @SuppressLint("DiscouragedApi") int resourceId = context.getResources().getIdentifier(imageName, "drawable", context.getPackageName());
+
+        Picasso.get()
+                .load(resourceId)
+                .resize(800, 800)// Load resource ID
                 .into(holder.posterMovie_dadung);
+
+
+        String imageName1 = ticket.getAnhrap_dadung();
+        @SuppressLint("DiscouragedApi") int resourceId1 = context.getResources().getIdentifier(imageName1, "drawable", context.getPackageName());
+
+        Picasso.get()
+                .load(resourceId1)
+                .resize(800, 800)// Load resource ID
+                .into(holder.anhrap);
+
+
         holder.age_dadung.setText(ticket.getAge_dadung() > 0 ? String.valueOf(ticket.getAge_dadung())+ "+" : "Tuổi không xác định");
         holder.movieName_dadung.setText(ticket.getName_dadung() != null ? ticket.getName_dadung() : "Tên phim không xác định");
         holder.styleMovie_dadung.setText(ticket.getStyle_dadung() != null ? ticket.getStyle_dadung() : "Thể loại không xác định");
         holder.soluong_dadung.setText(ticket.getSoluong_dadung() > 0 ? String.valueOf(ticket.getSoluong_dadung()) : "0");
-        Picasso.get().load(ticket.getAnhrap_dadung())
-                .placeholder(R.drawable.drawn_star)  // Optional: Add a placeholder image
-                .into(holder.anhrap);
+
         holder.diachi.setText(ticket.getDiachi_dadung() != null ? ticket.getDiachi_dadung() : "Địa chỉ không xác định");
 
         holder.btn_dadung.setOnClickListener(v -> {
-            Context context = v.getContext();
-            if (context instanceof AppCompatActivity) {
+            Context context1 = v.getContext();
+            if (context1 instanceof AppCompatActivity) {
                 // Lưu MaVe vào SharedPreferences
-                SharedPreferences sharedPreferences = context.getSharedPreferences("QuocDepTrai", Context.MODE_PRIVATE);
+                SharedPreferences sharedPreferences = context1.getSharedPreferences("QuocDepTrai", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putInt("MaVe", ticket.getMaVe());
                 editor.apply();
                 // Mở Activity xuat_ve bằng Intent
-                Intent intent = new Intent(context, xem_thong_tin_ve.class);
-                context.startActivity(intent);
+                Intent intent = new Intent(context1, xem_thong_tin_ve.class);
+                context1.startActivity(intent);
 
 
             }

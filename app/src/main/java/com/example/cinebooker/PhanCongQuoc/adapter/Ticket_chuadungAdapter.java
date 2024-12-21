@@ -62,18 +62,23 @@ public class Ticket_chuadungAdapter extends RecyclerView.Adapter<Ticket_chuadung
 
     @NonNull
     @Override
-    public Ticket_chuadungAdapter.TicketViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public TicketViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_ticket_chua_dung, parent, false);
         return new TicketViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull Ticket_chuadungAdapter.TicketViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull TicketViewHolder holder, int position) {
         ticketchuadungMoviesEntity ticket = ticketChuadungMoviesList.get(position);
         holder.date_chuadung.setText(ticket.getDate_chuadung() != null ? ticket.getDate_chuadung() : "Ngày không xác định");
-        Picasso.get().load(ticket.getPoster_chuadung())
-                .placeholder(R.drawable.drawn_star)
-                .resize(800, 800)  // Load resource // Optional: Add a placeholder image
+
+        String imageName = ticket.getPoster_chuadung();
+        Context context = holder.itemView.getContext();
+        @SuppressLint("DiscouragedApi") int resourceId = context.getResources().getIdentifier(imageName, "drawable", context.getPackageName());
+
+        Picasso.get()
+                .load(resourceId)
+                .resize(800, 800)// Load resource ID
                 .into(holder.posterMovie_chuadung);
 
         holder.age_chuadung.setText(ticket.getAge_chuadung() > 0
@@ -83,37 +88,43 @@ public class Ticket_chuadungAdapter extends RecyclerView.Adapter<Ticket_chuadung
         holder.movieName_chuadung.setText(ticket.getName_chuadung() != null ? ticket.getName_chuadung() : "Tên phim không xác định");
         holder.styleMovie_chuadung.setText(ticket.getStyle_chuadung() != null ? ticket.getStyle_chuadung() : "Thể loại không xác định");
         holder.soluong_chuadung.setText(ticket.getSoluong_chuadung() > 0 ? String.valueOf(ticket.getSoluong_chuadung()) : "0");
-        Picasso.get().load(ticket.getAnhrap())
-                .placeholder(R.drawable.drawn_star)  // Optional: Add a placeholder image
+
+        String imageName1 = ticket.getAnhrap();
+        @SuppressLint("DiscouragedApi") int resourceId1 = context.getResources().getIdentifier(imageName1, "drawable", context.getPackageName());
+
+        Picasso.get()
+                .load(resourceId1)
+                .resize(800, 800)// Load resource ID
                 .into(holder.anhrap);
+
         holder.diachi.setText(ticket.getDiachi_chuadung() != null ? ticket.getDiachi_chuadung() : "Địa chỉ không xác định");
 
         // Xử lý sự kiện cho nút
         holder.btn_chuadung.setOnClickListener(v -> {
-            Context context = v.getContext();
-            if (context instanceof AppCompatActivity) {
+            Context context1 = v.getContext();
+            if (context1 instanceof AppCompatActivity) {
                 // Lưu MaVe vào SharedPreferences
-                SharedPreferences sharedPreferences = context.getSharedPreferences("QuocDepTrai", Context.MODE_PRIVATE);
+                SharedPreferences sharedPreferences = context1.getSharedPreferences("QuocDepTrai", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putInt("MaVe", ticket.getMaVe());
                 editor.apply();
                 // Mở Activity yeu_cau_hoan_tien
-                Intent intent = new Intent(context, yeu_cau_hoan_tien.class);
-                context.startActivity(intent);
+                Intent intent = new Intent(context1, yeu_cau_hoan_tien.class);
+                context1.startActivity(intent);
             }
         });
 
         holder.btn_chuadung1.setOnClickListener(v -> {
-            Context context = v.getContext();
-                  if (context instanceof AppCompatActivity) {
+            Context context2 = v.getContext();
+                  if (context2 instanceof AppCompatActivity) {
                 // Lưu MaVe vào SharedPreferences
-                SharedPreferences sharedPreferences = context.getSharedPreferences("QuocDepTrai", Context.MODE_PRIVATE);
+                SharedPreferences sharedPreferences = context2.getSharedPreferences("QuocDepTrai", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putInt("MaVe", ticket.getMaVe());
                 editor.apply();
                 // Mở Activity xuat_ve
-                Intent intent = new Intent(context, xuat_ve.class);
-                context.startActivity(intent);
+                Intent intent = new Intent(context2, xuat_ve.class);
+                context2.startActivity(intent);
             }
         });
     }

@@ -1,5 +1,6 @@
 package com.example.cinebooker.PhanCongQuoc.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.view.LayoutInflater;
@@ -47,7 +48,7 @@ public class XemThongTinAdapter extends RecyclerView.Adapter<XemThongTinAdapter.
     }
 
     @Override
-    public void onBindViewHolder(XemThongTinAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, int position) {
         XemThongTinEntity item = xemThongTinList.get(position);
         SharedPreferences
                 sharedPreferences = holder.itemView.getContext().getSharedPreferences("QuocDepTrai", Context.MODE_PRIVATE);
@@ -55,17 +56,33 @@ public class XemThongTinAdapter extends RecyclerView.Adapter<XemThongTinAdapter.
         int maveiem = item.getMaVe();
         // Set values in the UI elements
         holder.dateXemThongTin.setText(item.getDateXemThongTin());
-        Picasso.get().load(item.getPosterXemThongTin())
-                .placeholder(R.drawable.placeholder)
-                .resize(800, 800) // Optional: Add a placeholder image
+
+        String imageName = item.getPosterXemThongTin();
+        Context context = holder.itemView.getContext();
+        @SuppressLint("DiscouragedApi") int resourceId = context.getResources().getIdentifier(imageName, "drawable", context.getPackageName());
+
+        Picasso.get()
+                .load(resourceId)
+                .resize(800, 800)// Load resource ID
                 .into(holder.posterXemThongTin);
+
+
+        String imageName1 = item.getIconRap();
+
+        @SuppressLint("DiscouragedApi") int resourceId1 = context.getResources().getIdentifier(imageName1, "drawable", context.getPackageName());
+
+        Picasso.get()
+                .load(resourceId1)
+                .resize(800, 800)// Load resource ID
+                .into(holder.iconRap);
+
+
+
         holder.ageXemThongTin.setText(String.valueOf(item.getAgeXemThongTin())+"+");
         holder.nameXemThongTin.setText(item.getNameXemThongTin());
         holder.styleXemThongTin.setText(item.getStyleXemThongTin());
         holder.soLuong.setText(String.valueOf(item.getSoLuong()));
-        Picasso.get().load(item.getIconRap())
-                .placeholder(R.drawable.drawn_star)  // Optional: Add a placeholder image
-                .into(holder.iconRap);
+
         holder.diaChi.setText(item.getDiaChi());
         holder.timebd.setText(item.getTime_batdau());
         holder.timekt.setText(item.getTime_ketthuc());

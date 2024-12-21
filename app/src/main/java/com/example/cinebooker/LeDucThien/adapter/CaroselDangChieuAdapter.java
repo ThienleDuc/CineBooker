@@ -19,7 +19,6 @@ import com.example.cinebooker.R;
 import com.example.cinebooker.TranGiaThai.Activity.XemChiTietPhim;
 import com.example.cinebooker.generalMethod.NumberFormatter;
 import com.squareup.picasso.Picasso;
-
 import java.util.List;
 
 public class CaroselDangChieuAdapter extends RecyclerView.Adapter<CaroselDangChieuAdapter.viewHolder> {

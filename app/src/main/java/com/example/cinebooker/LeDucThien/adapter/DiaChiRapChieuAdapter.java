@@ -13,6 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+
 import com.example.cinebooker.LeDucThien.entity.ent_RapChieuCon;
 import com.example.cinebooker.R;
 import com.squareup.picasso.Picasso;
@@ -32,14 +33,14 @@ public class DiaChiRapChieuAdapter extends RecyclerView.Adapter<DiaChiRapChieuAd
 
     @NonNull
     @Override
-    public DiaChiRapChieuAdapter.viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_timdiachirapchieu, parent, false);
         return new viewHolder(view);
     }
 
     @SuppressLint("QueryPermissionsNeeded")
     @Override
-    public void onBindViewHolder(@NonNull DiaChiRapChieuAdapter.viewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull viewHolder holder, int position) {
         ent_RapChieuCon rapChieu = rapChieulist.get(position);
 
         String imageName = rapChieu.getAnhRapChieu();

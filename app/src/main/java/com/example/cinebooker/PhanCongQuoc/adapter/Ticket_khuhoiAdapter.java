@@ -1,6 +1,7 @@
 
 package com.example.cinebooker.PhanCongQuoc.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -64,37 +65,49 @@ public class Ticket_khuhoiAdapter extends RecyclerView.Adapter<Ticket_khuhoiAdap
         ticketkhuhoiMoviesEntity ticket = ticketkhuhoiMoviesList.get(position);
 
         // Gán giá trị từ ticketkhuhoiMoviesEntity
-        holder.date_khuhoi.setText(ticket.getDate_khuhoi());
-           Picasso.get().load(ticket.getPoster_khuhoi())
-                .placeholder(R.drawable.placeholder)
-                   .resize(800, 800) // Optional: Add a placeholder image
+        String imageName = ticket.getPoster_khuhoi();
+        Context context = holder.itemView.getContext();
+        @SuppressLint("DiscouragedApi") int resourceId = context.getResources().getIdentifier(imageName, "drawable", context.getPackageName());
+
+        Picasso.get()
+                .load(resourceId)
+                .resize(800, 800)// Load resource ID
                 .into(holder.poster_khuhoi);
+
+
+        String imageName1 = ticket.getIcon_rap_khuhoi();
+        @SuppressLint("DiscouragedApi") int resourceId1 = context.getResources().getIdentifier(imageName1, "drawable", context.getPackageName());
+
+        Picasso.get()
+                .load(resourceId1)
+                .resize(800, 800)// Load resource ID
+                .into(holder.icon_rap_khuhoi);
+
         holder.age_khuhoi.setText(ticket.getAge_khuhoi() > 0 ? String.valueOf(ticket.getAge_khuhoi())+ "+" : "Tuổi không xác định");
         holder.name_khuhoi.setText(ticket.getName_khuhoi());
         holder.style_khuhoi.setText(ticket.getStyle_khuhoi());
         holder.soluong_khuhoi.setText(ticket.getSoluong_khuhoi() > 0 ? String.valueOf(ticket.getSoluong_khuhoi()) : "Tuổi không xác định");
 
         holder.diachi_khuhoi.setText(ticket.getDiachi_khuhoi());
-        Picasso.get().load(ticket.getIcon_rap_khuhoi())
-                .placeholder(R.drawable.drawn_star)  // Optional: Add a placeholder image
-                .into(holder.icon_rap_khuhoi);
+        holder.date_khuhoi.setText(ticket.getDate_khuhoi() != null ? ticket.getDate_khuhoi() : "Ngày không xác định");
+
         // Thiết lập listener cho nút
         holder.btn_khuhoi.setOnClickListener(v -> {
-            Context context = v.getContext();
-            if (context instanceof AppCompatActivity) {
+            Context context1 = v.getContext();
+            if (context1 instanceof AppCompatActivity) {
                 int maVe = ticket.getMaVe();  // Lấy giá trị MaVe từ ticket
                 if (maVe > 0) {  // Kiểm tra giá trị MaVe hợp lệ
                     // Lưu MaVe vào SharedPreferences
-                    SharedPreferences sharedPreferences = context.getSharedPreferences("QuocDepTrai", Context.MODE_PRIVATE);
+                    SharedPreferences sharedPreferences = context1.getSharedPreferences("QuocDepTrai", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putInt("MaVe", maVe);  // Lưu giá trị MaVe
                     editor.apply();  // Sử dụng commit để đảm bảo lưu ngay lập tức
                     Log.d("TicketAdapter", "Đã lưu MaVe vào SharedPreferences: " + maVe);
 
                     // Chuyển sang Activity chiTietHuy bằng Intent
-                    Intent intent = new Intent(context, chiTietHuy.class);
+                    Intent intent = new Intent(context1, chiTietHuy.class);
                     intent.putExtra("MaVe", maVe);  // Truyền thêm MaVe qua Intent
-                    context.startActivity(intent);
+                    context1.startActivity(intent);
                 } else {
                     Log.e("TicketAdapter", "MaVe không hợp lệ: " + maVe);
                 }

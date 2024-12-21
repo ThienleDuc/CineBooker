@@ -13,8 +13,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.cinebooker.R;
 import com.example.cinebooker.LeDucThien.entity.ent_PhimSapChieu;
+import com.example.cinebooker.R;
 import com.example.cinebooker.TranGiaThai.Activity.XemChiTietPhim;
 import com.squareup.picasso.Picasso;
 
@@ -36,14 +36,14 @@ public class SapChieuAdapter extends RecyclerView.Adapter<SapChieuAdapter.viewHo
 
     @NonNull
     @Override
-    public SapChieuAdapter.viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_movies_sapchieu, parent, false);
         return new viewHolder(view);
     }
 
     @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(@NonNull SapChieuAdapter.viewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull viewHolder holder, int position) {
         ent_PhimSapChieu dangChieu = dangChieulist.get(position);
 
         // Load poster movie using Picasso

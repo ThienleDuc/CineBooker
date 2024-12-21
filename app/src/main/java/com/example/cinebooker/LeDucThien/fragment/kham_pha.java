@@ -7,16 +7,17 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 
 import com.example.cinebooker.LeDucThien.BussinessLogic.BL_DoiTac;
 import com.example.cinebooker.LeDucThien.BussinessLogic.BL_NgayChieu;
@@ -25,22 +26,20 @@ import com.example.cinebooker.LeDucThien.BussinessLogic.BL_PhimSapChieu;
 import com.example.cinebooker.LeDucThien.BussinessLogic.BL_PhimTheoLichChieu;
 import com.example.cinebooker.LeDucThien.BussinessLogic.BL_RapChieu;
 import com.example.cinebooker.LeDucThien.BussinessLogic.BL_RapChieuCon;
-import com.example.cinebooker.LeDucThien.BussinessLogic.BL_ThoiGianChieu;
 import com.example.cinebooker.LeDucThien.BussinessLogic.BL_TinhThanh;
 import com.example.cinebooker.LeDucThien.activity.DanhSachDiaDiemRap;
 import com.example.cinebooker.LeDucThien.activity.danhSachRap;
 import com.example.cinebooker.LeDucThien.adapter.DoiTacAdapter;
-
 import com.example.cinebooker.LeDucThien.adapter.LichChieuAdapter;
 import com.example.cinebooker.LeDucThien.adapter.PhimTheoLichChieuAdapter;
-import com.example.cinebooker.LeDucThien.adapter.ThoiGianChieuAdapter;
+import com.example.cinebooker.LeDucThien.adapter.TinhThanhAdapter;
 import com.example.cinebooker.LeDucThien.viewpager.XepHangViewPagerAdapter;
 import com.example.cinebooker.R;
 import com.example.cinebooker.generalMethod.ActivityOpen;
-
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 
@@ -55,8 +54,13 @@ public class kham_pha extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private int _maTinhThanh = -1;
+    private TinhThanhAdapter tinhThanhAdapter;
     public kham_pha() {
         // Required empty public constructor
     }
@@ -83,32 +87,22 @@ public class kham_pha extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            // TODO: Rename and change types of parameters
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_kham_pha, container, false);
-
-
         dangChieu(view);
-
         sapChieu(view);
-
         controllerLichChieu(view);
-
         lichChieu(view);
-
         heThongRapChieu(view);
-
         xepHang(view);
-
         return view;
     }
 
@@ -181,41 +175,19 @@ public class kham_pha extends Fragment {
 
         TextView TenTinhThanh = view.findViewById(R.id.ten_tinh_thanh);
         SharedPreferences sharedPreferences = requireContext().getSharedPreferences("LeDucThien", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor;
 
         int _maTinhThanh = sharedPreferences.getInt("maTinhThanh", -1);
-        if (_maTinhThanh == -1) {
-            _maTinhThanh = blTinhThanh.loadMinMaTinhThanh();
-            editor = sharedPreferences.edit();
-            editor.putInt("maTinhThanh", _maTinhThanh);
-            editor.apply();
-        }
 
         blTinhThanh.loadTenTinhThanhTheoDieuKien(requireContext(), TenTinhThanh, _maTinhThanh);
-
-        int _maRapChieu = sharedPreferences.getInt("maRapChieu", -1);
-        if (_maRapChieu == -1) {
-            _maRapChieu = blRapChieu.loadMinMaRapChieu();
-            editor = sharedPreferences.edit();
-            editor.putInt("maRapChieu", _maRapChieu);
-            editor.apply();
-        }
 
         ImageView anhRapChieuCon = view.findViewById(R.id.calendar_logo);
         TextView tenRapChieuCon = view.findViewById(R.id.sapChieu_movie_name);
         TextView diaChiRapChieuCon = view.findViewById(R.id.sapChieu_movie_style);
 
         int _maRapChieuCon = sharedPreferences.getInt("maRapChieuCon", -1);
-        if (_maRapChieuCon == -1) {
-            _maRapChieuCon = blRapChieuCon.loadMinRapChieuCon(_maTinhThanh, _maRapChieu);
-            editor = sharedPreferences.edit();
-            editor.putInt("maRapChieuCon", _maRapChieuCon);
-            editor.apply();
-        }
 
         blRapChieuCon.loadThongTinRapChieuCon(requireContext(), anhRapChieuCon,
                 tenRapChieuCon, diaChiRapChieuCon, _maRapChieuCon);
-
         // Khởi tạo TabLayout cho location
         LinearLayout danhsachtinhthanh_open = view.findViewById(R.id.open_list_tinh_thanh);
         LinearLayout danhsachrap_open = view.findViewById(R.id.danhsachrap_open);
@@ -239,13 +211,11 @@ public class kham_pha extends Fragment {
                 TenTinhThanh.setTextColor(view.getContext().getColor(R.color.colorSelected));
                 icon_location.setColorFilter(view.getContext().getColor(R.color.colorSelected));
             }
-
         });
 
         ganday_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 ganday_search.setBackgroundResource(R.drawable.strock_1_pink_radius_10_transparent);
                 ganban.setTextColor(view.getContext().getColor(R.color.colorSelected));
                 icon_location2.setColorFilter(view.getContext().getColor(R.color.colorSelected));
@@ -263,6 +233,7 @@ public class kham_pha extends Fragment {
             }
         });
     }
+
 
 
     public void lichChieu(View view) {

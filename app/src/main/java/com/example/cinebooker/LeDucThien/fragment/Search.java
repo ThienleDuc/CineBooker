@@ -17,9 +17,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.cinebooker.LeDucThien.BussinessLogic.BL_TimKiemPhim;
-import com.example.cinebooker.R;
 import com.example.cinebooker.LeDucThien.adapter.TimKiemAdapter;
-
+import com.example.cinebooker.R;
 
 
 /**
@@ -33,15 +32,16 @@ public class Search extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
     private RecyclerView recyclerView;
     private BL_TimKiemPhim blTimKiemPhim;
-    private TextView xemthem;
     private EditText timKiem;
     private TimKiemAdapter timKiemAdapter;
     private SharedPreferences sharedPreferences;
-    private SharedPreferences.Editor editor;
 
     public Search() {
         // Required empty public constructor
@@ -69,7 +69,6 @@ public class Search extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            // TODO: Rename and change types of parameters
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
@@ -78,8 +77,8 @@ public class Search extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.fragment_search, container, false);
         // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_search, container, false);
         TimKiem(view);
         return view;
     }
@@ -93,7 +92,6 @@ public class Search extends Fragment {
     private void TimKiem(View view) {
         recyclerView = view.findViewById(R.id.recycler_view);
         timKiem = view.findViewById(R.id.header_search_input);
-        xemthem = view.findViewById(R.id.search_more_than);
         blTimKiemPhim = new BL_TimKiemPhim();
         timKiemAdapter = new TimKiemAdapter();
 

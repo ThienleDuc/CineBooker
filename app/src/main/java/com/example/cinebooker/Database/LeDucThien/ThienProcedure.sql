@@ -511,8 +511,6 @@ BEGIN
         AND RCon.TenRapChieuCon LIKE N'%' + @TenRapChieuCon + N'%';
 END;
 EXEC pr_GetRapChieuConByTenRapChieu @MaTinhThanh = 1,  @MaRapChieu = 1, @TenRapChieuCon = N'Rạp Chiếu';
-SELECT MIN(MaThoiGianChieu) AS minThoiGianChieu FROM ThoiGianChieu 
-WHERE CONVERT(VARCHAR(10), NgayChieu, 103) = CONVERT(VARCHAR(10), GETDATE(), 103)
 GO
 CREATE PROCEDURE pr_Get7NgayChieuFromToday
 AS

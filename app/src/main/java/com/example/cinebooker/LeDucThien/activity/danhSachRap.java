@@ -14,21 +14,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cinebooker.LeDucThien.BussinessLogic.BL_RapChieu;
 import com.example.cinebooker.LeDucThien.BussinessLogic.BL_RapChieuCon;
-import com.example.cinebooker.LeDucThien.BussinessLogic.BL_TinhThanh;
 import com.example.cinebooker.LeDucThien.adapter.RapChieuAdapter;
 import com.example.cinebooker.LeDucThien.adapter.RapChieuConAdapter;
 import com.example.cinebooker.R;
 
 public class danhSachRap extends AppCompatActivity {
-
     private int _maRapChieu = -1;
     private int _maTinhThanh = -1;
-    private SharedPreferences sharedPreferences;
-    private SharedPreferences.Editor editor;
     private EditText editText;
     private TextWatcher textWatcher;
-    private String previousSearch = ""; // Lưu lại tìm kiếm trước đó
-
+    private String previousSearch = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,12 +34,11 @@ public class danhSachRap extends AppCompatActivity {
         ImageView close = findViewById(R.id.danhsachrap_close);
         close.setOnClickListener(v -> finish());
 
-        danhSachRap();
+        danhSachRapChieu();
         danhSachDiaChiRap();
     }
 
-
-    private void danhSachRap() {
+    private void danhSachRapChieu() {
         // Hiển thị danh sách các rạp chiếu
         RecyclerView recyclerView = findViewById(R.id.danhsachrap_recycle_view);
         BL_RapChieu blRapChieu = new BL_RapChieu();
@@ -58,13 +52,13 @@ public class danhSachRap extends AppCompatActivity {
         BL_RapChieuCon blRapChieuCon = new BL_RapChieuCon();
         BL_RapChieu blRapChieu = new BL_RapChieu();
 
-        sharedPreferences = getSharedPreferences("LeDucThien", MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences("LeDucThien", MODE_PRIVATE);
         _maRapChieu = sharedPreferences.getInt("maRapChieu", -1);
         if (_maRapChieu == -1 ) {
             _maRapChieu = blRapChieu.loadMinMaRapChieu();
-            editor = sharedPreferences.edit();
+            SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putInt("maRapChieu", _maRapChieu);
-            editor.apply();;
+            editor.apply();
         }
 
         _maTinhThanh = sharedPreferences.getInt("maTinhThanh", -1);
@@ -123,5 +117,11 @@ public class danhSachRap extends AppCompatActivity {
     // Phương thức đóng Activity
     public void dongActivity() {
         finish();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        editText.setText("");
     }
 }

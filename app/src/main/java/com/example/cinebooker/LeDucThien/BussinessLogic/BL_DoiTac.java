@@ -2,11 +2,9 @@ package com.example.cinebooker.LeDucThien.BussinessLogic;
 
 import android.content.Context;
 import android.util.Log;
-import android.view.View;
-import android.widget.TextView;
+
 
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.cinebooker.LeDucThien.ProcessData.PD_DoiTac;
 import com.example.cinebooker.LeDucThien.adapter.DoiTacAdapter;
 import com.example.cinebooker.LeDucThien.entity.ent_DoiTac;

@@ -1,5 +1,6 @@
 package com.example.cinebooker.PhanCongQuoc.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.view.LayoutInflater;
@@ -45,7 +46,7 @@ public class ChiTietHuyAdapter extends RecyclerView.Adapter<ChiTietHuyAdapter.Vi
     }
 
     @Override
-    public void onBindViewHolder(ChiTietHuyAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, int position) {
         ChiTietHuyEntity item = chiTietHuyList.get(position);
 
         SharedPreferences
@@ -54,17 +55,29 @@ public class ChiTietHuyAdapter extends RecyclerView.Adapter<ChiTietHuyAdapter.Vi
         int maveiem = item.getMaVe();
 
         holder.dateChitiethuy.setText(item.getDateChitietHuy());
-        Picasso.get().load(item.getPosterChitietHuy())
-                .placeholder(R.drawable.placeholder)
-                .resize(800, 800) // Optional: Add a placeholder image
+
+        String imageName = item.getPosterChitietHuy();
+        Context context = holder.itemView.getContext();
+        @SuppressLint("DiscouragedApi") int resourceId = context.getResources().getIdentifier(imageName, "drawable", context.getPackageName());
+
+        Picasso.get()
+                .load(resourceId)
+                .resize(800, 800)// Load resource ID
                 .into(holder.posterChitiethuy);
+
         holder.ageChitiethuy.setText(String.valueOf(item.getAgeChitietHuy())+"+");
         holder.nameChitiethuy.setText(item.getNameChitietHuy());
         holder.styleChitiethuy.setText(item.getStyleChitietHuy());
         holder.soLuongChitiethuy.setText(String.valueOf(item.getSoLuongChitietHuy()));
-        Picasso.get().load(item.getIconRapChitietHuy())
-                .placeholder(R.drawable.drawn_star)  // Optional: Add a placeholder image
+
+        String imageName1 = item.getIconRapChitietHuy();
+        @SuppressLint("DiscouragedApi") int resourceId1 = context.getResources().getIdentifier(imageName1, "drawable", context.getPackageName());
+
+        Picasso.get()
+                .load(resourceId1)
+                .resize(800, 800)// Load resource ID
                 .into(holder.iconRapChitiethuy);
+
         holder.diaChiChitiethuy.setText(item.getDiaChiChitietHuy());
         holder.timebd.setText(item.getTime_batdau());
         holder.timekt.setText(item.getTime_ketthuc());

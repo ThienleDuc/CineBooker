@@ -7,13 +7,13 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+
 import com.example.cinebooker.LeDucThien.ProcessData.PD_TinhThanh;
 import com.example.cinebooker.LeDucThien.adapter.TinhThanhAdapter;
 import com.example.cinebooker.LeDucThien.entity.ent_TinhThanh;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 

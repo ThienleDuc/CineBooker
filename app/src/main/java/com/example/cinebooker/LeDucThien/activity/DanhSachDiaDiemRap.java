@@ -1,20 +1,17 @@
 package com.example.cinebooker.LeDucThien.activity;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageView;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.app.AppCompatActivity;import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cinebooker.LeDucThien.BussinessLogic.BL_TinhThanh;
 import com.example.cinebooker.LeDucThien.adapter.TinhThanhAdapter;
-import com.example.cinebooker.LeDucThien.viewModel.SharedViewModel;
 import com.example.cinebooker.R;
+
 
 public class DanhSachDiaDiemRap extends AppCompatActivity {
     private EditText editText;
@@ -104,7 +101,7 @@ public class DanhSachDiaDiemRap extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        editText.setText(""); // Xóa nội dung tìm kiếm khi quay lại Activity
+        editText.setText("");
     }
 
     @Override

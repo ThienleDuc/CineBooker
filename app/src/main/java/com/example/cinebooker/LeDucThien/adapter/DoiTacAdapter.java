@@ -35,13 +35,13 @@ public class DoiTacAdapter extends RecyclerView.Adapter<DoiTacAdapter.viewHolder
 
     @NonNull
     @Override
-    public DoiTacAdapter.viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_hethongrapchieuphim, parent, false);
         return new viewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull DoiTacAdapter.viewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull viewHolder holder, int position) {
         ent_DoiTac controller = dangChieulist.get(position);
 
         String imageName = controller.getAnhDoiTac();

@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.cinebooker.LeDucThien.entity.ent_XepHang;
 import com.example.cinebooker.R;
 import com.example.cinebooker.TranGiaThai.Activity.XemChiTietPhim;
-import com.example.cinebooker.generalMethod.ActivityOpen;
+
 import com.example.cinebooker.generalMethod.NumberFormatter;
 import com.squareup.picasso.Picasso;
 
@@ -39,14 +39,14 @@ public class XepHangAdapter extends RecyclerView.Adapter<XepHangAdapter.viewHold
 
     @NonNull
     @Override
-    public XepHangAdapter.viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_movies_xephang, parent, false);
         return new viewHolder(view);
     }
 
     @SuppressLint({"SetTextI18n", "NotifyDataSetChanged"})
     @Override
-    public void onBindViewHolder(@NonNull XepHangAdapter.viewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull viewHolder holder, int position) {
         ent_XepHang controller = dangChieulist.get(position);
 
         String imageName = controller.getAnhPhim();

@@ -57,14 +57,14 @@ public class PhimTheoLichChieuAdapter extends RecyclerView.Adapter<PhimTheoLichC
 
     @NonNull
     @Override
-    public PhimTheoLichChieuAdapter.viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_movies_calendar, parent, false);
         return new viewHolder(view);
     }
 
     @SuppressLint({"SetTextI18n", "NotifyDataSetChanged"})
     @Override
-    public void onBindViewHolder(@NonNull PhimTheoLichChieuAdapter.viewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull viewHolder holder, int position) {
         ent_XepHang controller = dangChieulist.get(position);
         // Load ảnh phim từ URL hoặc tài nguyên
         maPhim = controller.getMaPhim();

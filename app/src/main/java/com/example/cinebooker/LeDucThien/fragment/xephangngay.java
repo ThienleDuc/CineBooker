@@ -3,7 +3,6 @@ package com.example.cinebooker.LeDucThien.fragment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -13,10 +12,7 @@ import android.view.ViewGroup;
 import com.example.cinebooker.LeDucThien.BussinessLogic.BL_XepHang;
 import com.example.cinebooker.LeDucThien.adapter.XepHangAdapter;
 import com.example.cinebooker.R;
-import com.example.cinebooker.generalMethod.SpaceItemDecoration;
 
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -70,8 +66,6 @@ public class xephangngay extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_xephangngay, container, false);
-
-        // Khởi tạo RecyclerView cho lịch chiếu
         RecyclerView recyclerview = view.findViewById(R.id.xephangtheongay);
         BL_XepHang blXepHang = new BL_XepHang();
         XepHangAdapter adapter = new XepHangAdapter();

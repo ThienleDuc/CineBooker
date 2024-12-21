@@ -11,9 +11,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+
 import com.example.cinebooker.LeDucThien.viewpager.XepHangViewPagerAdapter;
 import com.example.cinebooker.R;
-
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
@@ -69,7 +69,6 @@ public class xep_hang extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_xep_hang, container, false);
-
         TabLayout xepHangtabLayout = view.findViewById(R.id.xepHang_TabLayout);
         ViewPager2 xepHangviewPager = view.findViewById(R.id.xephang_viewPager);
 

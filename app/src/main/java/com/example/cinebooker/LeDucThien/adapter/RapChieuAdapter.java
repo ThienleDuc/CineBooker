@@ -33,14 +33,14 @@ public class RapChieuAdapter extends RecyclerView.Adapter<RapChieuAdapter.viewHo
 
     @NonNull
     @Override
-    public RapChieuAdapter.viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_thoi_gian_chieu_theo_ngay, parent, false);
         return new viewHolder(view);
     }
 
     @SuppressLint("NotifyDataSetChanged")
     @Override
-    public void onBindViewHolder(@NonNull RapChieuAdapter.viewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull viewHolder holder, int position) {
         ent_RapChieu rapChieu = rapChieulist.get(position);
 
         String imageName = rapChieu.getAnhRapChieu();

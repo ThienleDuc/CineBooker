@@ -1,7 +1,5 @@
 package com.example.cinebooker.LeDucThien.entity;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class ent_PhimDangChieu {
 

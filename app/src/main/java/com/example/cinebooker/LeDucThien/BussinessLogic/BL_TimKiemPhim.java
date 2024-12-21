@@ -3,10 +3,9 @@ package com.example.cinebooker.LeDucThien.BussinessLogic;
 import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
-import android.view.View;
-import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
+
 
 import com.example.cinebooker.LeDucThien.ProcessData.PD_TimKiemPhim;
 import com.example.cinebooker.LeDucThien.adapter.TimKiemAdapter;

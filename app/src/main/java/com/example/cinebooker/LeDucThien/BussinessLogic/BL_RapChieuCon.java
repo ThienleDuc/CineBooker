@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+
 import com.example.cinebooker.LeDucThien.ProcessData.PD_RapChieuCon;
 import com.example.cinebooker.LeDucThien.adapter.DiaChiRapChieuAdapter;
 import com.example.cinebooker.LeDucThien.adapter.RapChieuConAdapter;
@@ -14,7 +15,7 @@ import com.example.cinebooker.LeDucThien.entity.ent_RapChieuCon;
 import com.example.cinebooker.R;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

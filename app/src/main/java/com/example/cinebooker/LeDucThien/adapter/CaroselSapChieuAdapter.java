@@ -13,12 +13,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.cinebooker.LeDucThien.entity.ent_PhimSapChieu;
 import com.example.cinebooker.R;
 import com.example.cinebooker.TranGiaThai.Activity.XemChiTietPhim;
-import com.example.cinebooker.generalMethod.ActivityOpen;
 import com.squareup.picasso.Picasso;
-
 import java.util.List;
 
 public class CaroselSapChieuAdapter extends RecyclerView.Adapter<CaroselSapChieuAdapter.viewHolder> {
@@ -78,7 +77,8 @@ public class CaroselSapChieuAdapter extends RecyclerView.Adapter<CaroselSapChieu
                     editor.apply();
                     notifyDataSetChanged();
                     Intent intent = new Intent(context, XemChiTietPhim.class);
-                    context.startActivity(intent);                }
+                    context.startActivity(intent);
+                }
             }
         });
     }

@@ -15,11 +15,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-
 import com.example.cinebooker.LeDucThien.entity.ent_TimKiemPhim;
 import com.example.cinebooker.R;
 import com.example.cinebooker.TranGiaThai.Activity.XemChiTietPhim;
-import com.example.cinebooker.generalMethod.ActivityOpen;
+
 import com.example.cinebooker.generalMethod.NumberFormatter;
 import com.squareup.picasso.Picasso;
 
@@ -37,14 +36,14 @@ public class TimKiemAdapter extends RecyclerView.Adapter<TimKiemAdapter.SearchVi
 
     @NonNull
     @Override
-    public TimKiemAdapter.SearchViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public SearchViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.items_search, parent, false);
         return new SearchViewHolder(view);
     }
 
     @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(@NonNull TimKiemAdapter.SearchViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull SearchViewHolder holder, int position) {
         ent_TimKiemPhim search_movies =  searchMoviesList.get(position);
 
         // Load poster movie using Picasso

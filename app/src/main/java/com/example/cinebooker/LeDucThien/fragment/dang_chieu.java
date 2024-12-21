@@ -14,6 +14,7 @@ import com.example.cinebooker.LeDucThien.BussinessLogic.BL_PhimDangChieu;
 import com.example.cinebooker.LeDucThien.adapter.DanhGiaPhimAdapter;
 import com.example.cinebooker.R;
 
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link dang_chieu#newInstance} factory method to
@@ -25,6 +26,8 @@ public class dang_chieu extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
@@ -54,22 +57,18 @@ public class dang_chieu extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            // TODO: Rename and change types of parameters
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_dang_chieu, container, false);
-
         dangChieu(view);
-
         binhluan(view);
-
         return view;
     }
 
@@ -88,5 +87,4 @@ public class dang_chieu extends Fragment {
         BL_DanhGiaPhim blDanhGiaPhim = new BL_DanhGiaPhim();
         blDanhGiaPhim.loadDanhGiaPhimToRecyclerView(getContext(), recycleView, adapter);
     }
-
 }

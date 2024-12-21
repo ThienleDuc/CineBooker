@@ -6,12 +6,12 @@ import android.util.Log;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.cinebooker.LeDucThien.adapter.PhimTheoLichChieuAdapter;
 import com.example.cinebooker.LeDucThien.entity.ent_XepHang;
 import com.example.cinebooker.R;
 import com.example.cinebooker.generalMethod.ConnectionDatabase;
 import com.example.cinebooker.generalMethod.SpaceItemDecoration;
+
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

@@ -6,13 +6,13 @@ import android.util.Log;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+
 import com.example.cinebooker.LeDucThien.adapter.DiaChiRapChieuAdapter;
 import com.example.cinebooker.LeDucThien.adapter.RapChieuConAdapter;
 import com.example.cinebooker.LeDucThien.entity.ent_RapChieuCon;
 import com.example.cinebooker.R;
 import com.example.cinebooker.generalMethod.ConnectionDatabase;
 import com.example.cinebooker.generalMethod.SpaceItemDecoration;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

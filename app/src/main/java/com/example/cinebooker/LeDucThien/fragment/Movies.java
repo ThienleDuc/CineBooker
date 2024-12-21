@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+
 import com.example.cinebooker.LeDucThien.viewpager.MoviesViewPagerAdapter;
 import com.example.cinebooker.R;
 import com.google.android.material.tabs.TabLayout;
@@ -28,14 +29,9 @@ public class Movies extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
-    private TabLayout tabLayout;
-    private ViewPager2 viewPager;
-    private MoviesViewPagerAdapter adapter;
 
     public Movies() {
         // Required empty public constructor
@@ -71,12 +67,12 @@ public class Movies extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_movies, container, false);
+        TabLayout tabLayout = view.findViewById(R.id.movies_tab_layout);
+        ViewPager2 viewPager = view.findViewById(R.id.movies_view_pager);
 
-        tabLayout = view.findViewById(R.id.movies_tab_layout);
-        viewPager = view.findViewById(R.id.movies_view_pager);
-
-        adapter = new MoviesViewPagerAdapter(requireActivity());
+        MoviesViewPagerAdapter adapter = new MoviesViewPagerAdapter(requireActivity());
         viewPager.setAdapter(adapter);
 
         String[] tabTitles = new String[] {
@@ -97,12 +93,9 @@ public class Movies extends Fragment {
         }).attach();
 
         tabLayout.setTabTextColors(
-                ContextCompat.getColor(getContext(), R.color.colorUnSelected),
-                ContextCompat.getColor(getContext(), R.color.colorSelected)
+                ContextCompat.getColor(requireContext(), R.color.colorUnSelected),
+                ContextCompat.getColor(requireContext(), R.color.colorSelected)
         );
-
-
-
         return view;
     }
 }

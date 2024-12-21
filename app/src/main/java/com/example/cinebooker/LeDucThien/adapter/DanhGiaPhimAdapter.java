@@ -14,13 +14,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+
 import com.example.cinebooker.LeDucThien.entity.ent_DanhGiaPhim;
 import com.example.cinebooker.R;
 import com.example.cinebooker.TranGiaThai.Activity.XemChiTietPhim;
-import com.example.cinebooker.generalMethod.ActivityOpen;
 import com.example.cinebooker.generalMethod.NumberFormatter;
 import com.squareup.picasso.Picasso;
-
 import java.util.List;
 
 public class DanhGiaPhimAdapter extends RecyclerView.Adapter<DanhGiaPhimAdapter.viewHolder> {
@@ -39,14 +38,14 @@ public class DanhGiaPhimAdapter extends RecyclerView.Adapter<DanhGiaPhimAdapter.
 
     @NonNull
     @Override
-    public DanhGiaPhimAdapter.viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_movies_binhluan, parent, false);
         return new viewHolder(view);
     }
 
     @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(@NonNull DanhGiaPhimAdapter.viewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull viewHolder holder, int position) {
         ent_DanhGiaPhim dangChieu = dangChieulist.get(position);
 
         String imageName = dangChieu.getAnhPhim();
@@ -86,7 +85,8 @@ public class DanhGiaPhimAdapter extends RecyclerView.Adapter<DanhGiaPhimAdapter.
                     editor.apply();
                     notifyDataSetChanged();
                     Intent intent = new Intent(context, XemChiTietPhim.class);
-                    context.startActivity(intent);                }
+                    context.startActivity(intent);
+                }
             }
         });
     }

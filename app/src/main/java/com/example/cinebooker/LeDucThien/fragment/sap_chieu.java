@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import com.example.cinebooker.LeDucThien.BussinessLogic.BL_PhimSapChieu;
 import com.example.cinebooker.R;
 
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link sap_chieu#newInstance} factory method to

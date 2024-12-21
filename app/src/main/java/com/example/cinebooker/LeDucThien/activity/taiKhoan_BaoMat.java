@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+
 import com.example.cinebooker.R;
 import com.example.cinebooker.generalMethod.ConnectionDatabase;
 
@@ -25,7 +26,7 @@ public class taiKhoan_BaoMat extends AppCompatActivity {
         setContentView(R.layout.activity_tai_khoan_bao_mat);
 
         ImageView back = findViewById(R.id.account_back);
-        back.setOnClickListener(v -> onBackPressed());
+        back.setOnClickListener(v -> finish());
 
         ImageView doimatkhauBtn = findViewById(R.id.doimatkhau);
         doimatkhauBtn.setOnClickListener(new View.OnClickListener() {
