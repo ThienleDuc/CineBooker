@@ -22,7 +22,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:gravity="center_horizontal"
-            android:padding="10dp">
+           >
 
             <TextView
                 android:id="@+id/lop_hoc_phan"

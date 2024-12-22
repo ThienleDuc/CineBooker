@@ -15,12 +15,12 @@ public class ConnectionDatabase {
     public Connection getConnection() {
         Connection connection = null;
         try {
-            String IpInternet = "database-2.chi0cwy8qdtc.us-east-1.rds.amazonaws.com";
-            //String IpInternet = "192.168.1.13";
+            //String IpInternet = "database-2.chi0cwy8qdtc.us-east-1.rds.amazonaws.com";
+            String IpInternet = "192.168.0.104";
             String databaseName = "dbQuanLyXemPhim";
             String username = "sa";
-            String password = "leducthien.02092004";
-            //String password = "12345";
+           // String password = "leducthien.02092004";
+            String password = "123456";
 
 
             String url = "jdbc:jtds:sqlserver://" + IpInternet + ":1433;databasename=" + databaseName + ";user=" + username + ";password=" + password;

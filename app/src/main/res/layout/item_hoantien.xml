@@ -126,37 +126,47 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:orientation="horizontal">
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
 
                         <ImageView
+                            android:id="@+id/ticket_trhang"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_gravity="center"
-                            android:src="@drawable/ticket" />
+                            android:src="@drawable/ticket"/>
 
                         <TextView
                             android:id="@+id/soluong_trhang"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
                             android:text=" 1"
-                            android:textColor="@color/colorIconNavigation"
+                            android:layout_gravity="center"
+                            android:textStyle="bold"
                             android:textSize="8dp"
-                            android:textStyle="bold" />
-
+                            android:shadowColor="#80000000"
+                            android:shadowDx="2"
+                            android:shadowDy="2"
+                            android:shadowRadius="4"
+                            android:textColor="@color/black" />
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center|end"
+                            android:layout_height="30dp"
+                            android:gravity="end|center"
                             android:orientation="horizontal">
 
-                            <ImageView
-                                android:id="@+id/icon_trhang"
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:src="@drawable/icon_cgv" />
+                            <LinearLayout
+                                android:layout_width="30dp"
+                                android:layout_height="match_parent">
+                                <ImageView
+                                    android:id="@+id/icon_trhang"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:scaleType="fitXY"
+                                    android:src="@drawable/icon_cgv" />
+                            </LinearLayout>
 
                             <TextView
                                 android:id="@+id/diachi_trhang"
@@ -164,8 +174,12 @@
                                 android:layout_height="wrap_content"
                                 android:paddingHorizontal="3dp"
                                 android:text="CGV Vincom Plaza Đà Nẵng"
-                                android:textColor="@color/colorIconNavigation"
+                                android:textColor="@color/black"
                                 android:textSize="8sp"
+                                android:shadowColor="#80000000"
+                                android:shadowDx="2"
+                                android:shadowDy="2"
+                                android:shadowRadius="4"
                                 android:textStyle="bold" />
                         </LinearLayout>
                     </LinearLayout>
