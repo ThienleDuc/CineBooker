@@ -61,6 +61,8 @@ public class BL_XepHang {
                 }
             } catch (Exception e) {
                 Log.e(TAG, "Error while loading data for type: " + type, e);
+            } finally {
+                executor.shutdown();
             }
         });
     }

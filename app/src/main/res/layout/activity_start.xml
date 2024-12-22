@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:background="@color/black"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center"
     tools:context=".PhanCongQuoc.activity.StartActivity">
 
+    <!-- ImageView Logo -->
     <ImageView
         android:id="@+id/batdau"
-        android:layout_width="175dp"
-        android:layout_height="175dp"
-        android:layout_centerInParent="true"
-        android:src="@drawable/icon17_login" />
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/icon17_login"
+        android:layout_gravity="center_horizontal" />
 
-</RelativeLayout>
+
+</LinearLayout>

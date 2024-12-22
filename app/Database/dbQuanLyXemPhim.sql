@@ -10,7 +10,9 @@ CREATE TABLE KhachHang (
     Email VARCHAR(255) NOT NULL,
     MatKhau VARCHAR(16) NOT NULL,
     AnhKhachHang VARCHAR(MAX),
-    TenKhachHang NVARCHAR(50) NOT NULL
+    TenKhachHang NVARCHAR(50) NOT NULL,
+	LopHocPhan VARCHAR(16) NOT NULL,
+	MaSinhVien VARCHAR(16) NOT NULL
 );
 
 -- Bảng CapBacChiTieu

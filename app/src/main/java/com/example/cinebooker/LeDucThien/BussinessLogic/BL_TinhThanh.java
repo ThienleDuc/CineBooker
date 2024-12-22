@@ -66,6 +66,8 @@ public class BL_TinhThanh {
             } catch (Exception e) {
                 // Log lỗi nếu có exception xảy ra
                 Log.e("BL_TinhThanh", "Error while loading data", e);
+            } finally {
+                executor.shutdown();
             }
         });
     }
@@ -90,6 +92,8 @@ public class BL_TinhThanh {
                 }
             } catch (Exception e) {
                 Log.e("BL_TinhThanh", "Error while loading data with condition", e);
+            } finally {
+                executor.shutdown();
             }
         });
     }
@@ -114,6 +118,8 @@ public class BL_TinhThanh {
                 }
             } catch (Exception e) {
                 Log.e("BL_TinhThanh", "Error while loading data", e);
+            } finally {
+                executor.shutdown();
             }
         });
     }

@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.example.cinebooker.LeDucThien.activity.VeChungToi;
 import com.example.cinebooker.LeDucThien.activity.taiKhoan_BaoMat;
 import com.example.cinebooker.PhanCongQuoc.activity.cap_bac;
 import com.example.cinebooker.PhanCongQuoc.activity.phuong_thuc_thanh_toan;
@@ -85,10 +86,10 @@ public class Profile extends Fragment {
         setLinearLayoutClickListener(action_voucher, voucher.class, R.id.action_voucher);
         setLinearLayoutClickListener(action_bank, phuong_thuc_thanh_toan.class, R.id.action_bank_bulding);
         setLinearLayoutClickListener(action_account, taiKhoan_BaoMat.class, R.id.action_account);
+        setLinearLayoutClickListener(action_about, VeChungToi.class, R.id.action_chungtoi);
 
         setLinearLayoutClickListenerOpenUrl(action_gioithieu, "https://www.figma.com/design/CEbN97NZxjJGNBXZ1FxEZd/nhom_LTTDD?node-id=0-1&node-type=canvas&t=MZ9AjqqUg1wsfYpM-0");
         setLinearLayoutClickListenerOpenUrl(action_phanhoi, "https://www.figma.com/design/CEbN97NZxjJGNBXZ1FxEZd/nhom_LTTDD?node-id=0-1&node-type=canvas&t=MZ9AjqqUg1wsfYpM-0");
-        setLinearLayoutClickListenerOpenUrl(action_about, "https://www.figma.com/design/CEbN97NZxjJGNBXZ1FxEZd/nhom_LTTDD?node-id=0-1&node-type=canvas&t=MZ9AjqqUg1wsfYpM-0");
         setLinearLayoutClickListenerOpenUrl(action_chinhsach, "https://www.figma.com/design/CEbN97NZxjJGNBXZ1FxEZd/nhom_LTTDD?node-id=0-1&node-type=canvas&t=MZ9AjqqUg1wsfYpM-0");
         setLinearLayoutClickListenerOpenUrl(action_dieukhoan, "https://www.figma.com/design/CEbN97NZxjJGNBXZ1FxEZd/nhom_LTTDD?node-id=0-1&node-type=canvas&t=MZ9AjqqUg1wsfYpM-0");
 
