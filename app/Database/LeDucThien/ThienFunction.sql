@@ -2,7 +2,7 @@
 GO
 
 -- Đã sử dụng
-CREATE FUNCTION dbo.fn_DiemDanhGiaPhimTrungBinhTheoNgay (@MaPhim INT)
+CREATE OR ALTER FUNCTION dbo.fn_DiemDanhGiaPhimTrungBinhTheoNgay (@MaPhim INT)
 RETURNS FLOAT
 AS
 BEGIN
@@ -18,7 +18,8 @@ BEGIN
     RETURN ISNULL(@DiemTrungBinh, 0);
 END;
 GO
-CREATE FUNCTION dbo.fn_DiemDanhGiaPhimTrungBinhTheoTuan (@MaPhim INT)
+GO
+CREATE OR ALTER FUNCTION dbo.fn_DiemDanhGiaPhimTrungBinhTheoTuan (@MaPhim INT)
 RETURNS FLOAT
 AS
 BEGIN
@@ -35,7 +36,7 @@ BEGIN
     RETURN ISNULL(@DiemTrungBinh, 0);
 END;
 GO
-CREATE FUNCTION dbo.fn_DiemDanhGiaPhimTrungBinhTheoThang (@MaPhim INT)
+CREATE OR ALTER FUNCTION dbo.fn_DiemDanhGiaPhimTrungBinhTheoThang (@MaPhim INT)
 RETURNS FLOAT
 AS
 BEGIN
@@ -52,7 +53,7 @@ BEGIN
     RETURN ISNULL(@DiemTrungBinh, 0);
 END;
 GO
-CREATE FUNCTION dbo.fn_TongLuotMuaPhimTheoNgay (@MaPhim INT)
+CREATE OR ALTER FUNCTION dbo.fn_TongLuotMuaPhimTheoNgay (@MaPhim INT)
 RETURNS INT
 AS
 BEGIN
@@ -72,7 +73,7 @@ BEGIN
     RETURN @TongLuotMua;
 END;
 GO
-CREATE FUNCTION dbo.fn_TongLuotMuaPhimTheoTuan (@MaPhim INT)
+CREATE OR ALTER FUNCTION dbo.fn_TongLuotMuaPhimTheoTuan (@MaPhim INT)
 RETURNS INT
 AS
 BEGIN
@@ -94,7 +95,7 @@ BEGIN
 END;
 
 GO
-CREATE FUNCTION dbo.fn_TongLuotMuaPhimTheoThang (@MaPhim INT)
+CREATE OR ALTER FUNCTION dbo.fn_TongLuotMuaPhimTheoThang (@MaPhim INT)
 RETURNS INT
 AS
 BEGIN
@@ -115,7 +116,7 @@ BEGIN
     RETURN @TongLuotMua;
 END;
 GO
-CREATE FUNCTION dbo.fn_TongLuotDanhGiaPhimTheoNgay (@MaPhim INT)
+CREATE OR ALTER FUNCTION dbo.fn_TongLuotDanhGiaPhimTheoNgay (@MaPhim INT)
 RETURNS INT
 AS
 BEGIN
@@ -131,7 +132,7 @@ BEGIN
     RETURN @TongLuotDanhGia;
 END;
 GO
-CREATE FUNCTION dbo.fn_TongLuotDanhGiaPhimTheoTuan (@MaPhim INT)
+CREATE OR ALTER FUNCTION dbo.fn_TongLuotDanhGiaPhimTheoTuan (@MaPhim INT)
 RETURNS INT
 AS
 BEGIN
@@ -148,7 +149,7 @@ BEGIN
     RETURN @TongLuotDanhGia;
 END;
 GO
-CREATE FUNCTION dbo.fn_TongLuotDanhGiaPhimTheoThang (@MaPhim INT)
+CREATE OR ALTER FUNCTION dbo.fn_TongLuotDanhGiaPhimTheoThang (@MaPhim INT)
 RETURNS INT
 AS
 BEGIN
@@ -165,7 +166,7 @@ BEGIN
     RETURN @TongLuotDanhGia;
 END;
 GO
-CREATE FUNCTION dbo.fn_TongLuotDanhGiaRapChieuCon (@MaRapChieuCon INT)
+CREATE OR ALTER FUNCTION dbo.fn_TongLuotDanhGiaRapChieuCon (@MaRapChieuCon INT)
 RETURNS INT
 AS
 BEGIN
@@ -179,7 +180,7 @@ BEGIN
     RETURN @TongLuotDanhGia;
 END;
 GO
-CREATE FUNCTION dbo.fn_TongLuotDanhGiaRapChieuCha (@MaRapChieu INT)
+CREATE OR ALTER FUNCTION dbo.fn_TongLuotDanhGiaRapChieuCha (@MaRapChieu INT)
 RETURNS INT
 AS
 BEGIN
@@ -211,7 +212,7 @@ END;
 GO
 select  dbo.fn_TongLuotDanhGiaRapChieuCha(1) AS TongLuotDanhGiaPhim;
 GO
-CREATE FUNCTION dbo.fn_DiemDanhGiaTrungBinhRapChieuCon (@MaRapChieuCon INT)
+CREATE OR ALTER FUNCTION dbo.fn_DiemDanhGiaTrungBinhRapChieuCon (@MaRapChieuCon INT)
 RETURNS FLOAT
 AS
 BEGIN
@@ -231,7 +232,7 @@ BEGIN
     RETURN @DiemTrungBinh;
 END;
 GO
-CREATE FUNCTION dbo.fn_DiemDanhGiaTrungBinhRapChieuCha (@MaRapChieu INT)
+CREATE OR ALTER FUNCTION dbo.fn_DiemDanhGiaTrungBinhRapChieuCha (@MaRapChieu INT)
 RETURNS FLOAT
 AS
 BEGIN
@@ -254,7 +255,7 @@ BEGIN
     RETURN @DiemTrungBinh;
 END;
 GO
-CREATE FUNCTION dbo.fn_TongSoDiaDiemRapChieuCha (@MaRapChieu INT)
+CREATE OR ALTER FUNCTION dbo.fn_TongSoDiaDiemRapChieuCha (@MaRapChieu INT)
 RETURNS INT
 AS
 BEGIN
@@ -268,7 +269,7 @@ BEGIN
     RETURN @TongDiaDiem;
 END;
 GO
-CREATE FUNCTION fn_GetMinMaRapChieu()
+CREATE OR ALTER FUNCTION fn_GetMinMaRapChieu()
 RETURNS INT
 AS
 BEGIN
@@ -280,7 +281,7 @@ BEGIN
     RETURN @MinMaRapChieu;
 END;
 GO
-CREATE FUNCTION fn_GetMinMaRapChieuCon
+CREATE OR ALTER FUNCTION fn_GetMinMaRapChieuCon
 (
     @MaRapChieu INT,
     @MaTinhThanh INT
@@ -299,7 +300,7 @@ BEGIN
     RETURN @MinMaRapChieuCon;
 END;
 GO
-CREATE FUNCTION dbo.fn_TongLuotMuaPhim (@MaPhim INT)
+CREATE OR ALTER FUNCTION dbo.fn_TongLuotMuaPhim (@MaPhim INT)
 RETURNS INT
 AS
 BEGIN
@@ -316,7 +317,7 @@ BEGIN
     RETURN @TongLuotMua;
 END;
 GO
-CREATE FUNCTION dbo.fn_DiemDanhGiaPhimTrungBinh (@MaPhim INT)
+CREATE OR ALTER FUNCTION dbo.fn_DiemDanhGiaPhimTrungBinh (@MaPhim INT)
 RETURNS FLOAT
 AS
 BEGIN
@@ -331,7 +332,7 @@ BEGIN
     RETURN @DiemTrungBinh;
 END;
 GO
-CREATE FUNCTION dbo.fn_TongLuotDanhGiaPhim (@MaPhim INT)
+CREATE OR ALTER FUNCTION dbo.fn_TongLuotDanhGiaPhim (@MaPhim INT)
 RETURNS INT
 AS
 BEGIN
@@ -346,7 +347,7 @@ BEGIN
     RETURN @TongLuotDanhGia;
 END;
 GO
-CREATE FUNCTION dbo.fn_DiemDanhGiaTrungBinhTheoNgayChieuRapChieuCon (
+CREATE OR ALTER FUNCTION dbo.fn_DiemDanhGiaTrungBinhTheoNgayChieuRapChieuCon (
     @MaPhim INT,
     @NgayChieu VARCHAR(10),
     @MaRapChieuCon INT
@@ -371,7 +372,7 @@ BEGIN
     RETURN @DiemTrungBinh;
 END;
 GO
-CREATE FUNCTION dbo.fn_TongLuotDanhGiaPhimTheoNgayChieuRapChieuCon (
+CREATE OR ALTER FUNCTION dbo.fn_TongLuotDanhGiaPhimTheoNgayChieuRapChieuCon (
     @MaPhim INT,
     @NgayChieu VARCHAR(10),
     @MaRapChieuCon INT
@@ -397,7 +398,7 @@ BEGIN
     RETURN @TongLuotDanhGia;
 END;
 GO
-CREATE FUNCTION dbo.fn_TongLuotMuaPhimTheoNgayRapChieuCon (
+CREATE OR ALTER FUNCTION dbo.fn_TongLuotMuaPhimTheoNgayRapChieuCon (
     @MaPhim INT,
     @NgayChieu VARCHAR(10),
 	@MaRapChieuCon INT
@@ -426,7 +427,7 @@ GO
 
 --END--
 -- Function tính tổng số lượng VoucherDoiTac
-CREATE FUNCTION dbo.fn_TongSoLuongVoucherDoiTac()
+CREATE OR ALTER FUNCTION dbo.fn_TongSoLuongVoucherDoiTac()
 RETURNS INT
 AS
 BEGIN
@@ -443,7 +444,7 @@ END;
 GO
 
 -- Function tính tổng số lượng VoucherCuaToi
-CREATE FUNCTION dbo.fn_TongSoLuongVoucherCuaToi()
+CREATE OR ALTER FUNCTION dbo.fn_TongSoLuongVoucherCuaToi()
 RETURNS INT
 AS
 BEGIN
@@ -460,7 +461,7 @@ END;
 GO
 
 -- Function tính tổng số lượng VoucherUngDung
-CREATE FUNCTION dbo.fn_TongSoLuongVoucherUngDung()
+CREATE OR ALTER FUNCTION dbo.fn_TongSoLuongVoucherUngDung()
 RETURNS INT
 AS
 BEGIN
@@ -476,7 +477,7 @@ BEGIN
 END;
 GO
 
-CREATE FUNCTION dbo.fn_PhanTramSuDung (@SoLuongToiDa INT)
+CREATE OR ALTER FUNCTION dbo.fn_PhanTramSuDung (@SoLuongToiDa INT)
 RETURNS INT
 AS
 BEGIN
@@ -489,7 +490,7 @@ BEGIN
     RETURN @PhanTramSuDung;
 END;
 GO
-CREATE FUNCTION dbo.fn_TongTienThanhToan (
+CREATE OR ALTER FUNCTION dbo.fn_TongTienThanhToan (
     @MaKhachHang INT
 )
 RETURNS FLOAT
@@ -507,7 +508,7 @@ BEGIN
     RETURN ISNULL(@TongTien, 0);  -- Trả về 0 nếu không có thanh toán nào
 END;
 GO
-CREATE FUNCTION fn_LayMaThoiGianChieu_HienTai()
+CREATE OR ALTER FUNCTION fn_LayMaThoiGianChieu_HienTai()
 RETURNS INT
 AS
 BEGIN
