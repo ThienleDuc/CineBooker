@@ -7,15 +7,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
+        android:padding="20dp"
+
         tools:context=".PhanCongQuoc.activity.xuat_ve">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="35dp"
-            android:gravity="center"
+            android:paddingBottom="10dp"
+            android:layout_marginTop="20dp"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <ImageView
@@ -37,7 +37,9 @@
 
 
         </LinearLayout>
-
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="20dp"/>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/xuatve_recycle_view"
             android:layout_width="match_parent"

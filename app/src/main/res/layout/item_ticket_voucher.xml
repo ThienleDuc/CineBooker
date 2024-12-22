@@ -44,7 +44,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="TEAM 17"
-                    android:textSize="20sp"
+                    android:textSize="15sp"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="10dp"
                     android:textColor="@color/pink" />
@@ -59,7 +59,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Đã dùng:"
-                android:textSize="15sp"
+                android:textSize="10sp"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="20dp"
                 android:textColor="@color/red" />
@@ -69,6 +69,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0%"
+                android:textSize="10sp"
                 android:textColor="@color/red"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="5dp" />
@@ -83,12 +84,14 @@
                 android:id="@+id/mucgiam_voucher"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="10sp"
                 android:text="Giảm 10% giảm tối đa  20K"
                 android:textColor="@color/black"/>
             <TextView
                 android:id="@+id/gioihangiam_voucher"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="10sp"
                 android:text="Đơn tối thiểu 80k"
                 android:textColor="@color/black"/>
 
