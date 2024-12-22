@@ -1,11 +1,11 @@
 ﻿use dbQuanLyXemPhim
 go
 -- Thêm vào KhachHang
-INSERT INTO KhachHang (Email, MatKhau, AnhKhachHang, TenKhachHang)
+INSERT INTO KhachHang (Email, MatKhau, AnhKhachHang, TenKhachHang, LopHocPhan, MaSinhVien)
 VALUES
-('leducthien@example.com', 'password1', 'anhkhachhang1', N'Lê Đức Thiện'),
-('phancongquoc@example.com', 'password2', 'anhkhachhang2', N'Phan Công Quốc'),
-('trangiathai@example.com', 'password3', 'anhkhachhang3', N'Trần Gia Thái');
+('leducthien@example.com', 'password1', 'anhkhachhang1', N'Lê Đức Thiện', '124LTTD04', '22115053122138'),
+('phancongquoc@example.com', 'password2', 'anhkhachhang2', N'Phan Công Quốc', '124LTTD04', '22115053122134'),
+('trangiathai@example.com', 'password3', 'anhkhachhang3', N'Trần Gia Thái', '124LTTD04', '22115141122120');
 GO
 -- Thêm vào bang CapBacChiTieu
 INSERT INTO CapBacChiTieu (AnhCapBac, TenCapBac, HanMucChiTieu) 
@@ -509,6 +509,40 @@ INSERT INTO ThoiGianChieu (KieuNgay, NgayChieu) VALUES
 (N'Thứ 7', '2024-12-29'),
 (N'C.Nhật', '2024-12-30'),
 (N'Thứ 2', '2024-12-31');
+GO
+-- Thêm chi tiết lịch chiếu với MaLichChieu từ 1 đến 100
+INSERT INTO ChiTietLichChieu (MaLichChieu, MaThoiGianChieu, ThoiGianBatDau, ThoiGianKetThuc)
+VALUES
+(1, 7, '10:00', '12:00'),
+(2, 7, '11:00', '13:00'),
+(3, 7, '12:00', '14:00'),
+(4, 7, '13:00', '15:00'),
+(5, 7, '14:00', '16:00'),
+(6, 7, '15:00', '17:00'),
+(7, 7, '16:00', '18:00'),
+(8, 7, '17:00', '19:00'),
+(9, 7, '18:00', '20:00'),
+(10, 7, '19:00', '21:00'),
+(1, 7, '10:00', '12:00'),
+(2, 7, '11:00', '13:00'),
+(3, 7, '12:00', '14:00'),
+(4, 7, '13:00', '15:00'),
+(5, 7, '14:00', '16:00'),
+(6, 7, '15:00', '17:00'),
+(7, 7, '16:00', '18:00'),
+(8, 7, '17:00', '19:00'),
+(9, 7, '18:00', '20:00'),
+(10, 7, '19:00', '21:00'),
+(1, 7, '7:00', '12:00'),
+(2, 7, '11:00', '13:00'),
+(3, 7, '12:00', '14:00'),
+(4, 7, '13:00', '15:00'),
+(5, 7, '14:00', '16:00'),
+(6, 7, '15:00', '17:00'),
+(7, 7, '16:00', '18:00'),
+(8, 7, '17:00', '19:00'),
+(9, 7, '18:00', '20:00'),
+(10, 7, '19:00', '21:00');
 GO
 -- Thêm chi tiết lịch chiếu với MaLichChieu từ 1 đến 100
 INSERT INTO ChiTietLichChieu (MaLichChieu, MaThoiGianChieu, ThoiGianBatDau, ThoiGianKetThuc)
