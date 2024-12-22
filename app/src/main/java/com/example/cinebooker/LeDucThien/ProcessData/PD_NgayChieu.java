@@ -124,26 +124,27 @@ public class PD_NgayChieu {
     }
 
     public void loadNgayChieuToRecyclerView(Context context, RecyclerView recyclerView, List<ent_NgayChieu> list, LichChieuAdapter adapter) {
-        // Log danh sách dữ liệu nhận được
-        if (list == null || list.isEmpty()) {
-            Log.w(TAG, "Danh sách ngày chiếu rỗng hoặc null.");
-        } else {
-            for (ent_NgayChieu ngayChieu : list) {
-                Log.d(TAG, "Dữ liệu ngày chiếu: " + ngayChieu.toString());
-            }
-        }
-
-        // Thiết lập LayoutManager nếu chưa có
         if (recyclerView.getLayoutManager() == null) {
             LinearLayoutManager layoutManager = new LinearLayoutManager(context);
             layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
             recyclerView.setLayoutManager(layoutManager);
         }
 
-        int spacingInPixels = context.getResources().getDimensionPixelSize(R.dimen.recycler_view_spacing_5);
-        recyclerView.addItemDecoration(new HorizontalSpaceItemDecoration(spacingInPixels));
+        // Kiểm tra và thêm ItemDecoration nếu chưa được thêm
+        boolean hasItemDecoration = false;
+        for (int i = 0; i < recyclerView.getItemDecorationCount(); i++) {
+            if (recyclerView.getItemDecorationAt(i) instanceof HorizontalSpaceItemDecoration) {
+                hasItemDecoration = true;
+                break;
+            }
+        }
 
-        // Thiết lập Adapter và dữ liệu
+        if (!hasItemDecoration) {
+            int spacingInPixels = context.getResources().getDimensionPixelSize(R.dimen.recycler_view_spacing_5);
+            recyclerView.addItemDecoration(new HorizontalSpaceItemDecoration(spacingInPixels));
+        }
+
+        // Thiết lập Adapter và dữ liệu nếu chưa có adapter
         if (recyclerView.getAdapter() == null) {
             recyclerView.setAdapter(adapter);
         }

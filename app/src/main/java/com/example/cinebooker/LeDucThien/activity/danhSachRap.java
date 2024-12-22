@@ -1,6 +1,5 @@
 package com.example.cinebooker.LeDucThien.activity;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -19,11 +18,12 @@ import com.example.cinebooker.LeDucThien.adapter.RapChieuConAdapter;
 import com.example.cinebooker.R;
 
 public class danhSachRap extends AppCompatActivity {
-    private int _maRapChieu = -1;
-    private int _maTinhThanh = -1;
     private EditText editText;
     private TextWatcher textWatcher;
     private String previousSearch = "";
+    private RapChieuConAdapter rapChieuConAdapter;
+    private RecyclerView recyclerView1;
+    private BL_RapChieuCon blRapChieuCon;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,29 +42,20 @@ public class danhSachRap extends AppCompatActivity {
         // Hiển thị danh sách các rạp chiếu
         RecyclerView recyclerView = findViewById(R.id.danhsachrap_recycle_view);
         BL_RapChieu blRapChieu = new BL_RapChieu();
-        RapChieuAdapter adapter = new RapChieuAdapter();
+        RapChieuAdapter adapter = new RapChieuAdapter(this);
         blRapChieu.loadRapChieuToRecyclerView(this, recyclerView, adapter);
     }
 
     private void danhSachDiaChiRap() {
         // Hiển thị danh sách địa chỉ rạp chiếu
-        RecyclerView recyclerView = findViewById(R.id.diachirap_recyclerview);
-        BL_RapChieuCon blRapChieuCon = new BL_RapChieuCon();
-        BL_RapChieu blRapChieu = new BL_RapChieu();
+        recyclerView1 = findViewById(R.id.diachirap_recyclerview);
+        blRapChieuCon = new BL_RapChieuCon();
+        rapChieuConAdapter = new RapChieuConAdapter(this);
 
-        SharedPreferences sharedPreferences = getSharedPreferences("LeDucThien", MODE_PRIVATE);
-        _maRapChieu = sharedPreferences.getInt("maRapChieu", -1);
-        if (_maRapChieu == -1 ) {
-            _maRapChieu = blRapChieu.loadMinMaRapChieu();
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putInt("maRapChieu", _maRapChieu);
-            editor.apply();
-        }
+        int _maRapChieu = rapChieuConAdapter.getMaRapChieu();
+        int _maTinhThanh = rapChieuConAdapter.getMaTinhThanh();
 
-        _maTinhThanh = sharedPreferences.getInt("maTinhThanh", -1);
-
-        RapChieuConAdapter adapter = new RapChieuConAdapter();
-        blRapChieuCon.loadRapChieuConToRecyclerView(this, recyclerView, _maTinhThanh,_maRapChieu, adapter);
+        blRapChieuCon.loadRapChieuConToRecyclerView(this, recyclerView1, _maTinhThanh,_maRapChieu, rapChieuConAdapter);
 
         editText = findViewById(R.id.header_search_input);
 
@@ -92,11 +83,11 @@ public class danhSachRap extends AppCompatActivity {
                         Log.d("Search", "Searching for: " + input);  // Log tìm kiếm
                         blRapChieuCon.loadRapChieuConToRecyclerViewAfterSearch(
                                 danhSachRap.this,
-                                recyclerView,
+                                recyclerView1,
                                 _maTinhThanh,
                                 _maRapChieu,
                                 input,
-                                adapter);
+                                rapChieuConAdapter);
                     } else {
                         Log.d("Search", "Clearing search input");
                     }
@@ -123,5 +114,17 @@ public class danhSachRap extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         editText.setText("");
+    }
+
+    public RapChieuConAdapter getRapChieuConAdapter() {
+        return rapChieuConAdapter;
+    }
+
+    public RecyclerView getRecyclerView1() {
+        return recyclerView1;
+    }
+
+    public BL_RapChieuCon getBlRapChieuCon() {
+        return blRapChieuCon;
     }
 }

@@ -12,87 +12,137 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.cinebooker.LeDucThien.BussinessLogic.BL_RapChieu;
+import com.example.cinebooker.LeDucThien.activity.danhSachRap;
+import com.example.cinebooker.LeDucThien.activity.home;
 import com.example.cinebooker.LeDucThien.entity.ent_RapChieu;
+import com.example.cinebooker.LeDucThien.fragment.rap_chieu;
 import com.example.cinebooker.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class RapChieuAdapter extends RecyclerView.Adapter<RapChieuAdapter.viewHolder> {
-    private List<ent_RapChieu> rapChieulist;
-    private SharedPreferences sharedPreferences;
-    private SharedPreferences.Editor editor;
+public class RapChieuAdapter extends RecyclerView.Adapter<RapChieuAdapter.ViewHolder> {
+    private List<ent_RapChieu> rapChieuList;
+    private final SharedPreferences.Editor editor;
+    private final Context context;
+    private int selectedMaRapChieu;
+
+    // Constructor
+    public RapChieuAdapter(Context context) {
+        this.context = context;
+        SharedPreferences sharedPreferences = context.getSharedPreferences("LeDucThien", Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+        BL_RapChieu blRapChieu = new BL_RapChieu();
+        selectedMaRapChieu = sharedPreferences.getInt("maRapChieu", -1);
+        if (selectedMaRapChieu == -1) {
+            selectedMaRapChieu = blRapChieu.loadMinMaRapChieu();
+            editor.putInt("maRapChieu", selectedMaRapChieu).apply();
+        }
+    }
+
+    public int getSelectedMaRapChieu() {
+        return selectedMaRapChieu;
+    }
 
     @SuppressLint("NotifyDataSetChanged")
-    public void SetData(List<ent_RapChieu> dangChieulist) {
-        this.rapChieulist = dangChieulist;
+    public void setSelectedMaRapChieu(int selectedMaRapChieu) {
+        this.selectedMaRapChieu = selectedMaRapChieu;
+        editor.putInt("maRapChieu", selectedMaRapChieu).apply();
         notifyDataSetChanged();
     }
 
-    @NonNull
-    @Override
-    public viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_thoi_gian_chieu_theo_ngay, parent, false);
-        return new viewHolder(view);
+    @SuppressLint("NotifyDataSetChanged")
+    public void setData(List<ent_RapChieu> rapChieuList) {
+        this.rapChieuList = rapChieuList;
+        notifyDataSetChanged();
     }
 
-    @SuppressLint("NotifyDataSetChanged")
+
+    @NonNull
     @Override
-    public void onBindViewHolder(@NonNull viewHolder holder, int position) {
-        ent_RapChieu rapChieu = rapChieulist.get(position);
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_thoi_gian_chieu_theo_ngay, parent, false);
+        return new ViewHolder(view);
+    }
 
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        ent_RapChieu rapChieu = rapChieuList.get(position);
+        int maRapChieuItem = rapChieu.getMaRapChieu();
+
+        // Load ảnh bằng Picasso
         String imageName = rapChieu.getAnhRapChieu();
-        Context context = holder.itemView.getContext();
         @SuppressLint("DiscouragedApi") int resourceId = context.getResources().getIdentifier(imageName, "drawable", context.getPackageName());
-
         Picasso.get()
-                .load(resourceId)  // Load resource ID
-                .placeholder(R.drawable.camposter)  // Optional: Placeholder image
+                .load(resourceId)
+                .placeholder(R.drawable.camposter)
                 .into(holder.cinemaLogo);
+
         holder.name.setText(rapChieu.getTenRapChieu());
 
-        int _maRapChieu = rapChieu.getMaRapChieu();
-
-        // Lấy giá trị maRapChieu từ SharedPreferences
-        sharedPreferences = holder.itemView.getContext().getSharedPreferences("LeDucThien", Context.MODE_PRIVATE);
-        int _maRapChieuPref = sharedPreferences.getInt("maRapChieu", -1);
-
-        // Đặt background cho item
-        if (_maRapChieuPref == _maRapChieu) {
-            holder.container_imageview.setBackgroundResource(R.drawable.strock_1_pink_radius_10_white); // Nền khi được chọn
-            holder.name.setTextColor(holder.itemView.getContext().getColor(R.color.primary_color));
-            holder.name.setTypeface(holder.name.getTypeface(), Typeface.BOLD);
+        // Highlight item được chọn
+        if (maRapChieuItem == getSelectedMaRapChieu()) {
+            holder.containerImageView.setBackgroundResource(R.drawable.strock_1_pink_radius_10_white);
+            holder.name.setTextColor(context.getColor(R.color.primary_color));
+            holder.name.setTypeface(Typeface.DEFAULT_BOLD);
         } else {
-            holder.container_imageview.setBackgroundResource(R.drawable.strock_1_darkergray_radius_10_white); // Nền khi không được chọn
-            holder.name.setTextColor(holder.itemView.getContext().getColor(android.R.color.darker_gray));
-            holder.name.setTypeface(holder.name.getTypeface(), Typeface.NORMAL);
+            holder.containerImageView.setBackgroundResource(R.drawable.strock_1_darkergray_radius_10_white);
+            holder.name.setTextColor(context.getColor(android.R.color.darker_gray));
+            holder.name.setTypeface(Typeface.DEFAULT);
         }
 
         // Xử lý sự kiện click
         holder.itemView.setOnClickListener(v -> {
-            // Lưu giá trị maRapChieu vào SharedPreferences một cách đồng bộ
-            editor = sharedPreferences.edit();
-            editor.putInt("maRapChieu", rapChieu.getMaRapChieu()); // Lưu giá trị maRapChieu
-            editor.apply();
-            notifyDataSetChanged();
+            if (maRapChieuItem != getSelectedMaRapChieu()) {
+                setSelectedMaRapChieu(maRapChieuItem);
+            }
+
+            if (context instanceof danhSachRap) {
+                int maTinhThanh = ((danhSachRap) context).getRapChieuConAdapter().getMaTinhThanh();
+                int maRapChieu = getSelectedMaRapChieu();
+                RecyclerView recyclerView = ((danhSachRap) context).getRecyclerView1();
+                ((danhSachRap) context).getBlRapChieuCon().loadRapChieuConToRecyclerView(context, recyclerView,
+                        maTinhThanh, maRapChieu, ((danhSachRap) context).getRapChieuConAdapter());
+            }
+
+            if (context instanceof home) {
+
+                FragmentManager fragmentManager = ((home) context).getSupportFragmentManager();
+
+                rap_chieu fragment = (rap_chieu) fragmentManager.findFragmentByTag(rap_chieu.class.getSimpleName());
+
+                if (fragment != null) {
+                    int maTinhThanh = fragment.getDiaChiRapChieuAdapter().getMaTinhThanh();
+                    int maRapChieu = getSelectedMaRapChieu();
+
+                    RecyclerView recyclerView = fragment.getRcRecyclerView();
+                    fragment.getBlRapChieuCon().
+                            loadDiaChiRapChieuConToRecyclerView(context, recyclerView, maTinhThanh,
+                                    maRapChieu, fragment.getDiaChiRapChieuAdapter());
+                }
+            }
         });
     }
 
     @Override
     public int getItemCount() {
-        return rapChieulist.size();
+        return rapChieuList != null ? rapChieuList.size() : 0;
     }
 
-    public static class viewHolder extends RecyclerView.ViewHolder {
-        LinearLayout container_imageview;
+    // ViewHolder
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        LinearLayout containerImageView;
         ImageView cinemaLogo;
         TextView name;
-        public viewHolder(@NonNull View itemView) {
-            super(itemView);
 
-            container_imageview = itemView.findViewById(R.id.container_imageview);
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            containerImageView = itemView.findViewById(R.id.container_imageview);
             cinemaLogo = itemView.findViewById(R.id.cinema_logo);
             name = itemView.findViewById(R.id.cinema_name);
         }

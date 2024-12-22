@@ -167,7 +167,8 @@ CREATE TABLE VoucherDoiTac (
     MucGiam INT NOT NULL,
     HanSuDung DATETIME2 NOT NULL,
     TrangThaiSuDung NVARCHAR(50),
-	SoLuongToiDa int
+	SoLuongToiDa int,
+	SoLuongSuDung INT
 );
 
 -- Bảng VoucherCuaToi
@@ -180,7 +181,8 @@ CREATE TABLE VoucherCuaToi (
     MucGiam INT NOT NULL,
     HanSuDung DATETIME2 NOT NULL,
     TrangThaiSuDung NVARCHAR(50),
-	SoLuongToiDa int
+	SoLuongToiDa int,
+	SoLuongSuDung INT
 );
 
 -- Bảng VoucherUngDung
@@ -193,7 +195,8 @@ CREATE TABLE VoucherUngDung (
     MucGiam INT NOT NULL,
     HanSuDung DATETIME2 NOT NULL,
     TrangThaiSuDung NVARCHAR(50),
-	SoLuongToiDa int
+	SoLuongToiDa int,
+	SoLuongSuDung INT
 );
 -- Bảng DoiTuongApDung
 CREATE TABLE DoiTuongApDung (
@@ -332,6 +335,3 @@ ADD CONSTRAINT UQ_VoucherDoiTac_TenVoucher UNIQUE (TenVoucher);
 ALTER TABLE VoucherUngDung
 ADD CONSTRAINT FK_VoucherUngDung_DoiTuongApDung
 FOREIGN KEY (MaDoiTuongApDung) REFERENCES DoiTuongApDung(MaDoiTuongApDung);
-
-ALTER TABLE VoucherUngDung
-ADD CONSTRAINT UQ_VoucherUngDung_TenVoucher UNIQUE (TenVoucher);

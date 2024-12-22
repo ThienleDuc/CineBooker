@@ -12,10 +12,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cinebooker.LeDucThien.BussinessLogic.BL_ThoiGianChieu;
+import com.example.cinebooker.LeDucThien.activity.home;
 import com.example.cinebooker.LeDucThien.entity.ent_XepHang;
+import com.example.cinebooker.LeDucThien.fragment.kham_pha;
+import com.example.cinebooker.LeDucThien.fragment.lich_chieu;
 import com.example.cinebooker.R;
 import com.example.cinebooker.TranGiaThai.Activity.XemChiTietPhim;
 import com.example.cinebooker.generalMethod.NumberFormatter;
@@ -26,22 +30,24 @@ import java.util.List;
 public class PhimTheoLichChieuAdapter extends RecyclerView.Adapter<PhimTheoLichChieuAdapter.viewHolder> {
 
     private List<ent_XepHang> dangChieulist;
-    private Context context;
-    private SharedPreferences sharedPreferences;
-    private BL_ThoiGianChieu blThoiGianChieu;
-    private ThoiGianChieuAdapter thoiGianChieuAdapter;
+    private final Context context;
+    private final SharedPreferences sharedPreferences;
+    private final BL_ThoiGianChieu blThoiGianChieu;
+    private final ThoiGianChieuAdapter thoiGianChieuAdapter;
     private int maPhim;
-    private int maRapChieuCon;
-    private int maThoigianChieu;
+    private final int maRapChieuCon;
+    private final int maThoigianChieu;
 
     @SuppressLint("NotifyDataSetChanged")
     public PhimTheoLichChieuAdapter(Context context) {
         this.context = context;
-        this.sharedPreferences = context.getSharedPreferences("LeDucThien", Context.MODE_PRIVATE);
+        sharedPreferences = context.getSharedPreferences("LeDucThien", Context.MODE_PRIVATE);
+        RapChieuConAdapter rapChieuConAdapter = new RapChieuConAdapter(context);
+        thoiGianChieuAdapter = new ThoiGianChieuAdapter();
+        LichChieuAdapter lichChieuAdapter = new LichChieuAdapter(context);
         blThoiGianChieu = new BL_ThoiGianChieu();
-        thoiGianChieuAdapter = new ThoiGianChieuAdapter(context);
-        maRapChieuCon = sharedPreferences.getInt("maRapChieuCon", -1);
-        maThoigianChieu = sharedPreferences.getInt("maThoiGianChieu", -1);
+        maRapChieuCon = rapChieuConAdapter.get_maRapChieuConPref();
+        maThoigianChieu = lichChieuAdapter.getSelectedMaThoiGianChieu();
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -53,6 +59,21 @@ public class PhimTheoLichChieuAdapter extends RecyclerView.Adapter<PhimTheoLichC
     public int getMaPhim() {
         Log.d("maPhim", String.valueOf(maPhim));
         return maPhim;
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void setMaPhim(int maPhim) {
+        this.maPhim = maPhim;
+        sharedPreferences.edit().putInt("maPhim", maPhim).apply();
+        notifyDataSetChanged();
+    }
+
+    public int getMaRapChieuCon() {
+        return maRapChieuCon;
+    }
+
+    public int getMaThoigianChieu() {
+        return maThoigianChieu;
     }
 
     @NonNull
@@ -69,7 +90,6 @@ public class PhimTheoLichChieuAdapter extends RecyclerView.Adapter<PhimTheoLichC
         // Load ảnh phim từ URL hoặc tài nguyên
         maPhim = controller.getMaPhim();
         String imageName = controller.getAnhPhim();
-        Context context = holder.itemView.getContext();
         @SuppressLint("DiscouragedApi") int resourceId = context.getResources().getIdentifier(imageName, "drawable", context.getPackageName());
 
         Picasso.get()
@@ -91,11 +111,42 @@ public class PhimTheoLichChieuAdapter extends RecyclerView.Adapter<PhimTheoLichC
 
         holder.itemView.setOnClickListener(view -> {
             // Lưu maPhim vào SharedPreferences
-            sharedPreferences.edit().putInt("maPhim", controller.getMaPhim()).apply();
-            notifyDataSetChanged();
+            if (maPhim != getMaPhim()) {
+                setMaPhim(controller.getMaPhim());
+
+                if (context instanceof home) {
+
+                    FragmentManager fragmentManager = ((home) context).getSupportFragmentManager();
+
+                    kham_pha fragment = (kham_pha) fragmentManager.findFragmentByTag(kham_pha.class.getSimpleName());
+                    lich_chieu fragment1 = (lich_chieu) fragmentManager.findFragmentByTag(lich_chieu.class.getSimpleName());
+
+                    if (fragment != null) {
+                        int _maRapChieuCon = fragment.getPhimTheoLichChieuAdapter().getMaRapChieuCon();
+
+                        RecyclerView recyclerView = fragment.getRecyclerView1();
+                        fragment.getBlPhimTheoLichChieu().
+                                loadPhimTheoLichChieuToRecyclerView(context, recyclerView,
+                                        fragment.getPhimTheoLichChieuAdapter(), _maRapChieuCon, getMaThoigianChieu());
+                    }
+
+                    if (fragment1 != null) {
+                        int _maRapChieuCon = fragment1.getPhimTheoLichChieuAdapter().getMaRapChieuCon();
+
+                        RecyclerView recyclerView = fragment1.getRecyclerView1();
+                        fragment1.getBlPhimTheoLichChieu().
+                                loadPhimTheoLichChieuToRecyclerView(context, recyclerView,
+                                        fragment1.getPhimTheoLichChieuAdapter(), _maRapChieuCon, getMaThoigianChieu());
+                    }
+                }
+            }
+
+
+
             // Chuyển sang Activity XemChiTietPhim
             Intent intent = new Intent(context, XemChiTietPhim.class);
             context.startActivity(intent);
+
         });
     }
 

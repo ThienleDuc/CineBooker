@@ -13,7 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-
+import com.example.cinebooker.LeDucThien.BussinessLogic.BL_TinhThanh;
 import com.example.cinebooker.LeDucThien.activity.DanhSachDiaDiemRap;
 import com.example.cinebooker.LeDucThien.entity.ent_TinhThanh;
 import com.example.cinebooker.R;
@@ -24,15 +24,30 @@ public class TinhThanhAdapter extends RecyclerView.Adapter<TinhThanhAdapter.View
     private List<ent_TinhThanh> listTinhThanh;
     private final SharedPreferences.Editor editor;
     private final Context context;
-    private int selectedMaTinhThanh;
+    private int selectedMaTinhThanh; // Lưu lại mã tỉnh thành được chọn
 
     // Constructor
-    @SuppressLint("NotifyDataSetChanged")
     public TinhThanhAdapter(Context context) {
         this.context = context;
         SharedPreferences sharedPreferences = context.getSharedPreferences("LeDucThien", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
+        BL_TinhThanh blTinhThanh = new BL_TinhThanh();
         selectedMaTinhThanh = sharedPreferences.getInt("maTinhThanh", -1);
+        if (selectedMaTinhThanh == -1) {
+            selectedMaTinhThanh = blTinhThanh.loadMinMaTinhThanh();
+            editor.putInt("maTinhThanh", selectedMaTinhThanh).apply();
+        }
+    }
+
+    public int getSelectedMaTinhThanh() {
+        return selectedMaTinhThanh;
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void setSelectedMaTinhThanh(int selectedMaTinhThanh) {
+        this.selectedMaTinhThanh = selectedMaTinhThanh;
+        editor.putInt("maTinhThanh", selectedMaTinhThanh).apply();
+        notifyDataSetChanged();
     }
 
     // Set dữ liệu cho Adapter
@@ -50,7 +65,6 @@ public class TinhThanhAdapter extends RecyclerView.Adapter<TinhThanhAdapter.View
         return new ViewHolder(view);
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ent_TinhThanh tinhThanh = listTinhThanh.get(position);
@@ -60,7 +74,7 @@ public class TinhThanhAdapter extends RecyclerView.Adapter<TinhThanhAdapter.View
         holder.tenTinhThanh.setText(tinhThanh.getTenTinhThanh());
 
         // Highlight item được chọn
-        if (maTinhThanhItem == selectedMaTinhThanh) {
+        if (maTinhThanhItem == getSelectedMaTinhThanh()) {
             holder.container_imageview.setBackgroundResource(R.drawable.strock_1_pink_radius_10_transparent);
             holder.tenTinhThanh.setTextColor(context.getColor(R.color.primary_color));
             holder.tenTinhThanh.setTypeface(Typeface.DEFAULT_BOLD);
@@ -72,13 +86,13 @@ public class TinhThanhAdapter extends RecyclerView.Adapter<TinhThanhAdapter.View
 
         // Xử lý sự kiện click
         holder.itemView.setOnClickListener(v -> {
-            editor.putInt("maTinhThanh", tinhThanh.getMaTinhThanh());
-            editor.apply();
-            notifyDataSetChanged(); // Refresh danh sách
+            if (maTinhThanhItem != getSelectedMaTinhThanh()) {
+                setSelectedMaTinhThanh(maTinhThanhItem); // Cập nhật mã tỉnh thành được chọn
 
-            // Đóng Activity nếu cần
-            if (context instanceof DanhSachDiaDiemRap) {
-                ((DanhSachDiaDiemRap) context).dongActivity();
+                // Đóng Activity nếu cần
+                if (context instanceof DanhSachDiaDiemRap) {
+                    ((DanhSachDiaDiemRap) context).dongActivity();
+                }
             }
         });
     }

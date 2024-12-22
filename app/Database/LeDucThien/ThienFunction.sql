@@ -498,7 +498,7 @@ BEGIN
     DECLARE @TongTien FLOAT;
 
     -- Tính tổng tiền thanh toán của khách hàng
-    SELECT @TongTien = SUM(TT.TongTien)s
+    SELECT @TongTien = SUM(TT.TongTien)
     FROM ThanhToan TT
     INNER JOIN VePhim VP ON TT.MaVe = VP.MaVe
     WHERE VP.MaKhachHang = @MaKhachHang;
@@ -521,6 +521,4 @@ BEGIN
     -- Trả về MaThoiGianChieu nếu có, nếu không trả về NULL
     RETURN @MaThoiGianChieu;
 END;
-
-SELECT dbo.fn_LayMaThoiGianChieu_HienTai();
 GO

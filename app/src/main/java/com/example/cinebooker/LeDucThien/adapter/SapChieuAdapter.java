@@ -57,7 +57,7 @@ public class SapChieuAdapter extends RecyclerView.Adapter<SapChieuAdapter.viewHo
                 .into(holder.moviePoster);
 
         // Set age (check null or invalid data)
-        holder.age.setText(String.valueOf(dangChieu.getTuoi()) + "+");
+        holder.age.setText(dangChieu.getTuoi() + "+");
 
         // Set movie name
         holder.movieName.setText(dangChieu.getTenPhim() != null ? dangChieu.getTenPhim() : "Chưa cập nhật");

@@ -1,6 +1,5 @@
 package com.example.cinebooker.LeDucThien.fragment;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -21,10 +20,13 @@ import android.widget.TextView;
 import com.example.cinebooker.LeDucThien.BussinessLogic.BL_DoiTac;
 import com.example.cinebooker.LeDucThien.BussinessLogic.BL_RapChieu;
 import com.example.cinebooker.LeDucThien.BussinessLogic.BL_RapChieuCon;
+import com.example.cinebooker.LeDucThien.BussinessLogic.BL_TinhThanh;
 import com.example.cinebooker.LeDucThien.activity.DanhSachDiaDiemRap;
 import com.example.cinebooker.LeDucThien.adapter.DiaChiRapChieuAdapter;
 import com.example.cinebooker.LeDucThien.adapter.DoiTacAdapter;
 import com.example.cinebooker.LeDucThien.adapter.RapChieuAdapter;
+import com.example.cinebooker.LeDucThien.adapter.RapChieuConAdapter;
+import com.example.cinebooker.LeDucThien.adapter.TinhThanhAdapter;
 import com.example.cinebooker.R;
 import com.example.cinebooker.generalMethod.ActivityOpen;
 
@@ -45,14 +47,26 @@ public class rap_chieu extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private int _maTinhThanh;
-    private int _maRapChieu;
     private SharedPreferences.Editor editor;
     String previousSearch = " ";
     private EditText editText;
-
+    private BL_RapChieuCon blRapChieuCon;
+    private RecyclerView rcRecyclerView;
+    private DiaChiRapChieuAdapter diaChiRapChieuAdapter;
     public rap_chieu() {
         // Required empty public constructor
+    }
+
+    public DiaChiRapChieuAdapter getDiaChiRapChieuAdapter() {
+        return diaChiRapChieuAdapter;
+    }
+
+    public RecyclerView getRcRecyclerView() {
+        return rcRecyclerView;
+    }
+
+    public BL_RapChieuCon getBlRapChieuCon() {
+        return blRapChieuCon;
     }
 
     /**
@@ -98,11 +112,17 @@ public class rap_chieu extends Fragment {
     public void onResume() {
         super.onResume();
         editText.setText("");
+        controllerLichChieu(requireView());
+        danhSachDiaChiRap(requireView());
     }
 
     public void controllerLichChieu(View view) {
+        BL_TinhThanh blTinhThanh = new BL_TinhThanh();
         TextView TenTinhThanh = view.findViewById(R.id.ten_tinh_thanh);
+        TinhThanhAdapter tinhThanhAdapter = new TinhThanhAdapter(requireContext());
+        int _maTinhThanh = tinhThanhAdapter.getSelectedMaTinhThanh();
 
+        blTinhThanh.loadTenTinhThanhTheoDieuKien(requireContext(), TenTinhThanh, _maTinhThanh);
         // Khởi tạo TabLayout cho location
         LinearLayout danhsachtinhthanh_open = view.findViewById(R.id.open_list_tinh_thanh);
         LinearLayout ganday_search = view.findViewById(R.id.search_gan_ban);
@@ -146,31 +166,19 @@ public class rap_chieu extends Fragment {
     private void danhSachRap (View view) {
         RecyclerView recyclerView = view.findViewById(R.id.danhsachrap_recycle_view);
         BL_RapChieu blRapChieu = new BL_RapChieu();
-        RapChieuAdapter adapter = new RapChieuAdapter();
+        RapChieuAdapter adapter = new RapChieuAdapter(requireContext());
         blRapChieu.loadRapChieuToRecyclerView(requireContext(), recyclerView, adapter);
     }
 
     private void danhSachDiaChiRap(View view) {
-        RecyclerView recyclerView = view.findViewById(R.id.diachirap_recyclerview);
-        BL_RapChieuCon blRapChieuCon = new BL_RapChieuCon();
-        BL_RapChieu blRapChieu = new BL_RapChieu();
-
-        // Lấy SharedPreferences để lấy giá trị maRapChieu, maTinhThanh
-        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("LeDucThien", Context.MODE_PRIVATE);
-
-        // Lấy giá trị maRapChieu từ SharedPreferences, nếu không có, lấy maRapChieu nhỏ nhất từ BL_RapChieu
-        _maRapChieu = sharedPreferences.getInt("maRapChieu", -1);
-        if (_maRapChieu == -1) {
-            _maRapChieu = blRapChieu.loadMinMaRapChieu();
-            blRapChieu.updateSharedPreferences(requireContext(), _maRapChieu);
-        }
-
-        // Lấy giá trị maTinhThanh từ SharedPreferences
-        _maTinhThanh = sharedPreferences.getInt("maTinhThanh", -1);
+        rcRecyclerView = view.findViewById(R.id.diachirap_recyclerview);
+        blRapChieuCon = new BL_RapChieuCon();
 
         // Tạo adapter và gọi BL_RapChieuCon để load dữ liệu vào RecyclerView
-        DiaChiRapChieuAdapter adapter = new DiaChiRapChieuAdapter();
-        blRapChieuCon.loadDiaChiRapChieuConToRecyclerView(requireContext(), recyclerView, _maTinhThanh, _maRapChieu, adapter);
+        diaChiRapChieuAdapter = new DiaChiRapChieuAdapter(requireContext());
+        int _maTinhThanh = diaChiRapChieuAdapter.getMaTinhThanh();
+        int _maRapChieu = diaChiRapChieuAdapter.getMaRapChieu();
+        blRapChieuCon.loadDiaChiRapChieuConToRecyclerView(requireContext(), rcRecyclerView, _maTinhThanh, _maRapChieu, diaChiRapChieuAdapter);
 
         editText = view.findViewById(R.id.header_search_input);
         // TextWatcher để xử lý tìm kiếm
@@ -197,11 +205,11 @@ public class rap_chieu extends Fragment {
                         Log.d("Search", "Searching for: " + input);  // Log tìm kiếm
                         blRapChieuCon.loadDiaChiRapChieuConToRecyclerViewAfterSearch(
                                 requireContext(),
-                                recyclerView,
+                                rcRecyclerView,
                                 _maTinhThanh,
                                 _maRapChieu,
                                 input,
-                                adapter);
+                                diaChiRapChieuAdapter);
                     } else {
                         Log.d("Search", "Clearing search input");
                     }

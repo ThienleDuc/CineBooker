@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.example.cinebooker.LeDucThien.BussinessLogic.BL_RapChieuCon;
 import com.example.cinebooker.LeDucThien.entity.ent_RapChieuCon;
 import com.example.cinebooker.R;
 import com.squareup.picasso.Picasso;
@@ -23,7 +24,22 @@ import java.util.List;
 public class DiaChiRapChieuAdapter extends RecyclerView.Adapter<DiaChiRapChieuAdapter.viewHolder> {
 
     private List<ent_RapChieuCon> rapChieulist;
-    private Context context;
+    private int maTinhThanh;
+    private int maRapChieu;
+    public DiaChiRapChieuAdapter(Context context) {
+        TinhThanhAdapter tinhThanhAdapter = new TinhThanhAdapter(context);
+        maTinhThanh = tinhThanhAdapter.getSelectedMaTinhThanh();
+        RapChieuAdapter rapChieuAdapter = new RapChieuAdapter(context);
+        maRapChieu = rapChieuAdapter.getSelectedMaRapChieu();
+    }
+
+    public int getMaRapChieu() {
+        return maRapChieu;
+    }
+
+    public int getMaTinhThanh() {
+        return maTinhThanh;
+    }
 
     @SuppressLint("NotifyDataSetChanged")
     public void SetData(List<ent_RapChieuCon> rapChieulist) {

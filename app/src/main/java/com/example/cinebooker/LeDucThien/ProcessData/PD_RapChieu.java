@@ -140,7 +140,7 @@ public class PD_RapChieu {
         }
 
         // Cập nhật dữ liệu cho adapter
-        adapter.SetData(list);
+        adapter.setData(list);
     }
 
 }

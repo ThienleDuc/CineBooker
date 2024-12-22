@@ -68,22 +68,32 @@ public class PD_PhimTheoLichChieu {
 
     @SuppressLint("NotifyDataSetChanged")
     public void loadPhimToRecyclerView(Context context, RecyclerView recyclerView, List<ent_XepHang> list, PhimTheoLichChieuAdapter adapter) {
-        if (list == null || list.isEmpty()) {
-            Log.e(TAG, "Danh sách xếp hạng trống hoặc không hợp lệ.");
-            return;
+        // Thiết lập LayoutManager nếu chưa có
+        if (recyclerView.getLayoutManager() == null) {
+            LinearLayoutManager layoutManager = new LinearLayoutManager(context);
+            layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+            recyclerView.setLayoutManager(layoutManager);
         }
 
-        // Thiết lập LayoutManager cho RecyclerView
-        recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
+        // Kiểm tra và thêm ItemDecoration nếu chưa được thêm
+        boolean hasItemDecoration = false;
+        for (int i = 0; i < recyclerView.getItemDecorationCount(); i++) {
+            if (recyclerView.getItemDecorationAt(i) instanceof SpaceItemDecoration) {
+                hasItemDecoration = true;
+                break;
+            }
+        }
 
-        // Thêm ItemDecoration
-        int spacingInPixels = context.getResources().getDimensionPixelSize(R.dimen.recycler_view_spacing_5);
-        recyclerView.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
+        if (!hasItemDecoration) {
+            int spacingInPixels = context.getResources().getDimensionPixelSize(R.dimen.recycler_view_spacing_5);
+            recyclerView.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
+        }
 
-        // Thiết lập Adapter và cập nhật dữ liệu
+        // Thiết lập Adapter và dữ liệu nếu chưa có adapter
         if (recyclerView.getAdapter() == null) {
             recyclerView.setAdapter(adapter);
         }
+
         adapter.setData(list);
     }
 }

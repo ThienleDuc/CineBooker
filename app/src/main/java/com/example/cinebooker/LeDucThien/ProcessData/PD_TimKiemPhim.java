@@ -178,6 +178,4 @@ public class PD_TimKiemPhim {
 
         adapter.SetData(list);
     }
-
-
 }

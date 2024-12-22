@@ -1,7 +1,6 @@
 package com.example.cinebooker.LeDucThien.fragment;
 
-import android.content.Context;
-import android.content.SharedPreferences;
+
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -19,13 +18,14 @@ import android.widget.TextView;
 import com.example.cinebooker.LeDucThien.BussinessLogic.BL_NgayChieu;
 import com.example.cinebooker.LeDucThien.BussinessLogic.BL_PhimDangChieu;
 import com.example.cinebooker.LeDucThien.BussinessLogic.BL_PhimTheoLichChieu;
-import com.example.cinebooker.LeDucThien.BussinessLogic.BL_RapChieu;
 import com.example.cinebooker.LeDucThien.BussinessLogic.BL_RapChieuCon;
 import com.example.cinebooker.LeDucThien.BussinessLogic.BL_TinhThanh;
 import com.example.cinebooker.LeDucThien.activity.DanhSachDiaDiemRap;
 import com.example.cinebooker.LeDucThien.activity.danhSachRap;
 import com.example.cinebooker.LeDucThien.adapter.LichChieuAdapter;
 import com.example.cinebooker.LeDucThien.adapter.PhimTheoLichChieuAdapter;
+import com.example.cinebooker.LeDucThien.adapter.RapChieuConAdapter;
+import com.example.cinebooker.LeDucThien.adapter.TinhThanhAdapter;
 import com.example.cinebooker.R;
 import com.example.cinebooker.generalMethod.ActivityOpen;
 import com.google.android.material.tabs.TabLayout;
@@ -47,9 +47,24 @@ public class lich_chieu extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private RecyclerView recyclerView1;
+    private BL_PhimTheoLichChieu blPhimTheoLichChieu;
+    private PhimTheoLichChieuAdapter phimTheoLichChieuAdapter;
 
     public lich_chieu() {
         // Required empty public constructor
+    }
+
+    public RecyclerView getRecyclerView1() {
+        return recyclerView1;
+    }
+
+    public BL_PhimTheoLichChieu getBlPhimTheoLichChieu() {
+        return blPhimTheoLichChieu;
+    }
+
+    public PhimTheoLichChieuAdapter getPhimTheoLichChieuAdapter() {
+        return phimTheoLichChieuAdapter;
     }
 
     /**
@@ -90,15 +105,24 @@ public class lich_chieu extends Fragment {
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        controllerLichChieu(requireView());
+        lichChieu(requireView());
+    }
+
     public void controllerLichChieu(View view) {
         BL_TinhThanh blTinhThanh = new BL_TinhThanh();
-        BL_RapChieu blRapChieu = new BL_RapChieu();
         BL_RapChieuCon blRapChieuCon = new BL_RapChieuCon();
 
-        TextView TenTinhThanh = view.findViewById(R.id.ten_tinh_thanh);
-        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("LeDucThien", Context.MODE_PRIVATE);
+        TinhThanhAdapter tinhThanhAdapter = new TinhThanhAdapter(requireContext());
+        RapChieuConAdapter rapChieuConAdapter = new RapChieuConAdapter(requireContext());
 
-        int _maTinhThanh = sharedPreferences.getInt("maTinhThanh", -1);
+        TextView TenTinhThanh = view.findViewById(R.id.ten_tinh_thanh);
+
+        int _maTinhThanh = tinhThanhAdapter.getSelectedMaTinhThanh();
 
         blTinhThanh.loadTenTinhThanhTheoDieuKien(requireContext(), TenTinhThanh, _maTinhThanh);
 
@@ -106,11 +130,10 @@ public class lich_chieu extends Fragment {
         TextView tenRapChieuCon = view.findViewById(R.id.sapChieu_movie_name);
         TextView diaChiRapChieuCon = view.findViewById(R.id.sapChieu_movie_style);
 
-        int _maRapChieuCon = sharedPreferences.getInt("maRapChieuCon", -1);
+        int _maRapChieuCon = rapChieuConAdapter.get_maRapChieuConPref();
 
         blRapChieuCon.loadThongTinRapChieuCon(requireContext(), anhRapChieuCon,
                 tenRapChieuCon, diaChiRapChieuCon, _maRapChieuCon);
-
         // Khởi tạo TabLayout cho location
         LinearLayout danhsachtinhthanh_open = view.findViewById(R.id.open_list_tinh_thanh);
         LinearLayout danhsachrap_open = view.findViewById(R.id.danhsachrap_open);
@@ -134,13 +157,11 @@ public class lich_chieu extends Fragment {
                 TenTinhThanh.setTextColor(view.getContext().getColor(R.color.colorSelected));
                 icon_location.setColorFilter(view.getContext().getColor(R.color.colorSelected));
             }
-
         });
 
         ganday_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 ganday_search.setBackgroundResource(R.drawable.strock_1_pink_radius_10_transparent);
                 ganban.setTextColor(view.getContext().getColor(R.color.colorSelected));
                 icon_location2.setColorFilter(view.getContext().getColor(R.color.colorSelected));
@@ -160,23 +181,22 @@ public class lich_chieu extends Fragment {
     }
 
 
+
     public void lichChieu(View view) {
 
         // Khởi tạo RecyclerView cho lịch chiếu
         RecyclerView recyclerView = view.findViewById(R.id.calendar_tabLayout);
         BL_NgayChieu blNgayChieu = new BL_NgayChieu();
-        LichChieuAdapter adapter = new LichChieuAdapter();
+        LichChieuAdapter adapter = new LichChieuAdapter(requireContext());
 
         blNgayChieu.loadNgayChieuToRecyclerView(getContext(), recyclerView, adapter);
 
-        BL_PhimTheoLichChieu blPhimTheoLichChieu = new BL_PhimTheoLichChieu();
-        RecyclerView recyclerView1 = view.findViewById(R.id.calendar_recyclerview);
+        blPhimTheoLichChieu = new BL_PhimTheoLichChieu();
+        recyclerView1 = view.findViewById(R.id.calendar_recyclerview);
 
-        PhimTheoLichChieuAdapter phimTheoLichChieuAdapter = new PhimTheoLichChieuAdapter(requireContext());
-
-        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("LeDucThien", Context.MODE_PRIVATE);
-        int _maThoiGianChieu = sharedPreferences.getInt("maThoiGianChieu", -1);
-        int _maRapChieuCon = sharedPreferences.getInt("maRapChieuCon", -1);
+        phimTheoLichChieuAdapter = new PhimTheoLichChieuAdapter(requireContext());
+        int _maRapChieuCon = phimTheoLichChieuAdapter.getMaRapChieuCon();
+        int _maThoiGianChieu = phimTheoLichChieuAdapter.getMaThoigianChieu();
         blPhimTheoLichChieu.loadPhimTheoLichChieuToRecyclerView(requireContext(), recyclerView1,
                 phimTheoLichChieuAdapter,_maRapChieuCon, _maThoiGianChieu);
     }

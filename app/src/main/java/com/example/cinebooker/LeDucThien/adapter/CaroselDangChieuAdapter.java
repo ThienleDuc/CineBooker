@@ -67,7 +67,6 @@ public class CaroselDangChieuAdapter extends RecyclerView.Adapter<CaroselDangChi
         // Format and set vote
         holder.vote.setText(NumberFormatter.formatNumber(dangChieu.getDiemDanhGiaTrungBinh()));
 
-        int maPhim = dangChieu.getMaPhim();
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
@@ -94,7 +93,7 @@ public class CaroselDangChieuAdapter extends RecyclerView.Adapter<CaroselDangChi
 
     public static class viewHolder extends RecyclerView.ViewHolder {
         ImageView moviePoster;
-        TextView age, movieName, styleMovie, vote, duration, releaseDate;
+        TextView age, movieName, styleMovie, vote;
 
         public viewHolder(@NonNull View itemView) {
             super(itemView);

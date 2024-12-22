@@ -25,9 +25,45 @@ import java.util.List;
 
 public class RapChieuConAdapter extends RecyclerView.Adapter<RapChieuConAdapter.viewHolder> {
     private List<ent_RapChieuCon> rapChieulist;
-    private SharedPreferences sharedPreferences;
-    private SharedPreferences.Editor editor;;
-    private BL_RapChieuCon blRapChieuCon;
+    private final SharedPreferences sharedPreferences;
+    private final Context context;
+    private int _maRapChieuConPref;
+    private final int maTinhThanh;
+    private final int maRapChieu;
+
+    public RapChieuConAdapter(Context context) {
+        this.context = context;
+        sharedPreferences = context.getSharedPreferences("LeDucThien", Context.MODE_PRIVATE);
+        BL_RapChieuCon blRapChieuCon = new BL_RapChieuCon();
+        _maRapChieuConPref = sharedPreferences.getInt("maRapChieuCon", -1);
+        TinhThanhAdapter tinhThanhAdapter = new TinhThanhAdapter(context);
+        maTinhThanh = tinhThanhAdapter.getSelectedMaTinhThanh();
+        RapChieuAdapter rapChieuAdapter = new RapChieuAdapter(context);
+        maRapChieu = rapChieuAdapter.getSelectedMaRapChieu();
+        if (_maRapChieuConPref == -1) {
+            _maRapChieuConPref = blRapChieuCon.loadMinRapChieuCon(maTinhThanh, maRapChieu);
+            sharedPreferences.edit().putInt("maRapChieuCon", _maRapChieuConPref).apply();
+        }
+    }
+
+    public int getMaTinhThanh() {
+        return maTinhThanh;
+    }
+
+    public int getMaRapChieu() {
+        return maRapChieu;
+    }
+
+    public int get_maRapChieuConPref() {
+        return _maRapChieuConPref;
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void set_maRapChieuConPref(int _maRapChieuConPref) {
+        this._maRapChieuConPref = _maRapChieuConPref;
+        sharedPreferences.edit().putInt("maRapChieuCon", _maRapChieuConPref).apply();
+        notifyDataSetChanged();
+    }
 
     @SuppressLint("NotifyDataSetChanged")
     public void SetData(List<ent_RapChieuCon> rapChieulist) {
@@ -48,7 +84,6 @@ public class RapChieuConAdapter extends RecyclerView.Adapter<RapChieuConAdapter.
         ent_RapChieuCon rapChieu = rapChieulist.get(position);
 
         String imageName = rapChieu.getAnhRapChieu();
-        Context context = holder.itemView.getContext();
         @SuppressLint("DiscouragedApi")
         int resourceId = context.getResources().getIdentifier(imageName, "drawable", context.getPackageName());
 
@@ -60,11 +95,9 @@ public class RapChieuConAdapter extends RecyclerView.Adapter<RapChieuConAdapter.
 
         int _maRapChieuCon = rapChieu.getMaRapChieuCon();
         // Lấy giá trị maTinhThanh từ SharedPreferences
-        sharedPreferences = holder.itemView.getContext().getSharedPreferences("LeDucThien", Context.MODE_PRIVATE);
-        int _maRapChieuConPref = sharedPreferences.getInt("maRapChieuCon", -1);
 
         // Đặt background cho item
-        if (_maRapChieuConPref == _maRapChieuCon) {
+        if (get_maRapChieuConPref() == _maRapChieuCon) {
             holder.container_imageview.setBackgroundResource(R.drawable.strock_1_pink_radius_10_transparent); // Nền khi được chọn
             holder.location.setTextColor(holder.itemView.getContext().getColor(R.color.primary_color));
             holder.location.setTypeface(holder.location.getTypeface(), Typeface.BOLD);
@@ -77,11 +110,10 @@ public class RapChieuConAdapter extends RecyclerView.Adapter<RapChieuConAdapter.
 
         // Xử lý sự kiện click
         holder.itemView.setOnClickListener(v -> {
-            editor = sharedPreferences.edit();
-            editor.putInt("maRapChieuCon", rapChieu.getMaRapChieuCon());
-            editor.apply();  // Lưu thay đổi
-            // Cập nhật lại giao diện của RecyclerView
-            notifyDataSetChanged(); // Refresh toàn bộ adapter để áp dụng thay đổi
+            if (_maRapChieuCon != get_maRapChieuConPref()) {
+                set_maRapChieuConPref(rapChieu.getMaRapChieuCon());
+            }
+
             if (holder.itemView.getContext() instanceof danhSachRap) {
                 ((danhSachRap) holder.itemView.getContext()).dongActivity();  // Đóng Activity nếu cần
             }

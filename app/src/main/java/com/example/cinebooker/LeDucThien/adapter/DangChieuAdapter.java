@@ -59,7 +59,7 @@ public class DangChieuAdapter extends RecyclerView.Adapter<DangChieuAdapter.view
                 .into(holder.moviePoster);
 
         // Set age (convert to String)
-        holder.age.setText(String.valueOf(dangChieu.getTuoi()) + "+");
+        holder.age.setText(dangChieu.getTuoi() + "+");
 
         // Set movie name with "Chưa cập nhật" if null
         holder.movieName.setText(dangChieu.getTenPhim() != null ? dangChieu.getTenPhim() : "Chưa cập nhật");

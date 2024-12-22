@@ -13,8 +13,7 @@ BEGIN
     -- Cập nhật trạng thái "Đang chiếu" nếu MaPhim tồn tại trong bảng LichChieu và ngày hiện tại nằm trong khoảng NgayKhoiChieu đến NgayKetThuc
     UPDATE Phim
     SET TrangThaiChieu = N'Đang chiếu'
-    WHERE MaPhim IN (SELECT MaPhim FROM LichChieu) 
-      AND GETDATE() BETWEEN NgayKhoiChieu AND NgayKetThuc;
+    WHERE GETDATE() BETWEEN NgayKhoiChieu AND NgayKetThuc;
 
     -- Cập nhật trạng thái "Sắp chiếu" nếu MaPhim không tồn tại trong bảng LichChieu hoặc ngày hiện tại nhỏ hơn NgayKhoiChieu
     UPDATE Phim

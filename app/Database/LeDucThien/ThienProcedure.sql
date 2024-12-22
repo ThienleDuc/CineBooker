@@ -640,5 +640,4 @@ BEGIN
 END;
 
 EXEC pr_LayThoiGianBatDauKetThucTheoMaPhimVaRapChieuCon @MaPhim = 2, @MaRapChieuCon = 1, @MaThoiGianChieu = 1;
-
 -- END--

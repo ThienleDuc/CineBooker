@@ -1,8 +1,6 @@
 package com.example.cinebooker.LeDucThien.adapter;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,21 +19,11 @@ import java.util.List;
 public class ThoiGianChieuAdapter extends RecyclerView.Adapter<ThoiGianChieuAdapter.ViewHolder> {
 
     private List<ent_ThoiGianChieu> thoiGianChieuList; // Changed to more descriptive name
-    private SharedPreferences sharedPreferences;
-    private SharedPreferences.Editor editor;
-    private Context context;
 
     @SuppressLint("NotifyDataSetChanged")
     public void setData (List<ent_ThoiGianChieu> thoiGianChieuList) {
         this.thoiGianChieuList = thoiGianChieuList;
         notifyDataSetChanged();
-    }
-    // Constructor with Context to initialize SharedPreferences
-    @SuppressLint("NotifyDataSetChanged")
-    public ThoiGianChieuAdapter(Context context) {
-        this.context = context;
-        sharedPreferences = context.getSharedPreferences("LeDucThien", Context.MODE_PRIVATE);
-        editor = sharedPreferences.edit();
     }
 
     @NonNull

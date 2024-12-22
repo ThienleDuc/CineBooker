@@ -63,7 +63,6 @@ public class CaroselSapChieuAdapter extends RecyclerView.Adapter<CaroselSapChieu
 
         // Set thể loại phim
         holder.styleMovie.setText(sapChieu.getTenTheLoai() != null ? sapChieu.getTenTheLoai() : "Chưa cập nhật");
-        int maPhim = sapChieu.getMaPhim();
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("NotifyDataSetChanged")
             @Override

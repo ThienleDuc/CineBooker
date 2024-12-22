@@ -36,7 +36,6 @@ public class DanhSachDiaDiemRap extends AppCompatActivity {
         blTinhThanh = new BL_TinhThanh();
         // Khởi tạo Adapter
         tinhThanhAdapter = new TinhThanhAdapter(this);
-
         // Load dữ liệu ban đầu và thêm Log để kiểm tra dữ liệu
         Log.d("BL_TinhThanh", "Loading initial data for RecyclerView...");
         blTinhThanh.loadTenTinhThanhToRecyclerView(this, recyclerView, tinhThanhAdapter);
@@ -101,7 +100,7 @@ public class DanhSachDiaDiemRap extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        editText.setText("");
+        editText.setText(""); // Xóa nội dung tìm kiếm khi quay lại Activity
     }
 
     @Override
