@@ -59,7 +59,7 @@ public class XuatVeAdapter extends RecyclerView.Adapter<XuatVeAdapter.XuatVeView
 
         Picasso.get()
                 .load(resourceId)
-                .resize(800, 800)// Load resource ID
+                .resize(300, 300)// Load resource ID
                 .into(holder.qrXuatVe);
 
 
@@ -69,7 +69,7 @@ public class XuatVeAdapter extends RecyclerView.Adapter<XuatVeAdapter.XuatVeView
 
         Picasso.get()
                 .load(resourceId1)
-                .resize(800, 800)// Load resource ID
+              .resize(300, 300)// Load resource ID
                 .into(holder.posterXuatVe2);
 
         String imageName2 = item.getIconRapXuatVe();
@@ -78,7 +78,7 @@ public class XuatVeAdapter extends RecyclerView.Adapter<XuatVeAdapter.XuatVeView
 
         Picasso.get()
                 .load(resourceId2)
-                .resize(800, 800)// Load resource ID
+              .resize(300, 300)// Load resource ID
                 .into(holder.iconRapXuatVe);
 
 

@@ -71,7 +71,7 @@ public class Ticket_khuhoiAdapter extends RecyclerView.Adapter<Ticket_khuhoiAdap
 
         Picasso.get()
                 .load(resourceId)
-                .resize(800, 800)// Load resource ID
+                .resize(300, 300)// Load resource ID
                 .into(holder.poster_khuhoi);
 
 
@@ -80,7 +80,7 @@ public class Ticket_khuhoiAdapter extends RecyclerView.Adapter<Ticket_khuhoiAdap
 
         Picasso.get()
                 .load(resourceId1)
-                .resize(800, 800)// Load resource ID
+                .resize(300, 300)// Load resource ID
                 .into(holder.icon_rap_khuhoi);
 
         holder.age_khuhoi.setText(ticket.getAge_khuhoi() > 0 ? String.valueOf(ticket.getAge_khuhoi())+ "+" : "Tuổi không xác định");

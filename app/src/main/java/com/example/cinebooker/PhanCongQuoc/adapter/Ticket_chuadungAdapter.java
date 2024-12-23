@@ -78,7 +78,7 @@ public class Ticket_chuadungAdapter extends RecyclerView.Adapter<Ticket_chuadung
 
         Picasso.get()
                 .load(resourceId)
-                .resize(800, 800)// Load resource ID
+                .resize(300, 300)// Load resource ID
                 .into(holder.posterMovie_chuadung);
 
         holder.age_chuadung.setText(ticket.getAge_chuadung() > 0
@@ -94,7 +94,7 @@ public class Ticket_chuadungAdapter extends RecyclerView.Adapter<Ticket_chuadung
 
         Picasso.get()
                 .load(resourceId1)
-                .resize(800, 800)// Load resource ID
+                .resize(300, 300)// Load resource ID
                 .into(holder.anhrap);
 
         holder.diachi.setText(ticket.getDiachi_chuadung() != null ? ticket.getDiachi_chuadung() : "Địa chỉ không xác định");

@@ -69,7 +69,7 @@ public class Ticket_dadungAdapter extends RecyclerView.Adapter<Ticket_dadungAdap
 
         Picasso.get()
                 .load(resourceId)
-                .resize(800, 800)// Load resource ID
+              .resize(300, 300)// Load resource ID
                 .into(holder.posterMovie_dadung);
 
 
@@ -78,7 +78,7 @@ public class Ticket_dadungAdapter extends RecyclerView.Adapter<Ticket_dadungAdap
 
         Picasso.get()
                 .load(resourceId1)
-                .resize(800, 800)// Load resource ID
+              .resize(300, 300)// Load resource ID
                 .into(holder.anhrap);
 
 

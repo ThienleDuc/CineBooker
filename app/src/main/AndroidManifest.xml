@@ -13,7 +13,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar"
+        android:largeHeap="true"
+        android:hardwareAccelerated="true"
         tools:targetApi="31">
+
         <activity
             android:name=".LeDucThien.activity.VeChungToi"
             android:exported="false" />
@@ -52,10 +55,9 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- Thêm các hoạt động từ nhánh LeDucThien -->
+        </activity>
         <activity
             android:name=".LeDucThien.activity.danhSachRap"
             android:exported="false" />
