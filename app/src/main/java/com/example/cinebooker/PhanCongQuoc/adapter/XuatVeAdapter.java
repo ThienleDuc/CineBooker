@@ -1,3 +1,4 @@
+
 package com.example.cinebooker.PhanCongQuoc.adapter;
 
 import android.annotation.SuppressLint;
@@ -16,7 +17,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 public class XuatVeAdapter extends RecyclerView.Adapter<XuatVeAdapter.XuatVeViewHolder> {
-
+    private int currentItemCount;
     private Context context;
     private List<xuatveEntity> xuatVeList;
     private SharedPreferences.Editor editor;
@@ -29,7 +30,7 @@ public class XuatVeAdapter extends RecyclerView.Adapter<XuatVeAdapter.XuatVeView
     }
 
     public void SetData(List<xuatveEntity> movieList) {
-
+        this.currentItemCount = 1;
         this.xuatVeList = movieList;
         notifyDataSetChanged();
     }
@@ -70,6 +71,7 @@ public class XuatVeAdapter extends RecyclerView.Adapter<XuatVeAdapter.XuatVeView
                 .load(resourceId1)
                 .resize(800, 800)// Load resource ID
                 .into(holder.posterXuatVe2);
+
         String imageName2 = item.getIconRapXuatVe();
 
         @SuppressLint("DiscouragedApi") int resourceId2 = context.getResources().getIdentifier(imageName2, "drawable", context.getPackageName());
@@ -107,11 +109,8 @@ public class XuatVeAdapter extends RecyclerView.Adapter<XuatVeAdapter.XuatVeView
 
     @Override
     public int getItemCount() {
-        return xuatVeList.size();
+        return Math.min(currentItemCount, xuatVeList.size());
     }
-
-
-
     public static class XuatVeViewHolder extends RecyclerView.ViewHolder {
 
         ImageView qrXuatVe, posterXuatVe2, iconRapXuatVe;

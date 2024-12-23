@@ -1,3 +1,4 @@
+
 package com.example.cinebooker.PhanCongQuoc.activity;
 
 import android.content.Intent;
@@ -160,12 +161,14 @@ public class register extends AppCompatActivity {
                 Log.e("RegisterActivity", "Không thể kết nối đến cơ sở dữ liệu.");
                 return false;
             }
-            String sql = "INSERT INTO KhachHang (TenKhachHang, Email, MatKhau, AnhKhachHang) VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO KhachHang (TenKhachHang, Email, MatKhau, AnhKhachHang,LopHocPhan,MaSinhVien) VALUES (?, ?, ?, ?,?,?)";
             statement = connection.prepareStatement(sql);
             statement.setString(1, customerName);
             statement.setString(2, email);
             statement.setString(3, password);
-            statement.setString(4, "default_user_image.png"); // Ảnh mặc định của người dùng
+            statement.setString(4, "default_user_image.png");
+            statement.setString(5, "khongco");
+            statement.setString(6, "khongco");// Ảnh mặc định của người dùng
 
             return statement.executeUpdate() > 0; // Trả về true nếu thêm thành công
         } catch (Exception e) {

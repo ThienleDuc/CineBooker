@@ -21,7 +21,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 public class XemThongTinAdapter extends RecyclerView.Adapter<XemThongTinAdapter.ViewHolder> {
-
+    private int currentItemCount;
     private Context context;
     private List<XemThongTinEntity> xemThongTinList;
     private SharedPreferences.Editor editor;
@@ -33,7 +33,7 @@ public class XemThongTinAdapter extends RecyclerView.Adapter<XemThongTinAdapter.
         notifyDataSetChanged();
     }
     public void SetData(List<XemThongTinEntity> movieList) {
-
+        this.currentItemCount = 1;
         this.xemThongTinList = movieList;
         notifyDataSetChanged();
     }
@@ -103,9 +103,8 @@ public class XemThongTinAdapter extends RecyclerView.Adapter<XemThongTinAdapter.
 
     @Override
     public int getItemCount() {
-        return xemThongTinList.size();
+        return Math.min(currentItemCount, xemThongTinList.size());
     }
-
 
 
     // ViewHolder to represent the layout of each item

@@ -1,3 +1,4 @@
+
 package com.example.cinebooker.PhanCongQuoc.adapter;
 
 import android.annotation.SuppressLint;
@@ -27,6 +28,7 @@ import java.util.List;
 public class YeuCauHoanTienAdapter extends RecyclerView.Adapter<YeuCauHoanTienAdapter.YeuCauHoanTienViewHolder> {
 
     private Context context;
+    private int currentItemCount;
     private List<YeuCauHoanTienEntity> yeuCauHoanTienList;
 
     // Constructor
@@ -37,7 +39,7 @@ public class YeuCauHoanTienAdapter extends RecyclerView.Adapter<YeuCauHoanTienAd
     }
 
     public void SetData(List<YeuCauHoanTienEntity> movieList) {
-
+        this.currentItemCount = 1;
         this.yeuCauHoanTienList = movieList;
         notifyDataSetChanged();
     }
@@ -69,6 +71,7 @@ public class YeuCauHoanTienAdapter extends RecyclerView.Adapter<YeuCauHoanTienAd
                 .load(resourceId1)
                 .resize(800, 800)// Load resource ID
                 .into(holder.iconTrHang);
+
         // Set dữ liệu cho các View
         holder.namePhimTrHang.setText(item.getNamePhimTrHang());
         holder.stylehoantien.setText(item.getStylehoantien());
@@ -113,7 +116,7 @@ public class YeuCauHoanTienAdapter extends RecyclerView.Adapter<YeuCauHoanTienAd
 
     @Override
     public int getItemCount() {
-        return yeuCauHoanTienList != null ? yeuCauHoanTienList.size() : 0;
+        return Math.min(currentItemCount, yeuCauHoanTienList.size());
     }
 
     // Phương thức xử lý stored procedure

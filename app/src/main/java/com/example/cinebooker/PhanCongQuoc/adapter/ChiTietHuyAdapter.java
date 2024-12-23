@@ -1,3 +1,4 @@
+
 package com.example.cinebooker.PhanCongQuoc.adapter;
 
 import android.annotation.SuppressLint;
@@ -20,7 +21,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 public class ChiTietHuyAdapter extends RecyclerView.Adapter<ChiTietHuyAdapter.ViewHolder> {
-
+    private int currentItemCount;
     private Context context;
     private List<ChiTietHuyEntity> chiTietHuyList;
     private SharedPreferences.Editor editor;
@@ -32,7 +33,7 @@ public class ChiTietHuyAdapter extends RecyclerView.Adapter<ChiTietHuyAdapter.Vi
         notifyDataSetChanged();
     }
     public void SetData(List<ChiTietHuyEntity> movieList) {
-
+        this.currentItemCount = 1;
         this.chiTietHuyList = movieList;
         notifyDataSetChanged();
     }
@@ -98,9 +99,8 @@ public class ChiTietHuyAdapter extends RecyclerView.Adapter<ChiTietHuyAdapter.Vi
 
     @Override
     public int getItemCount() {
-        return chiTietHuyList.size();
+        return Math.min(currentItemCount, chiTietHuyList.size());
     }
-
     // ViewHolder to represent the layout of each item
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView posterChitiethuy, iconRapChitiethuy;

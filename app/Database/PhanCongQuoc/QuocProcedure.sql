@@ -356,6 +356,17 @@ JOIN CapBacChiTieu
 ON ChiTietCapBac.MaCapBacChiTieu = CapBacChiTieu.MaCapBacChiTieu;
 END;
 GO
+CREATE OR ALTER PROCEDURE chuyenTinhTrangVeKhuHoi
+    @MaVe INT
+AS
+BEGIN
+    -- Cập nhật tình trạng vé thành 'Đã khứ hồi'
+    UPDATE TinhTrangVe
+    SET TinhTrang = N'Đã khứ hồi',
+        ThoiGian = GETDATE() -- Cập nhật thời gian hiện tại
+    WHERE MaVe = @MaVe;
+END;
+GO
 
 -- Thực thi thủ tục để kiểm tra
 EXEC sp_GetVouchercapbacList;
