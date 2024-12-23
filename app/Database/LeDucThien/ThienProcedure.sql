@@ -6,12 +6,20 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
+    -- CTE tính toán điểm trung bình của phim
+    WITH FilmRatings AS (
+        SELECT 
+            MaPhim,
+            dbo.fn_DiemDanhGiaPhimTrungBinh(MaPhim) AS DiemDanhGiaTrungBinh
+        FROM Phim
+    )
     SELECT 
         P.MaPhim,
         P.AnhPhim,
         P.TenPhim,
         P.Tuoi,
         P.DinhDangPhim,
+        -- Nối tên thể loại cho phim
         STRING_AGG(TC.TenTheLoai, ', ') AS TenTheLoai,
         -- Chuyển đổi NgayKhoiChieu và NgayKetThuc sang định dạng dd/MM/yyyy
         FORMAT(P.NgayKhoiChieu, 'dd/MM/yyyy') AS NgayKhoiChieu,
@@ -21,14 +29,16 @@ BEGIN
         RIGHT('00' + CAST(DATEPART(HOUR, P.ThoiLuong) AS VARCHAR), 2) + ':' +
         RIGHT('00' + CAST(DATEPART(MINUTE, P.ThoiLuong) AS VARCHAR), 2) + ':' +
         RIGHT('00' + CAST(DATEPART(SECOND, P.ThoiLuong) AS VARCHAR), 2) AS ThoiLuong,
-        -- Gọi hàm fn_DiemDanhGiaPhimTrungBinh để tính điểm trung bình
-        dbo.fn_DiemDanhGiaPhimTrungBinh(P.MaPhim) AS DiemDanhGiaTrungBinh
+        -- Lấy điểm đánh giá trung bình từ CTE
+        FR.DiemDanhGiaTrungBinh
     FROM 
         Phim P
     LEFT JOIN 
         TheLoai TL ON P.MaPhim = TL.MaPhim
     LEFT JOIN 
         TheLoaiCha TC ON TL.MaTheLoaiCha = TC.MaTheLoaiCha
+    LEFT JOIN
+        FilmRatings FR ON P.MaPhim = FR.MaPhim  -- Kết hợp với CTE
     WHERE 
         P.TrangThaiChieu = N'Đang chiếu'
     GROUP BY 
@@ -40,8 +50,10 @@ BEGIN
         P.NgayKhoiChieu, 
         P.NgayKetThuc, 
         P.TrangThaiChieu, 
-        P.ThoiLuong;
+        P.ThoiLuong, 
+        FR.DiemDanhGiaTrungBinh;
 END;
+
 
 EXEC dbo.pr_LayPhimDangChieu
 GO
@@ -52,12 +64,20 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
+    -- CTE tính toán điểm trung bình của phim
+    WITH FilmRatings AS (
+        SELECT 
+            MaPhim,
+            dbo.fn_DiemDanhGiaPhimTrungBinh(MaPhim) AS DiemDanhGiaTrungBinh
+        FROM Phim
+    )
     SELECT 
         P.MaPhim,
         P.AnhPhim,
         P.TenPhim,
         P.Tuoi,
         P.DinhDangPhim,
+        -- Nối tên thể loại cho phim
         STRING_AGG(TC.TenTheLoai, ', ') AS TenTheLoai,
         -- Chuyển đổi NgayKhoiChieu và NgayKetThuc sang định dạng dd/MM/yyyy
         FORMAT(P.NgayKhoiChieu, 'dd/MM/yyyy') AS NgayKhoiChieu,
@@ -67,14 +87,16 @@ BEGIN
         RIGHT('00' + CAST(DATEPART(HOUR, P.ThoiLuong) AS VARCHAR), 2) + ':' +
         RIGHT('00' + CAST(DATEPART(MINUTE, P.ThoiLuong) AS VARCHAR), 2) + ':' +
         RIGHT('00' + CAST(DATEPART(SECOND, P.ThoiLuong) AS VARCHAR), 2) AS ThoiLuong,
-        -- Gọi hàm fn_DiemDanhGiaPhimTrungBinh để tính điểm trung bình
-        dbo.fn_DiemDanhGiaPhimTrungBinh(P.MaPhim) AS DiemDanhGiaTrungBinh
+        -- Lấy điểm đánh giá trung bình từ CTE
+        FR.DiemDanhGiaTrungBinh
     FROM 
         Phim P
     LEFT JOIN 
         TheLoai TL ON P.MaPhim = TL.MaPhim
     LEFT JOIN 
         TheLoaiCha TC ON TL.MaTheLoaiCha = TC.MaTheLoaiCha
+    LEFT JOIN
+        FilmRatings FR ON P.MaPhim = FR.MaPhim  -- Kết hợp với CTE
     WHERE 
         P.TrangThaiChieu = N'Sắp chiếu'
     GROUP BY 
@@ -86,27 +108,42 @@ BEGIN
         P.NgayKhoiChieu, 
         P.NgayKetThuc, 
         P.TrangThaiChieu, 
-        P.ThoiLuong;
+        P.ThoiLuong, 
+        FR.DiemDanhGiaTrungBinh;
 END;
+
 Go
 CREATE OR ALTER PROCEDURE pr_LayThongTinRapChieuCha
 AS
 BEGIN
     SET NOCOUNT ON;
 
-    -- Trả về kết quả trực tiếp mà không cần bảng tạm và cursor
+    -- CTE tính toán các giá trị cần thiết cho mỗi RapChieu
+    WITH RapChieuRatings AS (
+        SELECT 
+            r.MaRapChieu,
+            dbo.fn_DiemDanhGiaTrungBinhRapChieuCha(r.MaRapChieu) AS DiemDanhGiaRapChieuTrungBinh,
+            dbo.fn_TongLuotDanhGiaRapChieuCha(r.MaRapChieu) AS TongLuotDanhGia,
+            dbo.fn_TongSoDiaDiemRapChieuCha(r.MaRapChieu) AS TongDiaDiemRap
+        FROM 
+            RapChieu r
+    )
+    -- Lấy thông tin của các rạp chiếu, kết hợp với các giá trị tính toán từ CTE
     SELECT 
         r.AnhRapChieu,
         r.TenRapChieu,
         r.MoTaRapChieu,
-        dbo.fn_DiemDanhGiaTrungBinhRapChieuCha(r.MaRapChieu) AS DiemDanhGiaRapChieuTrungBinh,
-        dbo.fn_TongLuotDanhGiaRapChieuCha(r.MaRapChieu) AS TongLuotDanhGia,
-        dbo.fn_TongSoDiaDiemRapChieuCha(r.MaRapChieu) AS TongDiaDiemRap
+        rcr.DiemDanhGiaRapChieuTrungBinh,
+        rcr.TongLuotDanhGia,
+        rcr.TongDiaDiemRap
     FROM 
         RapChieu r
+    JOIN 
+        RapChieuRatings rcr ON r.MaRapChieu = rcr.MaRapChieu
     ORDER BY 
         r.MaRapChieu; -- Sắp xếp theo MaRapChieu nếu cần thiết
 END;
+
 
 EXEC pr_LayThongTinRapChieuCha;
 GO
@@ -361,6 +398,17 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
+    -- CTE tính toán các giá trị cần thiết cho mỗi phim
+    WITH FilmRatings AS (
+        SELECT 
+            P.MaPhim,
+            dbo.fn_DiemDanhGiaPhimTrungBinh(P.MaPhim) AS DiemDanhGiaTrungBinh,
+            dbo.fn_TongLuotMuaPhim(P.MaPhim) AS TongLuotMuaPhim,
+            dbo.fn_TongLuotDanhGiaPhim(P.MaPhim) AS TongLuotDanhGiaPhim
+        FROM 
+            Phim P
+    )
+    -- Lấy thông tin của các phim và kết hợp với các giá trị tính toán từ CTE
     SELECT 
         P.MaPhim,
         P.AnhPhim,
@@ -376,17 +424,17 @@ BEGIN
         RIGHT('00' + CAST(DATEPART(HOUR, P.ThoiLuong) AS VARCHAR), 2) + ':' +
         RIGHT('00' + CAST(DATEPART(MINUTE, P.ThoiLuong) AS VARCHAR), 2) + ':' +
         RIGHT('00' + CAST(DATEPART(SECOND, P.ThoiLuong) AS VARCHAR), 2) AS ThoiLuong,
-        -- Gọi hàm fn_DiemDanhGiaPhimTrungBinh để tính điểm trung bình
-        dbo.fn_DiemDanhGiaPhimTrungBinh(P.MaPhim) AS DiemDanhGiaTrungBinh,
-		dbo.fn_TongLuotMuaPhim(P.MaPhim) AS TongLuotMuaPhim,
-		dbo.fn_TongLuotDanhGiaPhim(P.MaPhim) AS TongLuotDanhGiaPhim
-
+        FR.DiemDanhGiaTrungBinh,
+        FR.TongLuotMuaPhim,
+        FR.TongLuotDanhGiaPhim
     FROM 
         Phim P
     LEFT JOIN 
         TheLoai TL ON P.MaPhim = TL.MaPhim
     LEFT JOIN 
         TheLoaiCha TC ON TL.MaTheLoaiCha = TC.MaTheLoaiCha
+    JOIN 
+        FilmRatings FR ON P.MaPhim = FR.MaPhim  -- Kết hợp với CTE
     WHERE 
         P.TenPhim LIKE N'%' + @TenPhim + N'%'  
     GROUP BY 
@@ -398,14 +446,29 @@ BEGIN
         P.NgayKhoiChieu, 
         P.NgayKetThuc, 
         P.TrangThaiChieu, 
-        P.ThoiLuong;
+        P.ThoiLuong,
+        FR.DiemDanhGiaTrungBinh,
+        FR.TongLuotMuaPhim,
+        FR.TongLuotDanhGiaPhim;
 END;
+
 GO
 CREATE OR ALTER PROCEDURE pr_LayTatCaPhim
 AS
 BEGIN
     SET NOCOUNT ON;
 
+    -- CTE tính toán các giá trị cần thiết cho mỗi phim
+    WITH FilmRatings AS (
+        SELECT 
+            P.MaPhim,
+            dbo.fn_DiemDanhGiaPhimTrungBinh(P.MaPhim) AS DiemDanhGiaTrungBinh,
+            dbo.fn_TongLuotMuaPhim(P.MaPhim) AS TongLuotMuaPhim,
+            dbo.fn_TongLuotDanhGiaPhim(P.MaPhim) AS TongLuotDanhGiaPhim
+        FROM 
+            Phim P
+    )
+    -- Lấy thông tin của tất cả các phim và kết hợp với các giá trị tính toán từ CTE
     SELECT 
         P.MaPhim,
         P.AnhPhim,
@@ -421,17 +484,17 @@ BEGIN
         RIGHT('00' + CAST(DATEPART(HOUR, P.ThoiLuong) AS VARCHAR), 2) + ':' +
         RIGHT('00' + CAST(DATEPART(MINUTE, P.ThoiLuong) AS VARCHAR), 2) + ':' +
         RIGHT('00' + CAST(DATEPART(SECOND, P.ThoiLuong) AS VARCHAR), 2) AS ThoiLuong,
-        -- Gọi hàm fn_DiemDanhGiaPhimTrungBinh để tính điểm trung bình
-        dbo.fn_DiemDanhGiaPhimTrungBinh(P.MaPhim) AS DiemDanhGiaTrungBinh,
-		dbo.fn_TongLuotMuaPhim(P.MaPhim) AS TongLuotMuaPhim,
-		dbo.fn_TongLuotDanhGiaPhim(P.MaPhim) AS TongLuotDanhGiaPhim
-
+        FR.DiemDanhGiaTrungBinh,
+        FR.TongLuotMuaPhim,
+        FR.TongLuotDanhGiaPhim
     FROM 
         Phim P
     LEFT JOIN 
         TheLoai TL ON P.MaPhim = TL.MaPhim
     LEFT JOIN 
         TheLoaiCha TC ON TL.MaTheLoaiCha = TC.MaTheLoaiCha
+    JOIN 
+        FilmRatings FR ON P.MaPhim = FR.MaPhim  -- Kết hợp với CTE
     GROUP BY 
         P.MaPhim, 
         P.AnhPhim, 
@@ -441,8 +504,12 @@ BEGIN
         P.NgayKhoiChieu, 
         P.NgayKetThuc, 
         P.TrangThaiChieu, 
-        P.ThoiLuong;
+        P.ThoiLuong,
+        FR.DiemDanhGiaTrungBinh,
+        FR.TongLuotMuaPhim,
+        FR.TongLuotDanhGiaPhim;
 END;
+
 GO
 EXEC pr_LayTatCaPhim;
 GO
@@ -470,8 +537,11 @@ BEGIN
         RapChieu RC ON RCon.MaRapChieu = RC.MaRapChieu
     WHERE 
         TTP.MaTinhThanh = @MaTinhThanh
-        AND RCon.MaRapChieu = @MaRapChieu;
+        AND RCon.MaRapChieu = @MaRapChieu
+    ORDER BY 
+        RCon.MaRapChieuCon;  -- Thêm sắp xếp theo MaRapChieuCon để dễ dàng xem kết quả
 END;
+
 
 EXEC pr_GetRapChieuCon @MaTinhThanh = 1,  @MaRapChieu = 1;
 GO
@@ -543,8 +613,11 @@ BEGIN
     INNER JOIN 
         RapChieu RC ON RCon.MaRapChieu = RC.MaRapChieu
     WHERE 
-        RCon.MaRapChieuCon = @MaRapChieuCon;
+        RCon.MaRapChieuCon = @MaRapChieuCon
+    ORDER BY 
+        RCon.MaRapChieuCon;  -- Thêm sắp xếp theo MaRapChieuCon nếu cần thiết
 END;
+
 
 EXEC pr_GetRapChieuConByMaRapChieuCon 1;
 GO
@@ -554,58 +627,75 @@ CREATE OR ALTER PROCEDURE pr_LayThongTinPhimTheoNgayChieuRapChieuCon
 AS
 BEGIN
     SET NOCOUNT ON;
-	DECLARE @NgayChieu VARCHAR(10);
 
-	SELECT @NgayChieu = CONVERT(VARCHAR(10), ThoiGianChieu.NgayChieu, 103) FROM ThoiGianChieu;
-	
-    -- Truy vấn thông tin phim trực tiếp mà không cần dùng Cursor
+    DECLARE @NgayChieu VARCHAR(10);
+
+    -- Lấy ngày chiếu từ bảng ThoiGianChieu theo MaThoiGianChieu
+    SELECT @NgayChieu = CONVERT(VARCHAR(10), ThoiGianChieu.NgayChieu, 103)
+    FROM ThoiGianChieu
+    WHERE MaThoiGianChieu = @MaThoiGianChieu;
+
+    -- CTE tính toán điểm đánh giá trung bình, tổng lượt mua và tổng lượt đánh giá cho phim theo ngày chiếu tại rạp chiếu con
+    WITH FilmRatings AS (
+        SELECT 
+            Phim.MaPhim,
+            dbo.fn_DiemDanhGiaTrungBinhTheoNgayChieuRapChieuCon(Phim.MaPhim, @NgayChieu, @MaRapChieuCon) AS DiemDanhGiaTrungBinh,
+            dbo.fn_TongLuotMuaPhimTheoNgayRapChieuCon(Phim.MaPhim, @NgayChieu, @MaRapChieuCon) AS TongLuotMuaPhim,
+            dbo.fn_TongLuotDanhGiaPhimTheoNgayChieuRapChieuCon(Phim.MaPhim, @NgayChieu, @MaRapChieuCon) AS TongDanhGiaPhim
+        FROM 
+            Phim
+    )
+    -- Truy vấn thông tin phim và tính điểm xếp hạng
     SELECT 
-		Phim.MaPhim,
+        Phim.MaPhim,
         Phim.AnhPhim,
         Phim.TenPhim,
         Phim.Tuoi,
-        STUFF((
+        -- Nối tên thể loại cho phim
+        STUFF(( 
             SELECT '; ' + TheLoaiCha.TenTheLoai
             FROM TheLoai
             JOIN TheLoaiCha ON TheLoai.MaTheLoaiCha = TheLoaiCha.MaTheLoaiCha
             WHERE TheLoai.MaPhim = Phim.MaPhim
-            FOR XML PATH('')
-        ), 1, 2, '') AS TenTheLoai, 
+            FOR XML PATH('')), 1, 2, '') AS TenTheLoai, 
         Phim.DinhDangPhim,
-        dbo.fn_DiemDanhGiaTrungBinhTheoNgayChieuRapChieuCon(Phim.MaPhim, @NgayChieu, @MaRapChieuCon) AS DiemDanhGiaTrungBinh,
-        dbo.fn_TongLuotMuaPhimTheoNgayRapChieuCon(Phim.MaPhim, @NgayChieu, @MaRapChieuCon) AS TongLuotMuaPhim,
-        dbo.fn_TongLuotDanhGiaPhimTheoNgayChieuRapChieuCon(Phim.MaPhim, @NgayChieu, @MaRapChieuCon) AS TongDanhGiaPhim,
-		 -- Tính điểm tổng hợp xếp hạng: ưu tiên điểm đánh giá và lượt mua
-        ISNULL(dbo.fn_DiemDanhGiaTrungBinhTheoNgayChieuRapChieuCon(Phim.MaPhim, @NgayChieu, @MaRapChieuCon), 0) * 0.7 +
-        ISNULL(dbo.fn_TongLuotMuaPhimTheoNgayRapChieuCon(Phim.MaPhim, @NgayChieu, @MaRapChieuCon), 0) * 0.3 AS DiemXepHang
-
+        FR.DiemDanhGiaTrungBinh,
+        FR.TongLuotMuaPhim,
+        FR.TongDanhGiaPhim,
+        -- Tính điểm tổng hợp xếp hạng: ưu tiên điểm đánh giá và lượt mua
+        ISNULL(FR.DiemDanhGiaTrungBinh, 0) * 0.7 +
+        ISNULL(FR.TongLuotMuaPhim, 0) * 0.3 AS DiemXepHang
     FROM 
         Phim
     JOIN 
         TheLoai ON Phim.MaPhim = TheLoai.MaPhim
     JOIN 
-        TheLoaiCha ON TheLoaiCha.MaTheLoaiCha = TheLoai.MaTheLoaiCha
+        TheLoaiCha ON TheLoai.MaTheLoaiCha = TheLoaiCha.MaTheLoaiCha
+    JOIN 
+        FilmRatings FR ON Phim.MaPhim = FR.MaPhim -- Kết hợp với CTE FilmRatings
     JOIN 
         LichChieu ON LichChieu.MaPhim = Phim.MaPhim
     JOIN 
         ChiTietLichChieu ON LichChieu.MaLichChieu = ChiTietLichChieu.MaLichChieu
-	JOIN 
-		ThoiGianChieu ON ThoiGianChieu.MaThoiGianChieu = ChiTietLichChieu.MaThoiGianChieu
     JOIN 
-
+        ThoiGianChieu ON ThoiGianChieu.MaThoiGianChieu = ChiTietLichChieu.MaThoiGianChieu
+    JOIN 
         RapChieuCon ON LichChieu.MaRapChieuCon = RapChieuCon.MaRapChieuCon
     WHERE 
         RapChieuCon.MaRapChieuCon = @MaRapChieuCon
-		AND ChiTietLichChieu.MaThoiGianChieu = @MaThoiGianChieu
+        AND ChiTietLichChieu.MaThoiGianChieu = @MaThoiGianChieu
     GROUP BY 
-		Phim.MaPhim,
+        Phim.MaPhim,
         Phim.AnhPhim,
         Phim.TenPhim,
         Phim.Tuoi,
-        Phim.DinhDangPhim
-	ORDER BY 
+        Phim.DinhDangPhim,
+        FR.DiemDanhGiaTrungBinh,
+        FR.TongLuotMuaPhim,
+        FR.TongDanhGiaPhim
+    ORDER BY 
         DiemXepHang DESC;
-END; 
+END;
 
 EXEC pr_LayThongTinPhimTheoNgayChieuRapChieuCon @MaRapChieuCon = 1, @MaThoiGianChieu = 7;
 GO
@@ -617,10 +707,10 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    -- Truy vấn lấy MaPhim, ThoiGianBatDau và ThoiGianKetThuc theo MaPhim và MaRapChieuCon với định dạng HH:mm
+    -- Truy vấn lấy MaPhim, ThoiGianBatDau và ThoiGianKetThuc theo MaPhim, MaRapChieuCon và MaThoiGianChieu
     SELECT 
         LichChieu.MaPhim,
-        -- Sử dụng ISNULL để xử lý trường hợp không có thời gian
+        -- Sử dụng ISNULL để xử lý trường hợp không có thời gian, mặc định là '00:00' nếu không có giá trị
         CONVERT(VARCHAR(5), ISNULL(ChiTietLichChieu.ThoiGianBatDau, '00:00'), 108) AS ThoiGianBatDau, -- Định dạng HH:mm
         CONVERT(VARCHAR(5), ISNULL(ChiTietLichChieu.ThoiGianKetThuc, '00:00'), 108) AS ThoiGianKetThuc -- Định dạng HH:mm
     FROM 
@@ -636,5 +726,6 @@ BEGIN
         AND LichChieu.MaRapChieuCon = @MaRapChieuCon
         AND ChiTietLichChieu.MaThoiGianChieu = @MaThoiGianChieu;
 END;
+
 EXEC pr_LayThoiGianBatDauKetThucTheoMaPhimVaRapChieuCon @MaPhim = 2, @MaRapChieuCon = 1, @MaThoiGianChieu = 7;
 -- END--

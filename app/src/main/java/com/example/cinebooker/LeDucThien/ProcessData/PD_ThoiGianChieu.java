@@ -5,10 +5,14 @@ import android.content.Context;
 import android.util.Log;
 
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.cinebooker.LeDucThien.adapter.ThoiGianChieuAdapter;
 import com.example.cinebooker.LeDucThien.entity.ent_ThoiGianChieu;
+import com.example.cinebooker.R;
 import com.example.cinebooker.generalMethod.ConnectionDatabase;
+import com.example.cinebooker.generalMethod.HorizontalSpaceItemDecoration;
+import com.example.cinebooker.generalMethod.SpaceItemDecoration;
 
 
 import java.sql.Connection;
@@ -60,20 +64,31 @@ public class PD_ThoiGianChieu {
 
     @SuppressLint("NotifyDataSetChanged")
     public void loadThoiGianToRecyclerView(Context context, RecyclerView recyclerView, List<ent_ThoiGianChieu> list, ThoiGianChieuAdapter adapter) {
-        if (list == null || list.isEmpty()) {
-            Log.e(TAG, "Danh sách thời gian chiếu trống hoặc không hợp lệ.");
-            return;
+        if (recyclerView.getLayoutManager() == null) {
+            LinearLayoutManager layoutManager = new LinearLayoutManager(context);
+            layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+            recyclerView.setLayoutManager(layoutManager);
         }
 
-        // Thiết lập GridLayoutManager cho RecyclerView
-        recyclerView.setLayoutManager(new GridLayoutManager(context, 3));
+        // Kiểm tra và thêm ItemDecoration nếu chưa được thêm
+        boolean hasItemDecoration = false;
+        for (int i = 0; i < recyclerView.getItemDecorationCount(); i++) {
+            if (recyclerView.getItemDecorationAt(i) instanceof HorizontalSpaceItemDecoration) {
+                hasItemDecoration = true;
+                break;
+            }
+        }
+
+        if (!hasItemDecoration) {
+            int spacingInPixels = context.getResources().getDimensionPixelSize(R.dimen.recycler_view_spacing_5);
+            recyclerView.addItemDecoration(new HorizontalSpaceItemDecoration(spacingInPixels));
+        }
 
         // Thiết lập Adapter và dữ liệu nếu chưa có adapter
         if (recyclerView.getAdapter() == null) {
             recyclerView.setAdapter(adapter);
         }
 
-        // Cập nhật dữ liệu cho adapter và đảm bảo adapter không rỗng
         adapter.setData(list);
     }
 }
