@@ -356,7 +356,7 @@ JOIN CapBacChiTieu
 ON ChiTietCapBac.MaCapBacChiTieu = CapBacChiTieu.MaCapBacChiTieu;
 END;
 GO
-CREATE OR ALTER PROCEDURE chuyenTinhTrangVeKhuHoi
+CREATE OR ALTER PROCEDURE ChuyenTinhTrangVeKhuhHoi
     @MaVe INT
 AS
 BEGIN
